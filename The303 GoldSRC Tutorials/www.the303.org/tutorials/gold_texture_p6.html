@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<!-- Mirrored from www.the303.org/tutorials/gold_texture_p6.htm by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Nov 2024 06:10:43 GMT -->
+<head>
+<title>GoldSrc Map Texture Tutorial</title>
+<link rel="stylesheet" href="303style.css">
+<meta name="author" content="303">
+<meta name="description" content="How create textures for goldsrc games">
+<meta name="keywords" content="goldsrc, hl1, half-life, counter-strike">
+</HEAD>
+<BODY>
+<div id="middle">
+<h1>GoldSrc Map Texture Tutorial</h1>
+<hr>
+<h2>PART 6: WATER Textures</h2>
+<p> Water textures in half-life have procedural animation to make them distort and fluctuate. They have several special things to consider; They use specific colors from the color index pallete to control both fog color and fog intensity. The texture must be tiling textures or else the effect will look bad with visible seams. Lastly they are designated with "!" in their filename.  For this tutorial <b>HL-Tools</b> or <b>Wally.exe</b> are used to define the water fog parameters.
+
+<p>Standard water textures are 128x128, but you can have higher but there is a quirk where you will need to scale on brush differently; ill get to that later.  Prepare your image as the same you would in part 1 and save it out:
+<p><img src="goldteximages/wat01.jpg">
+<hr>
+<h2>Water with Wadmaker.exe</h2>
+<p>For <b>Wadmaker.exe</b> you must create a text file saved as <b>wadmaker.config</b> in the folder of your texture.  Edit the text file with notepad/notepad++ and add as follows:<br>
+<b>!gslime    water-fog: R G B INT</b>
+<p>The first thing to the left is the name of the image.  The R is red in 0~255, same with G for green and B for blue.  INT you also put a 0~255 which is the intensity of the fog.  So for example, if I wanted a bright pink full intensity fog it would be:<br>
+<b>!gslime    water-fog: 255 0 255 255</b>
+<p>Drag and drop the folder as you did in part1, <a href="#mapapp">and jump to map usage</a>.
+<hr>
+<h2>Water with Wally.exe</h2>
+<p>1)Open wally and create your wad file or open an existing one.  Import your image and rename the front to "!" like so, then, double click the image to preview it. When the preview image appears, go to <b>image>edit pallette</b>:
+<p><img src="goldteximages/wat02.jpg">
+<p>2) In "edit palette" mode select index 3 (4th color box from the left)  Set it to the color of your fog. For the purposes of this tutorial I will be going with an obvious purple shade of RGB 200 0 255.  Then select the next color (index number 4) and set it to maximum red which is RGB 255 0 0.  The red color is the control for the fog intensity so a RGB value of 0 0 0 has minimal fog, while and RGB value of 255 0 0 will produce a thick fog.
+<p><img src="goldteximages/wat03.jpg">
+<p>3)Now click okay and you might see some weird distortions in your image. Don't panic, we are just saving out the modified palette.  Go to save palette.  Then close the image and when it prompts you DO NOT SAVE.  
+<p><img src="goldteximages/wat04.jpg">
+<p><img src="goldteximages/wat05.jpg">
+<p>4)Double click the image again and bring it up in preview.  Now go to colors load pallete and load in the pallete file you just saved.  Now the new pallete is loaded and the image is modified to fit it.  Now when you close the preview you click save.  Now save the WAD file.
+<p><img src="goldteximages/wat06.jpg">
+<p><img src="goldteximages/wat07.jpg">
+<hr>
+<h2 id="mapapp">Map Application</h2>
+<p>1) Apply the new water texture to a func_water. <b>For textures higher than 128x128</b>,there is a scale quirk where it wont match what you see in hammer.  To deal with this,texture your water brush with a standard halflife 128x128 texture to your brush, then set your scale,  then swap the texture with your custom one and dont touch the scale numbers.  It will look too big and clipped in hammer but will look fine ingame.
+<p><img src="goldteximages/wat08.jpg">
+<p>2) Compile the map and observe:
+<p><img src="goldteximages/slimeaction.gif">
+<p><img src="goldteximages/float.gif">
+<p>3) For different RED control values for the fog I made this quick reference chart:
+<p><img src="goldteximages/waterdepth.jpg">
+<hr>
+<h1><a href="gold_texture.html">Part0: Introduction</a></h1>
+<h1><a href="gold_texture_p1.html">Part1: Creating Basic Textures</a></h1>
+<h1><a href="gold_texture_p2.html">Part2: Creating  Masked Transparent Textures</a></h1>
+<h1><a href="gold_texture_p3.html">Part3: Creating Additive Transparent Textures</a></h1>
+<h1><a href="gold_texture_p4.html">Part4: Creating Animated Textures</a></h1>
+<h1><a href="gold_texture_p5.html">Part5: Creating Toggled Textures</a></h1>
+<h1><a href="gold_texture_p7.html">Part7: Creating Scrolling Textures</a></h1>
+<h1><a href="gold_texture_p8.html">Part8: Creating Skies</a></h1>
+<h1><a href="gold_texture_p9.html">Part9: Creating Detail Textures</a></h1>
+<!-- OBSOLETE <h1><a href="gold_texture_p10.htm">Part10: Batch Conversion</a></h1> -->
+<hr>
+<h1><a href="index.html">Return to Tutorials</a></h1>
+</div>
+</BODY> 

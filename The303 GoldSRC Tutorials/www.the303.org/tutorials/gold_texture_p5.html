@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<!-- Mirrored from www.the303.org/tutorials/gold_texture_p5.htm by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Nov 2024 06:10:41 GMT -->
+<head>
+<title>GoldSrc Map Texture Tutorial</title>
+<link rel="stylesheet" href="303style.css">
+<meta name="author" content="303">
+<meta name="description" content="How create textures for goldsrc games">
+<meta name="keywords" content="goldsrc, hl1, half-life, counter-strike">
+</HEAD>
+<BODY>
+<div id="middle">
+<h1>GoldSrc Map Texture Tutorial</h1>
+<hr>
+<h2>PART 5: TOGGLED AND TOGGLED ANIMATED TEXTURES</h2>
+<p>1) To create a toggleable animated texture or just a simple button toggle create a texture that is a static unanimated state and add "+A".  Now if you want the second state to be animated then use names like "+B","+C" all the way to "+J" (10 frames maximum just like +0 to +9).  <b class="yellow">Remember to have the same filenames so it is linked to the other textures.</b>  Here I will create 2, a simple on-off switch and a toggle animate switch that pulses when on.
+<p>Save your texture out as you would in Part1, only name the off state as "+Aredb.bmp" and the on state as "+0redb.bmp".  Add the textures to your wad and add to hammer as usual:
+<p><img src="goldteximages/tog01.jpg">
+<p>3) Now apply your +A texture to a func_button entity.  When the button entity is pressed it will change the state to the on texture.  By default the button resets itself and then returns to the original state after a few seconds.  Go to "flags" on the func_button entity and set it to "toggle" if you want.  This way it will stay in an ON or OFF state.
+<p>A thing to know is that any brush entity that has a togglable texture changes its state when the entity is triggered. Here I have a func_wall brush entity that has another toggle texture (caution texture name "+A~LAB1_CAU") and a light both with the name "red".  The func_button has a target of "red" so when pushed it activates the light and activates the func_wall texture state as observed here:  
+<p><img src="goldteximages/toggle.gif">
+<p>4) Next I will create a toggled Animated texture.  Prepare an animated texture in the exact same way as in Part4, but this time the final image will be renamed to the OFF state as "+Agord.bmp".  Add the images as usual to a wad and place the texture in hammer.
+<p><img src="goldteximages/tog02.jpg">
+<p><img src="goldteximages/tog03.jpg">
+<p>5)This time I have a func_wall with the "+Agord.bmp" texture added to it and the button is targeting it so it will set it to the animated looping state, then deactivate on pressed again since I have the button to toggled state. Without toggled flag, the button will reset itself after a set amount of seconds. If we want it reversed, then texture the func_wall with the "+0gord.bmp" so it begins in the animated state.
+<p>Observe in action.  This technique is most notable in the eyescanners at the beginning of half-life.
+<p><img src="goldteximages/toggleanim.gif">
+<p>6)For a dual animated sequence using the letters further than +A I have this example here showing the two ten frame sequences. I had to manually rename the letter ones because irfanview's batch rename can only increment with numbers.
+<p><img src="goldteximages/tog04.jpg">
+<p>7)Observe the final button toggled animation sequences
+<p><img src="goldteximages/toggleanim2.gif">
+<hr>
+<h1><a href="gold_texture.html">Part0: Introduction</a></h1>
+<h1><a href="gold_texture_p1.html">Part1: Creating Basic Textures</a></h1>
+<h1><a href="gold_texture_p2.html">Part2: Creating  Masked Transparent Textures</a></h1>
+<h1><a href="gold_texture_p3.html">Part3: Creating Additive Transparent Textures</a></h1>
+<h1><a href="gold_texture_p4.html">Part4: Creating Animated Textures</a></h1>
+<h1><a href="gold_texture_p6.html">Part6: Creating Water Textures</a></h1>
+<h1><a href="gold_texture_p7.html">Part7: Creating Scrolling Textures</a></h1>
+<h1><a href="gold_texture_p8.html">Part8: Creating Skies</a></h1>
+<h1><a href="gold_texture_p9.html">Part9: Creating Detail Textures</a></h1>
+<!-- OBSOLETE <h1><a href="gold_texture_p10.htm">Part10: Batch Conversion</a></h1> -->
+<hr>
+<h1><a href="index.html">Return to Tutorials</a></h1>
+</div>
+</BODY> 

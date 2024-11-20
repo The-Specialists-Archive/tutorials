@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<!-- Mirrored from www.the303.org/tutorials/gold_texture_p9.htm by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Nov 2024 06:11:01 GMT -->
+<head>
+<title>GoldSrc Map Texture Tutorial</title>
+<link rel="stylesheet" href="303style.css">
+<meta name="author" content="303">
+<meta name="description" content="How create textures for goldsrc games">
+<meta name="keywords" content="goldsrc, hl1, half-life, counter-strike, sven co-op">
+</HEAD>
+<BODY>
+<div id="middle">
+<h1>GoldSrc Map Texture Tutorial</h1>
+<hr>
+<h2>PART 9: DETAIL Textures</h2>
+<p>Detail textures are special textures that are used to enhance existing textures and have the ability to be independently tiled.  Here are some examples from "Day of Defeat":<br>
+<p><img src="goldteximages/det00.gif"><img src="goldteximages/det01.gif">
+<p><img src="goldteximages/det02.gif"><img src="goldteximages/det03.gif">
+<hr>
+<p>These detail textures use an "overlay" style of blending where lighter colors lighten, darker colors darken an color RGB 128,128,128 is invisible (or shows through the original texture).  Detail textures are assigned through a text file that names the texture the detail texture will be applied to and two numbers for tiling scale values.
+<p>Unlike regular map textures that must be stored in a .wad and be of indexed color, detail textures are 24bit uncompressed targa images that are located in <br><b> Half-Life/(modname)/gfx/detail/mytexture.tga</b>. 128X128 and 256X256 are the ideal sizes for detail textures.
+<p>In order to make the detail textures work a text file has to be created in your maps folder (<b>Half-Life/(modname)/maps</b>) with a name of "yourmapname_detail.txt".  An example of the contents of this text file would be something like:<br>
+<b>c1a0_labw7 detail/dents 2.0 2.0 </b>
+<p>Below is an example that shows a standard detail texture and the second shows how the overlay blending works on gradients, bumps and noise so you can get an idea of how it affects the base texture.
+<p><img src="goldteximages/det04.jpg">
+<p>This example used 1.0 1.0 which is matched to the original texture.  Higher numbers increase the tiling as seen here:
+<p><img src="goldteximages/det05.gif"><img src="goldteximages/det06.gif">
+<p>Keep in mind you are not limited to monochrome; color detail works too and can be very effective:
+<p><img src="goldteximages/det07.jpg">
+<p><b>One thing to note is to first check in your console If detail textures are enabled, the cvar is "r_detailtextures 1".  If it is set to 0 then they will not appear.  In many mods they are enabled by default or choosable in the options like Day of Defeat, but its good practice just to make sure.</b>
+<hr>
+<p>1) Start out an image with a fill of 50% Gray.  This will be your starting point as 50% Gray is invisible in overlay blending.
+<p><img src="goldteximages/det08.jpg">
+<p>2) Desaturate the image by either using image>adjustments>desaturate or by copying one of the RGB channels since they sometimes can have better contrast.
+<p><img src="goldteximages/det09.jpg">
+<p>3)If needed djust the image by changing the layer opacity unto the grey background or layer mask it.  Levels or curves can help too.
+<p><img src="goldteximages/det10.jpg">
+<p>4) Now we need to make the image tileable.  Duplicate the layer and on the topmost layer run a filter>offset.  This tiles the image in the space so you can see the seams.  In this example its a little hard to see but look for the two seams intersection in a cross shape.
+<p><img src="goldteximages/det11.jpg">
+<p>5) Using a layer mask and a rough edged brush paint out the cross so the bottom layer shows through.  This is the quick method that should work for most things.
+<p><img src="goldteximages/det12.jpg">
+<p>5a) For other things you can use the standard method of carefully clone-stamping details.
+<p><img src="goldteximages/det13.jpg">
+<p>6) Once you are done, flatten the image and offset again.  Doing this a second time so you can be absolutely sure that you have painted out all the seams.
+<p>Now an optional step but something that might be necessary is to correct lighting variations.  This happens sometimes where you can paint out seems but the overall image is lighter and darker in areas and looks bad and obvious in tiling.  We can correct overall lighting variations with the filter "High Pass".  Keep in mind high pass is tricky to use and can destroy some detail, or in other cases might make a cool texture at lower radius. 
+<p><img src="goldteximages/det14.jpg">
+<p>7)A final test you can do before saving is put an existing texture image underneath your layer and then setting your texture to overlay layer blending mode.
+<p><img src="goldteximages/det14a.jpg">
+<p>8)Resize your image using bilinear resizing filter (as bicubic sharper/auto may add a seam). This image in particular ive resized to 128X128  Save out your image as a TGA file and as "24 bit" on file type.  This image is saved out into <b> Half-Life/(modname)/gfx/detail/rough.tga</b>.
+<p>Now create a text file with the same name as your map with "_detail.txt" at the end.  Open it up and add an existing or custom texture name you have, then the detail path and finally the tiling value as so:
+<p><img src="goldteximages/det15.jpg">
+<p>9) The final result
+<p><img src="goldteximages/det16.jpg">
+<hr>
+<h1><a href="gold_texture.html">Part0: Introduction</a></h1>
+<h1><a href="gold_texture_p1.html">Part1: Creating Basic Textures</a></h1>
+<h1><a href="gold_texture_p2.html">Part2: Creating  Masked Transparent Textures</a></h1>
+<h1><a href="gold_texture_p3.html">Part3: Creating Additive Transparent Textures</a></h1>
+<h1><a href="gold_texture_p4.html">Part4: Creating Animated Textures</a></h1>
+<h1><a href="gold_texture_p5.html">Part5: Creating Toggled Textures</a></h1>
+<h1><a href="gold_texture_p6.html">Part6: Creating Water Textures</a></h1>
+<h1><a href="gold_texture_p7.html">Part7: Creating Scrolling Textures</a></h1>
+<h1><a href="gold_texture_p8.html">Part8: Creating Skies</a></h1>
+<!-- OBSOLETE <h1><a href="gold_texture_p10.htm">Part10: Batch Conversion</a></h1> -->
+<hr>
+<h1><a href="index.html">Return to Tutorials</a></h1>
+</div>
+</BODY> 

@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<!-- Mirrored from www.the303.org/tutorials/gold_mdl_3ds_wu.htm by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Nov 2024 06:12:16 GMT -->
+<head>
+<title>GoldSrc Model Export Tutorial 3dsmax</title>
+<link rel="stylesheet" href="303style.css">
+<meta name="author" content="303">
+<meta name="description" content="How to compile models for GoldSrc engine games">
+<meta name="keywords" content="goldsrc, hl1, half-life, counter-strike, 3dstudiomax, 3dsmax, Autodesk">
+</HEAD>
+<BODY>
+<div id="middle">
+
+<h1>3D Studio Max With Wunderboy's Exporter</h1>
+<img class="middle" src="goldmdlimages/3dsmax_header.png">
+
+<p><a href="https://www.wunderboy.org/3d-modelling-tools-plug-ins/#max_smd">"Wunderboy's Exporter" which can be downloaded here.</a>
+<p><b>Supported versions are:<br> V1.6: 3DS Max 9~2012  <br>V1.7: 3DS Max 2017~2020</b>
+<p>This exporter is the only one that supports older legacy versions of max.  The 3DSmax exporters will export any unskinned mesh with its own node, so if you don't have a skeleton&skin modifier, the exporter will still export your mesh(es).  <b>If your model has been scaled/editied extensivley, Id reccomend reset Xform before exporting</b>.
+<hr>
+<p>Jump to <a href="#EA">Exporting Animations</A></br>
+Jump to <a href="#IM">Importing Meshes</A></br>
+Jump to <a href="#IA">Importing Animations</A></br>
+<hr>
+
+<p><p><a name="EM"></a><b>Exporting Reference Mesh</b>
+<p>1) With Wunderboy's legacy version (v1.6) its reccomended to have your model as editiable mesh instead of editiable poly as well as collapsing the stack with the exception of the skin modifier which needs to sit on top.  Go to file>export "Source SMD", and check "Export reference SMD" with "Export as Half-Life 1 format SMD.  <b class="yellow">Optionally check "Use explicit normals method" checkbox if you are using explicit normals or imported geometry.</b>
+<p><img src="goldmdlimages/3dsl_exp01.png">
+<p>2)Make note of your sequence range and how many frames you are exporting.  Export as before only, choose the "sequence" option.
+<hr>
+<h1><a href="gold_mdl_comp.html">Continue to Compiling</a></h1>
+<hr>
+<p><a name="EA"></a><b>Exporting Sequence Animation</b>
+<p><img src="goldmdlimages/3dsl_exp02.png">
+<p>It should be noted that you are not confined to animating at 30 keyframes frames per second, as you can set different speeds in your QC compile script.  So for example if you just need a very simple idle sequence you can set your 3dsmax timeline to custom "FPS" to say 10fps, then set 10fps in your QC script on compile.  This will play in game and interpolate the frames accordingly.  You can play with tweaking speeds either on the 3deditor side and/or the QC script side.
+<hr>
+<h1><a href="gold_mdl_comp.html">Continue to Compiling</a></h1>
+<hr>
+<p><p><a name="IM"></a><b>Importing Reference Meshes</b>
+<P>1)Go to File> Import > Valve SMD as type and import your SMD.  You will be promted with an options window, but for the most part these default settings are fine. If your model has multiple meshes, you can keep using this import option to import more SMD's and each mesh will combine with existing skeletons.
+<p><img src="goldmdlimages/3dsl_imp01.png">
+<p>2)Upon import the materials are not loaded.  To recconect them ive found the fastest way to do so is save your document, and reopen it which gives you the "Missing Materials" option window.  Go to "Browse" button and then on the "Configure File Paths" window click the "Add" button.  You will then navigate to your folder of textures.  <b>Once done, verify the added path is correct. In some old max versions it may get the path below, so sometimes you may have to choose a folder inside the location of your textures</b> close the windows and you will see your model with materials.
+<p><img src="goldmdlimages/3dsl_imp02.png">
+<b>General editing info to note and working with Explicit vertex normals</b>
+<p>Some important things to note about about working with imported geometry in 3dsmax is that if you want to make minor edits (say like UV changes with UVW Unwrap modifier) with the skinning intact, then create the modifier below the "Skin" modifier in the stack.'
+<p>SMD imports are done with "explicit normals" for smoothing.  These can be a bit difficult to work with and at times may break while adding to the modifier stack.  If you are doing simple edits like removing parts it may be best to do your import without "edit poly" in the import options.  Some modifiers that break smoothing you can possibly try making an edit normals modifier and placing it on top, but sometimes that only works with edit mesh.
+<p>For topology edits with edit poly or needing to edit smoothing, you will need to add an "edit normals" modifier and either directly edit the explicit normals (green sticks) or if you need to use smoothing groups, you will have to select the normals or select all (sticks turn red), and press "reset."  After deselecting the sticks should be blue to indicate they are now in face render mode and able to be editied by smoothing groups and auto smoothing in editable poly.
+<p><img src="goldmdlimages/3dsl_imp03.jpg">
+<hr>
+<h1><a href="gold_mdl_comp.html">Continue to Compiling</a></h1>
+<hr>
+<p><p><a name="IA"></a><b>Importing Animations</b>
+<p>1)Go to File> Import > Valve SMD as type and import your SMD.  You will be promted with a window to choose the range of frames to import.  By default its full range of frames in SMD.  The animation will be loaded onto the model or if no model loaded will load in as bones.
+<p>The timeline will be adjusted accordingly to the amount of frames imported.  Refer to the models QC file to set a custom FPS for the timeline to match what the animation was authored for if needed.
+<p><img src="goldmdlimages/3dsl_imp04.png">
+<hr>
+<h1><a href="gold_mdl_comp.html">Continue to Compiling</a></h1>
+<hr>

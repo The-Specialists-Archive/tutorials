@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<!-- Mirrored from www.the303.org/tutorials/gold_mdl_frag.htm by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Nov 2024 06:11:37 GMT -->
+<head>
+<title>GoldSrc Model Export Tutorial</title>
+<link rel="stylesheet" href="303style.css">
+<meta name="author" content="303">
+<meta name="description" content="How to compile models for GoldSrc engine games">
+<meta name="keywords" content="goldsrc, hl1, half-life, counter-strike, fragmotion">
+</HEAD>
+<BODY>
+<div id="middle">
+
+<h1>fragMOTION</h1>
+<img class="middle" src="goldmdlimages/fragmotion_header.png">
+<p><a href="http://fragmosoft.com/fragMOTION/index.php">fragMOTION</a> comes with SMD export/import ability right out of the box so no additional downloads are needed. <b>FragMOTION is an older style 3D editor that only supports editing in triangles, so you wont be able to work with edge loops or edge selection.</b>  FragMOTION has several advantages when it comes to easy GoldSrc model editing such as having a powerful "merge animation" feature and being able to do volatile edits to models such as smoothing groups & appending bones without risk of breakage unlike some other programs.  It also has a handy animation list for multiple animations.
+<p><b class="red">Important note: do NOT use the fragMOTION's built-in Decompiler as its outdated along with the"compile" tool.  Use <a href="https://steamcommunity.com/groups/CrowbarTool">Crowbar</a> for all your compiling/decompiling needs.</b>
+<hr>
+<p>Jump to <a href="#EA">Exporting Animations</A></br>
+Jump to <a href="#IM">Importing Meshes</A></br>
+Jump to <a href="#IA">Importing Animations</A>
+<hr>
+<p><b>Exporting Reference Mesh</b>
+<p><b>Note: If you have a static model with no bones skinned you need to assign a bone or else the SMD with fail to compile.  An easy way is to go to "Bone" under the "Create 3D" rollout then press the "Execute" button to create one at scene origin. Then go to "Bone" at top menu and "auto assign verticies" and choose "All Verticies" & "Nearest Bone".</b>
+<p>1) File > export "Half-Life SMD Files (smd)"
+<p>2) Check "Mesh" at the options box.
+<p><img src="goldmdlimages/frag_exp01.png">
+<hr>
+<h1><a href="gold_mdl_comp.html">Continue to Compiling</a></h1>
+<hr>
+<p id="EA"> <b>Exporting Animation Sequence</b>
+<p><b class="yellow">Important note:</b> FragMOTION uses Linear Interpolation for all new animations. If you have made a custom animation and would like smooth interpolation you can save your document as .md3d and open <a href="gold_mdl_milk.html">MilkShape3d</a> to export as SMD.  <b>Imported animations are all keyframed on each frame so imports are fine.</b>
+<p>1) Go to File > export "Half-Life SMD Files (smd)"
+<p>2) Check "Animation" at the options box, and then choose which animation in the list to export.
+<p><img src="goldmdlimages/frag_exp02.png">
+<hr>
+<h1><a href="gold_mdl_comp.html">Continue to Compiling</a></h1>
+<hr>
+<p id="IM"><b>Importing Reference Mesh</b>
+<p>1) Go to File > Import and choose SMD file
+<p><img src="goldmdlimages/frag_imp01.png">
+<p>1a) For multiple mesh parts, unlike other programs fragMOTION uses "Merge" to combine instead of a second import.  (In fragmotion each import starts a new document).
+<p>Got to File > "Merge" and import your second SMD.  You will get a window with merging options.  Click the model tab for a simpler view.  By default you should just be able to press OK without changing anything.
+<p><img src="goldmdlimages/frag_imp02.png">
+<hr>
+<p id="IA"><b>Importing Animation</b>
+<p>1) With a mesh imported Go to File > "Merge Animation" and choose SMD file.  You will be presented with a merging window.  By default you can just press OK if this animation is from the reference model.  Now with this powerful option you CAN import some bones with sightly or totally different bones, but it requires careful review of the import list options on left and right.
+<p><img src="goldmdlimages/frag_imp03.png">
+Note: You can import just an animation SMD on its own without an imported mesh, just choose "import" as normal, and click the animation tab and animations to see it, as importing just an animation has no default pose so upon import all bones will be at 0 0 0.  Now merging a mesh after the fact ive found causes huge errors, so its best to import mesh first then merge in animations as above.
+<HR>
+<h1><a href="gold_mdl_comp.html">Continue to Compiling</a></h1>
+<hr>

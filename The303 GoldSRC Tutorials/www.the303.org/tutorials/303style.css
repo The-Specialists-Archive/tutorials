@@ -1,0 +1,124 @@
+div#middle {
+margin-left: auto;
+margin-right: auto;
+width: 820px;
+}
+body {
+color: white;
+background-color: black;
+text-align: center;
+}
+h3 {
+text-align: left;
+}
+h2 {
+    text-decoration: underline;
+}
+b {
+color:white;
+}
+b.red {
+color: red;
+}
+b.green{
+color: #00f000;
+}
+b.blue{
+color: #0040ff;
+}
+b.yellow{
+color: #fff200;
+}
+b.magenta{
+color: #ff00ff;
+}
+b.orange{
+color: #ff8000;
+}
+a:link {
+color: #00ccff;
+}
+a:active {
+color: #00ccff;
+}
+a:visited {
+color: #ff9933;
+}
+a:hover {
+color: red; text-decoration: none;
+}
+p {
+color: #999999;
+font-size:1.4em;
+text-align: left;
+}
+p.menu {
+color: white;
+font-size:1.2em;
+text-align: center;
+padding: 5px;
+}
+ul {
+color: green;
+font-size:1.2em;
+text-align: left;
+}
+ul.red {
+color: red;
+font-size:1.2em;
+text-align: left;
+}
+ul.white {
+color: white;
+font-size:1.4em;
+text-align: left;
+}
+li {
+margin:.5em 10% .5em 0
+}
+img.white {
+border:2px solid #FFFFFF;
+}
+img.left {
+float: left;
+}
+img.right {
+float: right;
+}
+img.middle {
+float: middle;
+}
+.old {
+	width: 100%;
+   border: 4px solid #404040;
+}
+.old tr {
+   border: 1px solid #404040;
+   color:#808080
+} 
+.old td {
+   border: 1px solid #404040;
+} 
+
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+
+
+/* split */
+.column {
+  float: left;
+  width: 50%;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}

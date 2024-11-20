@@ -1,0 +1,63 @@
+/*
+==========
+QC Template TheCorp303
+www.the303.org
+
+I have annotated some notes to help you out.  More in depth guide on QC code visit:
+www.the303.org/tutorials/gold_qc.htm
+
+==========
+*/
+
+$modelname animated_model.mdl
+
+//Name of model, change this to your desired name.
+
+$cd "."
+$cdtexture "."
+
+//Paths for the compiler to grab the SMD's & BMPs.  Currently set for "." which is same folder that QC is located in.
+
+$scale 1
+
+//Scale multiplier.  If using model as "item_generic" in sven coop, you can set the multiplier in hammer
+
+$cliptotextures
+
+//Prevents BMP cropping on compile.
+
+
+$texrendermode glow.bmp additive
+$texrendermode grate.bmp masked
+
+//These lines tell the compiler to flag these textures as masked transparent. Add or remove as needed.  You can also set the flags in HLMV and save the model out too.
+//Caution: including a texture that does not exist in the model will cause the compiler to fail, so check spelling
+
+$texturegroup skinfamilies 
+
+{
+{ "steel.bmp" "rubber.bmp" } 
+{ "steel_dirty.bmp" "rubber_damage.bmp" }
+}
+//Changable skins. Skins begin at 0 and go up.  The format is the first line contains the single or multiple (in this case 2) starting textures and the second line is their replacements for "skin1", and if more lines then its "skin2", ect.  Some fgd's do not have a "skin" keyvalue so add it if you need to specify. 
+
+
+$bodygroup bits
+{
+studio "lever1"
+studio "leaver2"
+blank
+}
+//Changable bodygroups.  These are SMD meshes that can be swapped for eachother upon bodygroup change. "Blank" means that there will be no SMD mesh displayed.
+
+
+$body studio anim_ref
+
+//The reference mesh internal name & the smd name
+
+$sequence "idle" "idle" fps 1 loop 
+$sequence "spin" "spin" fps 30 loop
+$sequence "move" "move" fps 30 loop 
+
+// ^ Change fps number to increase or decrease speed.  Some entities allow for this to be overrided in hammer by adding "framerate" keyvalue.
+//Note sequences start from sequence 0 onward

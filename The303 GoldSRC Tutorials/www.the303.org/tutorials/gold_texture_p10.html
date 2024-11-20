@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<!-- Mirrored from www.the303.org/tutorials/gold_texture_p10.htm by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Nov 2024 06:12:27 GMT -->
+<head>
+<title>GoldSrc Map Texture Tutorial</title>
+<link rel="stylesheet" href="303style.css">
+<meta name="author" content="303">
+<meta name="description" content="How create textures for goldsrc games">
+<meta name="keywords" content="goldsrc, hl1, half-life, counter-strike, sven co-op">
+</HEAD>
+<BODY>
+<div id="middle">
+<h1>GoldSrc Map Texture Tutorial</h1>
+<hr>
+<h2>PART 10: Batch Conversion</h2>
+<p>Sometimes you need to process lots of images at once and trying to do this for transparent images seems difficult with the amount of steps involved.  This is where IMAGEMAGIK comes into play.  IMAGEMAGIK is a powerful command-line program that can do many different functions and Ive found a way to process images with existing transparency/alpha channel into goldsrc-ready BMPs.
+<p>What also makes this useful is that it can be done on multiple image formats and in the example I will show has images with transparency in different formats like PNG and TGA.
+<p>Download <a href="https://www.imagemagick.org/script/index.php">IMAGEMAGIK here.</a>
+<hr>
+<p>1) Open up your command line ( Windows key+R and then type "cmd") navigate to your folder of images and then paste (right click paste here on the cmd) these lines:
+<p><b>convert * -compress None -channel alpha -threshold 50% +channel -background #0000ff -alpha background -alpha off -colors 256 bmp3:{img.bmp
+</b>
+<p><img src="goldteximages/cmd01.jpg">
+<p>2)Once imagemagick runs its course drag and drop the new BMPs into wally. Also since I specified "{" on the front of the filename cmd all our images have already been prepared for transparency.  Save out your .wad file.
+<p><img src="goldteximages/cmd02.jpg">
+<p>3)Load your .wad into hammer or J.A.C.K and apply to walls (<a href="gold_texture_p2.html">similar to in part2 of this series</a> )
+<p><img src="goldteximages/cmd03.jpg">
+<p><img src="goldteximages/cmd04.jpg">
+<p>4) If needed you can adjust the "threshold" percentage in that command line to suit your needs.  For example if you have a soft shadow, different values will crop it closer or further away.
+<p>This concludes the GoldSrc Texture Tutorial
+<hr>
+<h1><a href="gold_texture.html">Part0: Introduction</a></h1>
+<h1><a href="gold_texture_p1.html">Part1: Creating Basic Textures</a></h1>
+<h1><a href="gold_texture_p2.html">Part2: Creating  Masked Transparent Textures</a></h1>
+<h1><a href="gold_texture_p3.html">Part3: Creating Additive Transparent Textures</a></h1>
+<h1><a href="gold_texture_p4.html">Part4: Creating Animated Textures</a></h1>
+<h1><a href="gold_texture_p5.html">Part5: Creating Toggled Textures</a></h1>
+<h1><a href="gold_texture_p6.html">Part6: Creating Water Textures</a></h1>
+<h1><a href="gold_texture_p7.html">Part7: Creating Scrolling Textures</a></h1>
+<h1><a href="gold_texture_p8.html">Part8: Creating Skies</a></h1>
+<h1><a href="gold_texture_p9.html">Part9: Creating Detail Textures</a></h1>
+<hr>
+<h1><a href="index.html">Return to Tutorials</a></h1>
+</div>
+</BODY> 

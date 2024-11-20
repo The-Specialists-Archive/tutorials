@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<html>
+
+<!-- Mirrored from www.the303.org/tutorials/gold_player_sven_comp.htm by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Nov 2024 06:07:41 GMT -->
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>GoldSrc Model Export Tutorial</title>
+	<link href="303style.css" rel="stylesheet" /><meta name="author" content="303"><meta name="description" content="How to compile playermodels for Sven Coop"><meta name="keywords" content="goldsrc, sven coop">
+</head>
+<body>
+<div id="middle">
+<h1>Sven Co-op Playermodels</h1>
+
+<h1>Introduction:</h1>
+
+<p>This guide is for creation of custom playermodels for Sven 5.X, I will provide the methods and the resources needed however this guide will not teach you how to 3D model or rig as that is a very broad topic. The prerequisite of this guide is the Modelling Mega thread as it will show you all the model limitations, methods of creating materials, and 3D model specific exporting:<br />
+<a href="gold_mdl.html">GoldSrc Modelling Mega Tutorial Thread</a><br />
+For model texturing refer to this guide:<br />
+<a href="gold_mdl_tex_links.html">Model Texturing Resource Guide</a></p>
+
+<p>Before you start, Playermodels have limits compared to NPC models:<br />
+<b>-You *cannot* add new animations to the existing set or change the order of the sequences<br />
+-You cannot change the FPS of animations, they are locked<br />
+-You cannot have sequences with more frames than the originals or else they will play too fast and will cut-off<br />
+-You cannot change the hitbox set (nice try)<br />
+-You cannot have skin changes or changeable/swappable body meshes</b></p>
+
+<p>Some features you can do:<br />
+<b>-You can customize existing animations however *you must make them fit within the same frames as the original and be keyed to match the same FPS as the originals*<br />
+-You can add bones to the model as long as its parented off of existing and not inbetween existing bones (breaks hierarchy)<br />
+-You can have <a href="gold_flappyjaws.html">procedural mouth animations</a><br />
+-You can have <a href="gold_remap.html">color remapping</a></b></p>
+
+<p>Your model should also at least have a decent amount of optimization, as direct source engine ports/MMD ports are horrible and inefficient for polycount and performance reasons. Please look up optimization guides and retopology if your model is heavy on polycount. You shouldn&#39;t be exceeding 9k poly.</p>
+
+<p>Some optimization links: Blender (<a href="https://www.youtube.com/watch?v=Yptda_yKQIU">1</a>) (<a href="https://www.youtube.com/watch?v=ttU6Gz1W0Xw">2</a>)(<a href="../../files.gamebanana.com/bitpit/blenddissolve.gif">3</a>)(<a href="https://blender.stackexchange.com/questions/27980/preserve-uvs-when-modifying-topology">4</a>) 3dsmax (<a href="https://www.youtube.com/watch?v=LQOBVaQhe4o&amp;feature=youtu.be&amp;t=1m28s">1</a>)</p>
+
+<hr />
+<h1>THE METHOD:</h1>
+
+<p><a href="tutfiles/sven5.0_compileomatic.7z">Download the Compile-o-matic</a></p>
+
+<p>1. Import one of the reference SMD meshes from the yourmodel folder into your 3D editor of choice.&nbsp; I have two choices, basic and one with mouth bone. As mentioned before, program specific SMD importer/exporter info is in the first link. The MDL tutorial linked has info for 5 major 3D applications.</p>
+
+<p>2. Delete the sphere mesh leaving only bones, then hard-weight rig your model to the skeleton. By hard-weight, I mean 100% influence per bone or 0.</p>
+
+<p>3. Export to the example &quot;yourmodel&quot; folder, and remove the other &quot;$bodygroup&quot; lines and replace with your own SMD name. Change the model name $modelname lines.</p>
+
+<p>4. Double click the &quot;mymodel_compile.bat&quot; and the model will compile.</p>
+
+<p>5. First test in a model viewer. Model viewer links are in the tutorials page on my MDL guide.</p>
+
+<p>6. Rename the folder to the same name as your model name.&nbsp; Take a screenshot of your model then create a portrait 164X200 indexed BMP (be sure to have full pallete 256 colors, because going below 224 will activate portrait remapping which is only to be used with color remap models; see above linked on &quot;color remapping&quot;) with same name in folder of MDL, and transfer to your players folder in the svencoop_addons dir.</p>
+
+<p>7. Test in game. Some useful commands to see how you look:<br />
+<b>thirdperson<br />
+cam_idealdist 128<br />
+cam_idealyaw 180<br />
+cam_idealpitch -30</b></p>
+
+<p>If need to check mic-mouth animation feature use these as well:<br />
+move your mouse into position<br />
+<b>voice_loopback 1</b><br />
+then push-to-talk into your mic</p>
+
+<p><b class="yellow">NOTE:</b> If needed you can copy yourmodel folder and rename it and copy the compile bat and change the dir for different folders if you have multiple different player models.</p>
+
+<p><b class="yellow">NOTE #2:</b> If you are needing custom animations you will have to make a copy of &quot;anims.qc&quot; and change your QC includemodel to point to that. Reminder that you cannot change anim order, your edits should just point the anims to your custom SMDs.</p>
+
+<hr />
+<h1>4.X to 5.X animation fixing</h1>
+
+<p><b>For old models that need updating</b></p>
+
+<p>This requires crowbar.exe found <a href="https://steamcommunity.com/groups/CrowbarTool">here.</a></p>
+
+<p>Create a copy of the &quot;yourmodel&quot; folder, rename it to your modelname and Decompile your pre-5.0 model with crowbar.exe into that folder (switch to &quot;decompile tab, and navigate to that model) , check &quot;format for stricter importers&quot; UNCHECK &quot;Bone animation SMD files&quot;</p>
+
+<p><b class="red">*****HOWEVER Please check if your MDL has custom anims!!******</b> if the old playermodel does in fact has custom anims, don&#39;t uncheck &quot;bone animation SMD files&quot;, Make a backup of the _ANIMATIONS folder and go through and find the custom ones and copy them over to the &quot;_ANIMATIONS&quot; subfolder and overwrite.</p>
+
+<p>Open up the QC for your pre-5.0 model and copy the lines of code from the beginning of the file to the end of the $bodygroup lines and include $texrendermode if there are any. Make a duplicate of the &quot;yourmodel.qc&quot; file and rename it to your model.</p>
+
+<p>Then open that QC and paste over the header lines for the model with the ones you copied to replace it. Change the modelname.</p>
+
+<p>Switch to crowbar Compile tab and load that QC and compile with, set the output directory to the working folder of your model. When done checking the model with HLMV as before. If needed make a new portrait, or just keep the old portrait. Also if you lack a portrait the dimensions are 164X200 8bit indexed BMP that has to be the same name as your .mdl</p>
+
+<p>As before when done move/copy your playermodel folder to svencoop_addons player folder.</p>
+
+<hr />
+<h1><a href="index.html">Return to Tutorials</a></h1>
+</div>
+</body>
+
+<!-- Mirrored from www.the303.org/tutorials/gold_player_sven_comp.htm by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Nov 2024 06:07:44 GMT -->
+</html>

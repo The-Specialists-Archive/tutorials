@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<!-- Mirrored from www.the303.org/tutorials/gold_texture_p4.htm by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Nov 2024 06:10:39 GMT -->
+<head>
+<title>GoldSrc Map Texture Tutorial</title>
+<link rel="stylesheet" href="303style.css">
+<meta name="author" content="303">
+<meta name="description" content="How create textures for goldsrc games">
+<meta name="keywords" content="goldsrc, hl1, half-life, counter-strike">
+</HEAD>
+<BODY>
+<div id="middle">
+<h1>GoldSrc Map Texture Tutorial</h1>
+<hr>
+<h2>Part4: ANIMATED Textures</h2>
+<p>1) Animated textures run in a loop of 10fps between a maximum of 10 textures by using a "+0" through "+9" filename designation. They can also be toggled with an off state designated with a "+A" which will be covered in part 5. <b class="red">  All animated textures MUST have the exact filename consistency.  Also you cannot have any other numbers in the filename or else the engine will cease to recognize it as animated. </b>
+<p>2) Prepare your animated frames in your program of choice.  Doesn't matter which program you use as long as the image dimensions are goldsrc friendly and you follow the above rules you should be fine.  For my example I am making animated frames from photoshop but I am using <a href="http://www.irfanview.com/">IRFANVIEW</a> batch rename to quickly add the filename changes.  You can do this for other programs.
+<P>If you haven't already create layers from files to flatten any changes you have made to your timeline.  This makes layers named "frame1,2,3, ect ect".  Save a copy of your work and then delete all layers that are not named frame so you wont be exporting any unnecessary images.
+<p><img src="goldteximages/ani00.jpg">
+<p><img src="goldteximages/ani01.jpg">
+<p>3) Go to file>scripts then export layers to files.
+<p><img src="goldteximages/ani02.jpg">
+<p>4) Save as BMP and leave it at 24bit (we will be turning turn them into 8bit later outside of photoshop).
+<p><img src="goldteximages/ani03.jpg">
+<p>5) Open one of your images in IRFANVIEW and then go to batch rename.
+<p><img src="goldteximages/ani04.jpg">
+<p>6) First set to Batch conversion - Rename result files, then go to Add all to get all your frames, then sort files by name (descending order).
+<p><img src="goldteximages/ani05.jpg">
+<p>7)Finally go to Batch rename settings option and set the name pattern to "+#barn" (the hash number symbol is the incrementing number field).  Then set the starting counter to 0 because the image starts at 0.
+<p><img src="goldteximages/ani06.jpg">
+<p>8)Process the images and when IRFANVIEW is done, go to the directory you saved in and Drag and drop the folder into <b>Wadmaker.exe</b>.  If using <b>HL-Tools</b>, you just add all images to the wad as normal.  Add to hammer as usual.
+<p><img src="goldteximages/ani08.jpg">
+<p>9)Unlike additive or masked textures, animated can work on any worldbrush.  Add your first texture "+0barn" to a brush, compile the map and observe:
+ <p><img src="goldteximages/letmein.gif">
+<hr>
+<h1><a href="gold_texture.html">Part0: Introduction</a></h1>
+<h1><a href="gold_texture_p1.html">Part1: Creating Basic Textures</a></h1>
+<h1><a href="gold_texture_p2.html">Part2: Creating  Masked Transparent Textures</a></h1>
+<h1><a href="gold_texture_p3.html">Part3: Creating Additive Transparent Textures</a></h1>
+<h1><a href="gold_texture_p5.html">Part5: Creating Toggled Textures</a></h1>
+<h1><a href="gold_texture_p6.html">Part6: Creating Water Textures</a></h1>
+<h1><a href="gold_texture_p7.html">Part7: Creating Scrolling Textures</a></h1>
+<h1><a href="gold_texture_p8.html">Part8: Creating Skies</a></h1>
+<h1><a href="gold_texture_p9.html">Part9: Creating Detail Textures</a></h1>
+<!-- OBSOLETE <h1><a href="gold_texture_p10.htm">Part10: Batch Conversion</a></h1> -->
+<hr>
+<h1><a href="index.html">Return to Tutorials</a></h1>
+</div>
+</BODY> 

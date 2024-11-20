@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<!-- Mirrored from www.the303.org/tutorials/gold_texture_p2.htm by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Nov 2024 06:10:37 GMT -->
+<head>
+<title>GoldSrc Map Texture Tutorial</title>
+<link rel="stylesheet" href="303style.css">
+<meta name="author" content="303">
+<meta name="description" content="How create textures for goldsrc games">
+<meta name="keywords" content="goldsrc, hl1, half-life, counter-strike">
+</HEAD>
+<BODY>
+<div id="middle">
+<h1>GoldSrc Map Texture Tutorial</h1>
+<hr>
+<h2>PART 2: Masked Transparent textures</h2>
+<p>GoldSrc Transparency is known as "masked" which is also known as "Alphatest" which means that the transparency is either 1 or 0, essentially a hard edge with no soft transparency.  Transparent masked textures work by using the final color of the 8bit indexed pallete as the transparent color.
+<p><b class="yellow">(For the depricated legacy manual indexing & thesholding guide for photoshop & irfanview,</b> <a href="gold_texture_p2l.html">Click Here.)</a></h1>
+<hr>
+<p>If using <b>HL-Tools</b>; it will auto-detect, convert PNG transparency and append the "{" symbol for you.  Its the same process in Part1.  If it doesn't work try to save out your transparent PNG as 8bit.
+<p>With <b>Wadmaker</b>, all this conversion is done automatically by turning any existing transparent image, document with layers & layer masks into thresholded transparency to GoldSrc specs.  Images that can be made into transparent textures:<br><b>
+TGA with alpha channel<br>
+PNG with transparency<br>
+GIF with transparency <br>
+PSD document with Alpha channel or layer transparency or layer masks<br>
+KRA document with Alpha channel or layer transparency or layer masks<br>
+</b>
+
+<p>1) Create your texture with transparency in any way you want (via lasso select, pen bezier curve select, ect) , while keeping in mind to know the edges will be sharp/hard.  You can have soft edges/semi-transparent/grey-alpha but know they will be thresholded, and I will show below how that happens.  Save the image in any of the above mentioned; in my example I am going with a PSD document with a layer mask.
+
+<p><img src="goldteximages/trs01wm.png">
+<
+<p>2)Save the image and put a "{" symbol at the front of the filename (this tells wadmaker & the engine to recognize it as a transparent texture).  Wadmaker by default uses a threshold value of "128" which is a midpoint level in choosing how to define a mask from varying levels of transparency.  As a rule of thumb, a smaller value will be a larger amount and a larger value will be a smaller amount shown (minimum is 0 and maximum is 255).  I have a visual here to make sense of this concept.  The example soft mask is above and the blue area is the transparent area and the orange is the visible area:
+<p><img src="goldteximages/wadmakert.png">
+<p>Changing this value is done in either the local folder wadmaker.config or global one in the install folder.  Its done by adding this line, so for example if you want the value of 32 you place this in that config file:<br>
+<b>* transparency-threshold: 32</b>
+<P>As mentioned before a "*" means all textures, but if you want different thresholds on different textures you can do that for example like this:<br><b>
+sign1 transparency-threshold: 100<br>
+graffiti03 transparency-threshold: 192<br>
+dirtspot transparency-threshold: 20<br>
+<P><b class="yellow">Again, full documentation is in the install folder called "wadmaker readme.html"</b>
+<p>3) When ready, simply drag and drop the folder onto <b>wadmaker.exe</b> as before and place the wadfile.
+<p><img src="goldteximages/wadmaker01.gif">
+</b>
+<hr>
+<p>4) Open up hammer and create a func_wall entity with "null" tool texture (as part of zhlt), then texture one side with your custom texture.
+<p><img src="goldteximages/trs11.jpg">
+<p>5) Set the render mode to "Solid" and then the "FX Amount" to "255".  Compile and observe.
+<p><img src="goldteximages/trs12.jpg">
+<p><img src="goldteximages/trs13.jpg">
+<p><img src="goldteximages/trs14.jpg">
+<p>6) If you want something you can shoot through (such as a chain-link fence) create the brush entity as "func_illusionary"" instead of "func_wall"
+<hr>
+<h1><a href="gold_texture.html">Part0: Introduction</a></h1>
+<h1><a href="gold_texture_p1.html">Part1: Creating Basic Textures</a></h1>
+<h1><a href="gold_texture_p3.html">Part3: Creating Additive Transparent Textures</a></h1>
+<h1><a href="gold_texture_p4.html">Part4: Creating Animated Textures</a></h1>
+<h1><a href="gold_texture_p5.html">Part5: Creating Toggled Textures</a></h1>
+<h1><a href="gold_texture_p6.html">Part6: Creating Water Textures</a></h1>
+<h1><a href="gold_texture_p7.html">Part7: Creating Scrolling Textures</a></h1>
+<h1><a href="gold_texture_p8.html">Part8: Creating Skies</a></h1>
+<h1><a href="gold_texture_p9.html">Part9: Creating Detail Textures</a></h1>
+<!-- OBSOLETE <h1><a href="gold_texture_p10.htm">Part10: Batch Conversion</a></h1> -->
+<hr>
+<h1><a href="index.html">Return to Tutorials</a></h1>
+</div>
+</BODY> 

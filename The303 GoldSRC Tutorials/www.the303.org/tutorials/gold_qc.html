@@ -1,0 +1,4527 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<!-- Mirrored from www.the303.org/tutorials/gold_qc.htm by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Nov 2024 06:06:53 GMT -->
+<head>
+<title>GOLDSRC MDL QC COMMANDS</title>
+<link rel="stylesheet" href="303style.css">
+<meta name="author" content="303">
+<meta name="description" content="QC Model Commands for GoldSrc games">
+<meta name="keywords" content="studiomdl, goldsrc">
+</HEAD>
+<BODY>
+<div id="middle">
+
+<p><img src="goldmdlimages/glossary_title.png">
+<p>This is the GoldSrc QC compile commands glossary.  It is important to note that any of the commands must not be capitalized or you will get compile errors.
+<p>Jump to <a href="#A0">Sequence & Sub commands list</A></br>
+Jump to <a href="#A2">Action tags</A></br>
+Jump to <a href="#A1">Event List</A><br>
+Jump to <a href="#A3">NPC Specific Event List</A><br>
+Jump to <a href="#AE">QC examples</A><br>
+Jump to <a href="#AS">Sven-Coop compiler new commands</A>
+<hr>
+<p><b>Command line arguments</b><br>
+<p>While not QC code, its worth mentioning first command line arguments avalible to studiomdl.exe.  Also Note that Crowbar has a field for these:
+<p> <b class ="yellow">-t &lt;texture.bmp&gt; </b>: Globally replaces all textures in model with specified one.<br>
+ <b class ="yellow">-r</b>: Tags reversed normals in compile output console; example: <br><b> triangle reversed (0.748195 0.949818 0.839380)</b><br>
+ <b class ="yellow">-a &lt;angle&gt;</b> : set vertex normal blend angle override.<br>
+ <b class ="yellow">-h</b>: Dump hitbox information to compile console; example: <b><br>
+      $hbox 0 "atm" -10.49 -15.81 0.00  10.49 15.81 91.87</b><br>
+<hr>
+<p><b>Commenting in a QC file:</b><br>
+<p>You can comment in two different ways, the first and most common is the standard "<b>//</b>" or if you need a large block of text use "<b>/*</b>" to start and "<b>*/</b>" to finish.  Examples:<br>
+<b>// this is where the reference mesh is<br>
+<p>/*<br>
+----------------<br>
+ATM QC<br>
+By TheCorp303<br>
+www.the303.org<br>
+----------------<br>
+*/<br>
+</b>
+<hr>
+<p><b class="green">$modelname &lt;name&gt;.mdl</b><br>
+This command tells Studiomdl what name to give the model. For example:<br>
+<b>$modelname mymodel.mdl</b>
+<p>You can also specify an absolute path like so making sure you have quotations:<br>
+<b>$modelname "C:\Program Files (x86)\Steam\steamapps\common\Half-Life\valve\models\mymodels\prop_rock.mdl"</b>
+<hr>
+<p><b class="green">$cd &lt;path&gt;</b><br>
+This command tells the Studiomdl where to look for the model sources. CD stands for "change directory" which is just like the DOS command. For same folder use like this:<br>
+<b>$cd ".\"</b><br>
+For relative folder path use like this:<br>
+<b>$cd ".\model_sources"</b><br>
+For a specified absolute path use like this:<br>
+<b>$cd "C:\Users\303\Desktop\model_sources"</b><br>
+<hr>
+<p><b class="green">$cdtexture &lt;path&gt; </b> <br>
+This command is needed if the textures are stored in a different location than the other model parts.
+Relative path example:<br>
+<b>$cdtexture ".\8bitbmp"</b><br>
+Absolute path example:<br>
+<b>$cdtexture  "C:\Users\303\Desktop\model_sources\8bitbmp"</b><br>
+<hr>
+<p><b class="green">$cliptotextures</b> <br>
+Studiomdl by default cuts the texture size to the bounds of the UV map, which was likley a texture memory optimization.  That beheviour causes problems with many models such as causing visible edge lines and its advisable to use this command which stops this from happening.  Note: The Sven-Coop studiomdl.exe did away with the auto cut so the command is not needed with that compiler.<br>
+Example:<br>
+<b>$cliptotextures</b><br>
+<hr>
+<p><b class="green">$scale # </b><br>
+When this command is in the beginning of the QC before any $body meshes or animation $sequences, this acts as a scale multiplier for the whole model.  Default value is 1.0.
+Example making the model bigger:<br>
+<b>$scale 2.0</b><br>
+Example making the model smaller:<br>
+<b>$scale 0.5</b><br>
+<p>NOTE: The scale command can work on different spots of the QC and have multiple placements for example, any sequence or body mesh below the placement of this command will be affected.  If you want animations bones scaled from one point onwards you can put a $scale partway through your QC and put another $scale to return to 1.0 or whatever.  This can be useful when dealing with scaling crouching sequences in a section of sequences.
+<p>There are also inline specific scale commands avalible for $body/bodygroup & $sequence.
+<hr>
+<p><b class="green">$texrendermode &lt;texturename&gt;.bmp &lt;render type&gt; </b><br>
+This command sets special texture render modes on a specified texture.  In vanilla Half-Life you have two choices which is <b>masked</b> (AKA: AlphaTest transparency) and <b>additive</b> (Additive color blending).  Note that this will be affected by light recieved by model.  If you need unaffected additive, then do not use this command, leave the textures as is and use a model entity rendermode to additive in hammer/J.A.C.K.).  If you need two flags on the same texture you must put a seprate entry as you cannot put masked & additive in the same line option.<br>
+Example usage for two textures:<br>
+<b>$texrendermode ashtray.bmp masked<br>
+$texrendermode embersmoke.bmp additive</b>
+<p>Other mods have additional rendermodes but you must use thier specific compilers.  Sven-Coop and XASH3D have <b>fullbright</b> as an avalible choice which is full lighting at all times.  Sven-Coop also has <b>flatshade</b> which makes lights the texture without the model normals for more uniform lighting.  Basically the texture only gets brighter and darker, no shaded areas.<br>
+Example usage for Sven-Coop:<br>
+<b>$texrendermode atmscreen.bmp fullbright</b><br>
+<p>Lastly, you can assign these flags after compile with HLMV Standalone & P2MV.
+<hr>
+<p><b class="green">$gamma #</b><br>
+Optional command used for changing the gamma on all your texture BMP files.  The default starting number is 1.8.  For darker increase the number and for brighter lower the number. Example<br>
+<b>$gamma 2.0</b>
+<hr>
+<p><b class="green">$origin &lt;X&gt; &lt;Y&gt; &lt;Z&gt; &lt;Rotation&gt;</b><br>
+This optional command will work as global offset for the model origin if placed before your $body line as well as a Z-axis rotation.  This is used for correcting positions and animations along X Y & Z axis co-ordinates and/or rotation.  Note: This command will change all subsequent sequences until a second $origin command is found later in the qc file.  If you need an origin change on only a specific sequence see the notes on the $sequence command.
+The most common use of this is Z-axis correction for Playermodels and weapons:<br>
+<b>$origin 0 0 36</b>
+<p>Example for rotating the whole model 180 degrees:<br>
+<b>$origin 0 0 0 180</b>
+<hr>
+<p><b class="yellow">$bbox &lt;X&gt; &lt;Y&gt; &lt;Z&gt; &lt;X2&gt; &lt;Y2&gt; &lt;Z2&gt;</b><br>
+Rarley used optional command "Bounding Box" is used for view clipping or movement hull.  Only needed for huge or long monsters that may be culled by the renderer due to view obscuring. The first and second XYZ co-ordinates are the opposite corners of the box.  This must be centered at the world origin so X = -X2, Y= -Y2 and Z=0 and Z2 is height of box. <br>
+Example from Blast Pit Tentacle:<br>
+<b>$bbox -400 -400 0 400 400 850</b>
+<p><b class="yellow">Note: This command is only used for very specific monsters and the actual dimensions is usually overriden by game code.</b>
+<hr>
+<p><b class="yellow">$cbox &lt;X&gt; &lt;Y&gt; &lt;Z&gt; &lt;X2&gt; &lt;Y2&gt; &lt;Z2&gt;</b><br>
+Rarley used optional command "Clipping Box" is used for view clipping box.  Only needed for huge or long monsters that may be culled by the renderer due to view obscuring. The first and second XYZ co-ordinates are the opposite corners of the box.  This must be centered at the world origin so X = -X2, Y= -Y2 and Z=0 and Z2 is height of box.  Usually repeated coordinates with $bbox command.
+<p><b>This box will also show up in J.A.C.K editor as the yellow wire box around your model.  This has its uses for models like the barnacle so you can get a visual on how long the tounge extends/grapple area.</b>
+<p>Example from Blast Pit Tentacle:
+<b>$cbox -400 -400 0 400 400 850</b>
+<p><b class="yellow">Note: This command is only used/needed for very specific monsters like barnacle and the actual dimensions is usually overriden by game code.</b>
+<hr>
+<p><b class="green">$eyeposition</b><br>
+Used for monster entities to define where the eyes are in reference to the models origin.  The game AI uses this position on the model to see you from.<br>
+Example for Barney's eyeposition:<br>
+<b>$eyeposition 0 0 63</b>
+<hr>
+<p><b class="green">$body &lt;smd name&gt;</b><br>
+This identifies main reference mesh of your model. Example:<br>
+<b>$body studio "mymodel_ref"</b><br>
+An optional setting is placing <b>reverse</b> after the smd name will flip all the faces of the model mesh. This is done as a fix for export problems.  Example:<br>
+<b>$body studio "mymodel_ref" reverse</b>
+<p><b>scale &lt;value&gt; </b> is also avalible command on the body line to specifically scale the mesh (NOTE: this scales mesh only and does not affect the bones).  Example:<br>
+<b>$body studio "mymodel_ref" scale 1.5</b>
+<hr>
+<p><b class="green">$bodygroup &lt;smd name&gt; &#123;smd groups &#125;</b><br>
+This defines swappable meshes on your model.  This is used for things like scientist head variants, and weapon variants on a model. The first mesh in the list will show up first and others will be chosen as "body" 1,2,ect (Default is 0).   Using <b>blank</b> in the list makes no mesh appear on that bodygroup selection. Note:that bodygroup reference meshes must have the same skeleton bones as the model its on or it may not show up properly on the model.
+Example:<br>
+<b>$bodygroup &lt;name&gt; <br>
+&#123;<br>
+&nbsp; studio "part1_ref"<br>
+&nbsp; studio "part2_ref"<br>
+&nbsp; blank<br>
+&#125;</b>
+<p>Just like in $body, both <b>reverse</b> & <b>scale</b> is avalible too if placed on specific lines.  You can also put both scale and reverse on the same line if needed.
+<p>Example:<Br>
+<b>$bodygroup &lt;name&gt; <br>
+&#123;<br>
+&nbsp; studio "part1_ref" reverse<br>
+&nbsp; studio "part2_ref" scale 1.5<br>
+&nbsp; blank<br>
+&#125;</b>
+<hr>
+<p><b class="green">$flags #</b><br>
+This optional command adds a special effect or other modification to the model.  Note: to include multiple flags you simply add the ones you want and the result is the one you use.  However, you can not use two quake particle based effects together.<br>
+
+<TABLE class="old">
+
+	<TR>
+		<TD><B class="green">
+			Flag Number
+			</B>
+		</TD>
+		<TD>
+			<B class="green">Description</B>
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>1</B>
+			
+		</TD>
+		<TD>
+			Quake1 Rocket trail particle + Dynamic Light. An orange to grey particle trail. This produces a trail only when the model is in motion (not animation). Dymamic light will not stop until this model is removed from the game so use this only on things like weapon projectiles
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>2
+			</B>
+			
+		</TD>
+		<TD>
+		Quake1 Grenade smoke trail. This produces a trail only when the model is in motion (not animation).
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>4
+			</B>
+			
+		</TD>
+		<TD>
+			Quake1 Gib blood trail. This produces a trail only when the model is in motion (not animation).
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>8
+			</B>
+			
+		</TD>
+		<TD>
+			Automatic model rotation.  Model spins slowly on the Z-axis much like Quake-style powerups.  <b class="red">Does not work in normal HL1</b>; only mods that have this will.
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>16
+			</B>
+			
+		</TD>
+		<TD>
+		Quake1 Skrag spit effect.  Shoots green particles continuously from side to side outward until model is removed from game.
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>32</B>
+		</TD>
+		<TD>
+			Quake 1 Zombie blood. Same as gib blood but darker.
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>64</B>
+		</TD>
+		<TD>
+			Quake1 Death Knight slash effect.  Like the Skrag spit effect but with orange & yellow particles
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>128</B>
+		</TD>
+		<TD>
+			Quake1 Single burning smoke trail.  Like smoke trail but just one stream.  In XASH3D this is a purple trail that is spread out.
+		</TD>
+	</TR>
+		<TR>
+		<TD>
+			<B>256</B>
+		</TD>
+		<TD>
+		"No shadelight". Reduces the shadows on a model by roughly 50%. Good for flying models or models that benefit from less harsh shadows like cartoon style models.
+		</TD>
+	</TR>
+		<TR>
+		<TD>
+			<B>512</B>
+		</TD>
+		<TD>
+		"Complex colision". This makes the model use hitboxes for collision instead of the game bounding box. Used for the tentacle monster in "Blast Pit" chapter.
+		</TD>
+	</TR>
+		<TR>
+		<TD>
+			<B>1024</B>
+		</TD>
+		<TD>
+		"Force Skylight". This lights the model directly from the maps Env_light entity at all times no matter where it is in the map.
+		</TD>
+	</TR>
+	</TABLE>
+<p>Example usage:<br>
+<b>$flags 256</b>
+<hr>
+<p><b class="green">$texturegroup &lt;smd name&gt; &#123;bmp texture groups &#125;</b><br>
+This defines changable skins on your model.  This is used for things like skin color or clothes variants. The formatting is in each line put all the starting textures, and then in the second line or more put the replacement textures. Note: that you must use the .bmp file extension in your groups.
+Example from HECU grunt model:<br>
+<b>$texturegroup arms <br>
+&#123;<br>
+&nbsp; &#123; "newarm.bmp" "handback.bmp" "helmet.bmp" &#125; <br>
+&nbsp; &Tab; &#123; "newarm(dark).bmp" "handback(dark).bmp" "helmet(dark).bmp" &#125;<br>
+&#125;<br>
+</b>
+<hr>
+<p><b class="green">$renamebone &lt;bone to be renamed&gt; &lt;replacement name&gt;</b><br>
+Optional command to rename any bones of your skeletion.  Used mostly to fix skeleton name mismatches between other SMDs like animations or other meshes. Example:<br>
+<b>$renamebone "Bip01 R Calf" "Bip01 R Leg1"</b>
+<hr>
+<p><b class="green">$mirrorbone &lt;bone to be mirrored&gt;</b><br>
+Optional command to mirror any bones <b>Z axis position</b> (this will not affect rotation).  This will also affect the positioning of any bones parented to it.
+<br>Example:<br>
+<b>$mirrorbone "propbase"</b>
+<hr>
+<p><b class="green">$include &lt;filename for .qc&gt;</b><br>
+This command is used to include separate .qc files if needed.  Separating qc files can be useful if you need common shared commands or just for orginization purposes.  Relative example:
+<b>$include ".\shared\hitboxes.qc"</b><br>
+Absolute example:<br>
+<b>$include "C:\Users\303\Desktop\model_sources\hitboxes.qc"</b><br>
+<hr>
+<p><b class="green">$attachment &lt;ID#&gt; &lt;"bone name"&gt; &lt;X&gt; &lt;Y&gt; &lt;Z&gt;</b><br>
+Specifies an attachment on a bone used mainly for muzzle flashes and shell ejection points. There is a limit of 4 of these per model.  ID is the identification number going from 0 to 3.  Bone name is the attachment bone and must be used with quotes.  XYZ is the point of attachment from the bones local co-ordinates.  For example 0 0 0 is the exact bone location and 0 0 5 is 5 units on the Z axis from the bone location.  Example:<br>
+<b>$attachment 0 "bip01 R hand" 25 0 5</b>
+<P>Note that in older SDK QC files there is reference to "X" at the end of the line and another number but this seems non-functional
+<hr>
+<p id="hbox"><b class="green">$hbox &lt;Group #&gt; &lt;"bone name"&gt; &lt;X&gt; &lt;Y&gt; &lt;Z&gt; &lt;X2&gt; &lt;Y2&gt; &lt;Z2&gt;</b><br>
+By default studiomdl checks if you have an $hbox line, and if it is not present then it automatically creates hit boxes on every bone using the skinned mesh attached to it as an approxomation of the size.  When you do use this command it will only make hitboxes on those bones with declared $hbox lines.  $hbox is also used to edit the size and damage groups of hitboxes.
+
+<p><b class="yellow">Note: For blender users who create their bones from scratch and not an import may have issues with automatic hitbox generation due to the bone co-ordiante space</b>.
+<p>The first and second XYZ co-ordinates are the opposite corners of the hit box which are in the local bone space.  To obtain hitbox co-ordinates for a starting point for you to edit, you can tell studiomdl to dump them in a text file with the -h command for example:<br>
+<b>studiomdl.exe -h mymodel.qc >hitboxes.txt</b><br>
+Alternativley if you are using Crowbar.exe there is a checkbox option for this.  For testing purposes, you can use a model viewer to see your hitbox. In-game you can use the console command <b>r_drawentities 4</b> for hitboxes overlayed on your model or <b>r_drawentities 3</b> for just the hitboxes.
+
+<P>Hitboxes are divided into several different groups (automatic hitboxes are always starting at group 0).  Groups will determine different action tags on sequences (Jump to <a href="#A2">Action tags</A></br>) for flinch and death anims. Note that unless a special animation is mentioned in this table, then these generic anims will play: <br> ACT_SMALL_FLINCH, ACT_DIEVIOLENT,<br> ACT_DIEFORWARD & ACT_DIEBACKWARD(these two are based on damage direction)
+
+
+<table class="old">
+<TR>
+		<TD>
+		<B>Hitbox Group</B>
+		</TD>
+		<TD>
+			<B>Group description</B>
+		</TD>
+		<TD>
+			<B>Special Flinch&Death Animations</B>
+		</TD>
+</TR>
+<TR>
+		<TD>
+			0
+		</TD>
+		<TD>
+			 Generic
+		</TD>
+		<TD>
+
+		</TD>
+</TR>
+<TR>
+		<TD>
+			1
+		</TD>
+		<TD>
+			 Head
+		</TD>
+		<TD>
+			Flinch anim:ACT_FLINCH_HEAD
+			<br>Die Anim: ACT_DIE_HEADSHOT
+		</TD>
+</TR>
+<TR>
+		<TD>
+			2
+		</TD>
+		<TD>
+			Chest
+		</TD>
+		<TD>
+
+		</TD>
+</TR>
+<TR>
+		<TD>
+			3
+		</TD>
+		<TD>
+		Stomach
+		</TD>
+		<TD>
+		Flinch anim: ACT_FLINCH_STOMACH
+		<br>Die anim: ACT_DIE_GUTSHOT
+		</TD>
+</TR>
+<TR>
+		<TD>
+			4
+		</TD>
+		<TD>
+		Left Arm
+		</TD>
+		<TD>
+		Flinch anim: ACT_FLINCH_LEFTARM
+		</TD>
+</TR>
+<TR>
+		<TD>
+			5
+		</TD>
+		<TD>
+		Right Arm
+		</TD>
+		<TD>
+		Flinch anim: ACT_FLINCH_RIGHTARM 
+		</TD>
+</TR>
+<TR>
+		<TD>
+			6
+		</TD>
+		<TD>
+		Left Leg
+		</TD>
+		<TD>
+		Flinch Anim: ACT_FLINCH_LEFTLEG
+		</TD>
+</TR>
+<TR>
+		<TD>
+			7
+		</TD>
+		<TD>
+		Right Leg
+		</TD>
+		<TD>
+		Flinch Anim: ACT_FLINCH_RIGHTLEG
+		</TD>
+</TR>
+</TABLE>
+
+<p>Damage groups not only act as damage multipliers but also cause the model to play different animations like flinches or different deaths like headshots.  Beyond 7 are some NPC specific ones, and in Half Life they are usually 10 & 11:
+<p><b>Barney NPC hitgroup 10:</b> Will act as armor, subtracting 20 damage from incoming attacks while performing a ricochet effect if the resulting damage is negative.<br>
+<b>Agrunt NPC hitgroup 10:</b> Bulletproof<br>
+<b>Turret NPC hitgroup 10:</b> Always 0.1 damage upon hitting hitgroup 10, 1/10 chance to make a ricochet effect.<br>
+<b>Miniurret NPC hitgroup 10:</b> Always 0.1 damage upon hitting hitgroup 10, 1/10 chance to make a ricochet effect.<br>
+<b>Hgrunt NPC hitgroup 11:</b> Will act as armor on <b class="red">bodygroup 1 (helmet head hgrunt)</b>, subtracting 20 damage from incoming attacks while performing a ricochet effect if the resulting damage is negative.<br>
+
+<p>Example:<br>
+<b>$hbox 3 "Bip01 Pelvis" -9.890000 -5.660000 -8.600000  2.940000 6.520000 6.790000</b>
+<P>Lastly, hitboxes can be edited on-model with the most recent HLMV:Standalone (Hitbox tab), or in 3d editor if using 3dsmax WallWorm.  If making for Xash3d you can use P2MV.
+<hr>
+<p><b class="green">$controller &lt;ID#&gt; &lt;"bone name"&gt; &lt;controller axis&gt; &lt;axis limit 1&gt; &lt;axis limit 2&gt; </b><br>
+A controller is used by the game code to change the rotation or movement of the bone.  This is commonly used for rotation of scientist heads, apache gun turret aim, barnacle tounge length and the special controller "mouth" which uses any audio on the audio channel of the model as automatic movement.  ID is the unique identifier of the controller.
+<p>There are two types of axis, rotational and linear for example rotational is <b>XR,YR,</b> and <b>ZR</b> and linear is <b>X,Y,Z</b>. It is important to note that controller bones inherit their local axis from the <b>parent bone</b> so if your controller is not rotating the way you want it you may have to create a parent bone before it with a fifferent orientation.   The two controller axis limits define the range of the movement. Rotational controller example from Barneys head (on X rotation):<br>
+<b>$controller 0 "Bip01 Head" XR -60 60</b><br>
+Linear controller example with barnacle tounge (on Y axis):<br>
+<b>$controller 0 "Bone15" Y -1024 0</b><br>
+Special Mouth controller from scientist (on Z rotation):<br>
+<b>$controller 4 "Mouth" ZR 0 22</b><br>
+<hr>
+<h1 id="A0">Sequence & Sub Commands List</h1>
+<p><b class="green">$sequence &lt;sequence name&gt; &lt;SMD path&gt;  &#123;<br>
+[&lt;blend smd path&gt;] <br>
+[Motion extraction (types: LX,LY,LZ)] <br>
+[Axis zero out (types: X, Y, Z)] <br>
+[fps &lt;#&gt;] <br>
+[loop]<br>
+[origin &lt;X&gt; &lt;Y&gt; &lt;Z&gt;]<br>
+[rotate &lt;angle&gt;] <br>
+[scale &lt;#&gt;] <br>
+[blend &lt;axis&gt; &lt;start&gt; &lt;end&gt;] <br>
+[frame &lt;start&gt; &lt;end&gt;]<br>
+[action tag &lt;#&gt;]<br>
+[ &#123;event &lt;# type&gt; &lt;frame of event&gt; "options"&#125; ]<br>
+&#125;</b>
+<p>The Sequence command is for animation sequences.  The sequence name is the name given to the sequence and the sequence path is the name and relative path (if needed) of the smd file.   Even if the model has no animations it must have at least one sequence in order to compile. The most basic use of a sequence command for a static unanimated prop is using the reference SMD as your idle sequence. Example:<br>
+<b>$sequence "idle" "wrld_glock"</b>
+<p>The sequence command can be written in-line for simpler sequences but more complicated ones should be enclosed in brackets.  An example of an inline sequence from scientist:<br>
+<b>$sequence "diesimple" "diesimple" fps 24 ACT_DIESIMPLE 1 &#123; event 2001 8 &#125; </b>
+<p>For more complicated sequences it is better to write out in expanded lines with brackets in this example from the scientist model:<br>
+<b>$sequence "tentacle_grab" "tentacle_grab" &#123;<br>
+&nbsp; fps 15<br>
+&nbsp; &#123; event 1000 1 &#125;<br>
+&nbsp; &#123; event 1004 4 "*scientist/scream02.wav" &#125;<br> 
+&nbsp; &#123; event 1003 18 "smash" &#125;<br> 
+&nbsp; &#123; event 1004 65 "*scientist/c1a4_sci_tent.wav" &#125;<br> 
+ &#125;</b><br>
+ <p> Examples of using relative paths are as follows:<br>
+ <b>$sequence longjump "..\cinematics\troom\holo_longjump" fps 30</b>
+ <p>An important thing to note about sequences is if you are working on a <b>playermodel</b> you must not alter the order of sequences or else your playermodel will break in-game.  Also FPS for playermodels is locked-in.
+<p>From this point on a break down of the sub-commands of sequence will be presented in blue:
+<hr>
+<p><b class="blue">[blend smd path]</b><br>
+The path of the animation smd to be blended with.  Must be used with <b class="blue">[blend].</b> Example:<br>
+<b>$sequence aim_2 "ref_aimdown_twohanded" <b class="blue">"ref_aimup_twohanded"</b> loop fps 14 blend XR -45 45</b>
+<hr>
+<p><b class="blue">[motion extraction]</b><br>
+The type of motion extraction used on a model.  Motion extraction takes the animation movement and translates it into model movement.  The distance of the movement on the axis in the animation determines the speed & distance of the model travel.  There are three types LX, LY, and LZ.  If you use 3Dsmax LX is actually max Y dimension and LY is max X dimension.  Example:<br>
+<b>$sequence walk "ref_walk" <b class="blue">lx</b> loop fps 31</b>
+<hr>
+
+<p><b class="blue">[Axis zero out]</b><br>
+Putting an X, Y or Z in this spot will zero out all animation movement on that axis. Example from hgrunt:<br>
+<b>$sequence diegutshot "gutshot" <b class="blue">X</b> fps 30 ACT_DIE_GUTSHOT 1 { event 11 10 } { event 2001 39 }</b>
+<p>Another example from the cut "hvyweapons" monster:<br>
+<b>$sequence die_crumple "diecrumple" <b class="blue">X Y</b> ACT_DIESIMPLE 1</b>
+<hr>
+<p><b class="blue">[fps]</b><br>
+FPS determines the speed at which the animation sequence is played.  The word fps is followed by the number so you have created a sequence at 30 then use 30.  You can speed up or slow down for example, if you use a lower number the sequence is slower and the frames are interpolated as such.  Example:<br>
+<b>$sequence deep_idle "new_idle3" loop <b class="blue">fps 12</b> ACT_IDLE 4</b>
+<p>Note: Do NOT use a negative value to reverse the animation.  If you do your animation will break horribly.
+<hr>
+<p><b class="blue">[loop]</b><br>
+Loop repeats the sequence so it plays in an endless loop.  This is useful for idle, and walking animations.  Example:<br>
+<b>$sequence "idle1" "idle1" fps 7 <b class="blue">loop</b> ACT_IDLE 50</b>
+<hr>
+<p><b class="blue">[origin]</b><br>
+This is used for correcting the origin offset of your animation sequence along X Y & Z axis co-ordinates.  This functions exactly like  <b class="green">$origin</b> but is for an individual sequence. If you need to offset a huge group of sequences, just use an <b class="green">$origin</b> command on its own line before your affected sequences.
+The most common use of this is Z-axis correction for Playermodels during certain animations:<br>
+<b>$sequence crawl "crouch_moveforward" lx loop fps 22 ACT_CROUCH 1 <b class="blue">origin 0 0 18</b></b>
+<hr>
+<p><b class="blue">[rotate]</b><br>
+This command is a rotation the sequence on the Z (vertical) axis in degrees.
+Example:<br>
+<b>$sequence crouch_idle "crouch_idle" loop fps 12 ACT_CROUCHIDLE 1 origin 0 0 18 <b class="blue">rotate 8</b></b>
+<hr>
+<p><b class="blue">[scale]</b><br>
+This is used to scale the animation sequence bones larger or smaller. The multiplier works in the same way as <b class="green">$scale</b>.
+Example:<br>
+<b>$sequence barn_wave "barney_wave" fps 22 <b class="blue">scale 1.04</b></b>
+<hr>
+<p><b class="blue">[blend]</b><br>
+The declaration of a blended sequence and the axis to which the two animations are blended and the range.  Axis choices are XR, YR, , ZR for rotations and X, Y, Z for linear.  Example:<br>
+<b>$sequence "ref_draw_saw" "ref_draw_saw_blend1" "ref_draw_saw_blend2" <b class="blue">blend XR -70 70</b>
+<hr>
+<p><b class="blue">[frame]</b><br>
+This is used to to limit or cut an animation smd to a specified length.  The frame is followed by the declared start frame of your smd and the second is the ending frame of your animation.  Very useful for last minute fixes on sequences that may be too long without having to re-export.
+Example:<br>
+<b>$sequence dieviolent "BARNEY-X_Die_Violent1" fps 20 <b class="blue">frame 0 26</b> ACT_DIE_HEADSHOT 1 &#123; event 2001 10 &#125;</b>
+<hr>
+<p><b class="blue">[action tag]</b><br>
+Action tags are tags recongized by the monsters AI.  They are an action name followed by a weigting number and an action tag can only be used once per sequence.  A weighting number determines how often animations using this tag will play.  For example if you have two sequences with ACT_WALK and one has a higher number, the game will choose that one more often when calling a walk animation (Using 1 will disable the weighting feature).<br>
+Example:<br>
+<b>$sequence smflinch "flinchsm2" fps 20 <b class="blue">ACT_SMALL_FLINCH 5</b></b><br>
+<p>Example of a bunch of idles from scientist model:<br>
+<b>$sequence "idle1" "idle1" fps 7 loop <b class="blue">ACT_IDLE 50</b> <br>
+$sequence "idle3" "idle3" fps 12 <b class="blue">ACT_IDLE 3</b> <br>
+$sequence "idle4" "idle4" fps 12 <b class="blue">ACT_IDLE 2</b> <br>
+$sequence "idle5" "idle5" fps 13 <b class="blue">ACT_IDLE 3</b> <br>
+$sequence "idle6" "idle6" fps 13 <b class="blue">ACT_IDLE 3</b> <br>
+$sequence "idle7" "idle7" fps 13 <b class="blue">ACT_IDLE 10</b></b><br>
+<p>A list of Action tags can be found in at the bottom of this page.
+<hr>
+<p><b class="blue">[Event]</b><br>
+Animation events contain a wide variety of things that happen on your sequence.  These events can do things like play sounds, sentence lines, muzzle flashes, and other things. They are contained within brackets and begin with the words "event" then the number class, then the frame number for the event to happen on and finally an event option.
+<p>An example of making a sequence that plays a sound through the scientist voice channel (causing mouth animation) using event 1008 on frame 1 of the sequence (wav path is relative to sound folder in base game dir):<br>
+<b>$sequence "checktie" "checktie" fps 12 <b class="blue">{ event 1008 1 "scientist/weartie.wav" }</b></b>
+<p>The 5000-series events are for muzzleflashes and you must have an <b class="green">$attachment</b> defined on your model in order for them to work. A quick rundown of the muzzleflash is the 5001 event is for attachment1, 5021 is attachment2, and 5031 is attachment3.  After the event number is the frame of the muzzleflash and finally is the sprite scale and type.  For example a scale of 5 with muzzleflash1.spr would be "50" and muzzleflash2.spr with a scale of 2 would be "21".
+<p>An example of the 5000 series:<br>
+<b>$sequence shootgun "shootgun_blend1" "shootgun_blend2" fps 25 ACT_RANGE_ATTACK1 1 blend XR -50 50 <b class="blue">{ event 5001 0 "21" }</b> { event 3 0 } </b>
+<p>Monster models can have their own custom events that can be anything that is defined in their AI code for example this event called "47" for Hgrunt spawns a grenade on frame 7:<br>
+<b>$sequence throwgrenade "grenadethrow" fps 30 <b class="blue">{ event 7 46 }</b> ACT_RANGE_ATTACK2 1</b> 
+
+<hr>
+<h1 id="A1">Common Event List</h1>
+<p>(This list was obtained from the "Modeling For Half-Life.doc" in the Half-Life SDK.)
+<TABLE class="old">
+	<TR>
+		<TD>
+		<B>Event</B>
+		</TD>
+		<TD>
+			<B>Event description</B>
+		</TD>
+		<TD>
+			<B>Extra parameters</B>
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			1000
+		</TD>
+		<TD>
+			Character dead at this point
+		</TD>
+		<TD>
+			<BR>
+			
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			1001
+		</TD>
+		<TD>
+			Sequence un-interruptible from this point
+		</TD>
+		<TD>
+			<BR>
+			
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			1002
+		</TD>
+		<TD>
+			Sequence interruptible from this point
+		</TD>
+		<TD>
+			<BR>
+			
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			1003
+		</TD>
+		<TD>
+			Fires a trigger in the map
+		</TD>
+		<TD>
+			Trigger name
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			1004
+		</TD>
+		<TD>
+			Play .wav file
+		</TD>
+		<TD>
+			.Wav file path
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			1005
+		</TD>
+		<TD>
+			Play sentence file
+		</TD>
+		<TD>
+			Sentence file path
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			1006
+		</TD>
+		<TD>
+			Do not send character back to floor at end of script
+		</TD>
+		<TD>
+			<BR>
+			
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			1007
+		</TD>
+		<TD>
+			Go to this animation after script completes
+		</TD>
+		<TD>
+			Animation sequence name
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			1008
+		</TD>
+		<TD>
+			Play named .wav file through voice channel
+		</TD>
+		<TD>
+			.Wav file path
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			1009
+		</TD>
+		<TD>
+			Play random sentence group (25 % chance)
+		</TD>
+		<TD>
+			<BR>
+			
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			1010
+		</TD>
+		<TD>
+			Character is alive at this point
+		
+		</TD>
+		<TD>
+		
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+		
+		</TD>
+		<TD>
+			<B>Monster specific events</B>
+		</TD>
+		<TD>
+		
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			2001
+		</TD>
+		<TD>
+			Monster drops light body
+		</TD>
+		<TD>
+			<BR>
+			
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			2002
+		</TD>
+		<TD>
+			Monster drops heavy body
+		</TD>
+		<TD>
+			<BR>
+			
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			2010
+		</TD>
+		<TD>
+			Monster plays swing or swish sound 
+			
+		</TD>
+		<TD>
+			<BR>
+			
+		</TD>
+	</TR>
+
+	<TR>
+		<TD>
+			<BR>
+			
+		</TD>
+		<TD>
+			<B>Clientside events for viewmodels</B>
+		</TD>
+		<TD>
+			<BR>
+			
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			5001
+		</TD>
+		<TD>
+			 Muzzleflash on attachment 0
+		</TD>
+		<TD>
+			Muzzle flash scale & sprite type
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			5002
+		</TD>
+		<TD>
+			 Spark on attachment
+		</TD>
+		<TD>
+			<BR>
+			
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			5004
+		</TD>
+		<TD>
+			 Emit a sound
+		</TD>
+		<TD>
+			Wav file path
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			5011
+		</TD>
+		<TD>
+			 Muzzleflash on attachment 1
+		</TD>
+		<TD>
+			Muzzle flash scale & sprite type
+	</TR>
+	<TR>
+		<TD>
+			5021
+		</TD>
+		<TD>
+			 Muzzleflash on attachment 2
+		</TD>
+		<TD>
+		Muzzle flash scale & sprite type
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			5031
+		</TD>
+		<TD>
+			 Muzzleflash on attachment 3
+		</TD>
+		<TD>
+			Muzzle flash scale & sprite type 
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			6001
+		</TD>
+		<TD>
+			Eject a brass shell from attachment
+		</TD>
+		<TD>
+			<BR>
+			
+		</TD>
+	</TR>
+</TABLE>
+
+<hr>
+<h1 id="A3">NPC specific Event List</h1>
+<p>(This list was obtained from various sources and in the Half-Life SDK.)
+<P><b class="red">NOTE: The Apache, Gman, Turret, Osprey, and cockroach don't seem to use events and appear to be coded elsewhere</b>
+<TABLE class="old">
+<tr><h2>Agrunt</h2></tr>
+	<TR>
+		<TD>
+		<B>Event</B>
+		</TD>
+		<TD>
+			<B>Event description</B>
+		</TD>
+	</TR>
+	
+	
+	<TR>
+		<TD>
+			1
+		</TD>
+		<TD>
+			AGRUNT_AE_HORNET1  (hornet shoot variant 1)
+		</TD>
+	</TR>
+	
+		
+	<TR>
+		<TD>
+			2
+		</TD>
+		<TD>
+			AGRUNT_AE_HORNET2 (hornet shoot variant 2)
+		</TD>
+	</TR>
+	
+	<TR>
+		<TD>
+			3
+		</TD>
+		<TD>
+			AGRUNT_AE_HORNET3 (hornet shoot variant 3)
+		</TD>
+	</TR>
+	
+		
+	<TR>
+		<TD>
+			4
+		</TD>
+		<TD>
+			AGRUNT_AE_HORNET4 (hornet shoot variant 4)
+		</TD>
+	</TR>
+		<TR>
+		<TD>
+			5
+		</TD>
+		<TD>
+			AGRUNT_AE_HORNET5 (hornet shoot variant 5)
+		</TD>
+	</TR>
+	<td></td>
+	<td><b class="yellow">Note: some events are set up in the QC file that aren't recognized by the code yet.</b></td>
+	<TR>
+		<TD>
+			6
+		</TD>
+		<TD>
+			AGRUNT_AE_PUNCH
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			7
+		</TD>
+		<TD>
+			AGRUNT_AE_BITE
+		</TD>
+	</TR>
+	
+	<TR>
+		<TD>
+			10
+		</TD>
+		<TD>
+			AGRUNT_AE_LEFT_FOOT	(Agrunt footstep sound)
+		</TD>
+	</TR>		
+			
+	<TR>
+		<TD>
+			11
+		</TD>
+		<TD>
+			AGRUNT_AE_RIGHT_FOOT (Agrunt footstep sound)	
+		</TD>
+	</TR>		
+	<TR>
+		<TD>
+			12
+		</TD>
+		<TD>
+			AGRUNT_AE_LEFT_PUNCH 
+		</TD>
+	</TR>		
+			
+	<TR>
+		<TD>
+			13
+		</TD>
+		<TD>
+			AGRUNT_AE_RIGHT_PUNCH 
+		</TD>
+	</TR>				
+	
+</TABLE>
+<TABLE class="old">
+<tr><h2>Barnacle</h2></tr>
+	<TR>
+		<TD>
+		<B>Event</B>
+		</TD>
+		<TD>
+			<B>Event description</B>
+		</TD>
+	</TR>
+	
+	
+	<TR>
+		<TD>
+			1
+		</TD>
+		<TD>
+			
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			2
+		</TD>
+		<TD>
+			BARNACLE_AE_PUKEGIB (spawn gibs)
+		</TD>
+	</TR>
+</TABLE>
+
+<TABLE class="old">
+<tr><h2>Barney</h2></tr>
+	<TR>
+		<TD>
+		<B>Event</B>
+		</TD>
+		<TD>
+			<B>Event description</B>
+		</TD>
+	</TR>
+	
+	
+	<TR>
+		<TD>
+			2
+		</TD>
+		<TD>
+			BARNEY_AE_DRAW (Barney pulls out his gun)
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			3
+		</TD>
+		<TD>
+			BARNEY_AE_SHOOT	(Barney shooting attack)
+		</TD>
+	</TR>
+		<TR>
+		<TD>
+			4
+		</TD>
+		<TD>
+			BARNEY_AE_HOLSTER (Barney holsters his gun)
+		</TD>
+	</TR>
+</TABLE>
+
+<TABLE class="old">
+<tr><h2>BigMomma</h2></tr>
+	<TR>
+		<TD>
+		<B>Event</B>
+		</TD>
+		<TD>
+			<B>Event description</B>
+		</TD>
+	</TR>
+	
+	
+	<TR>
+		<TD>
+			1
+		</TD>
+		<TD>
+			BIG_AE_STEP1	(Footstep left)
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			2
+		</TD>
+		<TD>
+			BIG_AE_STEP1	(Footstep right)
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			3
+		</TD>
+		<TD>
+			BIG_AE_STEP3	(Footstep back left)
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			4
+		</TD>
+		<TD>
+			BIG_AE_STEP4	(Footstep back right)
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			5
+		</TD>
+		<TD>
+			BIG_AE_SACK	(Sack Slosh)
+		</TD>
+	</TR>	
+	<TR>
+		<TD>
+			6
+		</TD>
+		<TD>
+			BIG_AE_DEATHSOUND	(Deathsound)
+		</TD>
+	</TR>
+	
+	<TR>
+		<TD>
+			8
+		</TD>
+		<TD>
+			BIG_AE_MELEE_ATTACKBR	(Leg attack back right)
+		</TD>
+	</TR>
+		<TR>
+		<TD>
+			9
+		</TD>
+		<TD>
+			BIG_AE_MELEE_ATTACKBL	(Leg attack back left)
+		</TD>
+	</TR>
+		<TR>
+		<TD>
+			10
+		</TD>
+		<TD>
+			BIG_AE_MELEE_ATTACK1	(Leg attack)
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			11
+		</TD>
+		<TD>
+			BIG_AE_MORTAR_ATTACK1	(Launch a mortar)
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			12
+		</TD>
+		<TD>
+			BIG_AE_LAY_CRAB		(Lay a headcrab)
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			13
+		</TD>
+		<TD>
+			BIG_AE_JUMP_FORWARD		(Jump forwards)
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			14
+		</TD>
+		<TD>
+			BIG_AE_SCREAM	(Alert sound)
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			15
+		</TD>
+		<TD>
+			BIG_AE_PAIN_SOUND	(Pain sound)
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			16
+		</TD>
+		<TD>
+			BIG_AE_ATTACK_SOUND		(Attack sound)
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			17
+		</TD>
+		<TD>
+			BIG_AE_BIRTH_SOUND		(Birth sound)
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			50
+		</TD>
+		<TD>
+			BIG_AE_EARLY_TARGET		(Fire target early)
+		</TD>
+	</TR>
+</TABLE>
+
+
+<TABLE class="old">
+<tr><h2>Bullsquid</h2></tr>
+	<TR>
+		<TD>
+		<B>Event</B>
+		</TD>
+		<TD>
+			<B>Event description</B>
+		</TD>
+	</TR>
+	
+	
+	<TR>
+		<TD>
+			1
+		</TD>
+		<TD>
+			BSQUID_AE_SPIT ( Spit attack )
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			2
+		</TD>
+		<TD>
+			BSQUID_AE_BITE	( Bite attack )
+		</TD>
+	</TR>
+		<TR>
+		<TD>
+			3
+		</TD>
+		<TD>
+			BSQUID_AE_BLINK	( Blinking texture animation )
+		</TD>
+	</TR>
+	</TR>
+		<TR>
+		<TD>
+			4
+		</TD>
+		<TD>
+			BSQUID_AE_TAILWHIP	( Tail whip attack )
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			5
+		</TD>
+		<TD>
+			BSQUID_AE_HOP	( Hop )
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			6
+		</TD>
+		<TD>
+			BSQUID_AE_THROW	( Throw attack )
+		</TD>
+	</TR>
+</TABLE>
+
+
+<TABLE class="old">
+<tr><h2>Gargantua</h2></tr>
+	<TR>
+		<TD>
+		<B>Event</B>
+		</TD>
+		<TD>
+			<B>Event description</B>
+		</TD>
+	</TR>
+	
+	
+	<TR>
+		<TD>
+			1
+		</TD>
+		<TD>
+			GARG_AE_SLASH_LEFT	 ( Attack )
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			2
+		</TD>
+		<TD>
+			GARG_AE_BEAM_ATTACK_RIGHT ( Unused event )
+		</TD>
+	</TR>
+		<TR>
+		<TD>
+			3
+		</TD>
+		<TD>
+			GARG_AE_LEFT_FOOT ( Footstep sound )
+		</TD>
+	</TR>
+	</TR>
+		<TR>
+		<TD>
+			4
+		</TD>
+		<TD>
+			GARG_AE_RIGHT_FOOT	( Footstep sound )
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			5
+		</TD>
+		<TD>
+			GARG_AE_STOMP ( Stomp Attack )
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			6
+		</TD>
+		<TD>
+			GARG_AE_BREATHE	 ( Breathe sound )
+		</TD>
+	</TR>
+</TABLE>
+
+<TABLE class="old">
+<tr><h2>Hassasin</h2></tr>
+	<TR>
+		<TD>
+		<B>Event</B>
+		</TD>
+		<TD>
+			<B>Event description</B>
+		</TD>
+	</TR>
+	
+	
+	<TR>
+		<TD>
+			1
+		</TD>
+		<TD>
+			ASSASSIN_AE_SHOOT1 ( Shoots silencer gun )
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			2
+		</TD>
+		<TD>
+			ASSASSIN_AE_TOSS1	( Throw Grenade )
+		</TD>
+	</TR>
+		<TR>
+		<TD>
+			3
+		</TD>
+		<TD>
+			ASSASSIN_AE_JUMP ( Jump )
+		</TD>
+	</TR>
+</TABLE>
+
+<TABLE class="old">
+<tr><h2>Headcrab</h2></tr>
+	<TR>
+		<TD>
+		<B>Event</B>
+		</TD>
+		<TD>
+			<B>Event description</B>
+		</TD>
+	</TR>
+	
+	
+	<TR>
+		<TD>
+			1
+		</TD>
+		<TD>
+			( event 1 is referenced in a scripted sequence; possibly an older version of generic death event number 2001 )
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			2
+		</TD>
+		<TD>
+			HC_AE_JUMPATTACK	( Headcrab jump attack )
+		</TD>
+
+</TABLE>
+<TABLE class="old">
+<tr><h2>Hgrunt</h2></tr>
+	<TR>
+		<TD>
+		<B>Event</B>
+		</TD>
+		<TD>
+			<B>Event description</B>
+		</TD>
+	</TR>
+	
+
+	<TR>
+		<TD>
+			2
+		</TD>
+		<TD>
+			HGRUNT_AE_RELOAD	( Reloading action )
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			3
+		</TD>
+		<TD>
+			HGRUNT_AE_KICK		( Melee attack )
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			4
+		</TD>
+		<TD>
+			HGRUNT_AE_BURST1	( Mp5 shoot burst variant 1 )
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			5
+		</TD>
+		<TD>
+			HGRUNT_AE_BURST2	( Mp5 shoot burst variant 2 )
+		</TD>
+	</TR>	
+	<TR>
+		<TD>
+			6
+		</TD>
+		<TD>
+			HGRUNT_AE_BURST3	( Mp5 shoot burst variant 3 )
+		</TD>
+	</TR>
+	
+	<TR>
+		<TD>
+			7
+		</TD>
+		<TD>
+			HGRUNT_AE_GREN_TOSS	( Toss handgrenade )
+		</TD>
+	</TR>
+		<TR>
+		<TD>
+			8
+		</TD>
+		<TD>
+			HGRUNT_AE_GREN_LAUNCH	( Launch grenade )
+		</TD>
+	</TR>
+		<TR>
+		<TD>
+			9
+		</TD>
+		<TD>
+			HGRUNT_AE_GREN_DROP		( Drop hand grenade)
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			10
+		</TD>
+		<TD>
+			HGRUNT_AE_CAUGHT_ENEMY	( grunt established sight with an enemy (player only) that had previously eluded the squad. )
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			11
+		</TD>
+		<TD>
+			HGRUNT_AE_CAUGHT_ENEMY	( grunt (probably dead) is dropping his mp5. )
+		</TD>
+	</TR>	
+</TABLE>
+<TABLE class="old">
+<tr><h2>Houndeye</h2></tr>
+	<TR>
+		<TD>
+		<B>Event</B>
+		</TD>
+		<TD>
+			<B>Event description</B>
+		</TD>
+	</TR>
+	
+	
+	<TR>
+		<TD>
+			1
+		</TD>
+		<TD>
+			HOUND_AE_WARN	 ( Warning sound )
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			2
+		</TD>
+		<TD>
+			HOUND_AE_STARTATTACK ( Attack windup )
+		</TD>
+	</TR>
+		<TR>
+		<TD>
+			3
+		</TD>
+		<TD>
+			HOUND_AE_THUMP	 ( Shockwave attack hits )
+		</TD>
+	</TR>
+	</TR>
+		<TR>
+		<TD>
+			4
+		</TD>
+		<TD>
+			HOUND_AE_ANGERSOUND1	( Anger sound )
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			5
+		</TD>
+		<TD>
+			HOUND_AE_ANGERSOUND2 ( Anger sound )
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			6
+		</TD>
+		<TD>
+			HOUND_AE_HOPBACK	 ( Dodge backwards )
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			7
+		</TD>
+		<TD>
+			HOUND_AE_CLOSE_EYE	 ( Eye texture closing animation plays )
+		</TD>
+	</TR>
+</TABLE>
+
+
+<TABLE class="old">
+<tr><h2>Ichthyosaur</h2></tr>
+	<TR>
+		<TD>
+		<B>Event</B>
+		</TD>
+		<TD>
+			<B>Event description</B>
+		</TD>
+	</TR>
+	
+	
+	<TR>
+		<TD>
+			1
+		</TD>
+		<TD>
+			ICHTHYOSAUR_AE_SHAKE_RIGHT
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			2
+		</TD>
+		<TD>
+			ICHTHYOSAUR_AE_SHAKE_LEFT
+		</TD>
+	</TR>
+</TABLE>
+
+<TABLE class="old">
+<tr><h2>Vortigaunt Slave</h2></tr>
+	<TR>
+		<TD>
+		<B>Event</B>
+		</TD>
+		<TD>
+			<B>Event description</B>
+		</TD>
+	</TR>
+	
+	
+	<TR>
+		<TD>
+			1
+		</TD>
+		<TD>
+			ISLAVE_AE_CLAW
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			2
+		</TD>
+		<TD>
+			ISLAVE_AE_CLAWRAKE
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			3
+		</TD>
+		<TD>
+			ISLAVE_AE_ZAP_POWERUP
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			4
+		</TD>
+		<TD>
+			ISLAVE_AE_ZAP_SHOOT
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			5
+		</TD>
+		<TD>
+			ISLAVE_AE_ZAP_DONE	
+		</TD>
+	</TR>
+</TABLE>
+
+<TABLE class="old">
+<tr><h2>Tentacle</h2></tr>
+	<TR>
+		<TD>
+		<B>Event</B>
+		</TD>
+		<TD>
+			<B>Event description</B>
+		</TD>
+	</TR>
+	
+	
+	<TR>
+		<TD>
+			1
+		</TD>
+		<TD>
+			bang sound and attack
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			2
+		</TD>
+		<TD>
+			tap scrape
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			3
+		</TD>
+		<TD>
+			start killing swing
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			4
+		</TD>
+		<TD>
+			end killing swing
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			5
+		</TD>
+		<TD>
+			just "whoosh" sound
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			6
+		</TD>
+		<TD>
+			light tap
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			7
+		</TD>
+		<TD>
+			roar
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			8
+		</TD>
+		<TD>
+			search 
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			9
+		</TD>
+		<TD>
+			swing
+		</TD>
+	</TR>
+</TABLE>
+
+<TABLE class="old">
+<tr><h2>Leech</h2></tr>
+	<TR>
+		<TD>
+		<B>Event</B>
+		</TD>
+		<TD>
+			<B>Event description</B>
+		</TD>
+	</TR>
+	
+	
+	<TR>
+		<TD>
+			1
+		</TD>
+		<TD>
+			LEECH_AE_ATTACK
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			2
+		</TD>
+		<TD>
+			LEECH_AE_FLOP
+		</TD>
+	</TR>
+</TABLE>
+<TABLE class="old">
+<tr><h2>Nihilanth</h2></tr>
+	<TR>
+		<TD>
+		<B>Event</B>
+		</TD>
+		<TD>
+			<B>Event description</B>
+		</TD>
+	</TR>
+	
+	
+	<TR>
+		<TD>
+			1
+		</TD>
+		<TD>
+			shoot
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			2
+		</TD>
+		<TD>
+			attack1
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			3
+		</TD>
+		<TD>
+			attack2
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			4
+		</TD>
+		<TD>
+			recharge
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			5
+		</TD>
+		<TD>
+			recharge
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			6
+		</TD>
+		<TD>
+			open head attack
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			7
+		</TD>
+		<TD>
+			big electrical death FX
+		</TD>
+
+</TABLE>
+
+<TABLE class="old">
+<tr><h2>Scientist</h2></tr>
+	<TR>
+		<TD>
+		<B>Event</B>
+		</TD>
+		<TD>
+			<B>Event description</B>
+		</TD>
+	</TR>
+	
+	
+	<TR>
+		<TD>
+			1
+		</TD>
+		<TD>
+			SCIENTIST_AE_HEAL ( Healing needle shot )
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			2
+		</TD>
+		<TD>
+			SCIENTIST_AE_NEEDLEON ( Needle appears in hand )
+		</TD>
+	</TR>
+<TR>
+		<TD>
+			3
+		</TD>
+		<TD>
+			SCIENTIST_AE_NEEDLEOFF ( Needle is put away )
+		</TD>
+	</TR>
+</TABLE>
+
+
+<TABLE class="old">
+<tr><h2>Zombie Headcrabbed Scientist</h2></tr>
+	<TR>
+		<TD>
+		<B>Event</B>
+		</TD>
+		<TD>
+			<B>Event description</B>
+		</TD>
+	</TR>
+	
+	
+	<TR>
+		<TD>
+			1
+		</TD>
+		<TD>
+			ZOMBIE_AE_ATTACK_RIGHT	 ( Right swing arm attack )
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			2
+		</TD>
+		<TD>
+			ZOMBIE_AE_ATTACK_LEFT	 ( Left swing arm attack )
+		</TD>
+	</TR>
+<TR>
+		<TD>
+			3
+		</TD>
+		<TD>
+			ZOMBIE_AE_ATTACK_BOTH ( Overhead smash attack )
+		</TD>
+	</TR>
+</TABLE>
+<hr>
+<TABLE class="old">
+<tr><h2>Baby Voltigore (OPFor)</h2></tr>
+	<TR>
+		<TD>
+		<B>Event</B>
+		</TD>
+		<TD>
+			<B>Event description</B>
+		</TD>
+	</TR>
+	
+	<TR>
+		<TD>
+			10
+		</TD>
+		<TD>
+			Footstep sounds	 (50% chance)
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			11
+		</TD>
+		<TD>
+			Footstep sounds	 (50% chance)
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			12
+		</TD>
+		<TD>
+			Left arm attack
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			13
+		</TD>
+		<TD>
+			Right arm attack
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			15
+		</TD>
+		<TD>
+			Run grunt sounds
+		</TD>
+	</TR>
+</TABLE>
+
+
+<TABLE class="old">
+<tr><h2>Gonome (OPFor)</h2></tr>
+	<TR>
+		<TD>
+		<B>Event</B>
+		</TD>
+		<TD>
+			<B>Event description</B>
+		</TD>
+	</TR>
+	
+	
+	<TR>
+		<TD>
+			1
+		</TD>
+		<TD>
+			Right swing arm attack 
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			2
+		</TD>
+		<TD>
+			Left swing arm attack 
+		</TD>
+	</TR>
+<TR>
+		<TD>
+			3
+		</TD>
+		<TD>
+			 Throw guts ranged attack
+		</TD>
+	</TR>
+</TABLE>
+
+<TABLE class="old">
+<tr><h2>Medic Class Hgrunt (OPFor)</h2></tr>
+	<TR>
+		<TD>
+		<B>Event</B>
+		</TD>
+		<TD>
+			<B>Event description</B>
+		</TD>
+	</TR>
+	
+	
+	<TR>
+		<TD>
+			15
+		</TD>
+		<TD>
+			Holster gun
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			16
+		</TD>
+		<TD>
+			Equip needle
+		</TD>
+	</TR>
+<TR>
+		<TD>
+			17
+		</TD>
+		<TD>
+			 Put needle away
+		</TD>
+	</TR>
+		<TD>
+			18
+		</TD>
+		<TD>
+			Equip gun
+		</TD>
+	</TR>
+</TABLE>
+
+
+<TABLE class="old">
+<tr><h2>Torch Class Hgrunt (OPFor)</h2></tr>
+	<TR>
+		<TD>
+		<B>Event</B>
+		</TD>
+		<TD>
+			<B>Event description</B>
+		</TD>
+	</TR>
+	
+	
+	<TR>
+		<TD>
+			17
+		</TD>
+		<TD>
+			Holster torch
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			18
+		</TD>
+		<TD>
+			Holster gun
+		</TD>
+	</TR>
+<TR>
+		<TD>
+			19
+		</TD>
+		<TD>
+			 Holster both
+		</TD>
+	</TR>
+		<TD>
+			20
+		</TD>
+		<TD>
+			Activate torch
+		</TD>
+	</TR>
+		<TD>
+			21
+		</TD>
+		<TD>
+			Deactivate torch
+		</TD>
+	</TR>
+</TABLE>
+
+
+<TABLE class="old">
+<tr><h2>Pitworm (OPFor)</h2></tr>
+	<TR>
+		<TD>
+		<B>Event</B>
+		</TD>
+		<TD>
+			<B>Event description</B>
+		</TD>
+	</TR>
+	
+	
+	<TR>
+		<TD>
+			1
+		</TD>
+		<TD>
+			Hit ground sound
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			2
+		</TD>
+		<TD>
+			Shoot laser
+		</TD>
+	</TR>
+<TR>
+		<TD>
+			3
+		</TD>
+		<TD>
+			Lock yaw rotation
+		</TD>
+	</TR>
+</TABLE>
+
+<TABLE class="old">
+<tr><h2>Voltigore (OPFor)</h2></tr>
+	<TR>
+		<TD>
+		<B>Event</B>
+		</TD>
+		<TD>
+			<B>Event description</B>
+		</TD>
+	</TR>
+	
+	
+	<TR>
+		<TD>
+			1
+		</TD>
+		<TD>
+			Shoot electricity
+		</TD>
+
+	<TR>
+		<TD>
+			12
+		</TD>
+		<TD>
+			Left melee attack
+		</TD>
+	</TR>
+<TR>
+		<TD>
+			13
+		</TD>
+		<TD>
+			Right Melee attack
+		</TD>
+	</TR>
+</TABLE>
+<P><b class="yellow">Every other OP4 monster has the same animation events as its clone:</b>
+
+<p><b>Massn = hgrunt<br>
+Pitdrone = Bullsquid<br>
+Shocktrooper = Hgrunt<br>
+Zombie barney/soldier = Zombie scientist<br>
+Otis = Barney<br>
+Blackop apache/osprey - Hgrunt apache/osprey<br>
+Cleansuit scientist = Scientist<br>
+Drill sergeant/recruits = Barney<br>
+Friendly grunts = hgrunts
+</b>
+<hr>
+
+<p><h2>Common Sven-Coop Events</h2>
+<table class="old">
+<TR>
+		<TD>
+		<B>Event</B>
+		</TD>
+		<TD>
+			<B>Event description</B>
+		</TD>
+		<TD>
+			<B>Extra parameters</B>
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			2003
+		</TD>
+		<TD>
+			 Plays footstep sound matching the material type set for the map textures (concrete, tile, dirt, metal, etc) 
+		</TD>
+		<TD>
+		
+		</TD>
+	</TR>
+		<TR>
+		<TD>
+			5004
+		</TD>
+		<TD>
+			 Custom sound format using FMOD system (AIFF, ASF, DLS, FLAC, IT, M3U, MID, MOD, MP2, MP3, OGG, S3M, VAG, WAV, WMA, XM) 
+		</TD>
+		<TD>
+			custom sound path
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			5005
+		</TD>
+		<TD>
+			Use a custom sprite with paramaters defined via txt file
+		</TD>
+		<TD>
+		txt file path (path looks in "events" folder).  Example txt file and usage found in "muzzle_example.txt" in the events folder.
+		</TD>
+	</TR>
+</TABLE>
+<BR>
+<hr>
+
+
+<h1 id="A2">Action Tags List</h1>
+<p>(This list was obtained from the "Modeling For Half-Life.doc" in the Half-Life SDK.)
+<div align="left">
+<TABLE class="old">
+
+	<TR>
+		<TD><B class="green">
+			Action
+			Tag
+			</B>
+		</TD>
+		<TD>
+			<B class="green">Description</B>
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>ACT_ARM </B>
+			
+		</TD>
+		<TD>
+			Activate weapon (e.g.
+			draw gun)
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>ACT_BARNACLE_CHEW
+			</B>
+			
+		</TD>
+		<TD>
+			Barnacle is holding the
+			monster in its mouth ( loop )
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>ACT_BARNACLE_CHOMP
+			</B>
+			
+		</TD>
+		<TD>
+			Barnacle latches on to
+			the monster
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>ACT_BARNACLE_HIT
+			</B>
+			
+		</TD>
+		<TD>
+			Barnacle tongue hits a
+			monster
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>ACT_BARNACLE_PULL
+			</B>
+			
+		</TD>
+		<TD>
+			Barnacle is lifting the
+			monster ( loop )
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>ACT_BIG_FLINCH</B>
+		</TD>
+		<TD>
+			Large reaction to
+			non-specific hit
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>ACT_BITE
+			</B>
+			
+		</TD>
+		<TD>
+			This plays one time eat
+			loops for large monsters which can eat small things in one bite
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>ACT_COMBAT_IDLE.</B>
+		</TD>
+		<TD>
+			Agitated idle, played
+			when monster expects to fight
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>ACT_COWER</B>
+		</TD>
+		<TD>
+			Display a fear behavior
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>ACT_CROUCH
+			</B>
+			
+		</TD>
+		<TD>
+			The act of crouching down
+			from a standing position
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>ACT_CROUCHIDLE
+			</B>
+			
+		</TD>
+		<TD>
+			Hold body in crouched
+			position  (loop)
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>ACT_DETECT_SCENT
+			</B>
+			
+		</TD>
+		<TD>
+			This means the monster
+			smells a scent carried by the air
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>ACT_DIE_BACKSHOT
+			</B>
+			
+		</TD>
+		<TD>
+			Die hit in back
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B class="red">ACT_DIE_CHESTSHOT (non-functional)
+			</B>
+			
+		</TD>
+		<TD>
+			Die hit in chest
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B class="red">AACT_DIE_GUTSHOT (non-functional)
+			</B>
+			
+		</TD>
+		<TD>
+			Die hit in gut
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>ACT_DIE_HEADSHOT
+			</B>
+			
+		</TD>
+		<TD>
+			Die hit in head.
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>ACT_DIEBACKWARD</B>
+		</TD>
+		<TD>
+			Die falling backwards
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>ACT_DIEFORWARD</B>
+		</TD>
+		<TD>
+			Die falling forwards
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>ACT_DIESIMPLE</B>
+		</TD>
+		<TD>
+			Death animation
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>ACT_DIEVIOLENT</B>
+		</TD>
+		<TD>
+			Exaggerated death
+			animation
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>ACT_DISARM
+			</B>
+			
+		</TD>
+		<TD>
+			Put away weapon (e.g.
+			re-holster gun)
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>ACT_EAT </B>
+			
+		</TD>
+		<TD>
+			Monster chewing on a
+			large food item (loop)
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>ACT_EXCITED
+			</B>
+			
+		</TD>
+		<TD>
+			For some reason monster
+			is excited. Sees something he really likes to eat or whatever.
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>ACT_FALL</B>
+		</TD>
+		<TD>
+			Looping animation for
+			falling monster
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>ACT_FEAR_DISPLAY
+			</B>
+			
+		</TD>
+		<TD>
+			Monster just saw
+			something that it is afraid of
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>ACT_FLINCH_CHEST</B>
+		</TD>
+		<TD>
+			Flinch from chest hit
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>ACT_FLINCH_HEAD</B>
+		</TD>
+		<TD>
+			Flinch from head hit
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>ACT_FLINCH_LEFTARM</B>
+		</TD>
+		<TD>
+			Flinch from left arm hit
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>ACT_FLINCH_LEFTLEG</B>
+		</TD>
+		<TD>
+			Flinch from left leg hit
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>ACT_FLINCH_RIGHTARM</B>
+		</TD>
+		<TD>
+			Flinch from right arm hit
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>ACT_FLINCH_RIGHTLEG</B>
+		</TD>
+		<TD>
+			Flinch from right leg hit
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>ACT_FLINCH_STOMACH</B>
+		</TD>
+		<TD>
+			Flinch from stomach hit
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>ACT_FLY		
+			Fly (and flap if appropriate)</B>
+		</TD>
+		<TD>
+			Fly (lx loop)
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>ACT_FLY_LEFT
+			</B>
+			
+		</TD>
+		<TD>
+			Turn left in flight
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>ACT_FLY_RIGHT
+			</B>
+			
+		</TD>
+		<TD>
+			Turn right in flight
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>ACT_GLIDE
+			</B>
+			
+		</TD>
+		<TD>
+			Fly without wing movement
+			(lx loop)
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>ACT_GUARD</B>
+		</TD>
+		<TD>
+			Defend an area
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>ACT_HOP</B>
+		</TD>
+		<TD>
+			Vertical jump
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>ACT_HOVER
+			</B>
+			
+		</TD>
+		<TD>
+			Idle while in flight
+			(loop)
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>ACT_IDLE</B>
+		</TD>
+		<TD>
+			Default behavior when
+			nothing else is going on (loop)
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>ACT_IDLE_ANGRY
+			</B>
+			
+		</TD>
+		<TD>
+			Alternate idle animation
+			in which the monster is clearly agitated. (loop)
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>ACT_INSPECT_FLOOR
+			</B>
+			
+		</TD>
+		<TD>
+			For active idles -- look
+			at something on or near the floor
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>ACT_INSPECT_WALL
+			</B>
+			
+		</TD>
+		<TD>
+			For active idles -- look
+			at something directly ahead of you <BR>(doesn't have to be a wall
+			or on a wall )
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>ACT_LAND</B>
+		</TD>
+		<TD>
+			End of a jump
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>ACT_LEAP</B>
+		</TD>
+		<TD>
+			Long forward jump
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>ACT_MELEE_ATTACK1</B>
+		</TD>
+		<TD>
+			Attack at close range
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>ACT_MELEE_ATTACK2</B>
+		</TD>
+		<TD>
+			Alternate close range
+			attack
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>ACT_RANGE_ATTACK1</B>
+		</TD>
+		<TD>
+			Attack with ranged weapon
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>ACT_RANGE_ATTACK2</B>
+		</TD>
+		<TD>
+			Alternate ranged attack
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>ACT_RELOAD</B>
+		</TD>
+		<TD>
+			Reload weapon
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>ACT_ROLL_LEFT
+			</B>
+			
+		</TD>
+		<TD>
+			Tuck and roll left
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>ACT_ROLL_RIGHT
+			</B>
+			
+		</TD>
+		<TD>
+			Tuck and roll right
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>ACT_RUN</B>
+		</TD>
+		<TD>
+			Run (loop)
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>ACT_RUN_HURT
+			</B>
+			
+		</TD>
+		<TD>
+			Limp  (loop)
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>ACT_RUN_SCARED</B>
+		</TD>
+		<TD>
+			Run displaying fear
+			(loop)
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>ACT_SIGNAL1</B>
+		</TD>
+		<TD>
+			Signal
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>ACT_SIGNAL2</B>
+		</TD>
+		<TD>
+			Alternate signal
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>ACT_SIGNAL3</B>
+		</TD>
+		<TD>
+			Alternate signal
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>ACT_SLEEP</B>
+		</TD>
+		<TD>
+			Sleep (loop)
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>ACT_SMALL_FLINCH</B>
+		</TD>
+		<TD>
+			Small reaction to
+			non-specific hit
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>ACT_SNIFF
+			</B>
+			
+		</TD>
+		<TD>
+			This is the act of
+			actually sniffing an item in front of the monster
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>ACT_SPECIAL_ATTACK1
+			</B>
+			
+		</TD>
+		<TD>
+			Monster specific special
+			attack
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>ACT_SPECIAL_ATTACK2</B>
+		</TD>
+		<TD>
+			Monster specific special
+			attack
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>ACT_STAND
+			</B>
+			
+		</TD>
+		<TD>
+			The act of standing from
+			a crouched position
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>ACT_STRAFE_LEFT</B>
+		</TD>
+		<TD>
+			Sidestep left while
+			maintaining facing (loop)
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>ACT_STRAFE_RIGHT</B>
+		</TD>
+		<TD>
+			Sidestep right while
+			maintaining facing (loop)
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>ACT_SWIM</B>
+		</TD>
+		<TD>
+			Swim (loop)
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>ACT_THREAT_DISPLAY</B>
+		</TD>
+		<TD>
+			 Without attacking
+			monster demonstrates that it is angry
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>ACT_TURN_LEFT
+			</B>
+			
+		</TD>
+		<TD>
+			Turn in place quickly
+			left 
+			
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>ACT_TURN_RIGHT
+			</B>
+			
+		</TD>
+		<TD>
+			Turn in place quickly
+			right 
+			
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>ACT_TWITCH</B>
+		</TD>
+		<TD>
+			Twitch
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>ACT_USE</B>
+		</TD>
+		<TD>
+			Use item
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>ACT_VICTORY_DANCE.</B>
+		</TD>
+		<TD>
+			Victory display after
+			killing player
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>ACT_WALK</B>
+		</TD>
+		<TD>
+			Walk (loop)
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>ACT_WALK_HURT
+			</B>
+			
+		</TD>
+		<TD>
+			Limp  or wounded walk
+			(loop)
+		</TD>
+	</TR>
+	<TR>
+		<TD>
+			<B>ACT_WALK_SCARED</B>
+		</TD>
+		<TD>
+			Walk with fear display
+			(loop)
+		</TD>
+	</TR>
+</TABLE>
+</div>
+<hr>
+<h1 id="Ax">Obsolete Or Non-Functional Commands</h1>
+<p>These commands are here for the purposes of glossary completion, but should not be used as they are not needed, cause issues, or just do not do anything.
+<hr>
+<p><b class="red">$externaltextures</b><br>
+<p>Used for storing the model textures separately. This splits the model into two files, one the model name and the other the name plus "t".  Originally used as an optimization command back in the Voodoo accelerator days to save on memory for when the model was off screen where the textures wouldnt be loaded until seen.  Splitting models can easily cause conflicts and problems especially with multiplayer mods with downloadable content (filling up .res entiries too) and this command should be avoided.<br>
+<hr>
+<p><b class="red">$sequencegroupsize <# in KB></b><br>
+<p>An optimization command for splitting up the groups of animations into different model files so only animations would only be loaded when needed.  As stated with $externaltextures, this creates lots of potential conflict issues with multiplayer mods.
+<hr>
+<p><b class="red">$pivot</b><br>
+<p>Non-Functional command.  Possibly a bone controller predecessor.
+<hr>
+<p><b class="red">$root &lt;bone name&gt;</b><br>
+<p>Non-Functional command which was supposed to set the bone named to the root of the model heiarchy.
+<hr>
+<p><b class="red">[AX AY AZ AZR AXR AYR]</b><b> (<b class="green">$sequence</b> sub-command)</b>
+<p>Originally intended to extract relative movement distance between the first and current frame of XYZ axis, and the "R" ones being for rotation.  This command shows up in sdk docs and decompiled models but is not needed since sequences appear to automatically set the monster location during sequence movement.
+<hr>
+<h1 id="AE">QC Examples:</h1>
+<p><b>Simple static model:</b>
+<div align="left">
+<table class="old">
+	<TR>
+		<TD>
+		<pre>
+$modelname barrier.mdl
+$cd ".\"
+$scale 1
+$cliptotextures
+
+//reference mesh
+$body studio barrier_ref
+
+$sequence "idle" "barrier_ref"</pre>
+		</TD>
+	</TR>
+</TABLE>
+
+<p><b>Simple looping animated model:</b>
+<table class="old">
+	<TR>
+		<TD>
+		<pre>
+$modelname ashtray.mdl
+$cd ".\"
+$cliptotextures
+
+$scale 0.5
+
+//Setting texture render modes
+$texrendermode ashtray.bmp masked
+$texrendermode embersmoke.bmp additive
+
+//reference mesh
+$body studio "ashtray_ref"
+
+$sequence "idle" "ashtray_idle" fps 2 loop
+</pre>
+		</TD>
+	</TR>
+</TABLE>
+
+<p><b>Gib model.  Gib models have multiple meshes set up by <b class="green">$bodygroup</b>. These meshes are picked randomly by the engine when used as modelgibs, func_breakable gibs or by env_shooter/gibshooter entity. </b>
+<table class="old">
+	<TR>
+		<TD>
+		<pre>
+$modelname bonegibs.mdl
+$cd ".\"
+$scale 1
+
+$bodygroup parts
+{
+studio "bone1"
+studio "bone2"
+studio "bone3"
+studio "bone4"
+studio "bone5"
+
+}
+
+$sequence idle1    "bone_anim"
+</pre>
+		</TD>
+	</TR>
+</TABLE>
+
+
+<p><b>Turret monster model (from Half-Life SDK)</b>
+<table class="old">
+	<TR>
+		<TD>
+		<pre>
+/*
+
+turret.qc
+
+*/
+
+$modelname valve/models/turret.mdl
+$cd valve/models/turret
+$cdtexture valve/models/turret/maps_8bit
+$externaltextures
+$scale 1.5
+
+// whole body
+$body studio "turret_template1"
+
+$controller 0 "dummy02" YR 0 360
+$controller 1 "dummy05" ZR -90 15
+
+$attachment 0 "dummy05" -46 4.5 0 X -1
+$attachment 1 "dummy07" 0 8.5 0 Y 1
+
+$hbox 10 "Trim01" -35.10 -30.40 -2.18  35.10 30.40 2.18
+$hbox 10 "Top_Lid01" -30.57 -26.47 0  30.57 26.47 15.51
+$hbox 1 "Pivot01" -20.57 -30.22 -15.96  20.80 17.55 9.89
+//hbox 1 "Siren01" -2.89 -3.15 -3.59  2.89 3.15 3.59
+$hbox 1 "Gun_Body01" -8.09 -14.83 -6.58  8.09 14.83 6.58
+$hbox 1 "Barrels01" -6.13 -13.80 -5.56  6.13 13.80 5.29
+$hbox 1 "Brace02" -9.09 -25.68 0.00  8.87 0.00 41.01
+
+$sequence idle_off animation "turret_deploy1" frames 0 0 fps 1 
+$sequence fire "turret_shoot1" fps 150 loop {
+{ event 5001 0 "51" } { event 5001 10 "51" } { event 5001 20 "51" } 
+// { event 5001 5 "1" } { event 5001 15 "1" } { event 5001 25 "1" }
+}
+$sequence spin "turret_spin_idle1" fps 33 loop
+$sequence deploy "turret_deploy1" fps 30
+$sequence retire "turret_deploy1" fps 10
+$sequence die "turret_die1" fps 30
+</pre>
+		</TD>
+	</TR>
+</TABLE>
+
+<p><b>MP5 Weapon View Model (from Half-Life SDK)</b>
+<table class="old">
+	<TR>
+		<TD>
+		<pre>
+/*
+==============================================================================
+
+mp5 machine gun viewmodel
+
+==============================================================================
+*/
+
+$modelname valve/models/v_9mmAR.mdl
+$cd valve/models/v_hkmp5-sd
+$scale 1 
+
+// whole body
+$body studio "mp5sd"
+
+
+//$origin	SIDE-SIDE IN-OUT  UP-DOWN
+$origin 2 10 8
+
+$attachment 0 "Bone09" -14 1 -0.5 X -1
+
+$sequence longidle "long_idle" fps 8
+$sequence idle1 "idle1" fps 35 
+$sequence grenade "grenadeshoot" fps 30 
+
+$sequence reload "reload" fps 30 {
+{ event 5004 5 "items/cliprelease1.wav" } 
+{ event 5004 24 "items/clipinsert1.wav" }
+}
+
+$sequence deploy "deploy" frame 4 15 fps 12
+$sequence shoot "shoot1" fps 10 { event 5001 0 "20" }
+$sequence shoot "shoot2" fps 10 { event 5001 0 "20" }
+$sequence shoot "shoot3" fps 10 { event 5001 0 "20" }
+</pre>
+		</TD>
+	</TR>
+</TABLE>
+
+<p><b>HLDM Playermodel (from Half-Life SDK)</b>
+<table class="old">
+	<TR>
+		<TD>
+		<pre>
+/*
+==============================================================================
+
+player
+
+==============================================================================
+*/
+
+$modelname valve/models/player.mdl
+$cd valve/models/player
+$cdtexture valve/models/player/maps_8bit
+
+$scale 1.0
+$origin 0 0 36
+
+// whole body
+$bodygroup body
+{
+studio "player_template_biped(No_Head)1"
+}
+
+$bodygroup head
+{
+studio "player_template_biped(Gordon_Head)1"
+studio "player_template_biped(Helmet)1"
+}
+
+$controller mouth "bone02" ZR 0 30
+
+$include "valve/models/player/player_shared.qc"
+</pre>
+		</TD>
+	</TR>
+
+	<TR>
+		<TD>
+			<b>separate "player_shared.qc" file:</TD>
+	</TR>
+	<TR>
+		<TD>
+
+<pre style="font-size: 9px" font-family: "courier new">
+// Charactor Studio R2 automatically renames bones, so rename then back to be compatible with old smd's
+$renamebone "Bip01 L Thigh" "Bip01 L Leg"
+$renamebone "Bip01 L Calf" "Bip01 L Leg1"
+$renamebone "Bip01 R Thigh" "Bip01 R Leg"
+$renamebone "Bip01 R Calf" "Bip01 R Leg1"
+$renamebone "Bip01 L Clavicle" "Bip01 L Arm"
+$renamebone "Bip01 L UpperArm" "Bip01 L Arm1"
+$renamebone "Bip01 L Forearm" "Bip01 L Arm2"
+$renamebone "Bip01 R Clavicle" "Bip01 R Arm"
+$renamebone "Bip01 R UpperArm" "Bip01 R Arm1"
+$renamebone "Bip01 R Forearm" "Bip01 R Arm2"
+
+// make attachments points for muzzleflash effects
+$attachment 0 "Bip01 R Hand" 20 2 5 X 1
+$attachment 1 "Bip01 R Hand" 15 1.5 3.75 X 1
+$attachment 2 "Bip01 R Hand" 30 3 7.5 X 1
+
+// add backbone
+$controller 0 "Bip01 Spine" XR -30 30
+$controller 1 "Bip01 Spine1" XR -30 30
+$controller 2 "Bip01 Spine2" XR -30 30
+$controller 3 "Bip01 Spine3" XR -30 30
+
+// set hitboxes
+$hbox 3 "Bip01 Pelvis" -4.69 -4.44 -6.75  4.00 5.56 6.75
+$hbox 6 "Bip01 L Leg" 2.66 -3.69 -3.09  18.16 4.88 3.31
+$hbox 6 "Bip01 L Leg1" 0.38 -3.97 -2.84  17.60 4.00 2.94
+$hbox 6 "Bip01 L Foot" -0.59 -2.34 -2.63  3.79 8.00 2.19
+$hbox 7 "Bip01 R Leg" 2.47 -3.69 -3.16  18.13 4.88 3.38
+$hbox 7 "Bip01 R Leg1" 0.31 -3.97 -2.84  17.60 3.94 2.97
+$hbox 7 "Bip01 R Foot" -0.56 -2.34 -2.19  3.81 8.00 2.66
+$hbox 3 "Bip01 Spine1" -3.25 -5.50 -5.50  4.83 5.50 5.50
+$hbox 2 "Bip01 Spine2" -0.06 -5.53 -7.59  8.00 7.00 7.59
+$hbox 2 "Bip01 Spine3" -2.25 -6.81 -6.31  6.50 5.09 6.31
+$hbox 2 "Bip01 Neck" -3.11 -1.50 -3.00  2.05 3.50 3.00
+$hbox 1 "Bip01 Head" 0.09 -3.66 -3.00  8.41 5.09 3.00
+$hbox 4 "Bip01 L Arm" 0.94 -2.88 -4.13  5.44 4.28 3.50
+$hbox 4 "Bip01 L Arm1" -2.16 -2.34 -2.56  11.56 3.41 2.38
+$hbox 4 "Bip01 L Arm2" 0.59 -1.81 -2.19  10.75 2.84 2.41
+$hbox 4 "Bip01 L Hand" 0.00 -1.00 -2.00  3.00 1.50 3.50
+$hbox 5 "Bip01 R Arm" 1.38 -2.84 -3.56  5.69 4.31 4.31
+$hbox 5 "Bip01 R Arm1" -1.88 -2.47 -2.16  11.81 3.28 2.81
+$hbox 5 "Bip01 R Arm2" 0.44 -1.97 -2.34  10.59 2.72 2.22
+$hbox 5 "Bip01 R Hand" 0.00 -1.00 -2.00  3.00 1.50 3.50
+//$hbox 0 "Box01" -12.25 -4.00 -1.56  12.25 4.00 1.56
+
+
+$sequence look_idle "new_idle2" loop fps 14 ACT_IDLE 2
+$sequence idle "new_idle" loop fps 14 ACT_IDLE 1
+$sequence deep_idle "new_idle3" loop fps 12 ACT_IDLE 4
+$sequence run2 "new_run" lx loop fps 40 ACT_RUN 1
+$sequence walk2handed "new_walk" lx loop fps 26 ACT_WALK 1
+$sequence 2handshoot "shoot_2handed" fps 20 ACT_RANGE_ATTACK1 1
+$sequence crawl "crouch_moveforward" lx loop fps 22 ACT_CROUCH 1 origin 0 0 18
+$sequence crouch_idle "crouch_idle" loop fps 12 ACT_CROUCHIDLE 1 origin 0 0 18 rotate 8
+$sequence jump "player_jump"  fps 30 ACT_HOP 1
+$sequence long_jump "player_longjump" LX fps 24 ACT_LEAP 1
+$sequence swim "player_swim" loop fps 14 ACT_SWIM 1 origin 0 0 0
+$sequence treadwater "player_treadwater" loop fps 14 ACT_HOVER 1
+
+
+$sequence run "ref_run" lx loop fps 31
+$sequence walk "ref_walk" lx loop fps 31
+$sequence aim_2 "ref_aimdown_twohanded" "ref_aimup_twohanded" loop fps 14 blend XR -45 45
+$sequence shoot_2 "ref_shootdown_twohanded" "ref_shootup_twohanded" loop fps 14 blend XR -45 45
+$sequence aim_1 "ref_aimdown_onehanded" "ref_aimup_onehanded" loop fps 14 blend XR -45 45
+$sequence shoot_1 "ref_shootdown_onehanded" "ref_shootup_onehanded" loop fps 14 blend XR -45 45
+
+
+//death animations
+$sequence die_simple "die_simple" fps 22 ACT_DIESIMPLE 1 { event 2001 10 }
+$sequence die_backwards1 "die_backward" fps 26 ACT_DIEBACKWARD 4 { event 2001 14 }
+$sequence die_backwards "player_die2" fps 30 ACT_DIEBACKWARD 1 { event 2001 15 }
+$sequence die_forwards "player_die1" fps 26 ACT_DIEFORWARD 1 { event 2001 9 }
+$sequence headshot "die_headshot" fps 24 ACT_DIE_HEADSHOT 4 { event 2001 23 }
+$sequence die_spin "player_die3" fps 30  ACT_DIE_HEADSHOT 1 { event 2001 16 }
+$sequence gutshot "die_gutshot" fps 26 ACT_DIE_GUTSHOT 1 { event 2001 23 }
+
+// fancy animation
+// crowbar, grenade
+$sequence ref_aim_crowbar "ref_aimdown_crowbar" "ref_aimup_crowbar" blend XR -45 45 fps 12 LOOP
+$sequence ref_shoot_crowbar "ref_swingdown_crowbar" "ref_swingup_crowbar" blend XR -45 45 fps 24
+$sequence crouch_aim_crowbar "crouch_aimdown_crowbar" "crouch_aimup_crowbar" blend XR -45 45 fps 12 LOOP origin 0 0 18
+$sequence crouch_shoot_crowbar "crouch_swingdown_crowbar" "crouch_swingup_crowbar" blend XR -45 45 fps 24 origin 0 0 18
+// tipmines, satchel
+$sequence ref_aim_trip "ref_aimdown_trip" "ref_aimup_trip" blend XR -45 45 fps 12 LOOP
+$sequence ref_shoot_trip "ref_placedown_trip" "ref_placeup_trip" blend XR -45 45 fps 18
+$sequence crouch_aim_trip "crouch_aimdown_trip" "crouch_aimup_trip" blend XR -45 45 fps 12 LOOP origin 0 0 18
+$sequence crouch_shoot_trip "crouch_placedown_trip" "crouch_placeup_trip" blend XR -45 45 fps 16 origin 0 0 18
+// 9mm
+$sequence ref_aim_onehanded "ref_aimdown_onehanded" "ref_aimup_onehanded" blend XR -50 35 fps 12 LOOP 
+$sequence ref_shoot_onehanded "ref_shootdown_onehanded" "ref_shootup_onehanded" blend XR -50 35 fps 16 { event 5011 0 "21" }
+$sequence crouch_aim_onehanded "crouch_aimdown_onehanded" "crouch_aimup_onehanded" blend XR -50 35 fps 12 LOOP origin 0 0 18
+$sequence crouch_shoot_onehanded "crouch_shootdown_onehanded" "crouch_shootup_onehanded" blend XR -50 35 fps 16 { event 5011 0 "21" } origin 0 0 18
+// python
+$sequence ref_aim_python "ref_aimdown_onehanded" "ref_aimup_onehanded" blend XR -50 35 fps 12 LOOP 
+$sequence ref_shoot_python "ref_shootdown_python" "ref_shootup_python" blend XR -50 35 fps 16  { event 5011 0 "31" }
+$sequence crouch_aim_python "crouch_aimdown_onehanded" "crouch_aimup_onehanded" blend XR -50 35 fps 12 LOOP origin 0 0 18
+$sequence crouch_shoot_python "crouch_shootdown_python" "crouch_shootup_python" blend XR -50 35 fps 16  { event 5011 0 "31" } origin 0 0 18
+// shotgun
+$sequence ref_aim_shotgun "ref_aimdown_shotgun" "ref_aimup_shotgun" blend XR -45 45 fps 12 LOOP
+$sequence ref_shoot_shotgun "ref_shootdown_shotgun" "ref_shootup_shotgun" blend XR -45 45 fps 15 { event 5021 0 "51" }
+$sequence crouch_aim_shotgun "crouch_aimdown_shotgun" "crouch_aimup_shotgun" blend XR -45 45 fps 12 LOOP origin 0 0 18
+$sequence crouch_shoot_shotgun "crouch_shootdown_shotgun" "crouch_shootup_shotgun" blend XR -45 45 fps 15 { event 5021 0 "51" } origin 0 0 18
+// gauss
+$sequence ref_aim_gauss "ref_aimdown_guass" "ref_aimup_guass" blend XR -45 45 fps 12 LOOP
+$sequence ref_shoot_gauss "ref_shootdown_guass" "ref_shootup_guass" blend XR -45 45 fps 15
+$sequence crouch_aim_gauss "crouch_aimdown_guass" "crouch_aimup_guass" blend XR -45 45 fps 12 LOOP origin 0 0 18
+$sequence crouch_shoot_gauss "crouch_shootdown_guass" "crouch_shootup_guass" blend XR -45 45 fps 15 origin 0 0 18
+// mp5
+$sequence ref_aim_mp5 "ref_aimdown_mp5" "ref_aimup_mp5" blend XR -45 45 fps 12 LOOP
+$sequence ref_shoot_mp5 "ref_shootdown_mp5" "ref_shootup_mp5" blend XR -45 45 fps 20 LOOP { event 5001 0 "40" }
+$sequence crouch_aim_mp5 "crouch_aimdown_mp5" "crouch_aimup_mp5" blend XR -30 40 fps 12 LOOP origin 0 0 18
+$sequence crouch_shoot_mp5 "crouch_shootdown_mp5" "crouch_shootup_mp5" blend XR -30 40 fps 20 LOOP { event 5001 0 "40" } origin 0 0 18
+// rpg
+$sequence ref_aim_rpg "ref_aimdown_rpg" "ref_aimup_rpg" blend XR -45 40 fps 12 LOOP
+$sequence ref_shoot_rpg "ref_shootdown_rpg" "ref_shootup_rpg" blend XR -45 40 fps 18
+$sequence crouch_aim_rpg "crouch_aimdown_rpg" "crouch_aimup_rpg" blend XR -45 40 fps 12 LOOP origin 0 0 18
+$sequence crouch_shoot_rpg "crouch_shootdown_rpg" "crouch_shootup_rpg" blend XR -45 40 fps 18 origin 0 0 18
+// egon
+$sequence ref_aim_egon "ref_aimdown_egon" "ref_aimup_egon" blend XR -45 35 fps 12 LOOP
+$sequence ref_shoot_egon "ref_aimdown_egon" "ref_aimup_egon" blend XR -45 35 fps 18 LOOP
+$sequence crouch_aim_egon "crouch_aimdown_egon" "crouch_aimup_egon" blend XR -45 45 fps 12 LOOP origin 0 0 18
+$sequence crouch_shoot_egon "crouch_aimdown_egon" "crouch_aimup_egon" blend XR -45 45 fps 18 LOOP origin 0 0 18
+// squeak
+$sequence ref_aim_squeak "ref_aimdown_squeak" "ref_aimup_squeak" blend XR -45 45 fps 12 LOOP
+$sequence ref_shoot_squeak "ref_shootdown_squeak" "ref_shootup_squeak" blend XR -45 45 fps 14
+$sequence crouch_aim_squeak "crouch_aimdown_squeak" "crouch_aimup_squeak" blend XR -45 45 fps 12 LOOP origin 0 0 18
+$sequence crouch_shoot_squeak "crouch_shootdown_squeak" "crouch_shootup_squeak" blend XR -45 45 fps 14 origin 0 0 18
+// hive
+$sequence ref_aim_hive "ref_aimdown_hive" "ref_aimup_hive" blend XR -45 45 fps 12 LOOP
+$sequence ref_shoot_hive "ref_shootdown_hive" "ref_shootup_hive" blend XR -45 45 fps 15
+$sequence crouch_aim_hive "crouch_aimdown_hive" "crouch_aimup_hive" blend XR -45 45 fps 12 LOOP origin 0 0 18
+$sequence crouch_shoot_hive "crouch_shootdown_hive" "crouch_shootup_hive" blend XR -45 45 fps 15 origin 0 0 18
+// crossbow
+$sequence ref_aim_bow "ref_aimdown_bow" "ref_aimup_bow" blend XR -45 45 fps 12 LOOP
+$sequence ref_shoot_bow "ref_aimdown_bow" "ref_aimup_bow" blend XR -45 45 fps 16
+$sequence crouch_aim_bow "crouch_aimdown_bow" "crouch_aimup_bow" blend XR -45 45 fps 12 LOOP origin 0 0 18
+$sequence crouch_shoot_bow "crouch_aimdown_bow" "crouch_aimup_bow" blend XR -45 45 fps 16 origin 0 0 18
+
+
+//dead poses, we have to change the origin because of the way the 
+// player model is arranged (sjb)
+$origin 0 0 0
+$sequence deadback "dead_pose_back" fps 10 
+$sequence deadsitting "dead_pose_sitting" fps 10 
+$sequence deadstomach "dead_pose_stomach" fps 10 
+$sequence deadtable "dead_pose_table" fps 10
+// ***** DO NOT PUT ANY MORE SEQUENCES BELOW THIS LINE! (sjb)
+</pre>
+		</TD>
+	</TR>
+</TABLE>
+
+<p><b>Decompiled Counter-Strike 1.6 Player model</b>
+<table class="old">
+	<TR>
+		<TD>
+		<pre>
+$modelname "leet\leet.mdl"
+$cd "."
+$cdtexture "."
+$cliptotextures
+$scale 1.0
+
+$bodygroup "studio"
+{
+	studio "leet_arab"
+}
+$bodygroup "backpack"
+{
+	blank
+	studio "leet_bomb"
+}
+
+$flags 0
+
+
+$attachment 0 "Bip01 R Hand" 10.855 -0.416715 1.87068
+$attachment 1 "Bip01 L Hand" 10.855 -0.416715 1.87068
+
+// Clipping box or view bounding box.
+$cbox 0 0 0 0 0 0
+
+// Bounding box or hull. Used for collision with a world object.
+$bbox 0 0 0 0 0 0
+
+$hbox 3 "Bip01 Pelvis" -4.69 -4.44 -6.75 4 5.56 6.75
+$hbox 6 "Bip01 L Thigh" 2.66 -3.69 -3.09 18.16 4.88 3.31
+$hbox 6 "Bip01 L Calf" 0.38 -3.97 -2.84 17.6 4 2.94
+$hbox 6 "Bip01 L Foot" 0.85 -3.24 -2.64 5.73 8.53 3.17
+$hbox 7 "Bip01 R Thigh" 2.47 -3.69 -3.16 18.129999 4.88 3.38
+$hbox 7 "Bip01 R Calf" 0.31 -3.97 -2.84 17.6 3.94 2.97
+$hbox 7 "Bip01 R Foot" 0.85 -3.24 -2.64 5.73 8.53 3.17
+$hbox 3 "Bip01 Spine1" -3.25 -5.5 -5.5 4.83 5.5 5.5
+$hbox 2 "Bip01 Spine2" -0.06 -5.53 -7.59 8 7 7.59
+$hbox 2 "Bip01 Spine3" -2.25 -6.81 -6.31 6.5 5.09 6.31
+$hbox 2 "Bip01 Neck" -3.11 -1.5 -3 2.05 3.5 3
+$hbox 1 "Bip01 Head" -0.33 -4.5 -2.5 8 4.5 2.5
+$hbox 4 "Bip01 L Clavicle" 0.94 -2.88 -4.13 5.44 4.28 3.5
+$hbox 4 "Bip01 L UpperArm" -2.16 -2.34 -2.56 11.56 3.41 2.38
+$hbox 4 "Bip01 L Forearm" 0.59 -1.81 -2.19 10.75 2.84 2.41
+$hbox 4 "Bip01 L Hand" -0.132201 -1.90302 -2.23853 4.8629 2.07824 2.36979
+$hbox 5 "Bip01 R Clavicle" 1.38 -2.84 -3.56 5.69 4.31 4.31
+$hbox 5 "Bip01 R UpperArm" -1.88 -2.47 -2.16 11.81 3.28 2.81
+$hbox 5 "Bip01 R Forearm" 0.44 -1.97 -2.34 10.59 2.72 2.22
+$hbox 5 "Bip01 R Hand" -0.132201 -1.90302 -2.23853 4.8629 2.07824 2.36979
+$hbox 8 "Bip01 L Hand" -16.1 -6.5 -19 10.6 1.5 33
+
+$controller Mouth "Bone01" ZR 0 30
+
+$sequence "dummy" {
+	"leet_anims\dummy"
+	fps 24
+	loop
+}
+$sequence "idle1" {
+	"leet_anims\idle1"
+	ACT_IDLE 1
+	fps 15
+	loop
+}
+$sequence "crouch_idle" {
+	"leet_anims\crouch_idle"
+	ACT_CROUCHIDLE 1
+	fps 10
+	loop
+}
+$sequence "walk" {
+	"leet_anims\walk"
+	ACT_WALK 1
+	fps 30
+	loop
+	LX
+}
+$sequence "run" {
+	"leet_anims\run"
+	ACT_RUN 1
+	fps 60
+	loop
+	LX
+}
+$sequence "crouchrun" {
+	"leet_anims\crouchrun"
+	ACT_CROUCH 1
+	fps 30
+	loop
+	LX
+}
+$sequence "jump" {
+	"leet_anims\jump"
+	ACT_HOP 1
+	fps 36
+}
+$sequence "longjump" {
+	"leet_anims\longjump"
+	ACT_LEAP 1
+	fps 36
+}
+$sequence "swim" {
+	"leet_anims\swim"
+	ACT_SWIM 1
+	fps 30
+	loop
+}
+$sequence "treadwater" {
+	"leet_anims\treadwater"
+	ACT_HOVER 1
+	fps 24
+	loop
+}
+$sequence "crouch_aim_carbine" {
+	"leet_anims\crouch_aim_carbine_blend01"
+	"leet_anims\crouch_aim_carbine_blend02"
+	"leet_anims\crouch_aim_carbine_blend03"
+	"leet_anims\crouch_aim_carbine_blend04"
+	"leet_anims\crouch_aim_carbine_blend05"
+	"leet_anims\crouch_aim_carbine_blend06"
+	"leet_anims\crouch_aim_carbine_blend07"
+	"leet_anims\crouch_aim_carbine_blend08"
+	"leet_anims\crouch_aim_carbine_blend09"
+	blend XR -90 90
+	fps 30
+	loop
+}
+$sequence "crouch_shoot_carbine" {
+	"leet_anims\crouch_shoot_carbine_blend01"
+	"leet_anims\crouch_shoot_carbine_blend02"
+	"leet_anims\crouch_shoot_carbine_blend03"
+	"leet_anims\crouch_shoot_carbine_blend04"
+	"leet_anims\crouch_shoot_carbine_blend05"
+	"leet_anims\crouch_shoot_carbine_blend06"
+	"leet_anims\crouch_shoot_carbine_blend07"
+	"leet_anims\crouch_shoot_carbine_blend08"
+	"leet_anims\crouch_shoot_carbine_blend09"
+	blend XR -90 90
+	{ event 5001 0 "40" }
+	fps 15
+}
+$sequence "crouch_reload_carbine" {
+	"leet_anims\crouch_reload_carbine"
+	fps 30
+}
+$sequence "ref_aim_carbine" {
+	"leet_anims\ref_aim_carbine_blend01"
+	"leet_anims\ref_aim_carbine_blend02"
+	"leet_anims\ref_aim_carbine_blend03"
+	"leet_anims\ref_aim_carbine_blend04"
+	"leet_anims\ref_aim_carbine_blend05"
+	"leet_anims\ref_aim_carbine_blend06"
+	"leet_anims\ref_aim_carbine_blend07"
+	"leet_anims\ref_aim_carbine_blend08"
+	"leet_anims\ref_aim_carbine_blend09"
+	blend XR -90 90
+	fps 30
+	loop
+}
+$sequence "ref_shoot_carbine" {
+	"leet_anims\ref_shoot_carbine_blend01"
+	"leet_anims\ref_shoot_carbine_blend02"
+	"leet_anims\ref_shoot_carbine_blend03"
+	"leet_anims\ref_shoot_carbine_blend04"
+	"leet_anims\ref_shoot_carbine_blend05"
+	"leet_anims\ref_shoot_carbine_blend06"
+	"leet_anims\ref_shoot_carbine_blend07"
+	"leet_anims\ref_shoot_carbine_blend08"
+	"leet_anims\ref_shoot_carbine_blend09"
+	blend XR -90 90
+	{ event 5001 0 "40" }
+	fps 15
+}
+$sequence "ref_reload_carbine" {
+	"leet_anims\ref_reload_carbine"
+	fps 30
+}
+$sequence "crouch_aim_onehanded" {
+	"leet_anims\crouch_aim_onehanded_blend01"
+	"leet_anims\crouch_aim_onehanded_blend02"
+	"leet_anims\crouch_aim_onehanded_blend03"
+	"leet_anims\crouch_aim_onehanded_blend04"
+	"leet_anims\crouch_aim_onehanded_blend05"
+	"leet_anims\crouch_aim_onehanded_blend06"
+	"leet_anims\crouch_aim_onehanded_blend07"
+	"leet_anims\crouch_aim_onehanded_blend08"
+	"leet_anims\crouch_aim_onehanded_blend09"
+	blend XR -90 90
+	fps 30
+	loop
+}
+$sequence "crouch_shoot_onehanded" {
+	"leet_anims\crouch_shoot_onehanded_blend01"
+	"leet_anims\crouch_shoot_onehanded_blend02"
+	"leet_anims\crouch_shoot_onehanded_blend03"
+	"leet_anims\crouch_shoot_onehanded_blend04"
+	"leet_anims\crouch_shoot_onehanded_blend05"
+	"leet_anims\crouch_shoot_onehanded_blend06"
+	"leet_anims\crouch_shoot_onehanded_blend07"
+	"leet_anims\crouch_shoot_onehanded_blend08"
+	"leet_anims\crouch_shoot_onehanded_blend09"
+	blend XR -90 90
+	{ event 5001 0 "10" }
+	fps 15
+}
+$sequence "crouch_reload_onehanded" {
+	"leet_anims\crouch_reload_onehanded"
+	fps 30
+}
+$sequence "ref_aim_onehanded" {
+	"leet_anims\ref_aim_onehanded_blend01"
+	"leet_anims\ref_aim_onehanded_blend02"
+	"leet_anims\ref_aim_onehanded_blend03"
+	"leet_anims\ref_aim_onehanded_blend04"
+	"leet_anims\ref_aim_onehanded_blend05"
+	"leet_anims\ref_aim_onehanded_blend06"
+	"leet_anims\ref_aim_onehanded_blend07"
+	"leet_anims\ref_aim_onehanded_blend08"
+	"leet_anims\ref_aim_onehanded_blend09"
+	blend XR -90 90
+	fps 30
+	loop
+}
+$sequence "ref_shoot_onehanded" {
+	"leet_anims\ref_shoot_onehanded_blend01"
+	"leet_anims\ref_shoot_onehanded_blend02"
+	"leet_anims\ref_shoot_onehanded_blend03"
+	"leet_anims\ref_shoot_onehanded_blend04"
+	"leet_anims\ref_shoot_onehanded_blend05"
+	"leet_anims\ref_shoot_onehanded_blend06"
+	"leet_anims\ref_shoot_onehanded_blend07"
+	"leet_anims\ref_shoot_onehanded_blend08"
+	"leet_anims\ref_shoot_onehanded_blend09"
+	blend XR -90 90
+	{ event 5001 0 "10" }
+	fps 15
+}
+$sequence "ref_reload_onehanded" {
+	"leet_anims\ref_reload_onehanded"
+	fps 30
+}
+$sequence "crouch_aim_dualpistols" {
+	"leet_anims\crouch_aim_dualpistols_blend01"
+	"leet_anims\crouch_aim_dualpistols_blend02"
+	"leet_anims\crouch_aim_dualpistols_blend03"
+	"leet_anims\crouch_aim_dualpistols_blend04"
+	"leet_anims\crouch_aim_dualpistols_blend05"
+	"leet_anims\crouch_aim_dualpistols_blend06"
+	"leet_anims\crouch_aim_dualpistols_blend07"
+	"leet_anims\crouch_aim_dualpistols_blend08"
+	"leet_anims\crouch_aim_dualpistols_blend09"
+	blend XR -90 90
+	fps 10
+	loop
+}
+$sequence "crouch_shoot_dualpistols" {
+	"leet_anims\crouch_shoot_dualpistols_blend01"
+	"leet_anims\crouch_shoot_dualpistols_blend02"
+	"leet_anims\crouch_shoot_dualpistols_blend03"
+	"leet_anims\crouch_shoot_dualpistols_blend04"
+	"leet_anims\crouch_shoot_dualpistols_blend05"
+	"leet_anims\crouch_shoot_dualpistols_blend06"
+	"leet_anims\crouch_shoot_dualpistols_blend07"
+	"leet_anims\crouch_shoot_dualpistols_blend08"
+	"leet_anims\crouch_shoot_dualpistols_blend09"
+	blend XR -90 90
+	{ event 5011 0 "10" }
+	fps 30
+}
+$sequence "crouch_shoot2_dualpistols" {
+	"leet_anims\crouch_shoot2_dualpistols_blend01"
+	"leet_anims\crouch_shoot2_dualpistols_blend02"
+	"leet_anims\crouch_shoot2_dualpistols_blend03"
+	"leet_anims\crouch_shoot2_dualpistols_blend04"
+	"leet_anims\crouch_shoot2_dualpistols_blend05"
+	"leet_anims\crouch_shoot2_dualpistols_blend06"
+	"leet_anims\crouch_shoot2_dualpistols_blend07"
+	"leet_anims\crouch_shoot2_dualpistols_blend08"
+	"leet_anims\crouch_shoot2_dualpistols_blend09"
+	blend XR -90 90
+	{ event 5001 0 "10" }
+	fps 30
+}
+$sequence "crouch_reload_dualpistols" {
+	"leet_anims\crouch_reload_dualpistols"
+	fps 30
+}
+$sequence "ref_aim_dualpistols" {
+	"leet_anims\ref_aim_dualpistols_blend01"
+	"leet_anims\ref_aim_dualpistols_blend02"
+	"leet_anims\ref_aim_dualpistols_blend03"
+	"leet_anims\ref_aim_dualpistols_blend04"
+	"leet_anims\ref_aim_dualpistols_blend05"
+	"leet_anims\ref_aim_dualpistols_blend06"
+	"leet_anims\ref_aim_dualpistols_blend07"
+	"leet_anims\ref_aim_dualpistols_blend08"
+	"leet_anims\ref_aim_dualpistols_blend09"
+	blend XR -90 90
+	fps 10
+	loop
+}
+$sequence "ref_shoot_dualpistols" {
+	"leet_anims\ref_shoot_dualpistols_blend01"
+	"leet_anims\ref_shoot_dualpistols_blend02"
+	"leet_anims\ref_shoot_dualpistols_blend03"
+	"leet_anims\ref_shoot_dualpistols_blend04"
+	"leet_anims\ref_shoot_dualpistols_blend05"
+	"leet_anims\ref_shoot_dualpistols_blend06"
+	"leet_anims\ref_shoot_dualpistols_blend07"
+	"leet_anims\ref_shoot_dualpistols_blend08"
+	"leet_anims\ref_shoot_dualpistols_blend09"
+	blend XR -90 90
+	{ event 5011 0 "10" }
+	fps 30
+}
+$sequence "ref_shoot2_dualpistols" {
+	"leet_anims\ref_shoot2_dualpistols_blend01"
+	"leet_anims\ref_shoot2_dualpistols_blend02"
+	"leet_anims\ref_shoot2_dualpistols_blend03"
+	"leet_anims\ref_shoot2_dualpistols_blend04"
+	"leet_anims\ref_shoot2_dualpistols_blend05"
+	"leet_anims\ref_shoot2_dualpistols_blend06"
+	"leet_anims\ref_shoot2_dualpistols_blend07"
+	"leet_anims\ref_shoot2_dualpistols_blend08"
+	"leet_anims\ref_shoot2_dualpistols_blend09"
+	blend XR -90 90
+	{ event 5001 0 "10" }
+	fps 30
+}
+$sequence "ref_reload_dualpistols" {
+	"leet_anims\ref_reload_dualpistols"
+	fps 30
+}
+$sequence "crouch_aim_rifle" {
+	"leet_anims\crouch_aim_rifle_blend01"
+	"leet_anims\crouch_aim_rifle_blend02"
+	"leet_anims\crouch_aim_rifle_blend03"
+	"leet_anims\crouch_aim_rifle_blend04"
+	"leet_anims\crouch_aim_rifle_blend05"
+	"leet_anims\crouch_aim_rifle_blend06"
+	"leet_anims\crouch_aim_rifle_blend07"
+	"leet_anims\crouch_aim_rifle_blend08"
+	"leet_anims\crouch_aim_rifle_blend09"
+	blend XR -90 90
+	fps 30
+	loop
+}
+$sequence "crouch_shoot_rifle" {
+	"leet_anims\crouch_shoot_rifle_blend01"
+	"leet_anims\crouch_shoot_rifle_blend02"
+	"leet_anims\crouch_shoot_rifle_blend03"
+	"leet_anims\crouch_shoot_rifle_blend04"
+	"leet_anims\crouch_shoot_rifle_blend05"
+	"leet_anims\crouch_shoot_rifle_blend06"
+	"leet_anims\crouch_shoot_rifle_blend07"
+	"leet_anims\crouch_shoot_rifle_blend08"
+	"leet_anims\crouch_shoot_rifle_blend09"
+	blend XR -90 90
+	{ event 5001 0 "30" }
+	fps 20
+}
+$sequence "crouch_reload_rifle" {
+	"leet_anims\crouch_reload_rifle"
+	fps 30
+}
+$sequence "ref_aim_rifle" {
+	"leet_anims\ref_aim_rifle_blend01"
+	"leet_anims\ref_aim_rifle_blend02"
+	"leet_anims\ref_aim_rifle_blend03"
+	"leet_anims\ref_aim_rifle_blend04"
+	"leet_anims\ref_aim_rifle_blend05"
+	"leet_anims\ref_aim_rifle_blend06"
+	"leet_anims\ref_aim_rifle_blend07"
+	"leet_anims\ref_aim_rifle_blend08"
+	"leet_anims\ref_aim_rifle_blend09"
+	blend XR -90 90
+	fps 30
+	loop
+}
+$sequence "ref_shoot_rifle" {
+	"leet_anims\ref_shoot_rifle_blend01"
+	"leet_anims\ref_shoot_rifle_blend02"
+	"leet_anims\ref_shoot_rifle_blend03"
+	"leet_anims\ref_shoot_rifle_blend04"
+	"leet_anims\ref_shoot_rifle_blend05"
+	"leet_anims\ref_shoot_rifle_blend06"
+	"leet_anims\ref_shoot_rifle_blend07"
+	"leet_anims\ref_shoot_rifle_blend08"
+	"leet_anims\ref_shoot_rifle_blend09"
+	blend XR -90 90
+	{ event 5001 0 "30" }
+	fps 20
+}
+$sequence "ref_reload_rifle" {
+	"leet_anims\ref_reload_rifle"
+	fps 30
+}
+$sequence "crouch_aim_mp5" {
+	"leet_anims\crouch_aim_mp5_blend01"
+	"leet_anims\crouch_aim_mp5_blend02"
+	"leet_anims\crouch_aim_mp5_blend03"
+	"leet_anims\crouch_aim_mp5_blend04"
+	"leet_anims\crouch_aim_mp5_blend05"
+	"leet_anims\crouch_aim_mp5_blend06"
+	"leet_anims\crouch_aim_mp5_blend07"
+	"leet_anims\crouch_aim_mp5_blend08"
+	"leet_anims\crouch_aim_mp5_blend09"
+	blend XR -90 90
+	fps 30
+	loop
+}
+$sequence "crouch_shoot_mp5" {
+	"leet_anims\crouch_shoot_mp5_blend01"
+	"leet_anims\crouch_shoot_mp5_blend02"
+	"leet_anims\crouch_shoot_mp5_blend03"
+	"leet_anims\crouch_shoot_mp5_blend04"
+	"leet_anims\crouch_shoot_mp5_blend05"
+	"leet_anims\crouch_shoot_mp5_blend06"
+	"leet_anims\crouch_shoot_mp5_blend07"
+	"leet_anims\crouch_shoot_mp5_blend08"
+	"leet_anims\crouch_shoot_mp5_blend09"
+	blend XR -90 90
+	{ event 5001 0 "30" }
+	fps 15
+}
+$sequence "crouch_reload_mp5" {
+	"leet_anims\crouch_reload_mp5"
+	fps 30
+}
+$sequence "ref_aim_mp5" {
+	"leet_anims\ref_aim_mp5_blend01"
+	"leet_anims\ref_aim_mp5_blend02"
+	"leet_anims\ref_aim_mp5_blend03"
+	"leet_anims\ref_aim_mp5_blend04"
+	"leet_anims\ref_aim_mp5_blend05"
+	"leet_anims\ref_aim_mp5_blend06"
+	"leet_anims\ref_aim_mp5_blend07"
+	"leet_anims\ref_aim_mp5_blend08"
+	"leet_anims\ref_aim_mp5_blend09"
+	blend XR -90 90
+	fps 30
+	loop
+}
+$sequence "ref_shoot_mp5" {
+	"leet_anims\ref_shoot_mp5_blend01"
+	"leet_anims\ref_shoot_mp5_blend02"
+	"leet_anims\ref_shoot_mp5_blend03"
+	"leet_anims\ref_shoot_mp5_blend04"
+	"leet_anims\ref_shoot_mp5_blend05"
+	"leet_anims\ref_shoot_mp5_blend06"
+	"leet_anims\ref_shoot_mp5_blend07"
+	"leet_anims\ref_shoot_mp5_blend08"
+	"leet_anims\ref_shoot_mp5_blend09"
+	blend XR -90 90
+	{ event 5001 0 "30" }
+	fps 15
+}
+$sequence "ref_reload_mp5" {
+	"leet_anims\ref_reload_mp5"
+	fps 30
+}
+$sequence "crouch_aim_shotgun" {
+	"leet_anims\crouch_aim_shotgun_blend01"
+	"leet_anims\crouch_aim_shotgun_blend02"
+	"leet_anims\crouch_aim_shotgun_blend03"
+	"leet_anims\crouch_aim_shotgun_blend04"
+	"leet_anims\crouch_aim_shotgun_blend05"
+	"leet_anims\crouch_aim_shotgun_blend06"
+	"leet_anims\crouch_aim_shotgun_blend07"
+	"leet_anims\crouch_aim_shotgun_blend08"
+	"leet_anims\crouch_aim_shotgun_blend09"
+	blend XR -90 90
+	fps 30
+	loop
+}
+$sequence "crouch_shoot_shotgun" {
+	"leet_anims\crouch_shoot_shotgun_blend01"
+	"leet_anims\crouch_shoot_shotgun_blend02"
+	"leet_anims\crouch_shoot_shotgun_blend03"
+	"leet_anims\crouch_shoot_shotgun_blend04"
+	"leet_anims\crouch_shoot_shotgun_blend05"
+	"leet_anims\crouch_shoot_shotgun_blend06"
+	"leet_anims\crouch_shoot_shotgun_blend07"
+	"leet_anims\crouch_shoot_shotgun_blend08"
+	"leet_anims\crouch_shoot_shotgun_blend09"
+	blend XR -90 90
+	{ event 5001 0 "50" }
+	fps 30
+}
+$sequence "crouch_reload_shotgun" {
+	"leet_anims\crouch_reload_shotgun"
+	fps 30
+}
+$sequence "ref_aim_shotgun" {
+	"leet_anims\ref_aim_shotgun_blend01"
+	"leet_anims\ref_aim_shotgun_blend02"
+	"leet_anims\ref_aim_shotgun_blend03"
+	"leet_anims\ref_aim_shotgun_blend04"
+	"leet_anims\ref_aim_shotgun_blend05"
+	"leet_anims\ref_aim_shotgun_blend06"
+	"leet_anims\ref_aim_shotgun_blend07"
+	"leet_anims\ref_aim_shotgun_blend08"
+	"leet_anims\ref_aim_shotgun_blend09"
+	blend XR -90 90
+	fps 30
+	loop
+}
+$sequence "ref_shoot_shotgun" {
+	"leet_anims\ref_shoot_shotgun_blend01"
+	"leet_anims\ref_shoot_shotgun_blend02"
+	"leet_anims\ref_shoot_shotgun_blend03"
+	"leet_anims\ref_shoot_shotgun_blend04"
+	"leet_anims\ref_shoot_shotgun_blend05"
+	"leet_anims\ref_shoot_shotgun_blend06"
+	"leet_anims\ref_shoot_shotgun_blend07"
+	"leet_anims\ref_shoot_shotgun_blend08"
+	"leet_anims\ref_shoot_shotgun_blend09"
+	blend XR -90 90
+	{ event 5001 0 "50" }
+	fps 30
+}
+$sequence "ref_reload_shotgun" {
+	"leet_anims\ref_reload_shotgun"
+	fps 30
+}
+$sequence "crouch_aim_m249" {
+	"leet_anims\crouch_aim_m249_blend01"
+	"leet_anims\crouch_aim_m249_blend02"
+	"leet_anims\crouch_aim_m249_blend03"
+	"leet_anims\crouch_aim_m249_blend04"
+	"leet_anims\crouch_aim_m249_blend05"
+	"leet_anims\crouch_aim_m249_blend06"
+	"leet_anims\crouch_aim_m249_blend07"
+	"leet_anims\crouch_aim_m249_blend08"
+	"leet_anims\crouch_aim_m249_blend09"
+	blend XR -90 90
+	fps 10
+	loop
+}
+$sequence "crouch_shoot_m249" {
+	"leet_anims\crouch_shoot_m249_blend01"
+	"leet_anims\crouch_shoot_m249_blend02"
+	"leet_anims\crouch_shoot_m249_blend03"
+	"leet_anims\crouch_shoot_m249_blend04"
+	"leet_anims\crouch_shoot_m249_blend05"
+	"leet_anims\crouch_shoot_m249_blend06"
+	"leet_anims\crouch_shoot_m249_blend07"
+	"leet_anims\crouch_shoot_m249_blend08"
+	"leet_anims\crouch_shoot_m249_blend09"
+	blend XR -90 90
+	{ event 5001 0 "50" }
+	fps 30
+	loop
+}
+$sequence "crouch_reload_m249" {
+	"leet_anims\crouch_reload_m249"
+	fps 30
+}
+$sequence "ref_aim_m249" {
+	"leet_anims\ref_aim_m249_blend01"
+	"leet_anims\ref_aim_m249_blend02"
+	"leet_anims\ref_aim_m249_blend03"
+	"leet_anims\ref_aim_m249_blend04"
+	"leet_anims\ref_aim_m249_blend05"
+	"leet_anims\ref_aim_m249_blend06"
+	"leet_anims\ref_aim_m249_blend07"
+	"leet_anims\ref_aim_m249_blend08"
+	"leet_anims\ref_aim_m249_blend09"
+	blend XR -90 90
+	fps 10
+	loop
+}
+$sequence "ref_shoot_m249" {
+	"leet_anims\ref_shoot_m249_blend01"
+	"leet_anims\ref_shoot_m249_blend02"
+	"leet_anims\ref_shoot_m249_blend03"
+	"leet_anims\ref_shoot_m249_blend04"
+	"leet_anims\ref_shoot_m249_blend05"
+	"leet_anims\ref_shoot_m249_blend06"
+	"leet_anims\ref_shoot_m249_blend07"
+	"leet_anims\ref_shoot_m249_blend08"
+	"leet_anims\ref_shoot_m249_blend09"
+	blend XR -90 90
+	{ event 5001 0 "50" }
+	fps 30
+	loop
+}
+$sequence "ref_reload_m249" {
+	"leet_anims\ref_reload_m249"
+	fps 30
+}
+$sequence "I_am_a_stupid_placeholder" {
+	"leet_anims\I_am_a_stupid_placeholder"
+	fps 30
+	loop
+}
+$sequence "so_am_I" {
+	"leet_anims\so_am_I"
+	fps 30
+}
+$sequence "ref_aim_grenade" {
+	"leet_anims\ref_aim_grenade_blend01"
+	"leet_anims\ref_aim_grenade_blend02"
+	"leet_anims\ref_aim_grenade_blend03"
+	"leet_anims\ref_aim_grenade_blend04"
+	"leet_anims\ref_aim_grenade_blend05"
+	"leet_anims\ref_aim_grenade_blend06"
+	"leet_anims\ref_aim_grenade_blend07"
+	"leet_anims\ref_aim_grenade_blend08"
+	"leet_anims\ref_aim_grenade_blend09"
+	blend XR -90 90
+	fps 20
+	loop
+}
+$sequence "ref_shoot_grenade" {
+	"leet_anims\ref_shoot_grenade_blend01"
+	"leet_anims\ref_shoot_grenade_blend02"
+	"leet_anims\ref_shoot_grenade_blend03"
+	"leet_anims\ref_shoot_grenade_blend04"
+	"leet_anims\ref_shoot_grenade_blend05"
+	"leet_anims\ref_shoot_grenade_blend06"
+	"leet_anims\ref_shoot_grenade_blend07"
+	"leet_anims\ref_shoot_grenade_blend08"
+	"leet_anims\ref_shoot_grenade_blend09"
+	blend XR -90 90
+	fps 45
+}
+$sequence "crouch_aim_grenade" {
+	"leet_anims\crouch_aim_grenade_blend01"
+	"leet_anims\crouch_aim_grenade_blend02"
+	"leet_anims\crouch_aim_grenade_blend03"
+	"leet_anims\crouch_aim_grenade_blend04"
+	"leet_anims\crouch_aim_grenade_blend05"
+	"leet_anims\crouch_aim_grenade_blend06"
+	"leet_anims\crouch_aim_grenade_blend07"
+	"leet_anims\crouch_aim_grenade_blend08"
+	"leet_anims\crouch_aim_grenade_blend09"
+	blend XR -90 90
+	fps 20
+	loop
+}
+$sequence "crouch_shoot_grenade" {
+	"leet_anims\crouch_shoot_grenade_blend01"
+	"leet_anims\crouch_shoot_grenade_blend02"
+	"leet_anims\crouch_shoot_grenade_blend03"
+	"leet_anims\crouch_shoot_grenade_blend04"
+	"leet_anims\crouch_shoot_grenade_blend05"
+	"leet_anims\crouch_shoot_grenade_blend06"
+	"leet_anims\crouch_shoot_grenade_blend07"
+	"leet_anims\crouch_shoot_grenade_blend08"
+	"leet_anims\crouch_shoot_grenade_blend09"
+	blend XR -90 90
+	fps 45
+}
+$sequence "crouch_aim_c4" {
+	"leet_anims\crouch_aim_c4_blend01"
+	"leet_anims\crouch_aim_c4_blend02"
+	"leet_anims\crouch_aim_c4_blend03"
+	"leet_anims\crouch_aim_c4_blend04"
+	"leet_anims\crouch_aim_c4_blend05"
+	"leet_anims\crouch_aim_c4_blend06"
+	"leet_anims\crouch_aim_c4_blend07"
+	"leet_anims\crouch_aim_c4_blend08"
+	"leet_anims\crouch_aim_c4_blend09"
+	blend XR -90 90
+	fps 30
+	loop
+}
+$sequence "crouch_shoot_c4" {
+	"leet_anims\crouch_shoot_c4"
+	fps 30
+}
+$sequence "ref_aim_c4" {
+	"leet_anims\ref_aim_c4_blend01"
+	"leet_anims\ref_aim_c4_blend02"
+	"leet_anims\ref_aim_c4_blend03"
+	"leet_anims\ref_aim_c4_blend04"
+	"leet_anims\ref_aim_c4_blend05"
+	"leet_anims\ref_aim_c4_blend06"
+	"leet_anims\ref_aim_c4_blend07"
+	"leet_anims\ref_aim_c4_blend08"
+	"leet_anims\ref_aim_c4_blend09"
+	blend XR -90 90
+	fps 30
+	loop
+}
+$sequence "ref_shoot_c4" {
+	"leet_anims\ref_shoot_c4"
+	fps 30
+}
+$sequence "ref_reload_c4" {
+	"leet_anims\ref_reload_c4"
+	fps 30
+}
+$sequence "crouch_aim_dualpistols" {
+	"leet_anims\crouch_aim_dualpistols_blend01_2"
+	"leet_anims\crouch_aim_dualpistols_blend02_2"
+	"leet_anims\crouch_aim_dualpistols_blend03_2"
+	"leet_anims\crouch_aim_dualpistols_blend04_2"
+	"leet_anims\crouch_aim_dualpistols_blend05_2"
+	"leet_anims\crouch_aim_dualpistols_blend06_2"
+	"leet_anims\crouch_aim_dualpistols_blend07_2"
+	"leet_anims\crouch_aim_dualpistols_blend08_2"
+	"leet_anims\crouch_aim_dualpistols_blend09_2"
+	blend XR -90 90
+	fps 10
+	loop
+}
+$sequence "crouch_shoot_dualpistols" {
+	"leet_anims\crouch_shoot_dualpistols_blend01_2"
+	"leet_anims\crouch_shoot_dualpistols_blend02_2"
+	"leet_anims\crouch_shoot_dualpistols_blend03_2"
+	"leet_anims\crouch_shoot_dualpistols_blend04_2"
+	"leet_anims\crouch_shoot_dualpistols_blend05_2"
+	"leet_anims\crouch_shoot_dualpistols_blend06_2"
+	"leet_anims\crouch_shoot_dualpistols_blend07_2"
+	"leet_anims\crouch_shoot_dualpistols_blend08_2"
+	"leet_anims\crouch_shoot_dualpistols_blend09_2"
+	blend XR -90 90
+	{ event 5011 0 "10" }
+	fps 30
+}
+$sequence "crouch_shoot2_dualpistols" {
+	"leet_anims\crouch_shoot2_dualpistols_blend01_2"
+	"leet_anims\crouch_shoot2_dualpistols_blend02_2"
+	"leet_anims\crouch_shoot2_dualpistols_blend03_2"
+	"leet_anims\crouch_shoot2_dualpistols_blend04_2"
+	"leet_anims\crouch_shoot2_dualpistols_blend05_2"
+	"leet_anims\crouch_shoot2_dualpistols_blend06_2"
+	"leet_anims\crouch_shoot2_dualpistols_blend07_2"
+	"leet_anims\crouch_shoot2_dualpistols_blend08_2"
+	"leet_anims\crouch_shoot2_dualpistols_blend09_2"
+	blend XR -90 90
+	{ event 5001 0 "10" }
+	fps 30
+}
+$sequence "crouch_reload_dualpistols" {
+	"leet_anims\crouch_reload_dualpistols_2"
+	fps 30
+}
+$sequence "ref_aim_dualpistols" {
+	"leet_anims\ref_aim_dualpistols_blend01_2"
+	"leet_anims\ref_aim_dualpistols_blend02_2"
+	"leet_anims\ref_aim_dualpistols_blend03_2"
+	"leet_anims\ref_aim_dualpistols_blend04_2"
+	"leet_anims\ref_aim_dualpistols_blend05_2"
+	"leet_anims\ref_aim_dualpistols_blend06_2"
+	"leet_anims\ref_aim_dualpistols_blend07_2"
+	"leet_anims\ref_aim_dualpistols_blend08_2"
+	"leet_anims\ref_aim_dualpistols_blend09_2"
+	blend XR -90 90
+	fps 10
+	loop
+}
+$sequence "ref_shoot_dualpistols" {
+	"leet_anims\ref_shoot_dualpistols_blend01_2"
+	"leet_anims\ref_shoot_dualpistols_blend02_2"
+	"leet_anims\ref_shoot_dualpistols_blend03_2"
+	"leet_anims\ref_shoot_dualpistols_blend04_2"
+	"leet_anims\ref_shoot_dualpistols_blend05_2"
+	"leet_anims\ref_shoot_dualpistols_blend06_2"
+	"leet_anims\ref_shoot_dualpistols_blend07_2"
+	"leet_anims\ref_shoot_dualpistols_blend08_2"
+	"leet_anims\ref_shoot_dualpistols_blend09_2"
+	blend XR -90 90
+	{ event 5011 0 "10" }
+	fps 30
+}
+$sequence "ref_shoot2_dualpistols" {
+	"leet_anims\ref_shoot2_dualpistols_blend01_2"
+	"leet_anims\ref_shoot2_dualpistols_blend02_2"
+	"leet_anims\ref_shoot2_dualpistols_blend03_2"
+	"leet_anims\ref_shoot2_dualpistols_blend04_2"
+	"leet_anims\ref_shoot2_dualpistols_blend05_2"
+	"leet_anims\ref_shoot2_dualpistols_blend06_2"
+	"leet_anims\ref_shoot2_dualpistols_blend07_2"
+	"leet_anims\ref_shoot2_dualpistols_blend08_2"
+	"leet_anims\ref_shoot2_dualpistols_blend09_2"
+	blend XR -90 90
+	{ event 5001 0 "10" }
+	fps 30
+}
+$sequence "ref_reload_dualpistols" {
+	"leet_anims\ref_reload_dualpistols_2"
+	fps 30
+}
+$sequence "crouch_aim_knife" {
+	"leet_anims\crouch_aim_knife_blend01"
+	"leet_anims\crouch_aim_knife_blend02"
+	"leet_anims\crouch_aim_knife_blend03"
+	"leet_anims\crouch_aim_knife_blend04"
+	"leet_anims\crouch_aim_knife_blend05"
+	"leet_anims\crouch_aim_knife_blend06"
+	"leet_anims\crouch_aim_knife_blend07"
+	"leet_anims\crouch_aim_knife_blend08"
+	"leet_anims\crouch_aim_knife_blend09"
+	blend XR -90 90
+	fps 12
+	loop
+}
+$sequence "crouch_shoot_knife" {
+	"leet_anims\crouch_shoot_knife_blend01"
+	"leet_anims\crouch_shoot_knife_blend02"
+	"leet_anims\crouch_shoot_knife_blend03"
+	"leet_anims\crouch_shoot_knife_blend04"
+	"leet_anims\crouch_shoot_knife_blend05"
+	"leet_anims\crouch_shoot_knife_blend06"
+	"leet_anims\crouch_shoot_knife_blend07"
+	"leet_anims\crouch_shoot_knife_blend08"
+	"leet_anims\crouch_shoot_knife_blend09"
+	blend XR -90 90
+	fps 30
+}
+$sequence "ref_aim_knife" {
+	"leet_anims\ref_aim_knife_blend01"
+	"leet_anims\ref_aim_knife_blend02"
+	"leet_anims\ref_aim_knife_blend03"
+	"leet_anims\ref_aim_knife_blend04"
+	"leet_anims\ref_aim_knife_blend05"
+	"leet_anims\ref_aim_knife_blend06"
+	"leet_anims\ref_aim_knife_blend07"
+	"leet_anims\ref_aim_knife_blend08"
+	"leet_anims\ref_aim_knife_blend09"
+	blend XR -90 90
+	fps 12
+	loop
+}
+$sequence "ref_shoot_knife" {
+	"leet_anims\ref_shoot_knife_blend01"
+	"leet_anims\ref_shoot_knife_blend02"
+	"leet_anims\ref_shoot_knife_blend03"
+	"leet_anims\ref_shoot_knife_blend04"
+	"leet_anims\ref_shoot_knife_blend05"
+	"leet_anims\ref_shoot_knife_blend06"
+	"leet_anims\ref_shoot_knife_blend07"
+	"leet_anims\ref_shoot_knife_blend08"
+	"leet_anims\ref_shoot_knife_blend09"
+	blend XR -90 90
+	fps 30
+	loop
+}
+$sequence "crouch_aim_ak47" {
+	"leet_anims\crouch_aim_ak47_blend01"
+	"leet_anims\crouch_aim_ak47_blend02"
+	"leet_anims\crouch_aim_ak47_blend03"
+	"leet_anims\crouch_aim_ak47_blend04"
+	"leet_anims\crouch_aim_ak47_blend05"
+	"leet_anims\crouch_aim_ak47_blend06"
+	"leet_anims\crouch_aim_ak47_blend07"
+	"leet_anims\crouch_aim_ak47_blend08"
+	"leet_anims\crouch_aim_ak47_blend09"
+	blend XR -90 90
+	fps 30
+	loop
+}
+$sequence "crouch_shoot_ak47" {
+	"leet_anims\crouch_shoot_ak47_blend01"
+	"leet_anims\crouch_shoot_ak47_blend02"
+	"leet_anims\crouch_shoot_ak47_blend03"
+	"leet_anims\crouch_shoot_ak47_blend04"
+	"leet_anims\crouch_shoot_ak47_blend05"
+	"leet_anims\crouch_shoot_ak47_blend06"
+	"leet_anims\crouch_shoot_ak47_blend07"
+	"leet_anims\crouch_shoot_ak47_blend08"
+	"leet_anims\crouch_shoot_ak47_blend09"
+	blend XR -90 90
+	{ event 5001 0 "40" }
+	fps 30
+}
+$sequence "crouch_reload_ak47" {
+	"leet_anims\crouch_reload_ak47"
+	fps 30
+}
+$sequence "ref_aim_ak47" {
+	"leet_anims\ref_aim_ak47_blend01"
+	"leet_anims\ref_aim_ak47_blend02"
+	"leet_anims\ref_aim_ak47_blend03"
+	"leet_anims\ref_aim_ak47_blend04"
+	"leet_anims\ref_aim_ak47_blend05"
+	"leet_anims\ref_aim_ak47_blend06"
+	"leet_anims\ref_aim_ak47_blend07"
+	"leet_anims\ref_aim_ak47_blend08"
+	"leet_anims\ref_aim_ak47_blend09"
+	blend XR -90 90
+	fps 30
+	loop
+}
+$sequence "ref_shoot_ak47" {
+	"leet_anims\ref_shoot_ak47_blend01"
+	"leet_anims\ref_shoot_ak47_blend02"
+	"leet_anims\ref_shoot_ak47_blend03"
+	"leet_anims\ref_shoot_ak47_blend04"
+	"leet_anims\ref_shoot_ak47_blend05"
+	"leet_anims\ref_shoot_ak47_blend06"
+	"leet_anims\ref_shoot_ak47_blend07"
+	"leet_anims\ref_shoot_ak47_blend08"
+	"leet_anims\ref_shoot_ak47_blend09"
+	blend XR -90 90
+	{ event 5001 0 "40" }
+	fps 30
+}
+$sequence "ref_reload_ak47" {
+	"leet_anims\ref_reload_ak47"
+	fps 30
+}
+$sequence "crouch_aim_shieldgren" {
+	"leet_anims\crouch_aim_shieldgren_blend01"
+	"leet_anims\crouch_aim_shieldgren_blend02"
+	"leet_anims\crouch_aim_shieldgren_blend03"
+	"leet_anims\crouch_aim_shieldgren_blend04"
+	"leet_anims\crouch_aim_shieldgren_blend05"
+	"leet_anims\crouch_aim_shieldgren_blend06"
+	"leet_anims\crouch_aim_shieldgren_blend07"
+	"leet_anims\crouch_aim_shieldgren_blend08"
+	"leet_anims\crouch_aim_shieldgren_blend09"
+	blend XR -90 90
+	fps 20
+	loop
+}
+$sequence "crouch_shoot_shieldgren" {
+	"leet_anims\crouch_shoot_shieldgren_blend01"
+	"leet_anims\crouch_shoot_shieldgren_blend02"
+	"leet_anims\crouch_shoot_shieldgren_blend03"
+	"leet_anims\crouch_shoot_shieldgren_blend04"
+	"leet_anims\crouch_shoot_shieldgren_blend05"
+	"leet_anims\crouch_shoot_shieldgren_blend06"
+	"leet_anims\crouch_shoot_shieldgren_blend07"
+	"leet_anims\crouch_shoot_shieldgren_blend08"
+	"leet_anims\crouch_shoot_shieldgren_blend09"
+	blend XR -90 90
+	fps 45
+}
+$sequence "ref_aim_shieldgren" {
+	"leet_anims\ref_aim_shieldgren_blend01"
+	"leet_anims\ref_aim_shieldgren_blend02"
+	"leet_anims\ref_aim_shieldgren_blend03"
+	"leet_anims\ref_aim_shieldgren_blend04"
+	"leet_anims\ref_aim_shieldgren_blend05"
+	"leet_anims\ref_aim_shieldgren_blend06"
+	"leet_anims\ref_aim_shieldgren_blend07"
+	"leet_anims\ref_aim_shieldgren_blend08"
+	"leet_anims\ref_aim_shieldgren_blend09"
+	blend XR -90 90
+	fps 20
+	loop
+}
+$sequence "ref_shoot_shieldgren" {
+	"leet_anims\ref_shoot_shieldgren_blend01"
+	"leet_anims\ref_shoot_shieldgren_blend02"
+	"leet_anims\ref_shoot_shieldgren_blend03"
+	"leet_anims\ref_shoot_shieldgren_blend04"
+	"leet_anims\ref_shoot_shieldgren_blend05"
+	"leet_anims\ref_shoot_shieldgren_blend06"
+	"leet_anims\ref_shoot_shieldgren_blend07"
+	"leet_anims\ref_shoot_shieldgren_blend08"
+	"leet_anims\ref_shoot_shieldgren_blend09"
+	blend XR -90 90
+	fps 45
+}
+$sequence "crouch_aim_shieldknife" {
+	"leet_anims\crouch_aim_shieldknife_blend01"
+	"leet_anims\crouch_aim_shieldknife_blend02"
+	"leet_anims\crouch_aim_shieldknife_blend03"
+	"leet_anims\crouch_aim_shieldknife_blend04"
+	"leet_anims\crouch_aim_shieldknife_blend05"
+	"leet_anims\crouch_aim_shieldknife_blend06"
+	"leet_anims\crouch_aim_shieldknife_blend07"
+	"leet_anims\crouch_aim_shieldknife_blend08"
+	"leet_anims\crouch_aim_shieldknife_blend09"
+	blend XR -90 90
+	fps 12
+	loop
+}
+$sequence "crouch_shoot_shieldknife" {
+	"leet_anims\crouch_shoot_shieldknife_blend01"
+	"leet_anims\crouch_shoot_shieldknife_blend02"
+	"leet_anims\crouch_shoot_shieldknife_blend03"
+	"leet_anims\crouch_shoot_shieldknife_blend04"
+	"leet_anims\crouch_shoot_shieldknife_blend05"
+	"leet_anims\crouch_shoot_shieldknife_blend06"
+	"leet_anims\crouch_shoot_shieldknife_blend07"
+	"leet_anims\crouch_shoot_shieldknife_blend08"
+	"leet_anims\crouch_shoot_shieldknife_blend09"
+	blend XR -90 90
+	fps 30
+}
+$sequence "ref_aim_shieldknife" {
+	"leet_anims\ref_aim_shieldknife_blend01"
+	"leet_anims\ref_aim_shieldknife_blend02"
+	"leet_anims\ref_aim_shieldknife_blend03"
+	"leet_anims\ref_aim_shieldknife_blend04"
+	"leet_anims\ref_aim_shieldknife_blend05"
+	"leet_anims\ref_aim_shieldknife_blend06"
+	"leet_anims\ref_aim_shieldknife_blend07"
+	"leet_anims\ref_aim_shieldknife_blend08"
+	"leet_anims\ref_aim_shieldknife_blend09"
+	blend XR -90 90
+	fps 12
+	loop
+}
+$sequence "ref_shoot_shieldknife" {
+	"leet_anims\ref_shoot_shieldknife_blend01"
+	"leet_anims\ref_shoot_shieldknife_blend02"
+	"leet_anims\ref_shoot_shieldknife_blend03"
+	"leet_anims\ref_shoot_shieldknife_blend04"
+	"leet_anims\ref_shoot_shieldknife_blend05"
+	"leet_anims\ref_shoot_shieldknife_blend06"
+	"leet_anims\ref_shoot_shieldknife_blend07"
+	"leet_anims\ref_shoot_shieldknife_blend08"
+	"leet_anims\ref_shoot_shieldknife_blend09"
+	blend XR -90 90
+	fps 30
+	loop
+}
+$sequence "crouch_aim_shieldgun" {
+	"leet_anims\crouch_aim_shieldgun_blend01"
+	"leet_anims\crouch_aim_shieldgun_blend02"
+	"leet_anims\crouch_aim_shieldgun_blend03"
+	"leet_anims\crouch_aim_shieldgun_blend04"
+	"leet_anims\crouch_aim_shieldgun_blend05"
+	"leet_anims\crouch_aim_shieldgun_blend06"
+	"leet_anims\crouch_aim_shieldgun_blend07"
+	"leet_anims\crouch_aim_shieldgun_blend08"
+	"leet_anims\crouch_aim_shieldgun_blend09"
+	blend XR -90 90
+	fps 30
+	loop
+}
+$sequence "crouch_shoot_shieldgun" {
+	"leet_anims\crouch_shoot_shieldgun_blend01"
+	"leet_anims\crouch_shoot_shieldgun_blend02"
+	"leet_anims\crouch_shoot_shieldgun_blend03"
+	"leet_anims\crouch_shoot_shieldgun_blend04"
+	"leet_anims\crouch_shoot_shieldgun_blend05"
+	"leet_anims\crouch_shoot_shieldgun_blend06"
+	"leet_anims\crouch_shoot_shieldgun_blend07"
+	"leet_anims\crouch_shoot_shieldgun_blend08"
+	"leet_anims\crouch_shoot_shieldgun_blend09"
+	blend XR -90 90
+	{ event 5001 0 "10" }
+	fps 30
+}
+$sequence "crouch_reload_shieldgun" {
+	"leet_anims\crouch_reload_shieldgun"
+	fps 30
+}
+$sequence "ref_aim_shieldgun" {
+	"leet_anims\ref_aim_shieldgun_blend01"
+	"leet_anims\ref_aim_shieldgun_blend02"
+	"leet_anims\ref_aim_shieldgun_blend03"
+	"leet_anims\ref_aim_shieldgun_blend04"
+	"leet_anims\ref_aim_shieldgun_blend05"
+	"leet_anims\ref_aim_shieldgun_blend06"
+	"leet_anims\ref_aim_shieldgun_blend07"
+	"leet_anims\ref_aim_shieldgun_blend08"
+	"leet_anims\ref_aim_shieldgun_blend09"
+	blend XR -90 90
+	fps 30
+	loop
+}
+$sequence "ref_shoot_shieldgun" {
+	"leet_anims\ref_shoot_shieldgun_blend01"
+	"leet_anims\ref_shoot_shieldgun_blend02"
+	"leet_anims\ref_shoot_shieldgun_blend03"
+	"leet_anims\ref_shoot_shieldgun_blend04"
+	"leet_anims\ref_shoot_shieldgun_blend05"
+	"leet_anims\ref_shoot_shieldgun_blend06"
+	"leet_anims\ref_shoot_shieldgun_blend07"
+	"leet_anims\ref_shoot_shieldgun_blend08"
+	"leet_anims\ref_shoot_shieldgun_blend09"
+	blend XR -90 90
+	{ event 5001 0 "10" }
+	fps 30
+}
+$sequence "ref_reload_shieldgun" {
+	"leet_anims\ref_reload_shieldgun"
+	fps 30
+}
+$sequence "crouch_aim_shielded" {
+	"leet_anims\crouch_aim_shielded_blend01"
+	"leet_anims\crouch_aim_shielded_blend02"
+	"leet_anims\crouch_aim_shielded_blend03"
+	"leet_anims\crouch_aim_shielded_blend04"
+	"leet_anims\crouch_aim_shielded_blend05"
+	"leet_anims\crouch_aim_shielded_blend06"
+	"leet_anims\crouch_aim_shielded_blend07"
+	"leet_anims\crouch_aim_shielded_blend08"
+	"leet_anims\crouch_aim_shielded_blend09"
+	blend XR -90 90
+	fps 20
+	loop
+}
+$sequence "ref_aim_shielded" {
+	"leet_anims\ref_aim_shielded_blend01"
+	"leet_anims\ref_aim_shielded_blend02"
+	"leet_anims\ref_aim_shielded_blend03"
+	"leet_anims\ref_aim_shielded_blend04"
+	"leet_anims\ref_aim_shielded_blend05"
+	"leet_anims\ref_aim_shielded_blend06"
+	"leet_anims\ref_aim_shielded_blend07"
+	"leet_anims\ref_aim_shielded_blend08"
+	"leet_anims\ref_aim_shielded_blend09"
+	blend XR -90 90
+	fps 20
+	loop
+}
+$sequence "gut_flinch" {
+	"leet_anims\gut_flinch_blend01"
+	"leet_anims\gut_flinch_blend02"
+	"leet_anims\gut_flinch_blend03"
+	"leet_anims\gut_flinch_blend04"
+	"leet_anims\gut_flinch_blend05"
+	"leet_anims\gut_flinch_blend06"
+	"leet_anims\gut_flinch_blend07"
+	"leet_anims\gut_flinch_blend08"
+	"leet_anims\gut_flinch_blend09"
+	blend XR -90 90
+	fps 30
+}
+$sequence "head_flinch" {
+	"leet_anims\head_flinch_blend01"
+	"leet_anims\head_flinch_blend02"
+	"leet_anims\head_flinch_blend03"
+	"leet_anims\head_flinch_blend04"
+	"leet_anims\head_flinch_blend05"
+	"leet_anims\head_flinch_blend06"
+	"leet_anims\head_flinch_blend07"
+	"leet_anims\head_flinch_blend08"
+	"leet_anims\head_flinch_blend09"
+	blend XR -90 90
+	fps 30
+}
+$sequence "death1" {
+	"leet_anims\death1"
+	ACT_DIE_CHESTSHOT 1
+	{ event 2001 1 }
+	fps 30
+}
+$sequence "death2" {
+	"leet_anims\death2"
+	ACT_DIESIMPLE 2
+	{ event 2001 1 }
+	fps 30
+}
+$sequence "death3" {
+	"leet_anims\death3"
+	ACT_DIE_BACKSHOT 1
+	{ event 2001 1 }
+	fps 30
+}
+$sequence "head" {
+	"leet_anims\head"
+	ACT_DIE_HEADSHOT 1
+	{ event 2001 1 }
+	fps 30
+}
+$sequence "gutshot" {
+	"leet_anims\gutshot"
+	ACT_DIE_GUTSHOT 1
+	{ event 2001 1 }
+	fps 30
+}
+$sequence "left" {
+	"leet_anims\left"
+	ACT_DIESIMPLE 1
+	{ event 2001 1 }
+	fps 30
+}
+$sequence "back" {
+	"leet_anims\back"
+	ACT_DIEBACKWARD 1
+	{ event 2001 1 }
+	fps 30
+}
+$sequence "right" {
+	"leet_anims\right"
+	ACT_DIESIMPLE 1
+	{ event 2001 1 }
+	fps 30
+}
+$sequence "forward" {
+	"leet_anims\forward"
+	ACT_DIEFORWARD 1
+	{ event 2001 1 }
+	fps 30
+}
+$sequence "crouch_die" {
+	"leet_anims\crouch_die"
+	{ event 2001 1 }
+	fps 30
+}
+
+</pre>
+		</TD>
+	</TR>
+</TABLE>
+</div>
+<hr>
+<h1 id="AS">Sven-Coop Compiler New Commands</h1>
+<p>The Sven-Coop compiler can be downloaded here:<a href="https://www.the303.org/backups/sven_studiomdl_2019.rar">Sven Studiomdl.exe</a> (this can also be found in the Sven SDK through steam in "tools" tab)<br>
+<p>New command line argument added  <b class ="yellow">-k</b>: keep all unused bones which is same function as $keepallbones.
+<hr>
+<p><b class="green">$keepallbones </b><br>
+<p>Keeps the compiler from stripping all bones in the SMD that are not vertex weighted.  It's important to note that in order to keep bones, at least one of your reference SMD files need to have the entire skeleton, it won't detect the bones just by being on the animation files.
+<hr>
+<p><b class="green">$keepbone &lt;bonename&gt;</b><br>
+<b class="green">$protected &lt;bonename&gt;</b><br>
+<p>Keeps the compiler from stripping a specific bone in the SMD that is not vertex weighted.  Two commandnames but same function.
+<hr>
+
+<p><b>Additional info and features of this compiler:</b>
+<ul>
+<li>Bones with attachments are always preserved.</li>
+<li>Brand new help screen.</li>
+<li>UV's dont shift on compile compared to older studiomdl versions</li>
+<li>Removed UV clamping. UVs can now be outside the 1st UV space and allows for tiling and mirroring</li>
+<li>support for additional $texrendermodes: masked, additive, flatshade, fullbright, chrome<br>
+(note: fullbright will only work on mods that support it)</li>
+</ul>
+<P><b>Sven-Coop only features:</B>
+<ul>
+<li>Support for up to 1024X BMP dimensions</li>
+<li>Resolution of chrome textures is no longer locked to 64 x 64 px</li>
+</ul>
+<hr>
+<h1><a href="index.html">Return</a>
+</div>

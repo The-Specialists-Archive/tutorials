@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<!-- Mirrored from www.the303.org/tutorials/tutorial05.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Nov 2024 06:12:06 GMT -->
+<head> 
+<title>SOURCE SPRAYLOGO TUTORIAL</title>
+<link rel="stylesheet" href="303style.css">
+<meta name="author" content="303">
+<meta name="description" content="How to make spraylogos for Valve source games">
+<meta name="keywords" content="spraylogo, sprays, vtf, vmt, transparent, animated, fading mipmaps">
+</HEAD>
+<BODY>
+<div id="middle">
+<h1>Tutorial 5: Pixelated Sprite Sprays</h1>
+<p>Ever wanted to make spraylogos of old sprites while still looking pixelated?  There are 2 ways you can achieve this.  One involves just resizing a sprite to your typical spraylogo size, and the second way is using very low resolutions with uncompressed formats and "point sampling".  The second method allows for more frames while maintaining a pixelated look.</p>
+<hr>
+<img src="tutorial5images/mario01.png" alt="resizing">
+<p>We started with an image on a 32X32 pixel canvas.</p>
+<img src="tutorial5images/mario02.png" alt="resizing">
+<p>Scaled it up to 256X256 using "Nearest Neighbor"</p>
+<img src="tutorial5images/mario03.png" alt="resizing">
+<p>Our resized result.  It is then processed &amp; saved like any other spray we have done previously using the same methods.</p>
+<img src="tutorial5images/mario04.jpg" alt="resizing">
+<p>What the spray looks like in game.</p>
+<hr>
+<p>Now for the second method we would save it at its original size of 32X32 pixels since that is a valid power of 2 size, but there arises a problem:</p>
+<img src="tutorial5images/mario05.jpg" alt="resizing">
+<p>What is happening here is that its being filtered, and DXT5 compression is also making things worse.  So what do we do?  We use an uncompressed format and we use the "Point Sample" VTF flag.</p>
+<img src="tutorial5images/compression.png" alt="compression">
+<p>Here is an example of 2 VTF files made from the same tga and magnified to 800%.  See how DXT5 compression can mess up small sized images?  On the left I used an uncompressed format.</p>
+<img src="tutorial5images/mario06.jpg" alt="compression">
+<p>As you can see here this is a 32X32 pixel spray made with BGRA8888 format and the "point sample" flag.  Because point sampling is a very low quality filtering method, it defeats the purpose of using mipmaps and the need for <a href="tutorial02.html#bleed">"edge bleed" as discussed in tutorial 2.</a></p>
+<p>I have created a chart on the amount of frames you can get using this method.  BGRA8888 is uncompressed with alpha, BGR888 is the same without alpha, and BGRA4444 is a format with a lower colour depth (this makes for a lower filesize so it can allow even more animation frames, <a href="tutorial5images/mario07.jpg">but this format can look slightly translucent when sprayed</a>).</p>
+<img src="tutorial5images/spritechart.png" alt="resizing" >
+<hr>
+<p>Making a VTF with these formats and the "point sample" flag is demonstrated here:</p>
+<img src="tutorial5images/vtfcreation.png" alt="resizing" >
+<p>Importing animation frames into VTFEdit is the same as I discussed in <a href="tutorial03.html#importlist">Spraylogo Tutorial 3</a></p>
+<p>This concludes my spraylogo tutorial.
+<h2>Proceed to:<br><a href="spraygallery.html">Gallery</a></h2>
+</div>
+</BODY>

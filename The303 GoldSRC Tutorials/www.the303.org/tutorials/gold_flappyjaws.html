@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<!-- Mirrored from www.the303.org/tutorials/gold_flappyjaws.htm by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Nov 2024 06:06:59 GMT -->
+<head>
+<title>GoldSrc Mouth Procedural Animation Tutorial</title>
+<link rel="stylesheet" href="303style.css">
+<meta name="author" content="303">
+<meta name="description" content="How to create talking playermodels">
+<meta name="keywords" content="goldsrc, hl1, half-life, counter-strike, sven co-op">
+</HEAD>
+<BODY>
+<div id="middle">
+<h1>GoldSrc Mouth Procedural Animation Tutorial</h1>
+<hr>
+<h2>INTRODUCTION</h2>
+<p>GoldSrc uses a bone controller to turn audio waveforms into bone rotations.  This is how all the scientists and barneys "talk".  The louder the audio the more the jaw bone rotates (within specified limits).  This works for NPC's and Playermodels such as Counter-Strike 1.6 & Sven Co-op 5.0.  <b class="red"> NOTE: in this current form this tutorial only covers the controller code/testing and not skinning procedure; this assumes you know 3D skinning.</b>
+<hr>
+<h2>METHOD</h2>
+<p>1) Create a bone on your reference model parented to the head bone and then skin the jaw mesh to it. Call the bone "mouth".
+<p><img src="goldmouthimages/tutmouth01.jpg">
+<p>2) Add to your model QC the mouth controller and put it with the other model animation controllers in your QC code.  The most common type is "ZR" which is Z bone rotation.  My qc controller line looks like this:
+<p><img src="goldmouthimages/tutmouthqc.png">
+<p><b>$controller mouth "mouth" ZR 0 50</b>
+<p>You can also use "XR" & "YR" if you want different axis.  <b>Note that the controlled bone moves in the orientation of the parent bone and not the mouth bone</b>.  Because of this, if you need a direction that isnt working you can add a bone before the mouth and use that as your alignment.
+<p>3)Compile the model and test in HLMV by fiddling with the controller on the body parts tab. As you can see, my QC value range was too high as his jaw clips into his chest so I should dial it back from 50.
+<p><img src="goldmouthimages/tutmouth02.gif">
+<p>4)To test locally alone, select your playermodel, start a map and do this in console:<br>
+<b>thirdperson<br>
+cam_idealdist 128<br>
+cam_idealyaw 180<br>
+cam_idealpitch -30<br>
+move your mouse into position<br>
+voice_loopback 1<br>
+then push-to-talk and scream into your mic<br></b>
+<p><img src="goldmouthimages/tutmouth03.gif">
+<hr>
+<p>You are also not limited to rotational direction, as you can use a linear direction by just using X, Y, or Z.  here is a demonstration of using X controller:
+<p><b>$controller mouth "mouth" X 0 10</b>
+<p>(again, if you cannot get the direction you desire use an inbetween different orientation parent alignment bone  before mouth)
+<p><img src="goldmouthimages/tutmouth04.gif">
+<p><img src="goldmouthimages/tutmouth05.gif">
+
+<p>This concludes the tutorial.
+<hr>
+<h1><a href="index.html">Return to Tutorials</a></h1>
+</div>
+</BODY> 

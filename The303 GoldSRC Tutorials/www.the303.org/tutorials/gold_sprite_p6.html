@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<!-- Mirrored from www.the303.org/tutorials/gold_sprite_p6.htm by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Nov 2024 06:11:21 GMT -->
+<head>
+<title>GoldSrc Sprite Tutorial</title>
+<link rel="stylesheet" href="303style.css">
+<meta name="author" content="303">
+<meta name="description" content="How create sprites for goldsrc games">
+<meta name="keywords" content="goldsrc, hl1, half-life, counter-strike">
+</HEAD>
+<BODY>
+<div id="middle">
+<h1>GoldSrc Sprite Tutorial</h1>
+<hr>
+<h2>PART6: BEAM Sprites</h2>
+<p>Beam sprites are generally rectangular sprites that can only be made in additive mode.  A beam is used either from a simple "env_laser" or the full-featured "env_beam" entity. Beams render between two points and can be a straight line or in ring mode which curves the beam as a circle*.  They also have several main effects known as "scroll", "beam width" and "noise".  Scroll loops the sprite image vertically from bottom to top.  Beam width is basically the with of the beam, and noise causes the beam to shake between the points for a lightning effect. One issue with noise is that the effect can look bad on wider beams due to additive overlaps on the points where the beam changes direction.
+<p>*Ring mode is only for env_beam has a far more complicated setup used with func_trains riding on path_corners as targets.
+<p>1) Begin by creating a new document with a black fill (in additive, black is transparent and anything else appears as light).  Ive created a wavy sine wave.<b>Now it is strongly recommended that you test your image vertical loop (used by the scroll effect) by using the offset filter using vertical offset and fixing any discrepancies.  An example of using offset can be found <a href="goldsprimages/sp_beax1.gif">here with another beam sprite</a></b>.  Scale the image to a GoldSrc friendly image size which is a divisible by 16 number.  In this case I used 64X128.
+<p><img src="goldsprimages/sp_bea01.png">
+<p><p>2) When finished convert the image to indexed color just like in <a href="gold_sprite_p1.html">Step1</a>, or if you don't wish to do dithering or controlled palettes just save it as BMP24 and let HL-Texture tools do the conversion.</a>
+<p>2a)Then open up half-life texture tools and go to Tools>Create new sprite... then click "add new images". Add your newly created BMP.
+<p>2b)Go to the number 2 "Settings" tab and select "Additive" as your texture format.  For sprite format leave as default "parallel".  Click tab 3 and save the sprite in your sprite directory just as before in <a href="gold_sprite_p1.html#step4">Part1, Step4</a>
+<p><img src="goldsprimages/sp_bea02.png">
+<p>5) Open up hammer or J.A.C.K and create an env_laser.  Click the "..." box next to the "Sprite Name" path to bring up the search path.  Select your sprite.  For "laser target" you can choose a named info_target. I went with"lasertarget" on the right spike.  Keep in mind that moving entities such as func_train can be targeted too.
+<p><b class="yellow">An important thing to do first is set your "beam color" to [255 255 255] as a starting point, as leaving this field blank or at [0 0 0] will result in a totally invisible beam.  Since I'm using an already coloured beam i'm leaving it at [255 255 255].</b>
+<p>Set your beam width, brightness (i'm using 255 for brightest), and scroll rate (note: you cannot use negative scroll rate values or it glitches out.  Also scroll goes from end to beginning direction).  Here I'm making a simple scrolling wavy effect using a scroll rate of 10.  My set flags for this env_laser are "start on", "spark start", "spark end".  Lastly set "0" for life to set for the beam to stay on.
+<p><img src="goldsprimages/sp_bea03.jpg">
+<p>6)Compile the map and observe.  As seen here the additive effect is better when used in a darkened area.  Even though this is a still image, the scroll effect gives a nice movement look.
+<p><img src="goldsprimages/sp_beax3.gif">
+<hr>
+<p>I will also show three other effects.  Here I will be creating a smoke effect that scrolls and fades out.  Create 2 info_targets and then create an env_beam.  For starting entity and ending entity choose the 2 info_targets and then use the same settings as the env_laser, only this time go to flags tab and set "Shade End".
+<p>A quick rundown of the entity setup is as follows:</p>
+<b>env_beam:</b>Starting entity:targbeam1,Ending entity:targbeam2, Texture scroll rate:8, Brightness 100, Noise:2,<br>
+Beam color 255 255 255,Life:0, flags:"start on", "shade start"<br>
+<b>info_target (higher position):</b>Name targbeam1<br>
+<b>info_target (lower position):</b>Name targbeam2<br>
+<p><img src="goldsprimages/sp_bea04.jpg">
+<p><img src="goldsprimages/sp_beax4.gif">
+<hr>
+<p>Next, I will create a func_train that is targeted by two env_beams and info_targets.  This will demonstrate the moving beam.  Here I have 2 env_beams targeting a func_train and 2 info_targets.  The func_train rides on a ring of path_corners and is autostarted in motion on map load by a trigger_auto entity.
+<p>A rundown of the entities</p>
+<b>env_beam:</b>Name:topbeam, Starting entity:topplate,Ending entity:object,<br>
+Beam color:0 255 0, life: 0, flags:"start on","shade start"<br>
+<b>env_beam:</b>Name:bottombeam, Starting entity:bottomplate,Ending entity:object Beam color:255 0 0, Noise: 30, life: 0, flags:"start on", "shade start"<br>
+<b>func_train:</b>Name:object, First stop target:g1<br>
+<b>path_corner(s):</b>Name(s):g1~g8, Next stop target: *next in sequence until g8 targets g1 to loop it all*.<br>
+<b>trigger_auto:</b>Target:object<br>
+<p><img src="goldsprimages/sp_bea05.jpg">
+<p><img src="goldsprimages/sp_beax5.gif">
+<hr>
+<p>9)Lastly a demonstration of "Ring" mode for env_beam.</p>
+<b>env_beam:</b>Name:ring, Starting entity:train1,Ending entity:train2,Beam color:0 230 255, flags:"start on","ring"<br>
+<b>func_train:</b>Name:train1, First stop target:train1start, flags: "not solid" (also brush uses "origin" texture to be invisible)<br>
+<b>func_train:</b>Name:train2, First stop target:train2start, flags: "not solid" (also brush uses "origin" texture to be invisible)<br>
+<b>path_corner:</b>Name: train1start, Next stop target: train1end<br>
+<b>path_corner:</b>Name: train2start, Next stop target: train2end<br>
+<b>path_corner:</b>Name: train1end, Next stop target: train1start, Wait here: 2<br>
+<b>path_corner:</b>Name: train2end, Next stop target: train2start, Wait here: 2<br>
+<b>func_button:</b>Name: ringmove, target ringmanage, delay before reset 5, flags:"dont move"<br>
+<b>multi_manager:</b>Name: ringmanage<br>
+Key: train1, Value:1<br>
+Key: train2, Value:1<br>
+(note that multi_manager has to be edited not in smart edit mode to add key/values.)
+<p><img src="goldsprimages/sp_bea06.jpg">
+<p><img src="goldsprimages/sp_beax6.gif">
+<p>If you want a wavy or even some sort of details in your sprite ring or beam instead of a repeating beam like you see, you would have to make the image much taller, say a 1:8 or 1:16 ratio image.
+<p>Lastly for other examples of beam and sprites, you can find an example map in steam's Half-Life SDK called "env_beam.map" (C:\Program Files (x86)\Steam\steamapps\common\Half-Life SDK\Map Files).
+<p>Another good use of sprites is this tutorial on TWHL called "<a href="http://twhl.info/tutorial.php?id=163">Beam and Sprites</a>. Sven Co-Op manor also has a good section on <a href="https://sites.google.com/site/svenmanor/tutorials/special-effects">sprite and beam effects here.</a>
+<p>This concludes the tutorial.
+<hr>
+<h1><a href="gold_sprite.html">Part0: Introduction</a></h1>
+<h1><a href="gold_sprite_p1.html">Part1: Normal Sprites and Basic Use</a></h1>
+<h1><a href="gold_sprite_p2.html">Part2: Additive Transparent Sprites</a></h1>
+<h1><a href="gold_sprite_p3.html">Part3: Index Alpha Sprites</a></h1>
+<h1><a href="gold_sprite_p4.html">Part4: Creating Masked Transparent Sprites</a></h1>
+<h1><a href="gold_sprite_p5.html">Part5: Creating Animated Sprites</a></h1>
+<hr>
+<h1><a href="index.html">Return to Tutorials</a></h1>
+</div>
+</BODY> 

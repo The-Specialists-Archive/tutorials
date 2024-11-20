@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<!-- Mirrored from www.the303.org/tutorials/gold_texture.htm by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Nov 2024 06:03:12 GMT -->
+<head>
+<title>GoldSrc Map Texture Tutorial</title>
+<link rel="stylesheet" href="303style.css">
+<meta name="author" content="303">
+<meta name="description" content="How create textures for goldsrc games">
+<meta name="keywords" content="goldsrc, hl1, half-life, counter-strike, sven co-op">
+</HEAD>
+<BODY>
+<div id="middle">
+<h1>GoldSrc Map Texture Tutorial </h1>
+<hr>
+<p><img src="goldteximages/introtex.jpg"><br>
+<img src="goldteximages/introtex2.jpg">
+<h2>INTRODUCTION</h2>
+<p>1)Welcome to the GoldSrc Texture tutorial.  GoldSrc textures must be BMP format with an 8-bit depth (256 colors index/palette) and dimensions must be in multiples of 16 though it is preferable to have them in powers of 2 because they are generally easier to work with. An example of power of 2 is: 64X64, 128X128, 256X256, and a maximum of 512X512.  Keep in mind there is no texture compression so your texture filesizes can build up quickly; because of this I also stress to use 512X512 very sparingly if you are making maps for multiplayer server download.  If you are making a stand-alone mod then ignore this warning.  Final note is that as of 2019, Valve updated the steam GoldSrc engine to better handle non-power2 texture display.  The programs we will be using both turn the image into 8bit index and pack the indexed BMP into wadfiles.
+<p>2) Textures must be stored in WAD files which are packages that hold textures.  Wad files can be created by several different programs:<br>
+1. <b>"Wally"</b> which is an image asset toolkit for Half-Life & Quake.  It is the most common and one of the oldest wad creation, editing and viewing utilities.<br>
+2. <b>"HL-Tools"</b> is a hybrid wad & sprite viewer/editor that is more modern.<br>
+3. <b>"Wadmaker"</b> is a recent commandline program which supports the widest range of formats and has many quality of life fixes.<br>
+<p>This tutorial will be focusing on Wadmaker due to its ease of use, support for modern formats, and automatic 8bit indexing, but will still include Wally for viewing, edits & manual indexing legacy guides.  These WAD files can also be compiled into your map BSP for custom downloadable maps by using a CSG command.  It is also of note that the image viewer IRFANVIEW can view the contents of Wadfiles.  If you would like to see it before reading my tutorial, there is a tutorial on TWHL.info on texture creation by the author that can be viewed <a href="https://twhl.info/wiki/page/Making_textures_with_WadMaker">here</a>.
+<p>3) There are several types of textures that are designated by special characters.  Normal textures need no special characters.  The special texture characters are as follows:<br>
+<b>{ transparent<br>
+! water<br>
++ (number 0 to 9) animated<br>
++A toggled/animate<br>
+scroll (for use on func_conveyor only)<br>
+- (number 0 to 9) Random tiling  [I will not be covering random tiling since it is only supported in software mode]<br>
+</b>
+<br>
+Texture names cannot be any longer than 15 characters and spaces are NOT allowed.
+<p>4)Download <a href="https://twhl.info/thread/view/20123">Wadmaker</a> to get started.<br>
+Optionally, you can pick up <a href="https://www.the303.org/backups/wally_155b.exe">Wally</a> and <a href="https://github.com/yuraj11/HL-Texture-Tools">HL-Tools.</a>
+<p>This tutorial has been updated to mainly use Wadmaker but will still include legacy manual 8-bit indexing with photoshop.  While this tutorial is written for 8-bit BMP creation in Photoshop, I have alternative methods shown within that use the program <a href="http://www.irfanview.com/">IRFANVIEW</a> to convert & dither images from other paint programs to 8-bit BMP.
+<p>Another option is that Wally has as a built-in paint function to create 8bit textures.  A tutorial on this exists here: <a href="https://web.archive.org/web/20080714061209/http://www.telefragged.com/wally/tutorials/tutorial1.htm">this tutorial.</a>
+<p>Lastly, I have included an example map & resources of textures created in this tutorial for you to examine: <a href="tutfiles/textest_examples.rar">Download here.
+</br>
+<hr>
+<h1><a href="gold_texture_p1.html">Part1: Creating Basic Textures</a></h1>
+<h1><a href="gold_texture_p2.html">Part2: Creating  Masked Transparent Textures</a></h1>
+<h1><a href="gold_texture_p3.html">Part3: Creating Additive Transparent Textures</a></h1>
+<h1><a href="gold_texture_p4.html">Part4: Creating Animated Textures</a></h1>
+<h1><a href="gold_texture_p5.html">Part5: Creating Toggled Textures</a></h1>
+<h1><a href="gold_texture_p6.html">Part6: Creating Water Textures</a></h1>
+<h1><a href="gold_texture_p7.html">Part7: Creating Scrolling Textures</a></h1>
+<h1><a href="gold_texture_p8.html">Part8: Creating Skies</a></h1>
+<h1><a href="gold_texture_p9.html">Part9: Creating Detail Textures</a></h1>
+<!-- OBSOLETE <h1><a href="gold_texture_p10.htm">Part10: Batch Conversion</a></h1> -->
+<hr>
+<h1><a href="index.html">Return to Tutorials</a></h1>
+</div>
+</BODY> 

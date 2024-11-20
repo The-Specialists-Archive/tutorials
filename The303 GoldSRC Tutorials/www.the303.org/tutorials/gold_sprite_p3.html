@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<!-- Mirrored from www.the303.org/tutorials/gold_sprite_p3.htm by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Nov 2024 06:11:10 GMT -->
+<head>
+<title>GoldSrc Sprite Tutorial</title>
+<link rel="stylesheet" href="303style.css">
+<meta name="author" content="303">
+<meta name="description" content="How create sprites for goldsrc games">
+<meta name="keywords" content="goldsrc, hl1, half-life, counter-strike">
+</HEAD>
+<BODY>
+<div id="middle">
+<h1>GoldSrc Sprite Tutorial</h1>
+<hr>
+<h2>PART3: IndexAlpha Sprites</h2>
+<p>A lesser used sprite type but quite handy in certain situations; the IndexAlpha looks just like any alpha channel but instead of masking off an image it is masking a single solid color.  Unlike additive, this sprite is useful for solid opaque darker colors in any lighting situations.
+<p>1) Begin by creating a new document with a black fill. Only using white, paint your image.  Scale the image to a GoldSrc friendly image size which is a divisible by 16 number.  In this case I used 256X256.
+<p>When finished convert the texture by going to mode> Index.. and set to custom.  Under the table select greyscale.  Now this format uses the bottom most right index (number 255) as the color for the whole image however, ive found its actually best to leave it as is and use a sprites FX color to do the tinting so we wont have to remake the sprite every time.
+<p><img src="goldsprimages/sp_ind01.png">
+<p><img src="goldsprimages/sp_ind02.png">
+<p>3) Save out the image as BMP.  When prompted for 8bit hit okay.
+<p><img src="goldsprimages/sp_ind03.png">
+<hr>
+<p>3a) If you are using the IRFANVIEW conversion method in <a href="gold_sprite_p1.html#step3a">Part1,Step3a</a>, its the same process only check the box of "greyscale" in the "decrease color depth window.
+<p><img src="goldsprimages/sp_irfan2.png">
+<hr>
+<p>4a) Open up half-life texture tools and go to Tools>Create new sprite... then click "add new images". Add your newly created BMP.
+<p>4b)Go to the number 2 "Settings" tab and select "IndexAlpha" as your texture format.  For sprite type I will use "parallelupright" since this design has a lightbeam base.
+<p>4c)Click tab 3 and save the sprite in your sprite directory just as before in <a href="gold_sprite_p1.html#step4">Part1, Step4</a>
+<p><img src="goldsprimages/sp_ind04.png">
+<p>5) Open up hammer or J.A.C.K and create an env_sprite. Set it up just like in previous steps with render mode to "texture".  Now we "tint" the Indexalpha sprites color by using "FX Color".  <b>One quirk about coloring these types of sprites is that in order to get black we must have an RGB value of at least RGB[1 1 2] as pure black RGB[0 0 0] or even RGB[1 1 1] does not work.</b>
+<p><img src="goldsprimages/sp_ind07.jpg">
+<p>6)Compile the map and observe. I also am showing off several color variants.
+<p><img src="goldsprimages/sp_ind08.jpg">
+<hr>
+<p>Id also like to point out an interesting use of indexalpha sprites compiled in oriented mode for wall details.  These are used much like decals but with sprites you can have more control and the abilities/rendermodes of sprites. Use fine map grid to hover the sprite one gridpoint above a surface or else the sprite may "flicker" as it clips into the wall.
+<p>Here I am using a sprite as a detailed shadow:
+<p><img src="goldsprimages/sp_ind09.jpg">
+<p>Also using this effect for prints and smudges:
+<p><img src="goldsprimages/sp_ind10.jpg">
+<br>
+<hr>
+<h1><a href="gold_sprite.html">Part0: Introduction</a></h1>
+<h1><a href="gold_sprite_p1.html">Part1: Normal Sprites and Basic Use</a></h1>
+<h1><a href="gold_sprite_p2.html">Part2: Additive Transparent Sprites</a></h1>
+<h1><a href="gold_sprite_p4.html">Part4: Masked Transparent Sprites</a></h1>
+<h1><a href="gold_sprite_p5.html">Part5: Animated Sprites</a></h1>
+<h1><a href="gold_sprite_p6.html">Part6: Beam Sprites</a></h1>
+<hr>
+<h1><a href="index.html">Return to Tutorials</a></h1>
+</div>
+</BODY> 

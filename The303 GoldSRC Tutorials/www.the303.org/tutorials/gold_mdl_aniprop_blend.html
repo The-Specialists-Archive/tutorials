@@ -1,0 +1,31 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<!-- Mirrored from www.the303.org/tutorials/gold_mdl_aniprop_blend.htm by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Nov 2024 06:11:36 GMT -->
+<head>
+<title>Model Proportion Tutorial for Blender</title>
+<link rel="stylesheet" href="303style.css">
+<meta name="author" content="303">
+<meta name="description" content="How to change Skeleton proportions">
+<meta name="keywords" content="goldsrc, hl1, half-life, counter-strike, proportion, animations">
+</HEAD>
+<BODY>
+<div id="middle">
+
+<h1>Blender</h1>
+<img class="middle" src="goldmdlimages/blender_header.png">
+<hr>
+<p><b>Preparing The Model</b>
+<p>1) Using BlenderSourceTools import your target model as a QC file.  Then rig your mesh or if already rigged, assign armature modifier for the mesh to the skeleton. Now in Edit mode on the armature select the bones hen translate the bones into a different proportion to your desired target model/mesh.  Because all sequences are loaded into the timeline this affects all the animations.
+<p><img src="goldanipropimages/aniprop_blend01.png">
+<p>1a) an <b>optional</b> thing you can take advantage of since you now have all animations imported is you can make some additional bones with bone controllers and rigging to fake out softer animation skinning.  Basically, add/copy a bone in the skeleton, rename it, skin it to a loop, then put a copy rotation controller with the next bone in the heiarchy and use a 50~30 or whatever percentage.
+<p><img src="goldanipropimages/aniprop_blend02.png">
+<p>3)First select the references and make sure the armature is in rest mode, then export.  Then put it back into pose mode, select the armature, then go to the BST panel, select "action filter" then in the field place "*".  This will set it to export every imported sequence
+
+<hr>
+<p>The final result:
+<p><img src="goldanipropimages/blend04.html">
+<hr>
+<h1><a href="index.html">Return</a>
+</div>
+</BODY> 

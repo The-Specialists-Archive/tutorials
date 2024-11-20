@@ -1,0 +1,32 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<!-- Mirrored from www.the303.org/tutorials/gold_mdl_phys.htm by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Nov 2024 06:03:18 GMT -->
+<head>
+<title>GoldSrc Model Baked Physics</title>
+<link rel="stylesheet" href="303style.css">
+<meta name="author" content="303">
+<meta name="description" content="How to make baked physics models for GoldSrc engine games">
+<meta name="keywords" content="goldsrc, hl1, half-life, counter-strike">
+</HEAD>
+<BODY>
+<div id="middle">
+
+<h1>Baked Physics Method</h1>
+<img class="middle" src="goldphysimages/bakedphys_header.png">
+<p>"Baked" Physics animation is a way of adding cinematic model animation to your level/mod.  This technique was most notibly used in GoldSrc with <b>Counter-Strike Condition Zero: Deleted scenes</b> for level effects and to a lesser extent <b>Day Of Defeat</b>.   In modern game engines you have realtime physics ability, but in an older engine or for a very complex or controlled simulation you look to the "Baked" solution.
+<p>So what is "baked" mean?  The physics similation is run in a 3D editor and then all the simulated movements are "baked" into animation keyframes to store all the movements.  In short; its a special way of making an animation.  The advantage is having a complex simulaton but without needing realtime because its just keyframes like any other animation.  The obvious downside is that since its an animation its the same every time and is not dynamic, however you can if needed make multiple simulated animations and pick different ones if needed.
+<p>This same technique was also used in the Orangebox games for simulations that were too complex for Source engines realtime Havok engine. Notable examples are Goldrush explosion from TF2, many scenes in HL2:EP2 such as the train collapse and destruction of houses.
+<hr>
+<p><b class="yellow">This tutorial is for 3DSMax or Blender and as a requirement</b>, you need to be familar with SMD exporting and tools which is covered in the <a href="gold_mdl.html">Model export guide</a> and the specific <a href="gold_mdl_3ds.html">3DSMax</a> or the <a href="gold_mdl_blend.html">Blender</a> export methods.
+<p> SMD format allows for 128 bones maximum so plan accordingly to have a maximum of that many objects, and be sure you keep the polycount under control as it gets more diffcult to work with more complex multi-SMD models.  Furthermore, a thing to note is that in physics simulation you can have different settings for physics model vs the actual mesh.  So you can have a lowpoly rough object that looks like it would be caught on a flat or sharp edge but have say a spheroid or cylindrical or custom collider.  This allows for accurate simulations even on lower poly objects.
+<p> I will also mention that when making scenes involving Sphere meshes have the issue of being  particulary polygon intensive so if you must, I strongly suggest creating them as a Geosphere in "Octa" setting for its "Geodesic Base Type" and start at 2~3 Segments in parameters. Geospheres have much more efficent, lower amount of polygons and hold better shapes than regular sphere meshes.
+<p><b class="red"> Lastly this guide only has a very basic physics simulaton as an example, there are many layers of complexity you can add such as constraints, forces, ragdoll and other settings.</b>
+<hr>
+<p><p><a name="3D"></a>Continue on to your preffered 3d modelling package:
+<h1><a href="gold_mdl_phys_3ds.html">3DStudio Max</a></h1>
+<h1><a href="gold_mdl_phys_blend.html">Blender</a></h1>
+<hr>
+<h1><a href="index.html">Return</a>
+</div>
+</BODY> 

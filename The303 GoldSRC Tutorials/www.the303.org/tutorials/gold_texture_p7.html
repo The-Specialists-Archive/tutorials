@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<!-- Mirrored from www.the303.org/tutorials/gold_texture_p7.htm by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Nov 2024 06:10:46 GMT -->
+<head>
+<title>GoldSrc Map Texture Tutorial</title>
+<link rel="stylesheet" href="303style.css">
+<meta name="author" content="303">
+<meta name="description" content="How create textures for goldsrc games">
+<meta name="keywords" content="goldsrc, hl1, half-life, counter-strike, sven co-op">
+</HEAD>
+<BODY>
+<div id="middle">
+<h1>GoldSrc Map Texture Tutorial</h1>
+<hr>
+<h2>PART 7: SCROLLING Textures</h2>
+<p>1) Scrolling textures don't require any special image creation other than a simple filename change.  The scrolling texture needs to have "scroll" <b class="red">(in lowercase!)</b> in the first part of the filename (but be sure not to exceed the 15-character filename limit).  The image scrolls from left to right so keep this in mind during creation and addition of motion blur if needed.  Create your texture as you did in <a href="gold_texture_p1.html">Part1</a>.  Save the bmp with the scroll name like so.
+<p><img src="goldteximages/scr01.png">
+<p>2) Apply the new scrolling texture to a func_conveyor.  Set the world direction of the conveyor movement and then go into the texture edit mode and select your face.  Look at the XYZ icon and see that the yellow leg of it is the direction of the texture scroll; <b class="red">it is also important for this direction to match the yaw of the func_conveyor entity for push direction</b>.  In the properties you can set the speed.
+<p><img src="goldteximages/scr02.jpg">
+<p><img src="goldteximages/scr03.jpg">
+<p>3) Compile the map and observe:
+<p><img src="goldteximages/scr04.gif">
+<hr>
+<p>4) For if you want just an effect without the push, go into the properties and uncheck the "push" flag, and if you want the brush passable uncheck solid:
+<p><img src="goldteximages/scr05.jpg">
+<p><img src="goldteximages/scr06.jpg">
+<p>5) For a rushing water effect, apply a scrolling water texture select the func_conveyor and set the rendermode to additive & FX amount to "255".  This can also be used for rain or various scifi effects:
+<p><img src="goldteximages/scr07.gif">
+<p><img src="goldteximages/scr08.gif">
+<hr>
+<h1>Scrolling Textures on Other entities</h1>
+<P>You can use Scrolling textures on other entities other than func_conveyor such as func_pushable, func_wall, etc. Due to an interesting quirk with the GoldSrc engine the scrolling texture speed is stored in the "FX Color" RGB keyvalues and processed at runtime.  Until I get a calculator to do this for you here is some common values you can use in the render color fields:
+<div align="left">
+<table class="old">
+	<tbody>
+		<tr>
+			<td>
+			<pre>
+Three numbers are in the FX Color RGB fields:
+(for fine inbetween values, add to the blue value on the furthest right; note number cannot exceed 255)
+
+Forwards
+Speed 4 = 0 0 64
+Speed 8 = 0 0 128
+Speed 16 = 0 1 0
+Speed 32 = 0 2 0
+Speed 64 = 0 4 0
+Speed 128 = 0 8 0
+Speed 256 = 0 16 0
+Speed 512 = 0 32 0
+Speed 1024 = 0 64 0
+Speed 2048 = 0 128 0
+Speed 4080 = 0 255 0
+
+Backwards
+Speed 4 = 1 0 64
+Speed 8 = 1 0 128
+Speed 16 = 1 1 0
+Speed 32 = 1 2 0
+Speed 64 = 1 4 0
+Speed 128 = 1 8 0
+Speed 256 = 1 16 0
+Speed 512 = 1 32 0
+Speed 1024 = 1 64 0
+Speed 2048 = 1 128 0
+Speed 4080 = 1 255 0
+</pre>
+			</td>
+		</tr>
+	</tbody>
+</table>
+</div>
+<hr>
+<h1><a href="gold_texture.html">Part0: Introduction</a></h1>
+<h1><a href="gold_texture_p1.html">Part1: Creating Basic Textures</a></h1>
+<h1><a href="gold_texture_p2.html">Part2: Creating  Masked Transparent Textures</a></h1>
+<h1><a href="gold_texture_p3.html">Part3: Creating Additive Transparent Textures</a></h1>
+<h1><a href="gold_texture_p4.html">Part4: Creating Animated Textures</a></h1>
+<h1><a href="gold_texture_p5.html">Part5: Creating Toggled Textures</a></h1>
+<h1><a href="gold_texture_p6.html">Part6: Creating Water Textures</a></h1>
+<h1><a href="gold_texture_p8.html">Part8: Creating Skies</a></h1>
+<h1><a href="gold_texture_p9.html">Part9: Creating Detail Textures</a></h1>
+<!-- OBSOLETE <h1><a href="gold_texture_p10.htm">Part10: Batch Conversion</a></h1> -->
+<hr>
+<h1><a href="index.html">Return to Tutorials</a></h1>
+</div>
+</BODY> 

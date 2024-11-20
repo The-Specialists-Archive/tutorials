@@ -1,0 +1,43 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<!-- Mirrored from www.the303.org/tutorials/gold_sprite_p2.htm by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Nov 2024 06:11:08 GMT -->
+<head>
+<title>GoldSrc Sprite Tutorial</title>
+<link rel="stylesheet" href="303style.css">
+<meta name="author" content="303">
+<meta name="description" content="How create sprites for goldsrc games">
+<meta name="keywords" content="goldsrc, hl1, half-life, counter-strike">
+</HEAD>
+<BODY>
+<div id="middle">
+<h1>GoldSrc Sprite Tutorial</h1>
+<hr>
+<h2>PART2: ADDITIVE Sprites</h2>
+<p>The standard and most common type of sprite you would use are additive transparency types. They are quite simple are generally used lights or effects.
+<p>1) Begin by creating a new document with a black fill (in additive, black is transparent and anything else appears as light).  Paint or add a glow of some sort, or in this example ive rendered a lensflare.  Scale the image to a GoldSrc friendly image size which is a divisible by 16 number.  In this case I used 192X192.
+<p><img src="goldsprimages/sp_add01.png">
+<p>2) When finished convert the image to indexed color just like in <a href="gold_sprite_p1.html">Step1</a>, or if you don't wish to do dithering or controlled palettes just save it as BMP24 and let HL-Texture tools do the conversion.</a>
+<p>Then open up half-life texture tools and go to Tools>Create new sprite... then click "add new images". Add your newly created BMP.
+<p><img src="goldsprimages/sp_add06.png">
+<p>3)Go to the number 2 "Settings" tab and select "Additive" as your texture format.  For sprite format leave as default "parallel".Click tab 3 and save the sprite in your sprite directory just as before in <a href="gold_sprite_p1.html#step4">Part1, Step4</a>
+<p><img src="goldsprimages/sp_add07.png">
+<p>4) Open up hammer or J.A.C.K and create an env_glow. Choose your sprite file as before in part1 as well as scale, only this time we need to set "Additive" for our rendermode. Remember to check if "FX Amount" is 255 in order for our sprite to be visible in-game.
+<p><img src="goldsprimages/sp_add09.jpg">
+<p>5)Compile the map and observe.  As seen here the additive effect is better when used in a darkened area.  You can also "tint" the sprites color by using "FX Color".  Lastly here is another example that works well for an additive type sprite is a target marker.
+<p><img src="goldsprimages/sp_add10.jpg">
+<p>6) Using "Glow" render mode acts just like "Additive" but also scales and fades away at distances. A decent choice for light coronas. 
+<p><img src="goldsprimages/sp_add11.jpg">
+<p><img src="goldsprimages/sp_move.gif">
+<br>
+<hr>
+<h1><a href="gold_sprite.html">Part0: Introduction</a></h1>
+<h1><a href="gold_sprite_p1.html">Part1: Normal Sprites and Basic Use</a></h1>
+<h1><a href="gold_sprite_p3.html">Part3: Index Alpha Sprites</a></h1>
+<h1><a href="gold_sprite_p4.html">Part4: Masked Transparent Sprites</a></h1>
+<h1><a href="gold_sprite_p5.html">Part5: Animated Sprites</a></h1>
+<h1><a href="gold_sprite_p6.html">Part6: Beam Sprites</a></h1>
+<hr>
+<h1><a href="index.html">Return to Tutorials</a></h1>
+</div>
+</BODY> 

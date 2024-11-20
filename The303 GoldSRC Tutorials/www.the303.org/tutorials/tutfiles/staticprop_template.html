@@ -1,0 +1,35 @@
+/*
+==========
+QC Template TheCorp303
+www.the303.org
+
+I have annotated some notes to help you out.  More in depth guide on QC code visit:
+www.the303.org/tutorials/gold_qc.htm
+
+==========
+*/
+
+$modelname static_model.mdl
+
+//Name of model, change this to your desired name.
+
+$cd "."
+$cdtexture "."
+
+//Paths for the compiler to grab the SMD's & BMPs.  Currently set for "." which is same folder that QC is located in.
+
+$scale 1
+
+//Scale multiplier.  If using model as "item_generic" in sven coop, you can set the multiplier in hammer
+
+$cliptotextures
+
+//Prevents BMP cropping on compile.
+
+$body studio static_ref
+
+//The reference mesh internal name & the smd name
+
+$sequence idle "static_ref"
+
+//The animation sequence (for static models we still need at least one sequence in order to compile.  For static models you can use the reference SMD for the idle sequence.)

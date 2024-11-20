@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<!-- Mirrored from www.the303.org/tutorials/gold_research.htm by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Nov 2024 06:03:20 GMT -->
+<head>
+<title>GoldSrc Model gallery and Semi-tutorials</title>
+<link rel="stylesheet" href="303style.css">
+<meta name="author" content="303">
+<meta name="description" content="How to compile models for GoldSrc engine games">
+<meta name="keywords" content="goldsrc, hl1, half-life, counter-strike">
+</HEAD>
+<BODY>
+<div id="middle">
+
+<h1>GoldSrc Model gallery and Semi-tutorials</h1>
+<hr>
+<b><p>Texture baking method</b>
+<p>A quick rundown of using texture baking (usually for source/modern stuff) and done for goldsrc:
+<p><img src="https://www.the303.org/imaeg/tirebuild1.png" >
+<p>On the left we have the highpoly model I made and behind it the highpoly for the tread texture.  On the right is the finished lowpoly model with combined baked textures. (If you don't know standard highpoly to lowpoly baking method look here: <a href="https://www.youtube.com/watch?v=fSsyG28KKWc">Baking Normal Maps</a>)
+<p><img src="https://www.the303.org/imaeg/tirebuild2.png" >
+<p>This is how I combined the render-to-textures into the final diffuse.
+<p><img src="https://www.the303.org/imaeg/tirebuild3.png" >
+<p>A look at the tread texture creation.  GoldSrc does not support UVW tiling off the grid, so what I had to do is use the UVW "Face" mode in 3dsmax to take each polygon around the circumference of the tire to be mapped to one 128X128 texture.  Now I have a tiling texture so I dont have to use the whole unwrap and I can get around the off-grid limit this way.
+<p>A physbaked animation using the tires:
+<p><img src="https://www.the303.org/imaeg/tires.gif" >
+<hr>
+<b><p>Tree and Foliage method</b>
+<p>Using 2D planes with transparent images for foliage is nothing new, but I learned of a brillant trick to make the lighting on them look much better from polycount:<br>
+<a href="http://wiki.polycount.com/wiki/Foliage"> http://wiki.polycount.com/wiki/Foliage</a><br>
+<a href="http://wiki.polycount.com/wiki/Vertex_normal">http://wiki.polycount.com/wiki/Vertex_normal</a></br>
+<p><img src="https://www.the303.org/imaeg/birch1.jpg">
+<p><img src="https://www.the303.org/imaeg/birch2.jpg">
+<p>Reminder that I do have to duplicate planes and flip the triangles to get double sided planes due to goldsrc lacking "nocull" shader.
+The wallworm exporter was somewhat iffy on preserving these changes, so I explicitly set the normals and checked the “explicit normals export” to be sure. I think Its also dependent on the order you do it and doing it in editable mesh instead of editable poly mode.  Also here is a view in HLMV showing the drastic changes in edited and non-edited.  Notice the nice gradient through the planes?
+<p><img src="https://www.the303.org/imaeg/hlmv_compare.png">
+<p><img src="https://www.the303.org/imaeg/birch3.jpg">
+<p>Animated Result:
+<p><img src="https://www.the303.org/imaeg/tree.gif">
+<hr>
+<p><b>Lavalamp Blobs</b>
+<p><img src="https://www.the303.org/imaeg/lavalamp.gif" >
+<p>Interesting note with this one, I found that rigging blobs to stretch was rather difficult due to hard weights (as GoldSrc can only have one weight per vertex), but I came up with a nice work around:
+<p><img src="https://www.the303.org/imaeg/lavalamp2.gif" >
+<p>I placed a third bone between the two bones that would stretch between the big blob and put a 50% position constraint on it pointed to the other bones and weighted it to the middle vertices.  That way I had an automatic "soft" inbetween bone to compensate for lack of bone weights and prevent obvious mesh crumpling issues I had with my first attempts.
+<hr>
+<p><b>Physbaked Rocks</p>
+<p>Using a sculpt and baking to a lowpoly I made a rock model:
+<p><img src="https://www.the303.org/imaeg/thisrocks.JPG" >
+<p><img src="https://www.the303.org/imaeg/rocksplode.gif" >
+<p>The model was duplicated and shape was distorted to create different variants; then rocks were animated using MassFX physics baked simulation.  Also the explosion is a bunch of planes that have had their corners stretched by bones (a bone for each corner, so 4 bones per plane) to increase their size.  A bunch together creates a "3D" explosion all done as an MDL.
+<hr>
+<p><b>Animated Planes To Simulate Fire</p>
+<p><img src="https://www.the303.org/imaeg/goldfire.gif" > <img src="https://www.the303.org/imaeg/goldfire2.gif" >
+<p>Although this didnt get the results I quite wanted, I do like how I did achieve a proof of concept by animating planes in various motions to mimic flames.  In addition I used a technique used in "pipebubbles.mdl" where I had looping embers move up, but hiding the loop down by flipping the planes at a certain spot so you dont see them due to backside culling.
+<hr>
+<p><b>Smoke And Embers</b>
+<p><img src="https://www.the303.org/imaeg/cig1.gif" >
+<p><img src="https://www.the303.org/imaeg/cig2.gif" >
+<p>I had an idea in my head for making a self-contained model that has smoke and ember effects without needing to use external using sprites, particles or  texture-based animation.  This is what I came up with:  The smoke is a flanged uncapped cylinder that uses a gradient texture in additive mode and is distorted and controlled with animated bones (bones are seen in the third image as blue dots and yellow lines representing parent hierarchy).
+<p>The embers is a piece of geometry that is basically a distorted cylinder cap that shares the same texture in additive mode using the left portion.  The cylinder is rotated by an animation bone to simulate the slow burn as the irregular shape clips in and out of the cigarette geometry.
+<p><img src="https://www.the303.org/imaeg/cig3.gif" >
+<p>Lastly, the ash piece that is surrounded by blue is a masked transparency portion* of the texture so I can use it in several places as a piece of plane geometry (2 triangles to make a square).  I have used the plane in 6 copies: 4 around the end of the cigarette for hanging ash and 2 in the ashtray dish, you can also observe I have distorted and scaled each one to give some shape variety.
+<img src="https://www.the303.org/imaeg/cig4.jpg" >
+<p>Model is 450 polygons, and uses a 256X256 8-bit BMP, and a 128X128 8-bit BMP as textures. * GoldSrc engine uses the last color of the 8bit texture palette (index 255) and uses typically pure blue as that color [ RGB: 0 0 255] for alphatest transparency
+<hr>
+<p><b>Chrome And Fake Specular</b>
+<p>Here's a ceiling fan I made using a custom chrome texture. Note: In GoldSrc "Chrome" mode is a simple 64X64 pixel texture that is displayed as spherical env (You see it in barneys helmet and in the magnum, ect. ) .  Also those vents are just a 2D plane with a masked transparent image:
+<p><img src="https://www.the303.org/imaeg/woodfans.gif" >
+<p>A neat engine limitation trick I found in a sven_coop model pack is the use of "Chrome" + "Additive" shell for fake specular highlights.   So you make a piece of shell geometry that is either slightly moved or pushed from the base geometry, have a black 64X64 Chrome texture with small dots and set it to additive blend mode and now you have fake highlights:
+<p><img src="https://www.the303.org/imaeg/barstools.jpg" >
+T<p>he moving highlights on the barstools in action filmed by trigger_camera + path_corners + info_target (this is how you get cutscenes in goldsrc)
+<p><img src="https://www.the303.org/imaeg/barstools.gif" >
+<hr>
+<p><b>Using Image Planes For Details</b>
+<p>A trick you can use to add higher-resolution details without messing with your original texture is placing image planes overtop of your model.  Another advantage of this method is that you can scale, rotate,and use multiple times with minimal use of polygons.  An example here is this oven model which has a 256X256 base texture.  For the elements and dials I created separate textures from a baked 3D model of said objects.  The dial was 64X64 and the burners were 128X128 in transparent mode:
+<p><img src="https://www.the303.org/imaeg/stoveplane.jpg" >
+<p>As you can see with these textures I have placed multiple burners and the bottom right is scaled bigger, same thing with the dials.  You can also animate these details by skinning them to a bone too if you wish.  
+<p><img src="https://www.the303.org/imaeg/ovburners.gif" >
+<p>Here I have used a skin group to swap the burner texture between an on and off state.
+<hr>
+<p><b>Physbaked Playermodel Anims</p>
+<p>While still working on a better method, I have a proof-of-concept for making physbaked playermodel animations using MassFX.  Current method used was creating convex shapes for the animation bones to use as the collision objects. Things get a little tricky because some bones I need to use animation constraints to keep things flying apart, for example the clavicles and use of a hinge constraint on the jaw so it does not fall and stretch off:
+<p><img src="https://www.the303.org/imaeg/physskele.jpg" >
+<p><img src="https://www.the303.org/imaeg/skeledie2.gif" >
+<p><img src="https://www.the303.org/imaeg/skeledie1.gif" >
+<hr>
+<P><b>Random Models</b>
+<p><img src="https://www.the303.org/imaeg/flush.gif" >
+<p><img src="https://www.the303.org/imaeg/lubtub.jpg" >
+<p><img src="https://www.the303.org/imaeg/handdryer.jpg" >
+<p><img src="https://www.the303.org/imaeg/uglyflag2.gif" >
+<p><img src="https://www.the303.org/imaeg/fries.gif" >
+<p><img src="https://www.the303.org/imaeg/goldflashlight.jpg" >
+<p><img src="https://www.the303.org/imaeg/standfan1.JPG" >
+<p><img src="https://www.the303.org/imaeg/standfan.gif" >
+<hr><h1><a href="index.html">Return To Tutorials</a>
+</div>
+</BODY> 

@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<!-- Mirrored from www.the303.org/tutorials/gold_mdl_blend279.htm by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Nov 2024 06:12:17 GMT -->
+<head>
+<title>GoldSrc Model Export Tutorial</title>
+<link rel="stylesheet" href="303style.css">
+<meta name="author" content="303">
+<meta name="description" content="How to compile models for GoldSrc engine games">
+<meta name="keywords" content="goldsrc, hl1, half-life, counter-strike, blender3d, blender">
+</HEAD>
+<BODY>
+<div id="middle">
+
+<h1>Blender Legacy</h1>
+<img class="middle" src="goldmdlimages/blender_header279.png">
+<p>Blender has had Source engine support for years, however it has recently been able to do GoldSrc exports via the GoldSrc option in BlenderSourceTools.  You can download these tools here: <a href="https://steamcommunity.com/groups/BlenderSourceTools">BlenderSourceTools Page</a>
+<p><a href="gold_mdl_blend.html">For 2.80 users click here to go back.</a>
+</b>
+<p>When working in Blender the default grid is rather small for GoldSrc scale, so I highly reccomend you set your Display properties lines to 16, Scale to 8, and Subdivisions to 4.
+<p>Make sure that you have applied your transforms to your mesh with ctrl-A or else you may have a wrong scale on export that does not match what you have.  This is a similar situation compared to 3dsmax's "Reset Xform".  <b>Lastly, exporting supports only ONE armature.</b>
+<hr>
+<p>Jump to <a href="#EA">Exporting Animations</A></br>
+Jump to <a href="#EM">Exporting Meshes With Armature</A></br>
+Jump to <a href="#IM">Importing Meshes</A></br>
+Jump to <a href="#SE">Smoothing Editing</A></br>
+Jump to <a href="#IA">Importing Animations</A></br>
+Jump to <a href="#ET">General Blender tips & Bonus Tutorials</A>
+<hr>
+<p><b>Exporting Static Reference Mesh (No Armature)</b>
+<p>1)In the material tab check your materials and make sure the each material name ends with <b>.bmp</b>.
+<p>2) Switch to your Scene tab, scroll down to "Source Engine Export" and first set your export path to your folder containing your textures.  Then set export format  to SMD, then your target engine to "GoldSrc".  Lastly press "Export" button.  Your model origin will be at the mesh origin point.
+<p><img src="goldmdlimages/blendl_exp01.png">
+<hr>
+<p id="EM"><b>Exporting Reference Mesh With Armature</B>
+<p>1)As before, first check your materials tab and make sure the each material name ends with <b>.bmp</b>.
+<p>2) Make sure that all your vertex weights are 1 or 0 and no blending between bones or duplicate weights (In weight paint mode everything should look either red or blue).  A tip for those who model using weight paint brush: set your option to "Auto Normalize", your weight & strength to 1.0, and your "curve" to the furthest to the right preset which is the bar line icon "MAX" to eliminate any falloff.
+<p>3)Switch to your Scene tab, scroll down to "Source Engine Export" and first set your export path to your folder containing your textures.  Then set export format to SMD, then your target engine to "GoldSrc". In the "Armature Properties (Armature)" window there is a default checked box called "Implicit Motionless Bone". Uncheck it before exporting since it causes heiarchy issues especially with existing armatures/imports.  Lastly press "Export" button. 
+<p><img src="goldmdlimages/blendl_exp02.png">
+<p>If you get the error <b>"WARNING: multiple vertex weight links"</b> then you need to fix your vertex weights.  There is a quick threshold method you could try which is going to paint mode, check auto-normalize then use Quantize and Limit Total on all groups with "1" as your paramaters.
+<hr>
+<h1><a href="gold_mdl_comp.html">Continue to Compiling</a></h1>
+<hr>
+<p id="EA"> <b>Exporting Sequence Animation</b>
+<br>
+<p>1)As before, first switch to your Scene tab, scroll down to "Source Engine Export".  By default your Blender Source tools will put your armature animations in the "Source Engine Exportables" list with the  subfolder placement directory called <b>anims\</b>.  Also by default both mesh and the animation exports but if you only want the animation to export just uncheck the mesh exportable in the list.
+<p>2) First set your export path to your folder containing your textures.Then set export format to SMD, then your target engine to "GoldSrc". In the "Armature Properties (Armature)" window rename your armature action to whatever you want.  In my example I named it "Swing".  Then in the same area there is a default checked box called "Implicit Motionless Bone". Uncheck it before exporting since it causes heiarchy issues especially with existing armatures/imports.  Lastly press "Export" button. 
+<p><img src="goldmdlimages/blendl_exp03.png">
+<p>It should be noted that you are not confined to animating at blenders default 24 keyframes frames per second, as you can set different speeds in your QC compile script.  So for example if you just need a very simple idle sequence you can set your Blender render tab to to custom "Framerate" to say 12fps, animate your sequence then set 12fps in your QC script on compile.  This will play in game and interpolate the frames accordingly.  You can play with tweaking speeds either on the 3deditor side and/or the QC script side.
+<p>If you want to or need to remap time/frames, you cannot simply use the "Time Remapping" function in blender, you have to manually scale the keys in the dope sheet editor.  This is done by going to dope sheet, setting the green playhead to your first frame.  Then pressing "A" to select all then "S" to scale the keyframes and watch the keyframe numbers.  Hold-shift when scaling to snap in increments.
+<hr>
+<h1><a href="gold_mdl_comp.html">Continue to Compiling</a></h1>
+<hr>
+<p id="IM"> <b>Importing Meshes</b>
+<P>1)Go to file > Import Source Engine and choose your SMD (don't worry about the name "source engine" the tools have GS compatibility).  On the bottom left there is some customization options but for the most part default settings will be fine.
+<P><b class="red">NOTICE: There is currently a bug with BST where some mesh imports will look fine, but have had their bones rotated wrong, so any animation loading will cause mesh parts to flip in wrong directions.  This can also be seen on mdl compile.  A temporary fix ive come up with is as follows:</b><br>
+<p><b class="yellow">1) import ref mesh, this will look fine but of course is bone flipped<br>
+2) in notepad open the ref mesh smd, and copy everything from the start all the way till the end of the skeleton block end (do NOT go into "triangles".)<br>
+Paste that into a new document and save as "posefix.smd"<br>
+3) back in blender import "posefix.smd".  It will now look broken, but go into pose mode, select all then "apply pose as rest pose".</b></b>
+<p><img src="goldmdlimages/blendl_imp01.png">
+<p>2)Your smd is now imported, but you need to link your materials to the BMPs.  I reccomend turning material gloss to 0 for visibilitys sake in the editor.
+<p><img src="goldmdlimages/blendl_imp02.png">
+Things to note:
+<ul class="white">
+	<li>If your model has multiple mesh SMD's, just import each one as before and it will automatically join them to the skeleton</li>
+	<li>Switching to cycles and enabling "Node Wrangler" in user plugin preferences can make setting up materials in node view easier if needed</li>
+ </li>
+</ul>
+<hr>
+<h1><a href="gold_mdl_comp.html">Continue to Compiling</a></h1>
+<hr>
+<p id="SE"><b>Smoothing editing</b>
+<p>Id like to take a moment to also explain some things about smoothing/sharp vertex normals for imports. BlenderSourceTools automatically imports model vertex normals as "custom split normal data", but you can fine tune it by marking edge seams to sharp or smooth when needed. Ill show some basics.
+<p>1) To begin editing smoothing, switch to edit mode and with edge selection select any sharp edge and mark as sharp.  This will make all sharp edges show up in blue for visual clarity.
+<p><img src="goldmdlimages/blendl_smo01.png">
+<p>2) Now as an example of editing our smoothing on an import I am making the top of this part sharp. I can select the ring of edges but also a very useful tip is converting face selections to edge selections.  This is done by making a bunch of face selections, then switching to edge mode, then in the 3D view header Select > Select Boundary Loop.  When you have done your selection mark it as sharp.  Now you can see the results of the edit.
+<p><b>You can also select any sharp marked blue line and mark it as "smooth" to remove sharp edges.</b>
+<p><img src="goldmdlimages/blendl_smo02.png">
+<p>3) The last thing I want to mention is if you have an imported model that has everything smooth and/or want to do all your smoothing from scratch, do the following:  First go to the "geometry data" rollout and make sure that you clear the "custom split normals data" so the button says "add custom split normal data".  Then set "auto smooth" to 180.
+<p>In edit mode go to select> Sharp, then set the angle.  For this I chose 62 degrees.  Then mark the edges as sharp.  Now you have sharp edges in an easily editable form that you can add or remove.
+<p><img src="goldmdlimages/blendl_smo03.png">
+<p>(If you are asking the question "why not just use auto smooth angle to set hard edges?" its because I found that way you cannot easily set auto set hard edges back to smooth, only smooth to hard.  This way using edge mark angle and leaving "auto 180" I found gives much greater control.)
+<hr>
+<h1><a href="gold_mdl_comp.html">Continue to Compiling</a></h1>
+<hr>
+<p id="IA"> <b>Importing Sequence Animation</b>
+<P>1)Go to file > Import Source Engine and choose your SMD as before, and select a sequence SMD.  BlenderSourceTools will automatically create a new Action for each sequence SMD imported.  You can switch between your imports by opening up dope sheet and switching to action editor and moving the selection rollout.  Each sequence is also automatically named.
+<p><img src="goldmdlimages/blendl_imp03.png">
+<p>One thing to note currently SMD tools <b>exports the whole range of the animation</b>.  You can get around this with <a href="gold_qc.html">QC command $frame</a> on the compile side, or deleting frames in the dope sheet.
+<hr>
+<h1><a href="gold_mdl_comp.html">Continue to Compiling</a></h1>
+<hr>
+<p id="ET"><b>Bonus Tutorials:</b>
+<p>Brett Bernier made a great playlist a while back on blender modelling for Goldsrc.  <b class="yellow">One important thing to note is that this was created before the new GoldSrc export option, so he uses a source export + a converter program.  Use the above mentioned export method of switching the engine to "GoldSrc" instead of the converter method.</b>
+<p><a href="https://www.youtube.com/playlist?list=PL9CPpo_1svGNnZI1iPL2peExsuPk3gYWN">Blender To Goldsource Playlist</a></p>
+<p><a href="https://www.youtube.com/watch?v=ZWf1OGSaGXg">Animated Helicopter Video</a></p>
+<p>Isolated Design has a good tutorial on making an animated prop for GoldSrc (again this tutorial is older so it uses an old Source export conversion method by using milkshape, which you can skip)
+<p><a href="http://www.isolated-design.de/tutorials/how-to-get-models-from-blender-to-goldsrc/">Isolated Design: How to export models from Blender and compile them for GoldSRC</a>
+<hr>
+<h1><a href="gold_mdl_comp.html">Continue to Compiling</a></h1>
+</div>
+</BODY> 

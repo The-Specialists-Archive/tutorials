@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<!-- Mirrored from www.the303.org/tutorials/gold_mdl_phys_blend279.htm by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Nov 2024 06:12:24 GMT -->
+<head>
+<title>GoldSrc Model Baked Physics</title>
+<link rel="stylesheet" href="303style.css">
+<meta name="author" content="303">
+<meta name="description" content="How to make baked physics models for GoldSrc engine games in Blender 2.79">
+<meta name="keywords" content="goldsrc, hl1, half-life, counter-strike">
+</HEAD>
+<BODY>
+<div id="middle">
+
+<h1>Baked Physics Method</h1>
+<img class="middle" src="goldmdlimages/blender_header279.png">
+<h2>Baked Physics in Blender Legacy</h2>
+
+<p>Baking physics animation in blender and getting it into SMD is tricky due to the technical issue with loose meshes without armatures not being able to be exported with BlenderSourceTools since they all need bones assigned.  I have come up with a workaround method that uses a script to automatically assign bones to loose mesh objects so you can do SMD exportable animations.  Get this script here:<br><a href="https://gist.github.com/cdbfoster/ee55590c7759d534cad9">Shift object animation into armature script by cdbfoster</a>.  For simulated things that already have armatures/bones you can just bake the keys as normal from the physics panel button.
+<p>If you havent already it is reccomended to see the <a href="gold_mdl.html">MDL export guide</a> & the <a href="gold_mdl_blend.html">Blender Export guide.</a>
+<p>When working in Blender the default grid is rather small for GoldSrc scale, so for a physics scene I highly reccomend you set your Display properties lines to 16, Scale to 32, and Subdivisions to 4. For reference the HL1 scientist fits in a box of roughly dimensions: XYZ[27,13,69,].  Now a thing to note is that GoldSrc scale may be rather large for blenders physics simulaton and might make things go slower than intended as if they were more massive or like they were in space.  In this case you may want to increase the simulation timescale, the gravity or to scale things downscale things down, then scale back up on compile with QC command <b>$scale</b>
+
+<p>Lastly I reccomend using layer groups so you can easily select all active and passive objects.
+<hr>
+<p>1) Have a collection of meshes ready for your scene.  In my case I have a brickwall cutout and a bunch of bricks that fit in the space of this cutout.  First thing to do is create make sure the main static brickwall mesh has its origin at 0 0 0 in your scene.  I did this by setting the cursor and "origin to cursor".  This will ensure your root anchor for your model which helps keep the export together and helps if you need more than one SMD export.</a>
+<p>2) Make sure all your loose bricks have thier origins in their mesh centers. For this simulation I want these bricks to be blown out and for that im using a "Suzanne" monkey mesh object to do that but will only be used for the simulation and not the final model.  You can also use forces and other methods to do this, but I found this a very fast and effective method.
+<p><img src="goldphysimages/blend279_phys01.jpg">
+<p>5) Go to the Rigid Body Tools and click the "Add Passive" button.  Passive means the wall will act as an immovable but object that other objects can collide with.  By default blender sets the collision shape to "mesh".  If you need to, there is more options for physics in the physics tab to the right which includes things like mesh shape, friction, ect.  Do the same with a piece of ground mesh at grid level.
+<p>6) Select all your loose brick objects and set them as "Active" with the "Add active" button. This means that the object is a free moving similated object.  Go to the physics tab and with an active brick selected "Enable Deactivation" & "Start Deactivated", and change any other settings like mass or shape if needed.
+<p>The reason why we use "deactivation" is so the bricks stay put until the collider object comes in contact; this prevents the wall from possibly crumbling or jittering before the collider object has hit.  Then press "Copy From Active" which will copy the selected brick paramaters to all the rest.  Verify the settings by deselecting all and click on a random brick to see if it sucessfuly copied the settings.
+<p><img src="goldphysimages/blend279_phys02.jpg">
+<p>7) Select your collider object and set it to "Active", but then in the physics panel check "Animated".  This means the object can interact with Active physics objects but is moved by keyframes.  Animated active objects also can pass through Static objects.  This will mean we will animate this to push the bricks out of the wall.
+<p>8) In your timeline make a quick movement animation.  Personally I turned on "Auto Key" and moved the object forward through the wall and when keyframes were set I turned off Autokey.  You can do this manually too.
+<p><img src="goldphysimages/blend279_phys03.jpg">
+<p>9) When all is good press play and watch how it simulates.  Depending on how complex and how your computer specs are this may lag or go slow. If the scene is not to your liking go back to starting frame and then go back and make any changes. <b>If your timeline does not accomodate the whole simulation length open the "time configuration" tab and increase the length/framecount of the scene.</b> 
+<p>If your physics simulation has very jittery or innacurate movements, or objects clipping through the floor you can attempt to increase the "Solver Substeps" in the Scene Physics option panel.  The final thing to do is play with the "Speed". Ive found setting speed higher produces some better results than increasing gravity as mesh size and scale behave very differently.  It also has the added bonus of making less frames out of a complex simulation that may go beyond 100frames/upwards of 100objects<a href="#64k">*</a>.
+<p><a href="https://docs.blender.org/manual/en/dev/physics/">More info on Physics found on the Blender manual site. </a>
+<p>10)When you are satisfied with the result, save a copy of your scene first before you bake in case something messes up and you can revert.
+<p>11)Select all your objects and press the "Bake To Keyframes" button in your physics panel. Select a piece and verify at the bottom in the timeline that keyframes were created and scrub the animation to see how it looks.  If you wish you can name your Action sequence.  I named mine "BREAKWALL".
+<p><img src="goldphysimages/blend279_phys04.jpg">
+<p>12) Select any static mesh you are including into the model if needed and press "I", then I again to insert a location keyframe.  Then select all meshes you need in your model, in this case its just the outer and inner bricks, we are excluding the floor and the suzanne model.
+<p>Then open a Text editor window, open the script I mentioned before, <b>make sure the playhead is at the beginning of the sequence</b> and press run.  When the script completes it should create an armature with all pieces that are assigned a bone.  The script may throw out a "python failed" but you can ignore this since most times its just a benign error with a motionless piece.  With wireframe mode on you can now see how this looks
+<p><img src="goldphysimages/blend279_phys05.jpg">
+<p>13) Select the armature, go into edit mode and select the big center bone and rename it "rootbone".  <b>If your simulation didn't have a static piece like this that created a center bone, then go to armature > add bone (make sure your cursor is at 0 0 0) and name it "rootbone" </b>.  Then select all bones, and with the "rootbone" the active object being the last one you select, press cmd-p to parent all to rootbone using "keep offset".  This is to ensure the origin of the model is at 0 0 0 and allows for multiple meshes if needed and alignment.
+<p>Hide all other things in the scene that are not to be exported.  Select all the meshes then go CMD-J to merge them all.  Select the mesh and if it doesn't have an armature modifier add it and pick the created armature skeleton.
+<p><img src="goldphysimages/blend279_phys06.jpg">
+<p>14) The model is ready for export; go into the scene tab and in the BST export section "supress" the group, then set your export path, then set your export path, click the mesh in the export list and <b>uncheck "implicit motionless bone"</b>, do the same for the Action. Now export the mesh SMD and then the Sequence SMD separately.  This is because I found doing more exports all at once can bug out your export.
+<p><img src="goldphysimages/blend279_phys07.jpg">
+<P>You can continue to compiling and map setup below, but I will also beyond this show a map-collision method as well:
+<hr>
+<h1><a href="gold_mdl_phys_map.html">Continue to Compiling and Map setup</a></h1>
+<hr>
+<h2>Map collision method</h2>
+
+<p>Now if you want your physics simulation to collide directly with your map geometry you absolutley can, this just requires a few additional steps.
+<p>1)Obtain <a href="https://web.archive.org/web/20190309182339/nemesis.thewavelength.net/index.php?p=45">"Crafty"</a> which is a useful GoldSrc multi-tool which includes a BSP viewer that allows for BSP to OBJ.  Make a copy of your map and isolate the area where your physics animation will be.  Note that you will have to make sure your map compiles (no leaks).  Compile your map to a BSP and you can omit "Run VIS" & "Run LIGHT" since we are just needing geometry,  also check "do not run map on compile".
+<p>2)When the map is successfuly compiled open up the BSP with Crafty.  With crafty BSP viewer open, go to file <b>Export>OBJ</b>.
+<p><img src="goldphysimages/physco00.jpg">
+<p>3)Import the OBJ into Blender with Forward as "X Forward" Up as "Z up" and uncheck "image search". When imported I reccomend setting the "View Clip" plane end to something higher like 3000 or more.  If you get some wierd looking edges when panning your camera try slightly increasing the clip start. mport the OBJ into Blender with Forward as "X Forward" Up as "Z up" and uncheck "image search". When imported I reccomend setting the "View Clip" plane end to something higher like 5000. If you get some wierd looking edges when panning your camera try slightly increasing the clip start. There is an optional setting for Geometry splits which will import the  OBJ into several different meshes, its up to you whether to do this.
+<p>Once imported set the object to "passive" physics mode and "geometry" under the physics collisions tab.  Then set "base" as the source. 
+<p><img src="goldphysimages/blend279_phys09.png">
+
+<p>4)Select the outer faces in object mode and then press "hide" to reveal the map geometry.  You can alternatley delete or separate the meshes.
+<p><img src="goldphysimages/blend279_phys10.png">
+<p>5)For this scene I made a stack of tire objects and set it up in the similar way as before where I parent the rest of the bones to an root bone.  Again, I am using an Active animated Suzanne mesh to smash the tires in a similar way to the brickscene.
+
+<p><b class="yellow">A thing to note about large physics sims like this is that GoldSrc models are lit from their origin point which means they may be affected by pointing a flashlight on that spot.  In this demonstration I have the rootbone on the ground at 0 0 0 but you can put it on another ground or platform elsewhere.  Also if you have difficulty moving the origin point without drastically changing the lighting of the model you can use </b><b>zhlt_copylight x</b><b class="yellow">. "x" being name of target to copy light from.  <a href="https://sites.google.com/site/svenmanor/entguide/light_keyvalues">More info here.</a></b>
+<p>6)  Bake your keyframes as before with the same methods as the brickscene.  You can now proceed to compiling and map setup.  Also below is info on fixing issues that may happen with the compile error.  In this case I only had 32 tires so I was fine with a sequence over 120frames.
+<p><img src="goldphysimages/blend279_phys11.png">
+<hr>
+<h1><a href="gold_mdl_phys_map.html">Continue to Compiling and Map setup</a></h1>
+<hr>
+<p id="64k"><b class="yellow">if your animation is longer than 100 frames with upwards of 100 objects, there is a compile error that can happen with complex animations called <b>"sequence "action" is greater than 64K"</b>. If you get this error,  There is two ways to fix:</b>
+<p><b>First method</b> is using "time remapping" which is a simple change in your scene settings to change your final frames. For example: 120frames (default @30fps) compress to 60 frames, therefore QC set to 15fps (note time remapping cannot be used if you are using BST to export.)
+<p><img src="goldphysimages/blend279_phys_re.png">
+<p><b>Second method</b>, by making the simulation faster and changing the final QC FPS (only issue is first way its harder to determine final FPS. where as the second method is simple math for example: 120frames @30fps compress to 60 frames, therefore QC set to 15fps).
+<p>Whatever you go with depending on your animation sometimes having less frames gives a slightly more smooth motion due to more interpolating.  Anything below 12fps noticibly loses precision.
+<hr>
+<h1><a href="gold_mdl_phys_map.html">Continue to Compiling and Map setup</a></h1>
+<hr>
+<h1><a href="gold_mdl_phys.html">Go Back</a></h1>
+</div>
+</BODY> 

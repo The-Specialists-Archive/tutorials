@@ -1,0 +1,36 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<!-- Mirrored from www.the303.org/tutorials/gold_mdl_aniremap.htm by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Nov 2024 06:03:21 GMT -->
+<head>
+<title>Model Animation Remap & Proportion Editing Tutorial</title>
+<link rel="stylesheet" href="303style.css">
+<meta name="author" content="303">
+<meta name="description" content="How to remap animations from one model to another">
+<meta name="keywords" content="goldsrc, hl1, half-life, counter-strike, remap, animations">
+</HEAD>
+<BODY>
+<div id="middle">
+
+<img class="middle" src="goldaniremapimages/aniremap_header.png">
+<p>There are times when you want to take an animation from one NPC or playermodel and apply it to another model but there is either a heiarchy or proportion difference which stops you.  There is a way to do this which is called "Animation remapping", which is taking an animation from one skeleton and mapping it to another.  This can be done with ease in fragMOTION.
+
+<p>A second related thing you may want to do is take a model skeleton and change its proportions without having to reanimate the whole animation set with it.  This can be done in 3dsmax and Blender using similar methods.
+
+<p><b class="yellow">Before you begin, if you have two models that are identical in proportion but have the HL/Gearbox naming conflict you can actually just swap out SMDs and <a href="gold_qc.html">$include</a> this in your QC depending on which way you are going:</b>
+<p><a href="tutfiles/rename_template2.html">Template for Old to new (example: Arm1 vs UpperArm)</a><br>
+<a href="tutfiles/rename_template1.html">Template for new to old (example: UpperArm vs Arm1)</a>
+<P>This guide assumes you know about model compiling, if you do not head over to <a href="gold_mdl.html">The MDL Guide</a>.
+For decompiling models needed for this use the latest version of <a href="https://steamcommunity.com/groups/CrowbarTool">Crowbar</a> in this configuration:
+<img class="middle" src="goldmdlimages/crowbar00.png">
+<hr>
+<h1>Remapping Animation:</h1>
+<h1><a href="gold_mdl_aniremap_frag.html">fragMOTION</a>
+<hr>
+<h1>Proportion Changes:</h1>
+<h1><a href="gold_mdl_aniprop_3ds.html">3DSMax</a>
+<h1><a href="gold_mdl_aniprop_blend.html">Blender</a>
+<hr>
+<h1><a href="index.html">Return</a>
+</div>
+</BODY> 

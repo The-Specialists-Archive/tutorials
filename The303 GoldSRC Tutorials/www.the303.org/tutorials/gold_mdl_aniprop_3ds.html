@@ -1,0 +1,35 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<!-- Mirrored from www.the303.org/tutorials/gold_mdl_aniprop_3ds.htm by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Nov 2024 06:11:35 GMT -->
+<head>
+<title>Model Proportion Tutorial for 3DSMax</title>
+<link rel="stylesheet" href="303style.css">
+<meta name="author" content="303">
+<meta name="description" content="How to change Skeleton proportions">
+<meta name="keywords" content="goldsrc, hl1, half-life, counter-strike, proportion, animations">
+</HEAD>
+<BODY>
+<div id="middle">
+
+<h1>3DSMax</h1>
+<img class="middle" src="goldmdlimages/3dsmax_header.png">
+<p>In this tutorial we will need to install and use <a href="gold_mdl_3ds_ww.html">WallWorm Model Tools.</a>
+<hr>
+<p><b>Preparing The Models</b>
+<p><b class="yellow">As of writing, there is currently a bug where 2way blends are not imported, As a workaround you need to make a copy of the QC with additional rewritten blend sequences to workaround this and get everything imported.  You can use notepad++ to grab a file list from a dir and assign them their own $sequence lines</b>
+<p>1) First go to the WallWorm menu and go to "Wall Worm Importers>SMD and QC Importer" , then import your model QC with "animated model" option checked.  This will import the whole model with animations.
+<p><img src="goldanipropimages/aniprop_3ds01.png">
+<p>2)When the import is complete, select all the bones on the model, go into animation tools > bone edit mode > Bone OFF checkbox.  Then translate the bones into a different proportion to your desired target model/mesh.  Because all sequences are loaded into the timeline this affects all the animations. If you haven't already, skin the imported bones to the new mesh.
+<p>2a) an <b>optional</b> thing you can take advantage of since you now have all animations imported is you can make some additional bones with bone controllers and rigging to fake out softer animation skinning.  Basically, add/copy a bone in the skeleton, rename it, skin it to a loop, then put a rotation controller with the next bone in the heiarchy and use a 50~30 or whatever percentage.
+<p><img src="goldanipropimages/aniprop_3ds02.png">
+<p>3)Select the WWMT helper, then remove the original mesh tied to it, then assign your new one.  Then go to the WWMT helper object and "Write SMDs" to export the whole lot
+<p><img src="goldanipropimages/aniprop_3ds03.png">
+
+<hr>
+<p>The final result:
+<p><img src="goldanipropimages/aniprop_3ds04.html">
+<hr>
+<h1><a href="index.html">Return</a>
+</div>
+</BODY> 

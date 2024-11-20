@@ -1,0 +1,38 @@
+/*
+==========
+QC Template TheCorp303
+www.the303.org
+
+I have annotated some notes to help you out.  More in depth guide on QC code visit:
+www.the303.org/tutorials/gold_qc.htm
+
+==========
+*/
+
+$modelname animated_model.mdl
+
+//Name of model, change this to your desired name.
+
+$cd "."
+$cdtexture "."
+
+//Paths for the compiler to grab the SMD's & BMPs.  Currently set for "." which is same folder that QC is located in.
+
+$scale 1
+
+//Scale multiplier.  If using model as "item_generic" in sven coop, you can set the multiplier in hammer
+
+$cliptotextures
+
+//Prevents BMP cropping on compile.
+
+$body studio anim_ref
+
+//The reference mesh internal name & the smd name
+
+$sequence "idle" "idle" fps 1 loop 
+$sequence "spin" "spin" fps 30 loop
+$sequence "move" "move" fps 30 loop 
+
+// ^ Change fps number to increase or decrease speed.  Some entities allow for this to be overrided in hammer by adding "framerate" keyvalue.
+//Note sequences start from sequence 0 onward

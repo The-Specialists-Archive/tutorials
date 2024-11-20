@@ -1,0 +1,156 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<!-- Mirrored from www.the303.org/tutorials/gold_mdl.htm by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Nov 2024 06:05:55 GMT -->
+<head>
+<title>GoldSrc Model Export Tutorial</title>
+<link rel="stylesheet" href="303style.css">
+<meta name="author" content="303">
+<meta name="description" content="How to compile models for GoldSrc engine games">
+<meta name="keywords" content="goldsrc, hl1, half-life, counter-strike">
+</HEAD>
+<BODY>
+<div id="middle">
+<p><img alt="The GoldSrc Model Export Tutorial" src="goldmdlimages/mdl_tut_head.png" >
+<hr>
+<p>Hello, and welcome to the GoldSrc model exporting tutorial.  This tutorial covers exporting models using 3DStudio Max, Blender, MilkShape 3D, kHED & Maya.   This will not teach you how to 3D model, texture or UV unwrap.  This tutorial begins with limits and texture preparation then will branch into the three modelling programs, then converge in the final chapter that is QC code and compiling.
+
+<h1>Table of Contents:</h1>
+<p><b><a href="#intro">1. Introduction & Basics</a><br>
+<a href="#tools">2. Required Tools</a><br>
+<a href="#theory">3.GoldSrc Model Theory</a><br>
+<a href="#texture">4. Texture Preparation</a><br>
+<a href="#special">5. Special Texture Preparation</a><br>
+<a href="#3D">6. 3D Program Choices</a><br>
+</b>
+<hr>
+<br>
+<h2 id="intro">INTRODUCTION: THE BASICS</h2>
+<p>First I will explain some key things you need to know about GoldSrc models.  Meshes in GoldSrc models are in a format called SMD (studio model data). These SMD files and the BMP textures that comprise your model are compiled together by a QC file (Quake compile code for short. This is because GoldSrc began as the Quake1 engine). Half-Life models were originally made with 3DStudio max and many sources & .max scene files are found in the Half-life SDK (downloaded through steams "tools" tab). Smd's have to be made within limits or the program that compiles them "studiomdl.exe" will not work.  Maximum limits <b>per-smd</b> are: 
+<ul class="red"> 
+<li>2048 vertices (or 4080 triangles )
+<li>2048 vertex normals 
+<li>128 bones
+<li>512 keyframes per sequence
+</ul> 
+<p>To overcome the vertex/triangle limits, you must break the model into separate .SMD files and specify the meshes in the QC. The maximum limits of a <b>whole mdl</b> file are:
+<ul class="red"> 
+<li>8 bone controllers
+<li>4 bone attachments
+<li>32 submodels (mesh parts)
+<li>256 sequences
+</ul> 
+<h2>Mesh and texture limits you need to know:</h2>
+<p>1) Models use rigid vertex weights meaning there is only 1 weight per vertex. No vertex weights between bones.  This has to be taken into consideration as you model topology to minimize stretching.  Because of this, hard vertex weighting favors larger distances between moving loops when it comes to limb deformations.
+<p>2) Textures must be indexed 8bit BMP format.  This means a chosen pallete limit of 256 colors achieved through pallete conversion methods and/or dithering.
+<p>3) Valid texture dimensions are in multiples of 16 though its recommended that you have them created in powers of 2 since by default most GoldSrc games do GL texture resizing for non-power2 textures (to disable this use <b>gl_round_down "0"</b> in console or config ). <b>The maximum vanilla goldsrc texture dimensions are 512X512.</b>
+<p>Keep in mind that many goldsrc games by default restrict the maximum displayed texture dimensions to 256X256.  To be sure you can display higher, open the console and type "gl_max_size".  Some games/mods have the default set to <b>"gl_max_size 512"</b> allowing for 512X512 model textures to be displayed properly.
+<p>Lastly, <a href="http://www.svencoop.com/">Sven Co-Op</a> and Xash3d have a higher engine limit of 1024X1024 textures.
+<p>4) Using the classic studiomdl.exe cannot tile UV's outside the texture space, because the compiler will clamp anything outside. However, with a new modernized studiomdl.exe (Sven Co-ops compiler & Xash3d's compiler) you can tile textures in goldsrc.
+<p>5) There are two transparency options: Additive (Additive color blending), and masked (1-bit alpha-test transparency)
+<p>Masked textures must have the masked or transparent portion to be 1 color only that is the very last color of the 8-bit BMP palette (last index number 255; 0 is first).  Most common masked color is pure blue (RGB value: 0 0 255).  These QC code parameters can be set with:<br>
+<b>$texrendermode "texturename.bmp" additive<br>
+$texrendermode "texturename.bmp" masked</b>
+<p>These flags can also be set in a model viewer (Half-Life Asset Manager, HLMV:Standalone, P2MV) after compile by checking the "transparent", or "additive" in the textures tab, then saving the model.  Other mods like Sven Co-Op or <a href="http://www.moddb.com/engines/xash3d-engine">Xash3d</a> have additional texture render modes.  These are documented in the QC glossary.
+<p>6) Special "CHROME" textures give a very basic environment map effect.  These textures must be 64X64 pixels and have CHROME in the filename separated by a _  example: "<b>CHROME_metalpipe.BMP</b>". This way the compiler can flag the texture to use this effect.  It can also be checked in the model viewer with the "Chrome" flag in the textures tab and then saving the model.
+<p>8) In standard GoldSrc there isn't any "do not backface cull" texture setting, so for double sided things will have to have duplicated & flipped geometry in place.
+<p>9) In order to compile models with more than 4080 triangles, you must break up your SMD's into parts and give them their own $body lines for compiling.  Also, <b class="red">FOR THE LOVE OF ALL THAT IS HOLY PLEASE DO NOT GO CRAZY ON YOUR TRIANGLE COUNT; remember this is goldsrc, not source engine.</b>  Going any higher than 9000 tris is excessive and direct ports from source/other games are inefficent, wasteful, and cause performance issues for the old renderer.
+<hr>
+
+<h2 id="tools">Required & Recommended Tools</h2>
+
+<p>1) Install <a href="https://github.com/SamVanheer/HL_Tools/wiki/Half-Life-Asset-Manager">Half-Life Asset Manager</a> as your model viewer.  If HLAM doesn't work on your machine you can use the predacessor <a href="https://github.com/SamVanheer/HL_Tools/wiki/Half-Life-Model-Viewer">HLMV Standalone</a>.   If working on a XASH project use <a href="https://gamebanana.com/tools/6828">P2MV</a> for your model viewer<br> (<b class="yellow">NOTE: While P2MV has full GoldSrc compatibility, Id caution using resave function for anything non-Xash</b>).
+<p>2) Get a modernized studiomdl.exe. The Sven Compiler which is a good improvement can be found here: <br><a href="https://www.the303.org/backups/sven_studiomdl_2019.rar">Sven Studiomdl.exe</a> (this can also be found in the Sven SDK through steam in "tools" tab)<br>
+<a href="gold_qc.html#AS">More info on this compiler here.</a>
+
+<p>For those using <a href="http://www.moddb.com/engines/xash3d-engine">Xash3d</a> you can find that compiler in <a href="http://www.hlfx.ru/forum/showthread.php?s=&amp;threadid=2615">this thread on HLFX.RU</a>.
+
+<p>3)<a href="https://steamcommunity.com/groups/CrowbarTool">Crowbar Tool</a> should be used as your GUI wrapper, as it can place models directly into your working or steam folder and allows for a vastly smoother workflow.  To set it up config your Half-Life profile to point to your newly installed model viewer and studiomdl.exe and steam game directories.
+<P>Model edits or obtaining skeletons need to be from <b>decompiling existing models</b> using Crowbar.  If you need to do this, this is the way to configure crowbar for GoldSrc decompiles:
+<p><img src="goldmdlimages/crowbar00.png">
+<p>Keep in mind if you *just* need a skeleton you can uncheck "Bone Animation SMD files".
+<hr>
+<h2 id="theory">GoldSrc Model Theory</h2>
+<p>Due to being such an old game engine the most noticable limitation to 3D modellers is the limitation of "Hard Vertex Weighting".  With this you only have either weighted or unweighted, also known as "hard weight".  Due to the lack of soft mesh influence this creates a large amount of issues that directly conflicts with most modern workflows, but if you are familiar with lowpoly style you probably know this.
+<p>As said before, you want to give loop distance room in movable models
+<p><img src="goldmdlimages/theory01.gif">
+<p><img src="goldmdlimages/theory02.gif">
+<p><img src="goldmdlimages/theory03.gif">
+<hr>
+<h2  id="texture">Part1: Texture Preparation</h2>
+<p>In this section I will show some methods of creating indexed BMP texture conversion.  Ill start with Photoshop but <a href="#nops">if you are using another program I have an alternative method that works for all others.</a>
+<br>
+<p>1) To convert the texture to indexed color by going to mode> Index.. and set to any of the "local" palettes (perceptual, selective, and adaptive<b>*</b>).  Preview the image.  If your image has gradients than start to get a "banding effect", you can lessen these harsh edges by using the Dithering option.  Dithering scatters pixels between transitions to make them somewhat smoother.
+<p><b>*</b>Adaptive algorithm reproduces colors most often in image, Perceptual takes spectrum priority of the eye, Selective favors colors that appear in large areas and graphics.
+<p><img src="goldmdlimages/tex_diff01.png">
+<p>2)Save the image as .BMP format.  A preview of a model that this texture belongs to.
+<p><img src="goldmdlimages/tex_diff02.png">
+<hr>
+<p><a name="nops"></a><b>If you do not have Photoshop</b>, the common option for making an indexed color image is "save as 8bit", "256 colors", or "indexed".   <p>If your program is lacking in creating a decent palette or cannot save properly, you can save out your image as a 24bit BMP and use <a href="http://www.irfanview.com/">IRFANVIEW</a> to do the 8bit conversion.  I encourage to use this way if you are using Paint.net or GIMP because ive found that 8-bit conversion in those programs tend to not reproduce accurate results.
+<p><img src="goldmdlimages/tex_irfan01.png">
+<p>If you have a model that needs a smooth gradient and dithering is just not acceptable for you, there is a way of getting better color range by separating your textures by general color.  This may require you to modify the UVs on your model to separate images/IDs.
+<hr>
+<p><b>If your model Has no special texture types and you are ready, <a href="#3D">click here to skip to 3D modelling package section</a></b>
+<hr>
+<h2 id="special">Special Texture Types</h2>
+<p>In standard GoldSrc there are three main special texture types and a final lesser known one:
+<p><b><a href="#chrome">Chrome:</a></b> Simple environment map for metal like textures.<br>
+<b><a href="#additive">Additive:</a></b> blending mode for effects like glows (pure black is hidden and lighter is visible)<br>
+<b><a href="#masked">Masked:</a></b> Simple 1-bit transparency mask defined by a pallete index.  This more commonly known as alphatest.<br>
+<b><a href="#flatshade">Flatshade:</a></b> Ignores vertex normals shading all polygons uniformly without visible shadows. Best use for stylized pained shadows models/cartoon/anime style.
+<p>Sven-Coop & Xash3d have an additional flag called "<b>Fullbright</b>" however I cover that in a separate tutorial <a href="sven_fullbright.html">found here.</a>
+<p>This section will describe the texture creation but the final compile flags will come in the later QC chapter.
+<hr>
+<p>The first special type is <b>chrome</b>.  As described earlier, these are simple env maps that are used for metal or reflective type textures.  Combined with additive they make for a glass look. The Chrome effects most notable examples are barneys helmet, the magnum revolver, the gauss gun, and  the alien grunt armour.  
+<p><a name="chrome"></a>A Chrome texture is created and indexed like as before <b style="red">but must be 64X64 pixels</b> (Sven-Coop doesn't have this limit).  When saving the BMP, the name "chrome" must be in the filename and the filename separated by a _  example: "<b>CHROME_metalpipe.BMP</b>". This way the compiler can flag the texture to use this effect.
+<p><img src="goldchromeimages/chro_namevsflag.png">
+<p>Here we see an example of the chrome effect.  By default the "Chrome" effect is a flatshade style lighting which means while it can be lightened and darkened due to environment it does it uniformly and shows so real distinct shadowing.
+<p>There is a trick you can use to add some shadowing if desired.   Instead of putting the "chrome" in the filename, use either the Sven Compiler with <b>$texrendermode texture.bmp chrome</b> or use Paranoia2 model viewer to set the chrome flag (and remove the flatshade flag if enabled.)
+<p><h1>Since Chrome is a large topic <a href="gold_mdl_chrome.html">I have created a new guide on chrome creation found here.</a></h1>
+
+<hr>
+<p><a name="additive"></a>The second special type is "<b>Additive</b>".  Additive light blending textures do not require any special things other than remembering that bright = opaque and black is fully invisible.  All you need to do is make a simple texture starting with pure black canvas.  Convert to pallete as before.
+<p><img src="goldmdlimages/tex_add01.png">
+<p><b>An important thing to know about Additive on models is that they are subject to local model lighting as well, so they will be darkened in low light conditions.  They are not traditional fullbright in a sense</b>, so if you do need a fullbright additive model in your map, create the model but do not use the additive compile flag and instead set the "additive" blend mode in hammer on the entity render mode. An example of this is the world&satellite hologram in the blast pit chapter.  Sven Co-Op and Xash3d have the additional fullbright compile flag <a href="sven_fullbright.html">see here.</a>
+<p>Setting the texrendermode flags in the QC file will come later in the compiling chapter.
+<hr>
+<p><a name="masked"></a><b>Masked</b> textures use a solid color that is the last color of the indexed palette as the transparent mask.  This is a 1-bit form of transparency also known as "Alphatest" (so no semi-transparent/soft areas). Get your image ready by creating a selection from either lasso, quick select, pen, quickmask, ect.  Create a clipping mask from this selection.  In this case I have an existing transparency, so I will be creating a threshold for the alphatest.
+<p><b>In many cases if you need just a simple transparency that can be added by a threshold fill (no antialiasing selection/pencil tool) of pure blue ( RGB[0 0 255] or HEX:#0000ff ) and <a href="#step3">skip to step3</a></b>
+<p>1)Use <a href="https://docs.unity3d.com/462/Documentation/Manual/HOWTO-alphamaps.html">AlphaUtility" from this page</a> which will pad out your transparency range (alternativley if you use Xnormal there is another plugin that does this <a href="http://www.xnormal.net/">Xnormal plugin</a> use the "dialation..." filter.).  This is done to keep a "fringe" from forming when we threshold the transparency.  Next after running "Dialate many times" from the Actions, ctrl-click the topmost layer to load a selection.  With the selection loaded merge visible layers then click the "layer mask" button on your layer window. 
+<p><img src="goldmdlimages/tex_mask01.png">
+<p>2) Create a layer below the masked image and then use the fill command (shift-F5) to fill that layer with pure blue ( RGB[0 0 255] or HEX:#0000ff ). select your clipping mask and go to Image > adjustments > threshold.  You will now have a slider bar that you will adjust to set the hard threshold of your mask, this ensures you don't have any blending or aliasing which is bad for alphatest masked transparency.  Do fine adjustments on this mask using the pencil tool (has hard edges to match requirements) with black or white.
+<p><b class="yellow">NOTE: If your image touches the edge of the document, you should put at least a 1px border of the transparency, this is because any pixels touching any side of the document can sometimes "wrap" to the opposite side of the image.</b>
+<p><img src="goldmdlimages/tex_mask02.png">
+<p><a name="step3"></a> 3) When finished convert the image to indexed color just like before, only after choosing your local palette, go to the rollout and choose "custom".
+<p><img src="goldmdlimages/tex_mask03.png">
+<p>4)With the custom palette open ctrl-click the pure blue color to remove it from its index and re-add it to the final index by clicking the final slot and entering either RGB[0 0 255] or HEX #0000ff.
+<p>
+<p><img src="goldmdlimages/tex_mask04.gif">
+<p>5)Save the image as BMP.  An example of masked in action.
+<p><img src="goldmdlimages/tex_mask05.png">
+<p>Setting the texrendermode flags in the QC file will come later in the compiling chapter.
+<hr>
+<p><b>If you do not have Photoshop</b>, swapping indexes will be a bit more difficult since IRFANVIEW is not able to do that, however we can use <a href="https://www.the303.org/backups/wally_155b.exe">Wally</a> to swap the indexes.  Wally has 2 methods of swapping indexes, A: automatic blue detection by adding the wildcard "{"character to the front of the texture.  B: Manual index location swapping.
+<p>A) Automatic detection method is done by adding the "{"character added to the front of your bmp name.  Then opening wally, and going file>New wad ("Half-Life [WAD3] package")  then drag and drop your bmp into the package window.  Then verify if the blue has been swapped to the end of the pallete preview.  Finally right-click to export the BMP.
+<img src="goldmdlimages/irf_mask01.png">
+<p>B) Manual detection method is done by opening wally, and going file>New wad ("Half-Life [WAD3] package") then drag and drop your bmp as before but this time click the blue color in the pallete preview and go to Color> Translate Colors...  Put "Index 255" as the destination and then check "Swap Indexes".  When done right click and export as before.
+<img src="goldmdlimages/irf_mask02.png">
+<hr>
+<p><a name="flatshade"></a>The final special type is <b>Flatshade</b>.  Flatshade was always a part of GoldSrc however wasn't readily accessible with any tools until fairly recently using new compiler's that allow for the flatshade $texrendermode flag to be set, and can be set easily with the Half-Life Asset Manager or HLMV:Standalone.
+<p>I will also mention in this section an additional mode that is set by a global flag called "no shadelight" aka "$flags 256".  The difference in $texrendermode flags are per-texture where a global $flags affects everything.
+<p><img src="goldmdlimages/tex_flat01.jpg">
+<p>Here we see an example of a normal model, a model with a global flag "noshadelight" and a "Flatshade" set on all chosen textures.  The global cuts the shadowing by roughly 50% while flatshade completley removes visible shadowing and only darkens and lightens as a whole depending on environment.
+<p>This is particularly useful for many hand-painted styles that might get muddied by harsh black shadows and particularly cartoon/anime styles.  A further example of this can be <a href="goldmdlimages/tex_flat02.jpg">found here</a>.  For complete ignoring of all lighting whatsoever there is fullbright, but that is only avalible in Sven-Coop and Xash3d.
+<p>More info on setting the texrendermode flags in the QC file will come later in the compiling chapter.
+<hr>
+<p><p><a name="3D"></a>With your textures prepared, continue on to your preffered 3d modelling package:
+<h1><a href="gold_mdl_3ds.html">3DStudio Max</a></h1>
+<h1><a href="gold_mdl_blend.html">Blender</a></h1>
+<h1><a href="gold_mdl_khed.html">kHED</a></h1>
+<h1><a href="gold_mdl_frag.html">fragMOTION</a></h1>
+<h1><a href="gold_mdl_maya.html">Maya</a></h1>
+<h1><a href="gold_mdl_milk.html">Milkshape3d</a></h1>
+<hr>
+<h1><a href="index.html">Return</a>
+</div>
+</BODY> 

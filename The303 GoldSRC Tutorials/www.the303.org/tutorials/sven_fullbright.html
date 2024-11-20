@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<!-- Mirrored from www.the303.org/tutorials/sven_fullbright.htm by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Nov 2024 06:07:23 GMT -->
+<head>
+<title>Sven Co-op Fullbright Model Textures Tutorial</title>
+<link rel="stylesheet" href="303style.css">
+<meta name="author" content="303">
+<meta name="description" content="How use Sven Coop Fullbright Model Textures">
+<meta name="keywords" content="goldsrc, hl1, half-life, counter-strike, sven co-op">
+</HEAD>
+<BODY>
+<div id="middle">
+<h1>Sven Co-op Fullbright Model Textures Tutorial</h1>
+<hr>
+<p><img src="goldbrightimages/glo00.png">
+<p>Sven Co-op models supports a texture QC flag called "fullbright" which basically means the texture will be drawn at full brightness at all times.  This is used for things like screens, lights, and glows.  This quick tutorial will show some ways you can use this. XASH3D also supports fullbright flag.
+<hr>
+<h2>METHOD</h2>
+<p>There are two main ways to use the "fullbright" flag, the first being a QC line in the same format as you would with "masked" or "additive".  This method must use the sven-coop studiomdl.exe found in the sven coop SDK folder located here to compile:<br>
+<b>C:\Program Files (x86)\Steam\steamapps\common\Sven Co-op SDK\modelling</b>
+<p>The way you would write the QC line out will be:<br>
+<b>$texrendermode mytexture.bmp fullbright</b>
+<p>The second method sets this flag in the model viewers known as <a href="https://github.com/SamVanheer/HL_Tools/wiki/Half-Life-Model-Viewer">HLMV Standalone</a> or P2MV (<a href="http://gamebanana.com/tools/6041">Paranoia 2 Model Viewer</a>).
+<p>This method is as simple as selecting the texture from the texture tab rollout and checking the "fullbright" box and then saving out the model.  This is especially useful if you want to set fullbright on existing models without decompile or if you want to use other compilers other than the sven version say for example an older version or XASH studiomdl.
+<p><img src="goldbrightimages/glo02.png">
+<p>1) First example we will set a texture to fullbright here on this ATM by setting the screen texture to fullbright.  As you can see here I have the fullbright line in the QC and am ready to compile
+<p><img src="goldbrightimages/glo01.png">
+<p>2) Here is the compiled model viewed in HLMV Standalone.  Using ctrl and clicking and dragging the mouse I have changed the light direction and then used ctrl-click to move the light from top to bottom so I can preview how it looks in shade.  On the texture tab rollout here is the checked fullbright flag.
+<p><img src="goldbrightimages/glo03.jpg">
+<p><img src="goldbrightimages/glo04.jpg">
+<p>3) This is what the model looks like in game under various lighting conditions.
+<p><img src="goldbrightimages/glo05.jpg">
+<hr>
+<p>4)Now I want to introduce glowing effect method by combining fullbright with Additive flag.  In this example I have made a glowing texture version of the ATM keypad.  The keypad polygons are simply duplicated and set to the new texture.
+<p><img src="goldbrightimages/glo06.jpg">
+<p>I know you are thinking "what about Z-fighting sorting errors due to the two planes occupying the same space? Shouldn't you move it out or use push from normal?".  True, you can do this but turns out you can make the engine sort the additive plane overtop if the texture is below the regular keypad in the texture rollout order.  This texture order can be verified in HLMV like so:
+<p><img src="goldbrightimages/glo07.jpg">
+<p>As you can see since the additive keypad texture is below the regular keypad texture, it will render first.
+<p>Using this method of keeping the planes in place has the advantage of not having an outline on certain shapes or a visible distance/outline from a moved plane. To better explain here is what the order looks like in 3DSMAX, MilkShape & Blender before final SMD export:
+<p><img src="goldbrightimages/glo08.jpg">
+<p>(Blender is Texure rollout tab, MilkShape3D is "Groups" tab, and 3DSMAX is Material ID number)
+<p>5)Now you can see the glowing keypad and the texture order.  Now see the model in game.
+<p><img src="goldbrightimages/glo09.jpg">
+<p>6) Another example id like to share is having a glow gradient texture to add to the mesh surrounding the screen.  I have detached this as a clone not as element but as its own mesh so I can re-UV all the planes to a small (16X64) dim gradient texture in facing outward directions.  See how it looks here?
+<p><img src="goldbrightimages/glo10.jpg">
+<p>7) Now see how it looks in game
+<p><img src="goldbrightimages/glo11.jpg">
+
+<hr>
+<h1><a href="index.html">Return to Tutorials</a></h1>
+</div>
+</BODY> 

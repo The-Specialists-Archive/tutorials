@@ -1,0 +1,137 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<!-- Mirrored from www.the303.org/tutorials/gold_func_vehicle.htm by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Nov 2024 06:08:37 GMT -->
+<head>
+<title>GOLDSRC FUNC_VEHICLE AND SVENCOOP FUNC_VEHICLE_CUSTOM TUTORIAL</title>
+<link rel="stylesheet" href="303style.css">
+<meta name="author" content="303">
+<meta name="description" content="FUNC_VEHICLE tutorial">
+<meta name="keywords" content="studiomdl, goldsrc">
+</HEAD>
+<BODY>
+<!--
+FUNC_VEHICLE
+FUNC_VEHICLE
+FUNC_VEHICLE
+FUNC_VEHICLE
+FUNC_VEHICLE
+FUNC_VEHICLE
+FUNC_VEHICLE
+FUNC_VEHICLE
+FUNC_VEHICLE
+FUNC_VEHICLE
+FUNC_VEHICLE
+FUNC_VEHICLE
+FUNC_VEHICLE
+FUNC_VEHICLE
+FUNC_VEHICLE
+FUNC_VEHICLE
+FUNC_VEHICLE
+FUNC_VEHICLE
+FUNC_VEHICLE
+FUNC_VEHICLE
+FUNC_VEHICLE
+
+FUNC_VEHICLE 2012
+https://www.youtube.com/watch?v=kdo9HZTgr6s
+-->
+<div id="middle">
+<p><img src="goldfvimages/func_vehicle_header.png">
+<p><b class="green">As of the 25th anniversary update,  FUNC_VEHICLE is now avalible to Half-Life.</b><br>
+<b class="yellow">NOTE: as of this moment the FGD hasnt been updated but you can copy it from the CS1.6 FGD.  Look for "func_vehicle" and "func_vehiclecontrols" for the info and copy them into your FGD if needed.  This may be updated into the official sdk later.  If you don't have CS1.6 fgd you can add this to your map editor: <a href="tutfiles/func_vehicle.dir">func_vehicle.fgd</a> </b>
+<p>This is the GoldSrc func_vehicle and func_vehicle_custom for CS1.6, Half-Life & Sven Coop.  This tutorial is written by <b><a href="https://artstation.com/seedee">seedee</a></b> and mirrored and adapted by The303.
+<p>A note before using, keep in mind that func_vehicle was always a somewhat buggy entity and has a tendancy to get stuck or get lost, so when mapping be sure that you don't make the vehicle an critical part of winning the map.  Also be sure it can't be used to block and get stuck on needed exits/paths in your map.  Nothing is worse than a map where all the players cannot finish due to a stuck vehicle.
+<p><b>Tip: When brush modelling your vehicle (before you select it all and turn it into the func_vehicle) you can also cover it in CLIP brushes to control collision & make certain brush details less likley to get stuck in.  This is useful for say like motorbike models with handlebars.  You can also include a wedge shape CLIP brush to help movement into the vehicle.
+<hr>
+<p>Jump to <a href="#F0">Creating the vehicle entity</A></br>
+Jump to <a href="#F1">Creating tracks for the vehicle</A></br>
+Jump to <a href="#F2">Creating vehicle controls</A><br>
+Jump to <a href="#F3">Sven Co-op scripting</A><br>
+<hr>
+
+
+<h1>Requisites</h1>
+<p><ul><li>For CS1.6, a configuration file that supports vehicle entities such as <a href="https://gamebanana.com/gamefiles/3914">this one.</a> (For Sven-Coops version "func_vehicle_custom", you load the FGD:<br>"<b>/scripts/maps/fgd/func_vehicle_custom.fgd</b>" )</li>
+<li>Understanding of 3D space and dimensions</li></ul>
+
+<h1>Creating an origin for the vehicle</h1>
+
+<p>The front of your vehicle is always the X-axis in the editor and therefore should be created facing the X-axis, but you can change the in-game orientation of your vehicle later. The axes should be visible as red, blue, and green lines, where Z is up in the editor.<br>
+<b class="yellow">Note that we have "Draw Sizing Info" checked in the editors 2D views option to see the brush size numbers.</b>
+<br><center><img src="goldfvimages/fv_1.png"></center><br>
+
+
+<p>Create a brush textured with <b class="green">ORIGIN</b> at the exact center of your vehicle on the X and Y-axes. This will let you properly determine the length and width of the vehicle's collision box. You can use the brush selection handles as a reference for where the center of your vehicle is. The brush doesn't have to be centered on the Z-axis.<br>
+
+
+<img src="goldfvimages/fv_2.png"><br><img src="goldfvimages/fv_3.png"><br><br>
+
+<h1 id="F0">Creating the vehicle entity</h1>
+
+<p>You must select all the brushes of your vehicle, including the <b class="green">ORIGIN</b> brush, and assign them to a <b class="magenta">func_vehicle</b> entity  (<b class="magenta">func_vehicle_custom</b> for Sven Co-op):
+
+<p><b class="yellow">targetname</b><br>The vehicle controls need to target this entity, so set a unique name.<br>
+<b class="yellow">target</b><br>Name of the <b class="orange">path_track</b> entity the vehicle will spawn at in-game.<br>
+<b class="yellow">length</b><br>The dimension of the vehicle, in units, on the X-axis.<br>
+<b class="yellow">width</b><br>The dimension of the vehicle, in units, on the Y-axis.<br>
+<b class="yellow">height</b><br>This defines how many units the bottom of the <b class="green">ORIGIN</b> brush is above ground. This is useful if your vehicle has wheels, is a boat, or a helicopter. While making the origin touch the ground and setting this to 0 will work, it is not an ideal solution due to the way vehicles collide with the world.<br>
+<b class="yellow">bank</b><br>This defines how many degrees the vehicle tilts when turning. This is good for motorcycles.<br>
+<b class="yellow">dmg</b><br>Damage dealt to players who get run over or otherwise block the movement of the vehicle.<br>
+<b class="yellow">speed</b><br>The speed of the vehicle, in units per second.<br>
+<b class="yellow">startspeed</b><br>The velocity of the vehicle as soon as the level loads in-game. The vehicle will immediately decelerate to a stop.<br>
+<b class="yellow">sounds</b><br>The type of sound the engine. This must be an integer ranging from 1 to 7. You can find the vehicle sounds in <b>../cstrike/sound/plats/</b><br>
+<b class="yellow">volume</b><br>The volume of the engine. This must be an integer ranging from 1 to 10.
+
+<h1 id="F1">Creating tracks for the vehicle</h1>
+
+<p><img src="goldfvimages/fv_4.gif"><br><br>
+<p>You must create two of these entities. The first <b class="orange">path_track</b> serves as a spawning point for the vehicle and therefore must be targeted by it. The first <b class="orange">path_track</b> must also target the second <b class="orange">path_track</b>. The second one must, in turn, target the first. The front of the vehicle will face this entity in-game.
+
+<h1>Sven Co-op</h1>
+<p>Unlike in Counter-Strike, the second <b class="orange">path_track</b> used to change the vehicle's orientation should not target the first one, or else the vehicle flips on the wrong axis entirely.<br><br>
+
+<h1 id="F2">Creating vehicle controls</h1>
+<p><img src="goldfvimages/fv_5.gif"><br><br>
+<p>Create a brush wherever you want and assign it to a <b class="magenta">func_vehiclecontrols</b> entity. Make the vehicle controls target the vehicle and you will be able to drive it with E.<br><br>
+<hr>
+<h1 id="F3">Sven Co-op scripting</h1>
+<p>The current version of Sven Co-op has a <b class="magenta">func_vehicle_custom</b> Angelscript in <b>../svencoop/scripts/maps/</b>. You must include it in your own map's script for it to work. Copy the following code and save it with the <b>.as</b> file extension to <b>/svencoop/scripts/maps/</b>.<br>
+
+<div align="left">
+<table class="old">
+	<TR>
+		<TD>
+		<pre>
+#include "func_vehicle_custom"<br><br>void MapInit()<br>{<br>     VehicleMapInit( true, true );<br>}</pre>
+		</TD>
+	</TR>
+</TABLE>
+</div>
+
+<p>If you create your own folder to organize your scripts, you can try the following to go up a directory instead:
+
+<div align="left">
+<table class="old">
+	<TR>
+		<TD>
+<pre>#include "../func_vehicle_custom"</pre>
+		</TD>
+	</TR>
+</TABLE>
+</div>
+
+<p>You must also create a configuration file for your map to run the script. Copy the following cvar and save it with the <b>.cfg</b> file extension to <b>../svencoop/maps/</b>. The config file should have the same filename as your map.<br>
+<div align="left">
+<table class="old">
+	<TR>
+		<TD>
+<pre>map_script yourscript</pre>
+		</TD>
+	</TR>
+</TABLE>
+</div>
+
+<hr>
+<h1><a href="index.html">Return</a>
+</div>

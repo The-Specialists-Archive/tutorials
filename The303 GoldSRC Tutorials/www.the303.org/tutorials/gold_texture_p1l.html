@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<!-- Mirrored from www.the303.org/tutorials/gold_texture_p1l.htm by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Nov 2024 06:12:09 GMT -->
+<head>
+<title>GoldSrc Map Texture Tutorial</title>
+<link rel="stylesheet" href="303style.css">
+<meta name="author" content="303">
+<meta name="description" content="How create textures for goldsrc games">
+<meta name="keywords" content="goldsrc, hl1, half-life, counter-strike">
+</HEAD>
+<BODY>
+<div id="middle">
+<h1>GoldSrc Map Texture Tutorial</h1>
+<hr>
+<h2>PART1 SIMPLE TEXTURES AND WAD PACKING</h2>
+<p><b class="red">This is the legacy guide on manual indexing</b>
+<p>1) First create a texture.  For this I will be making a 256X256 wall texture.
+<p><img src="goldteximages/tex01.jpg">
+<p>2) When finished simply convert the texture indexed color by going to mode> Index.. and set to any of the "local" palettes (perceptual, selective, and adaptive<b>*</b>).  Preview the image.  If your image has gradients than start to get a "banding effect", you can lessen these harsh edges by using the Dithering option.  Dithering scatters pixels between transitions to make them somewhat smoother.
+<p><b>*</b>Adaptive algorithm reproduces colors most often in image, Perceptual takes spectrum priority of the eye, Selective favors colors that appear in large areas and graphics.
+<p><b>If you do not want to use controlled color selection and/or dithering via this method and just want a fast conversion, Wally can auto-convert RGB24bit images upon import. Save out your image as BMP24bit and </b> <a href="#step3">skip to step 3.</a>
+<p><img src="goldteximages/tex02.jpg">
+<p><img src="goldteximages/tex03.jpg">
+<p><img src="goldteximages/tex04.jpg">
+<p><img src="goldteximages/tex05.jpg">
+<hr>
+<p>2a) If you do not have Photoshop, the common option for making an indexed color image is "save as 8bit", "255 colors", or "indexed".   If your program is lacking in creating a decent palette or cannot save properly, you can save out your image as a 24bit BMP and use <a href="http://www.irfanview.com/">IRFANVIEW</a> to do the 8bit conversion.  I encourage to use this way if you are using Paint.net or GIMP because ive found that 8-bit conversion in those programs tend to not reproduce accurate results.
+<p><img src="goldteximages/texa1.jpg">
+<p><img src="goldteximages/texa2.jpg">
+<p><img src="goldteximages/texa3.jpg">
+<hr>
+<a name="step3"></a>
+<p>3)When first opening Wally, go to view "options" and make sure Gamma setting is at 1.  Go to file and create new Wad package.  Choose Half-Life (Wad3) package.  You will get an empty tan coloured window.  Import your textures or just drag and drop into the tan window area.
+<p><img src="goldteximages/tex06.jpg">
+<p><img src="goldteximages/texx6.gif">
+<p>4) Save your WAD file and place it into your game directory.  Note: you can at any time re-open your WAD file with Wally and add more images, furthermore there is a WAD merge option under the "wizard menu" to combine existing WAD files. <b>For the purposes of this tutorial I am making a wad for each textureset just to keep things uncluttered, but in real practice when making your own keep everything to one wad.</b>
+<p><img src="goldteximages/tex07.jpg">
+
+
+
+
+
+<p><b><a href="#mapsetup">Click here to jump to map setup</a></b>
+<hr>
+<h2 id="hltools">Making wads with HL-Tools</h2>
+<p><b>Note that HL-Tools supports BMP, PNG, TIFF, JPG.  When it auto converts it does not use dithering. Id personally avoid saving your art as jpg due to quality loss before indexing</b>
+
+<p>1) Go to "tools" menu and go to "Create New Wad..." Then add or drag and drop your files. Leave the settings as is, and then save your wad.
+<p><img src="goldteximages/tex_hltt1.png">
+
+<p>2) Verify your created wad.  Clicking the background toggles between BG colors and clicking the "tile view" changes from a simple name list to tiled preview thumbnails.
+<p><img src="goldteximages/tex_hltt2.png">
+<hr>
+<h2 id="mapsetup">Loading your custom wad and map compile</h2>
+<p>1) Open up hammer editor and go to options > add WAD and add the custom WAD file
+<p><img src="goldteximages/tex08.jpg">
+<p>2) Open your map and go to the texture tab and search for the name of your texture
+<p><img src="goldteximages/tex09.jpg">
+<p>3) Here it is.  Now apply your texture and its in the map.  Compile your map and observe.
+<p><img src="goldteximages/tex10.jpg">
+<p>4) Currently the map is only referencing the external WAD file, and the map with the custom textures will only work if your map is accompanied by that specific WAD file.  This is fine if you are making an HL mod, but If you want to make a custom map where the custom textures are part of the map file for easy downloading then you have to run a CSG command.
+<p><img src="goldteximages/tex11.jpg">
+<p>5) In advanced menu go to the CSG.exe line and add <b>-wadinclude mywad.wad</b> after the first commands.
+<p>If you are using <a href="http://jack.hlfx.ru/en/">J.A.C.K</a> editor and get a compile error be sure that the existing parameters have quotations around it and the -wadinclude mywad.wad are outside of the quotes. An <a href="goldteximages/jackcsg.png">example image here.</a>
+<p>Compile the map and the wad package will now become part of the map BSP.  This means you can now run the map without the external mywad.wad file.
+<p><img src="goldteximages/tex12.jpg">
+<p>A trick to verify if the -wadinclude command worked, you can use GCFSCAPE to open a BSP file and see if your custom textures are inside like so:
+<p><img src="goldteximages/texbsp.jpg">
+<hr>
+<h1><a href="gold_texture.html">Part0: Introduction</a></h1>
+<h1><a href="gold_texture_p2.html">Part2: Creating  Masked Transparent Textures</a></h1>
+<h1><a href="gold_texture_p3.html">Part3: Creating Additive Transparent Textures</a></h1>
+<h1><a href="gold_texture_p4.html">Part4: Creating Animated Textures</a></h1>
+<h1><a href="gold_texture_p5.html">Part5: Creating Toggled Textures</a></h1>
+<h1><a href="gold_texture_p6.html">Part6: Creating Water Textures</a></h1>
+<h1><a href="gold_texture_p7.html">Part7: Creating Scrolling Textures</a></h1>
+<h1><a href="gold_texture_p8.html">Part8: Creating Skies</a></h1>
+<h1><a href="gold_texture_p9.html">Part9: Creating Detail Textures</a></h1>
+<!-- OBSOLETE <h1><a href="gold_texture_p10.htm">Part10: Batch Conversion</a></h1> -->
+<hr>
+<h1><a href="index.html">Return to Tutorials</a></h1>
+</div>
+</BODY> 

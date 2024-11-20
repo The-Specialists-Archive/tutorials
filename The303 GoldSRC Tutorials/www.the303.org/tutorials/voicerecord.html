@@ -1,0 +1,39 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<!-- Mirrored from www.the303.org/tutorials/voicerecord.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Nov 2024 06:10:24 GMT -->
+<head>
+<title>Recording Voice into Separate Channels</title>
+<link rel="stylesheet" href="303style.css">
+<meta name="author" content="303">
+<meta name="description" content="Recording Voice into Separate ChannelsRecording Voice into Separate Channels">
+<meta name="keywords" content="source voice channel, record, wav">
+</HEAD>
+<BODY>
+<div id="middle">
+<h1>Recording Voice into Separate Channels</h1>
+<hr>
+<p>To record in-game voice to wav files, first create a "Voice" directory in your game folder like in this example:<br>
+\counter-strike source\cstrike\voice<br>
+\team fortress 2\tf\voice</p>
+<p>
+Then in your game console window type:
+<b>voice_writevoices 1</b></p>
+<p>If all went well after your game is done, your "voice" folder will look something like this:</p>
+<img src="voicelist.png" alt="voices">
+<p>Open these wave files with your Audio editing program of choice and edit them to your liking.  This can be really useful if you are making gameplay videos where you want to separate the voices from all the gameplay sounds.  Sometimes you can even play previously recorded demofiles and with this command enabled, you can get voices from them.
+<h3>Advantages:</h3>
+<ul>
+<li>Separates voices into wav files even when others were overlapping
+<li>Condenses all recordings so there isn't blank spaces
+</ul>
+<h3>Disadvantages:</h3>
+<ul class="red">
+<li>Not guaranteed to record everything
+<li>Sometimes can be hard to find what your looking for since many times it puts together tons of stuff into one file
+<li>Can be difficult to get a sense of time, since some voices in a conversation that overlapped might be spread across a few files.
+</ul>
+<p>I recommend to record both a demofile and put voice_writevoices 1 on at the same time.</p>
+<h1><a href="index.html">Return</a>
+</div>
+</BODY>

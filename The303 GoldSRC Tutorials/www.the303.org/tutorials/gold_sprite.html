@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<!-- Mirrored from www.the303.org/tutorials/gold_sprite.htm by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Nov 2024 06:03:15 GMT -->
+<head>
+<title>GoldSrc Sprite Tutorial</title>
+<link rel="stylesheet" href="303style.css">
+<meta name="author" content="303">
+<meta name="description" content="How create sprites for goldsrc games">
+<meta name="keywords" content="goldsrc, hl1, half-life, counter-strike, sven co-op">
+</HEAD>
+<BODY>
+<div id="middle">
+<h1>GoldSrc Sprite Tutorial </h1>
+<hr>
+<p><img src="goldsprimages/spritetut.png">
+<h2>INTRODUCTION</h2>
+<p>GoldSrc Sprites are point entities that are saved as individual files named with extension ".spr" instead of map textures that are packed into WADs.  In order to make sprites, you must author your images in BMP format with an 8-bit depth (256 colors index/palette) and dimensions must be in multiples of 16 with a maximum of 512X512.  Sprites have multiple types of transparency and orientation modes to rotate them.  They can also be toggled on or off by name and have animation.  Lastly, unlike brush entities they are not affected by BSP map lighting.
+<p><b>While this tutorial focuses primarily on map-based entities, the methods for creating other effects or uses are the same, say for example some newly coded effects for a mod or custom weapons, trails, angelscript (Sven Co-op), and HUD/projectiles/muzzle/effect replacements without the framerate limitations of map entities.</b>
+<p>Sprites are saved in this directory:</br>
+<b>C:\Program Files (x86)\Steam\steamapps\common\Half-Life\valve\sprites</b><br>
+<p><b>Keep in mind to make your own folder in the sprite directory for organization and avoiding name conflicts.</b>
+<p>3) Sprites come in 4 texture formats:<br>
+<b>Normal - Image as is<br>
+Additive - Additive transparency<br>
+Index Alpha - Gradient transparency with 1 color<br>
+Alpha Test - Masked 1-bit Transparency<br></b>
+<p>Here we see what these 4 types look like
+<p><img src="goldsprimages/sp_types.jpg">
+<p>4)Sprites also have five orientation types:<br>
+<b>Parallel</b> - Most common default type; image always faces camera<br>
+<b>Parallel Upright</b> - Locked to z-axis so only rotates to face camera (best for things that need to be placed on ground, for example trees or fire effect)<br>
+<b>Oriented</b> - Does not rotate to camera; has a fixed orientation defined in hammer (not for use with env_glow)<br>
+<b>Parallel Oriented</b> - Faces camera just like Parallel but can be rotated in hammer (not for use with env_glow)<br>
+<b>Facing Upright</b> - Lesser used mode that works just like Parallel upright, but rotation aligns with player origin instead of camera. (can be buggy at close distances, would only recommend for a specific effect)
+<p><b class="red">Important: Oriented mode sprites tend to have problems with angle co-ordinates in hammer so its best to set them manually starting from [180,180,180] instead of [0,0,0].  In addition don't use negative numbers; instead subtract from 360.  Also use 360 instead of 0 and carefully watch the use of hammer transforms as it will likely give you numbers that might look fine in hammer but will not work in-game.  If you are still having troubles with angles not appearing in map  I have an example RMF included in the example file download at the bottom (called "oriented_angles.rmf").</b>
+<p><img src="goldsprimages/sp_view.jpg">
+<p>If you made a sprite file and need to change the type you set upon creation, you can have their types changed with HL-Texture-Tools under "fix sprite type" without re-creating them.  Also in the mod <a href="http://www.svencoop.com/">Sven Co-Op"</a> you can actually set a manual override known in the FGD as "Draw type/Orientation" (aka: keyvalue "vp_type").
+<hr>
+<p>Sprites can be used by the following hammer entities:<br>
+<b>env_glow:</b> Basic, simple to set up sprite.  Does not animate, cannot receive inputs and cannot define rotation in oriented formats<br>
+<b>env_sprite:</b> Sprite with full features such as turning on and off, animation and orientation settings<br>
+<b>env_laser:</b> A beam entity that draws a sprite from itself to a target. The sprite is usually a rectangle ratio sprite format. This entity renders only in additive mode, no matter the sprite format.<br>
+<b>env_beam:</b> A beam entity that has more features than env_laser.  Unlike env_laser, env_beam is targeted from 2 set points that can be faded out.  It can also fire multiple beams (like the alien teleport effect) and can also be set up as a "ring".<br>
+<b>env_shooter:</b> Can spawn sprites with simple collision that bounce around and fade out.  One issue is that they "clip" into floors at times. Shot sprites do not animate.<br>
+<b>cycler_sprite:</b> Sprite but with collision (cant set collision; would not recommend, this entity is actually better for models)<br>
+<b>env_spritetrain:</b> An Opposing Force & Sven Co-Op entity that moves a sprite along path_corners.<br>
+<hr>
+<p>Before we start, id like to mention some basic info about env_sprite since it will be the most used in this tutorial and to clear up some issues.  When you make an env_sprite without a name for inputs it will start on.  If you make a sprite with a name it will start off and anything targeting the sprite will turn it on.  To have a targeted sprite that starts on and gets shut off you need to set the "start on" flag in your properties tab.  If your sprite is animated it will loop, but if you set the flag "play once" it will play all frames and then disappear until triggered again.  This is useful for effects like explosions,splashes,steampuffs,ect.
+<p>Also keep in mind some FGD's for hammer/J.A.C.K may have the default value of the FX amount set to blank which can make your sprite invisible which can be confusing for troubleshooting (fx amount 255 is full opaque).
+<hr>
+<p>Download <a href="https://github.com/yuraj11/HL-Texture-Tools">Half-Life Texture Tools</a> to get started. I have included an example map rmf of sprites use in this tutorial for you to examine: <a href="tutfiles/sprite_examples.rar">Download here.</a>
+<p>While this tutorial is written for 8-bit BMP creation in Photoshop, I have alternative methods shown within that use the program <a href="http://www.irfanview.com/">IRFANVIEW</a> to convert & dither images from other paint programs to 8-bit BMP.
+<p>Lastly, as an alternative you can <a href="https://www.the303.org/backups/wally_155b.exe">use Wally</a>, the WAD creation tool as a paint program to save out 8bit BMPs using <a href="https://web.archive.org/web/20080714061209/http://www.telefragged.com/wally/tutorials/tutorial1.htm">this tutorial.</a>
+</br>
+<hr>
+<h1><a href="gold_sprite_p1.html">Part1: Normal Sprites and Basic Use</a></h1>
+<h1><a href="gold_sprite_p2.html">Part2: Additive Transparent Sprites</a></h1>
+<h1><a href="gold_sprite_p3.html">Part3: Index Alpha Sprites</a></h1>
+<h1><a href="gold_sprite_p4.html">Part4: Masked Transparent Sprites</a></h1>
+<h1><a href="gold_sprite_p5.html">Part5: Animated Sprites</a></h1>
+<h1><a href="gold_sprite_p6.html">Part6: Beam Sprites</a></h1>
+<hr>
+<h1><a href="index.html">Return to Tutorials</a></h1>
+</div>
+</BODY> 

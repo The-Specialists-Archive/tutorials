@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<!-- Mirrored from www.the303.org/tutorials/goldspray01.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Nov 2024 06:10:26 GMT -->
+<head>
+<title>GOLDSRC SPRAYLOGO TUTORIAL</title>
+<link rel="stylesheet" href="303style.css">
+<meta name="author" content="303">
+<meta name="description" content="How to make spraylogos for Valve GoldSrc games">
+<meta name="keywords" content="spraylogo, sprays, wad, transparent">
+</HEAD>
+<BODY>
+<div id="middle">
+<h1>Tutorial 2: Spray with Hltagconverter With no Transparency</h1>
+<p>Our first tutorial is creating a Simple spray.  <b class="red">Now with HLtagconverter you CAN just import any image you want and it will do all the resizing for you, however this tutorial is aimed at getting a better result by doing the resizing and enhancements in your image editor.</b>
+<hr>
+<p>1)Start off with the image you want to turn into a spraylogo, then check the <a href="goldsrcspraylogo.html#goldchart">chart</a> for a valid width.
+
+<p><img src="goldsrclogoimages/static01.jpg" alt="THE MOST GENERIC SPRAY EVER">
+<p>2)Choose a valid width size from the chart.  Resize the image with constrain proportions checked and "Bicubic Sharper". I am guessing 128 for the width.  When the width is resized in the window the height reads 78.  128X78= 9984; because this is under 12288, this is a valid surface size.
+
+<p><img src="goldsrclogoimages/static02.png" alt="resize">
+<p>3)When the image is resized do any enhancements you like such as levels, or contrast.  I am going with unsharpen mask.  Save the image as any lossless format.  I am saving the image as a 24bit TGA file.</p>
+<p><img src="goldsrclogoimages/static03.jpg" alt="Sharpen">
+<p>4)Open your image into HLtagconverter
+<p><img src="goldsrclogoimages/static04.png" alt="HLtag">
+<p>5)Click "Adjust image".  The program will automatically fix the dimensions of the height to 80 with a transparent area.  Click the apply changes.
+<p><b>NOTE: The reason why I only made the width a valid size in photoshop and let HLtagconverter fix the height is because if a spray does not have a transparent colour set, it will screw up the spray.  When HLtagconverter fixes the height it fills the space in with transparent blue.  Also its not resizing the base image.</b>
+<p><img src="goldsrclogoimages/static05.png" alt="HLtag2">
+<p>6)Save the image as a WAD file <a href="goldsrcspraylogo.html#directories">to your desired game directory</a>
+<p><img src="goldsrclogoimages/logo05.png" alt="HLtag3">
+<p>Right click to properties for your "tempdecal.wad" file and check "Read only".  This makes sure the decal is not overwritten when making changes in your multiplayer menu.
+<p><img src="goldsrclogoimages/tempdecalread.png" alt="Read only">
+<hr>
+<p><img src="goldsrclogoimages/finishednotrans.jpg" alt="TERRORISTS WIN">
+<p>The finished spray in game.</p>
+<p>Proceed to:</p>
+<hr>
+<h1><a href="goldspray00.html">Tutorial 1: Creating a color remap spray</a></h1>
+<h1><a href="goldspray02.html">Tutorial 3: Spray with Hltagconverter With Transparency</a></h1>
+<h1><a href="goldspray03.html">Tutorial 4: Slightly higher resolution Sven Co-Op spray using wally</a></h1>
+<h1><a href="goldspray04.html">Tutorial 5: Creating A Fixed IndexAlpha Spray</a></h1>
+</div>
+</BODY> 

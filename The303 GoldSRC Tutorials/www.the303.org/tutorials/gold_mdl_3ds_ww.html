@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<!-- Mirrored from www.the303.org/tutorials/gold_mdl_3ds_ww.htm by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Nov 2024 06:12:14 GMT -->
+<head>
+<title>GoldSrc Model Export Tutorial 3dsmax</title>
+<link rel="stylesheet" href="303style.css">
+<meta name="author" content="303">
+<meta name="description" content="How to compile models for GoldSrc engine games">
+<meta name="keywords" content="goldsrc, hl1, half-life, counter-strike, 3dstudiomax, 3dsmax, Autodesk">
+</HEAD>
+<BODY>
+<div id="middle">
+
+<h1>3D Studio Max With Wall Worm Model Tools</h1>
+<img class="middle" src="goldmdlimages/3dsmax_header.png">
+
+<p><b><a href="http://dev.wallworm.com/">"WallWorm Model Tools" can be downloaded here.</a>  Extended documentation can also be found at this address.
+<p>Currently supported versions: 3DS Max 2019~2023<br>see <a href="http://dev.wallworm.com/topic/33/wwmt_changelog.html">changelog</a> for details. Reccomended version is 2022.<br> Note: legacy versions may lack full GoldSrc direct compile support; but can still use the Export SMD Utility window.</b>
+<p>WallWorm Model Tools has a wide variety of features and utilities which can be found on the main site and on the youtube channel.  To get started, once installed follow this guide to setup for GoldSrc environment so you can use the WWMT utility to its fullest: <a href="http://dev.wallworm.com/document/207/setting_up_wall_worm_for_goldsource.html">http://dev.wallworm.com/document/207/setting_up_wall_worm_for_goldsource.html</a>. If you want just import/exporting of SMDs you can use the import/export window instead of the WWMT helper.
+<hr>
+<p>Jump to <a href="#SC">Exporting A Simple Animated Prop Full Compile</A></br>
+Jump to <a href="#IM">Importing Meshes, animations & full QC import</A></br>
+Jump to <a href="#ES">Exporting Meshes & animations Using the SMD Export Utility</A></br>
+<hr>
+<p><b>Exporting A Static Prop Full Compile</b>
+<br>
+<p>1)Be sure to set up your WWMT config to goldsrc as mentioned before and set your pivot point if you havent already.  Note that prop models with pivot point below the main grid may cause lighting issues in your map, so its best to center to your model.  Since this example is a static model you will not need a skin modifier. Go to WallWorm> WallWorm Model Tools > Then select your model.  This will create a WWMT helper.
+<P>2)Then simply press the "Export QC+Model" button. Your model will have an automatic qc created then compiled to your specified directory.
+
+<p><img src="goldmdlimages/3ds_ww_exp01.png">
+<h1><a href="gold_mdl_comp.html#PP">Continue To Prop Placement</a></h1>
+<hr>
+
+<p><a name="SC"></a><b>Exporting A Simple Animated Prop Full Compile</b>
+<br>
+<p>1)In the WWMT window, scroll down to "Sequences" tab and then define your sequences by first typing out a name, setting a start and end range in your timeline, set the FPS, and then loop if necessary.  Then as before press "Export QC+Model" button.
+<p><img src="goldmdlimages/3ds_ww_exp02.png">
+<p>NOTE: This model uses <a href="gold_qc.html">$texrendermode</a> masked for transparency; to add this I manually added it in the generated QC file by clicking the QC or QCI buttons which will bring them up in your editor:
+<p><img src="goldmdlimages/3ds_ww_exp02a.png">
+<h1><a href="gold_mdl_comp.html#PP">Continue To Prop Placement</a></h1>
+<hr>
+<p><p><a name="IM"></a><b>Importing Meshes, animations & full QC import</b>
+<p>1)Go to Go to WallWorm>Wall Worm Importers>SMD and QC Importer
+<p>2)From here you have a few options: either import SMD file only, which in that case you make sure the "animated model" is unchecked if you are importing a reference sequence, and if you are importing an animation sequence, then check the box.
+<p>If you are doing a Full QC import then it will automatically import reference & sequence if needed.  Importing QC also imports many things as well such as hitboxes, attachments, and other things that are written in QC files.  By default the checkbox "Create a WWMT helper" will be checked and when you have your model imported and you pick model (by clicking the WWMT text helper) you will have your model fully set up with sequences ready in the WWMT window.
+<p><img src="goldmdlimages/3ds_ww_exp03.png">
+<hr>
+<p>You can also use the "Write SMDs" for all SMD reference meshes & animations, or from the sequence window individually. This is useful if you want to do just individual ones and/or author your own QC and do the compiling yourself or with another utility like Crowbar.
+<p><img src="goldmdlimages/3ds_ww_exp04.png">
+<p>If you are doing the compiling and QC writing yourself then:
+<h2><a href="gold_mdl_comp.html">Continue to Compiling</a></h2>
+<hr>
+<p><b>General editing info to note and working with Explicit vertex normals</b>
+<p>Some important things to note about about working with imported geometry in 3dsmax is that if you want to make minor edits (say like UV changes with UVW Unwrap modifier) with the skinning intact, then create the modifier below the "Skin" modifier in the stack.'
+<p>SMD imports are done with "explicit normals" for smoothing.  These can be a bit difficult to work with and at times may break while adding to the modifier stack.  If you are doing simple edits like removing parts it may be best to do your import without "edit poly" in the import options.  Some modifiers that break smoothing you can possibly try making an edit normals modifier and placing it on top, but sometimes that only works with edit mesh.
+<p>For topology edits with edit poly or needing to edit smoothing, you will need to add an "edit normals" modifier and either directly edit the explicit normals (green sticks) or if you need to use smoothing groups, you will have to select the normals or select all (sticks turn red), and press "reset."  After deselecting the sticks should be blue to indicate they are now in face render mode and able to be editied by smoothing groups and auto smoothing in editable poly.
+<p><img src="goldmdlimages/3ds_imp03.jpg">
+<hr>
+<p><p><a name="ES"></a><b>Exporting Meshes & animations Using the SMD Export Utility</b>
+<p>The SMD exporter tool can be found in WallWorm>WallWorm Exporters>Export DMX/SMD/VTA file. This window is for individual SMD exports without using the standard WWMT helper setup, and can be used without a config.
+<p>1) For a reference mesh it is as simple as making sure reference is checked and "GoldSrc Format SMD" checked.  This window also has some useful extended options like changing origin offset, visible options and swapping mesh and bone nodes.
+<p><img src="goldmdlimages/3ds_ww_exp05.png">
+<p>2) For Animated Sequence only, check the sequence button then set a timeline range for the sequence SMD.
+<p><img src="goldmdlimages/3ds_ww_exp06.png">
+
+<h1><a href="gold_mdl_comp.html">Continue to Compiling</a></h1>
+
+<hr>

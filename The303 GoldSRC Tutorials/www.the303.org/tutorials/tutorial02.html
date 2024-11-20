@@ -1,0 +1,110 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<!-- Mirrored from www.the303.org/tutorials/tutorial02.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Nov 2024 06:11:49 GMT -->
+<head> 
+<title>SOURCE SPRAYLOGO TUTORIAL</title>
+<link rel="stylesheet" href="303style.css">
+<meta name="author" content="303">
+<meta name="description" content="How to make spraylogos for Valve source games">
+<meta name="keywords" content="spraylogo, sprays, vtf, vmt, transparent, animated, fading mipmaps">
+</HEAD>
+<BODY>
+<div id="middle">
+<h1>Tutorial 2: Creating a Static Spray With Transparency</h1>
+<p>Our second tutorial is creating a static spray with transparency.  Again, I will be using 256X256 resolution for full compatibility.</p>
+<hr>
+<img src="tutorial2images/transparentt01.jpg" alt="Crop the area of interest" >
+<p>Open your image into photoshop and select a square region of what you want for your spray.  To make a perfect square selection hold shift-leftclick and drag your area.  Then go to Image menu and "crop".</p>
+<hr>
+<img src="tutorial2images/transparentt02.jpg" alt="Cut out the image" >
+<p>Cut out the image using whatever method you like (Magic wand, pen tool, Extract filter, colour range, etc).  For this I am using the pen tool since it gives nice clean lines.</p>
+<hr>
+<img src="tutorial2images/path01.png" alt="Path To selection" ><img src="tutorial2images/path02.png" alt="Path To selection"><p>After using my pen tool, I selected the path under the Paths tab in the layer menu and held ctrl-leftclick on the path to get a selection.  I then created a layer vector mask in the layers menu.</p>
+
+<img src="tutorial2images/path01-01.png" alt="Path To selection">
+<p>Create 2 layers below the image.  1 layer filled with black, and another filled with white.  This is what I use to check the edges to see if there is any spill or areas where there is a fine line of background.  With the vector mask selected in the layers menu you can make manual adjustments by painting black or white with the brush tool. <b>NOTE: I am not going to do too much mask editing to get rid of the white fringes since I will be using a quicker method that will only work when the mask is applied.</b></p>
+<img src="tutorial2images/path03.png" alt="Path To selection" ><p>Right-click the layer mask to get this menu.  Select Apply the layer mask to cut the image out.
+<hr>
+<img src="tutorial2images/transparentt03.jpg" alt="Inspect the edges" >
+<p>With the mask applied we will now do some final inspections and edge fringe removal.  If you used magic wand, this step is more critical since magic wand has a nasty habit of leaving lots of little bits of white or whatever colour the background was.  Hide the black layer to see what the image looks like against the white to see if there is any unwanted dark background areas you might have missed.</p>
+<hr>
+<img src="tutorial2images/transparentt04.jpg" alt="Get rid of the edge spill">
+<p>To quickly get rid of the white edges on the image, go to image>Matting>Defringe.  Usually 1 pixel setting will do the trick and clean the edge. This is especially useful if you used magic wand.</p>
+<hr>
+<img src="tutorial2images/transparentt05.jpg" alt="Scale the result" >
+<p>Go to Image menu again and select "Image size...".  In this menu set the pixel dimensions to 256X256 (Note: If your image is not 72 pixels/inch resolution set it before setting the dimensions to 256X256).  Under "Resample image" I like to set "Bicubic Sharper" since it scales better.</p>
+<hr>
+<img src="tutorial2images/transparentt06.jpg" alt="Enhance the image" >
+<p>Here I am Adjusting the image with levels and hue&amp;saturation with layer adjustments</p>
+<hr>
+<img src="tutorial2images/transparentt07.jpg" alt="Sharpening the image" >
+<p>Here I am using the filter "Unsharpen Mask". As I mentioned before in the previous tutorial: Use of this filter depends on the image and personal taste. For enhancing fine detail use a smaller pixel radius, and for overall detail/contrast enhancing use a larger pixel radius. Play with the amount and threshold until you reach your desired sharpness. In general, spraylogos with more contrast&amp;sharpness tend to look better because when the image gets converted to VTF, it gets compressed making image-artifacts (jpeg-looking blocks) in low-contrast areas.</p> 
+<hr>
+<img src="tutorial2images/transparentt08.jpg" alt="Glasses time" >
+<p>For a little added detail, I have selected the area of Gordons glasses and deleted the lens area.  I filled the area with white at about 15% opacity.  This will make his glasses mostly-transparent and give a nice effect when spraying this logo.
+<hr>
+<img src="tutorial2images/transparentt09.jpg" alt="Final touchups" >
+<p>I have done a few last touchups on the spray, with focus on the hair.  I selected the layer and hit the "lock transparency" icon on the layers menu so I only affect the image and not disturb the transparent area.  I used a combination of clone stamp on the edge of his hair and the burn tool to remove some of the white light on his hair. I also fixed part of his glasses.  Once done I unlocked the layer.</p>
+<hr>
+<img src="tutorial2images/transparentt10.jpg" alt="Alpha channel time" >
+<p>Hold Ctrl-click on the layer icon to pull up a selection of the image.</p>
+<img src="tutorial2images/transparentt11.jpg" alt="Alpha channel time 2" >
+<p>Now click the mask icon on the channels window to turn the selection into an alpha channel.</p>
+<hr><A NAME="bleed"></a>
+<h1>Before we proceed...</h1>
+<p>Now we are done with the image and ready to save, however I want to take a moment to go over a little issue with transparency in the game.
+<p>You see, transparency masks are not perfect in game due to several factors such as scaling, filtering &amp; graphics settings so we run into a little misalignment of the image and the alpha channel. Now photoshop and many other programs will save base image area where the transparent area is supposed to be to white.  This creates a problem which can be seen here:</p>
+<img src="tutorial2images/whitebleed.jpg" alt="bleedtime" >
+<p>Now you see how there is that ugly white fringe around Gordon's glasses and hair?  That's what I'm talking about.  Now in the bottom image you can see that there is no fringe.  I fixed this problem from one of 2 ways:</p>
+<h2>A TGA with a manually created "bleed"
+or<br>
+A PNG saved image</h2>
+<p>Now there are pros and cons to both methods.  The TGA way takes some more time but you have more control and more guaranteed results.  The PNG way is much faster, but it doesn't always work properly.  Personally I prefer the TGA way and I will show how.  In the TGA method, I made 4 layer copies of the original image and put them below on the layer order.  I nudged each one 1 pixel to a direction.  1 to the left, 1 to the right, 1 to the top and one to the bottom.  This creates an extended edge.  Lastly I create a bottom layer filled with 50% grey (but most times I use black).</p>
+<img src="tutorial2images/bleeddemo1.png" alt="bleedtime" >
+<p>As seen here I have the main image and alpha channel of these colours on top and on bottom what the base image looks like with both methods.  Now when saving as PNG you don't use the alpha channel, just have your cutout image with nothing underneath and save as PNG.  To display the bleed the PNG saving created I screenshotted it from VTFEdit with the mask removed to reveal underneath.
+<p>Now what am I doing with these test images?  Im demonstrating how the PNG method has its faults:</p>
+<img src="tutorial2images/bleeddemo2.jpg" alt="PNGvsTGA" >
+<p>This is why I prefer making the bleed with TGA because as good as PNG sometimes works, in other cases like this spraytest it screwed up on some of the edges.  Now we can continue.</p>
+<hr>
+<img src="tutorial2images/transparenttpng.jpg" alt="PNG method" >
+<p>Now for using the PNG method, simply clear all other layers until you just have your image like so.  Then just save it as PNG and you are done with it.</p>
+<hr>
+<img src="tutorial2images/transparentt12.jpg" alt="TGA method" >
+<p>Now for using the TGA method, Duplicate your main layer 4 times and place them under your main image layer.  With the move tool selected, move each of the 4 layers 1 pixel in the following directions.  Left, right, up &amp; down.  Lastly, make the black layer at the bottom visible.  <b class="red">NOTE: If your spray is lineart with pure black edges or uses a black drop-shadow; you can skip with copying the layers and just use the black bottom layer (or make it the solid colour of the edges of whatever your image is).</b></p>
+<hr>
+<img src="tutorial2images/transparentt13.jpg" alt="Final image" >
+<p>Flatten the layers.  You now have an image with bleed with an alpha channel.</p>
+<img src="tutorial2images/tgasave.png" alt="Final image" >
+<p>You can now save it as a TGA file at 32 bits (If it defaults to 24, cancel &amp; check to see if your alpha channel is there).</p>
+<hr>
+<img src="tutorial2images/transparentt14.png" alt="VTFEdit Import">
+<p>Open up VTFEdit and go to File>Import. Import your saved targa file. You will get this menu which is the options for conversion from targa to VTF.  On your left set the "Alpha Format" to "DXT5". DXT5 is the image format that uses an alpha channel.  On the right is "Generate Mipmaps".  As stated in the introduction, mipmaps create smoother looking images at distances and scaling so we are gonna want this box checked.  By default the mipmap sharpen filter is set to "sharpen soft" which is overall great, but looks a little off with some images (especially with line-art imagery) and you have no control.  I personally use "Unsharpen Mask" since VTFEdit gives you the option to adjust the settings manually in the next tab.</p>
+<hr>
+<img src="tutorial1images/staticnotrans02.png" alt="VTFEdit Advanced Options">
+<p>In the advanced options tab we have the Unsharpen Mask options, however there is no real-time preview like in photoshop so your gonna have to do a bit of guessing.  As for VTF version, you should have it a low version like 7.2 since some older source games are not able to read 7.3+ versions of VTF files.  The version does not affect image quality.  The versions are only really important for other ingame textures with things like spritesheets and other resources, so it does not matter in our case.</p>
+<hr>
+<img src="tutorial2images/transparentt15.jpg" alt="Masks TGA">
+<p>Here we have our imported TGA file.  From the "View" options you can uncheck "mask" which reveals the base image without the transparent mask.</p>
+<img src="tutorial2images/pngmask.png" alt="Masks PNG">
+<p>If you used a PNG, it will probably look something like this.  This PNG edgebleed seemed to have worked like it should (and tested ingame worked fine). Again, use of PNG is a roll of the dice to see if it works properly or not.</p>
+<hr>
+<img src="tutorial2images/transparentt16.png" alt="Inspecting the mipmaps">
+<p>If we select the mipmap number and use the up and down arrow keys, we can cycle through the mipmap images.  If you are not satisfied with how your sharpening went, go and import your tga again and adjust the mipmap sharpening options.  When done inspecting, set it back to 0 (full image).</p>
+<hr>
+<img src="tutorial2images/transparentt17.png" alt="Checking the flags">
+<p>We will now se the image flags.  Clamp S &amp; Clamp T keep the image edges from "wrapping" around and giving a thin line at the top, bottom, left &amp; right of the image.  If you do NOT check these flags, this is bound to happen:</p>
+<p><img src="nost.jpg" alt="Lines">
+<p>As you can see the parts of the image touching the boundaries are repeating to the top and left.  Lastly, <b>No Level Of Detail is the most important flag you want to check</b>.  Without this checked, your sprays quality will be adjusted by the games texture resolution settings.  Lastly, image flags can be set to existing VTF files and saved without having to recompile the image.</p>
+<hr>
+<img src="tutorial2images/transparentt18.png" alt="Saving it">
+<p>Save the image to your desired game's spraylogo directory.  For the directories <a href="spraylogo.html#directories">click here</a></p>
+<hr>
+<img src="tutorial2images/transparentt19.jpg" alt="Selecting the spray ingame">
+<p>If done right, the spraylogo should turn out to 2 files: A VTF and a VMT.  By default VTFEdit should have "Auto Generate VMT file" under the Options menu.  If you don't have a vmt, the game will not read the texture.  When you launch your game, go to the multiplayer tab and select your spray from the drop-down menu.
+<hr>
+<img src="tutorial2images/transparentt20.jpg" alt="The finished product">
+<p>Now here is your finished spray in game!</p>
+<h2>Proceed to:<br><a href="tutorial03.html">Tutorial 3: Animated Spraylogos</a></h2>
+</div>
+</BODY>

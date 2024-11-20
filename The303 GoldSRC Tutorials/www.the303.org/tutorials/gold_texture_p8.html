@@ -1,0 +1,196 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<!-- Mirrored from www.the303.org/tutorials/gold_texture_p8.htm by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Nov 2024 06:10:48 GMT -->
+<head>
+<title>GoldSrc Map Texture Tutorial</title>
+<link rel="stylesheet" href="303style.css">
+<meta name="author" content="303">
+<meta name="description" content="How create textures for goldsrc games">
+<meta name="keywords" content="goldsrc, hl1, half-life, counter-strike, sven co-op">
+</HEAD>
+<BODY>
+<div id="middle">
+<h1>GoldSrc Map Texture Tutorial</h1>
+<hr>
+<h2>PART 8: Custom Skies</h2>
+<p>Custom skies are some of the trickiest assets to create so I am including multiple methods with and without a 3D editor.  First we need to understand how a sky works in GoldSrc:  A sky is composed of six 24bit targa 256X256 pixel images that come together to create a environment map.  This type of map is known as a "cubic" map.  The cubic layout is as follows
+<p><p><img src="goldteximages/sky01.jpg">
+<p><b>
+FT=Front<br>
+BK=Back<br>
+RT=Right<br>
+LF-Left<br>
+UP=UP<br>
+DN=Down<br>
+</b>
+<br>
+Here is a gif showing how it all comes together:
+<p><img src="goldteximages/sky02.gif">
+<p><b>I will be showing 5 different approaches to sky creation, while this is the longest section in my texture tutorial series I encourage you to review them all before starting to see what works for you.
+<hr>
+<h2>Method 1: Terragen Classic</h2>
+<p>The Terragen method gives fast and good results quickly.  This is because the atmosphere, lighting, and terrain is easily generated and all thats needed to render the cubic skybox is a script. <b class="red">My tutorial will only cover basic setup and export for goldsrc, for more info and tutorials on terrain generation check out these tutorials and guides:</b><br>
+<a href="https://web.archive.org/web/20120623145308/http://www.planetside.co.uk/terragen/guide/">Terragen Classic Guide (webarchive link)</a><br>
+<a href="https://www.the303.org/backups/tgguide.zip">Terragen Classic Guide (offline ZIP backup)</a><br>
+<a href="https://web.archive.org/web/20070403051436/http://individual.utoronto.ca/edegiuli/TGtut/TerragenTutMain.htm">Terragen Tutorial by Eric DeGiuli (webarchive link)</a><br>
+<a href="http://www.caroluk.org.uk/terratut/">Terragen Tutorial by Carol Brooksbank</a><br>
+<hr>
+<p>1) First, <a href="https://web.archive.org/web/20070902180115/http://www.planetside.co.uk/terragen/download.php?item=winfull">download Terragen Classic here</a> and install.  Open up Terragen Classic and click the Generate Terrain button. I used default settings on the open Terrain Genesis window.  For some quick changes press the View/Sculpt button.  This will give you a B&W image of the terrain map and will allow you to "paint" higher or lower much like painting displacement maps in Source Engine Hammer.
+<p><img src="goldteximages/skyt01.jpg">
+<p>2) When satisfied with your painting, click render preview or the 3D button to preview how it looks.  Now start preparing for final render by first sliding the detail slider to the right, then setting the render settings image size to 512X512.  Uncheck the fixed height boxes. Position your camera in the final place via the mini map or 3D button.  Change the altitude of the camera by changing the "Z" meters (i have set to 500 for this one, but for most skyboxes id suggest a lower altitude). Create a folder on your C drive and name it terragen.  Go to Exectute script in the Terragen menu.  <a href="goldsrcskybox.html">Open this script here.</a>  This script has the output directory set to the terragen folder on C.  You can edit the script with notepad to change the output directory and name.
+<p><img src="goldteximages/skyt02.jpg">
+<p>3) Terragen will now render out 6 images. When done they will be BMPs called "mysky"in the directory as the goldsrcskybox.tgs script specified.  Now the files need to be renamed so they can be ready to converted to skyreadable format.  You can either manually rename the files so they are as so:<br>
+</p>mysky0001.bmp to myskyft.bmp<br>
+mysky0002.bmp to myskylf.bmp<br>
+mysky0003.bmp to myskyup.bmp<br>
+mysky0004.bmp to myskybk.bmp<br>
+mysky0005.bmp to myskyrt.bmp<br>
+mysky0006.bmp to myskydn.bmp<br>
+<p>Or you can create a simple windows .bat renaming script.
+<p><img src="goldteximages/skyt03.jpg">
+<p>4)Open IRFANVIEW and go to file>Batch Conversion/Rename. Select "Batch conversion - Rename result files", and set the output format to TGA.  Select the 6 BMPs and Add them to the input files. Set your output directory to:
+<p><b>C:\Program Files (x86)\Steam\steamapps\common\Half-Life\valve\gfx\env\</b>
+<p><img src="goldteximages/skyt04.jpg">
+<p>4)Click Advanced under the file type and check RESIZE.  Set to 256X256, and set resample function.  Check Sharpen filter; 15 is a pretty good number, but you can play with this. Click ok to leave the advanced window then press Start Batch button at bottom right.
+<p><img src="goldteximages/skyt05.jpg">
+<p>5)Once the batch has run and converted the files, open up hammer. Then under Map>Map Properties>environment map (sv skyname). Type in the base name of your sky there so for this one it is "amars". If you are using J.A.C.K, you can select a roll out menu to choose the sky and have a live preview on all textures with the sky tool texture.
+<p><img src="goldteximages/skyt06.jpg">
+<p>6)Compile the map and observe the final sky.
+<p><img src="goldteximages/skyt07.jpg">
+<hr>
+<h2>Method 2: Skypaint</h2>
+<p>Skypaint is an old and rather crude looking program but it is still quite useful not only as an easy editor that hooks into photoshop, but it is also useful for previewing existing skyboxes (under "open..." set the type to "QuakeII Targa").  In this tutorial we will be making an Equirectangular image for the 360 degree view.  This kind of projection image is much easier to work with than cubic layout since it is a single image instead of 6.
+<p>Skypaint site is here: <a href="http://www.skypaint.com/">www.skypaint.com</a><br>
+Mirror web archive download is here: <a href="https://web.archive.org/web/20161029161304/http://skypaint.com/Download.html">Skypaint Download Mirror</a>
+<p><img src="goldteximages/skyp01.jpg">
+<p>1)Create a looping panorama image. Here I have taken a public domain 360 panorama of mars and added an atmospheric processor with clouds. Its best to edit at high resolution.  Use offset filter to check if the image loops from side to side.  I have left space at the top and the bottom of the image which will be reserved for pole details.
+<p>2)When done, save a copy out for backup purposes and then take your image and resize it to square aspect ratio.  I have extended the sky slightly.
+<p>3)The following involves many steps so this will be as a gif:</p>
+<br><img src="goldteximages/skyp02.gif">
+<br>a)Rescale your image to 1:1 square aspect ratio
+<br>b)Make 2 copies of your image layer
+<br>c)Run Filter>Distort>Polar Co-ordinates (rectangular to polar type) 
+<br>d)Paint in your sky details
+<br>e)Run Filter>Distort>Polar Co-ordinates (polar to rectangular type) 
+<br>f)Create a layer mask and paint the mask off with the gradient tool
+<br>g)Hide the layer you just worked on and select the 2nd copy
+<br>h)Select all, then edit>transform>rotate 180
+<br>i)Run Filter>Distort>Polar Co-ordinates (rectangular to polar type)
+<br>j)Paint in your ground details
+<br>k)Run Filter>Distort>Polar Co-ordinates (polar to rectangular type) 
+<br>l)Create a layer mask and paint the mask off with the gradient tool
+<br>m)Save image as 24bit BMP (if your image is under 2048X2048, then upscale it)
+<hr>
+<p>4)Open SkyPaint, and go to "open..." or click the folder icon.  Check the open type to <b>"LivePicture, SPHERE/CYLINDER,BMP"</b>.
+<p><img src="goldteximages/skyp03.jpg">
+<p>Click and drag the mouse in the viewport to observe the sky.  In the view menu you can choose set views.
+<p><img src="goldteximages/skyp04.gif">
+<p>5)While this step is optional, it is important to show off the main feature of skypaint. If you haven't set on install already, go into Skypaint Preferences and set the path to your paint program EXE.
+<p>Choose an area of your view to paint and click the paint button.  You will be prompted with a canvas size and FOV readout.  Default settings are pretty good.  However, keep in mind higher canvas size/FOV will be giving you more space to paint but will result in more distortions/blurring of your final image.
+<p><img src="goldteximages/skyp05.jpg">
+<p>6)When "paint this view" is activated, photoshop will launch with the image you chose. <b class="red">Be sure photoshop is not already open when clicking paint this view or your edited image may not be sent back to SkyPaint when done!</b>
+<p>Paint your view and when you are done be sure to flatten all layers.  When done save the image and close photoshop.  If this worked then skypaint will open back up again with the image that you just edited.
+<p><img src="goldteximages/skyp06.jpg">
+<p><img src="goldteximages/skyp07.jpg">
+<p>7)When done, go to save as and choose a short filename for your skybox. Most importantly, set the type as "QuakeII, Targa".
+<p><img src="goldteximages/skyp08.jpg">
+<p>8)Open IRFANVIEW, Go to file>Batch Conversion and set Work as To "Batch conversion - Rename result files"and "Add" your 6 newly saved images to the batch process. Set your output format to TGA, and check Use advanced options Set your Output directory to:
+<p><b>C:\Program Files (x86)\Steam\steamapps\common\Half-Life\valve\gfx\env\</b>
+<p><img src="goldteximages/skyp09.jpg">
+<p>9)Click Advanced under the file type and check RESIZE.  Set to 256X256, and set resample function.  Check Sharpen filter; 15 is a pretty good number, but you can play with this.
+<p><img src="goldteximages/irviewset.png">
+<p>10)Start the batch, and now go to hammer or J.A.C.K.  Under Map>Map Properties>environment map (sv skyname). Type in the base name of your sky there so for this one it is "amars". If you are using J.A.C.K, you can select a roll out menu to choose the sky and have a live preview on all textures with the sky tool texture.
+<p><img src="goldteximages/skyp11.jpg">
+<p>11)Observe the sky in action.
+<p><img src="goldteximages/skyp12.jpg">
+<hr>
+<h2>Method 3: Blender</h2>
+<p>In this method we will use Blender to render out a scene as an eqirectangular image.  Note: This tutorial will only cover the image rendering and is not a 3d modelling tutorial.
+<p><img src="goldteximages/ble01.jpg">
+<p>1)With Cycles Render selected as your render engine, Add a camera in your scene. Make sure the rotation properties of the camera is X:90 Y:0 Z:0.  With the camera selected go to properties click the "Panorama" tab under lens and then change type "Equirectangular".
+<p><img src="goldteximages/ble02.jpg">
+<p>2)This is an optional step but just to show how ive got my background set up I have a panoramic image made from the photoshop technique I showed earlier.  To add one of these to your background go to the world tab, and go to surface menu.  To the right of "color" press the dot and select "Environment texture" and choose a Equirectangular image you have or made from photoshop.
+<p><img src="goldteximages/ble03.jpg">
+<p><img src="goldteximages/ble04.jpg">
+<p>3)Click the render tab and set your resolution to 2048X2048 and under output set as BMP.  Go to render image and you should see your image render.  Once its complete press F3 to bring up the save menu and save out your BMP to your desired directory.
+<p><img src="goldteximages/ble05.jpg">
+<p>4)Just like in the previous skypaint method and go to "open..." or click the folder icon.  Check the open type to <b>"LivePicture, SPHERE/CYLINDER,BMP"</b>. Preview the skybox and if needed send to photoshop. Go to save as and choose a short filename for your skybox. Most importantly, set the type as "QuakeII, Targa".
+<p><img src="goldteximages/ble06.jpg">
+<p>8)Open IRFANVIEW, Go to file>Batch Conversion and set Work as To "Batch conversion - Rename result files"and "Add" your 6 newly saved images to the batch process. Set your output format to TGA, and check Use advanced options Set your Output directory to:
+<p><b>C:\Program Files (x86)\Steam\steamapps\common\Half-Life\valve\gfx\env\</b>
+<p><img src="goldteximages/ble07.jpg">
+<p>9)Click Advanced under the file type and check RESIZE.  Set to 256X256, and set resample function.  Check Sharpen filter; 15 is a pretty good number, but you can play with this.
+<p><img src="goldteximages/irviewset.png">
+<p>10)Start the batch, and now go to hammer or J.A.C.K.  Under Map>Map Properties>environment map (sv skyname). Type in the base name of your sky there so for this one it is "neon". If you are using J.A.C.K, you can select a roll out menu to choose the sky and have a live preview on all textures with the sky tool texture.
+<p><img src="goldteximages/ble09.jpg">
+<p>11)Observe the sky in action.
+<p><img src="goldteximages/ble10.jpg">
+<hr>
+<h2>Method 4: 3DSMax Sky</h2>
+<p>In this method we will use 3dsmax to render out a scene as an cubic images.  Note: This tutorial will only cover the image rendering and is not a 3d modelling tutorial.
+<p>1) Create a box with cube creation type.  Place it in the center of your scene as this will act as your cubic camera.
+<p><img src="goldteximages/max01.jpg">
+<p>2) Go to rendering > environment menu and choose an image for your environment map.  I have created a simple sky and clouds eqirectangular image in photoshop just like in the skypaint method earlier.
+<p><img src="goldteximages/max02.jpg">
+<p>3) Bring up the Material editor in compact mode and click the "Get Material" button and select the environment texture you just assigned.
+<p><img src="goldteximages/max03.jpg">
+<p>4) With this texture added to the editor change the environ type to "Spherical Environment".
+<p><img src="goldteximages/max04.jpg">
+<p>5) Select a new blank material in the editor.  Check the reflection box and click the map to add a map.  Select "Reflect/Refract" as your map type.
+<p><img src="goldteximages/max05.jpg">
+<p>6) With the Reflect/Refract paramaters menu change source to "From File", then set the size to 512. The click "To file" and this will bring up a save dialogue box.  Save as a .tga (24bit).
+<p><img src="goldteximages/max06.jpg">
+<p>7) Click the "Pick Object and Render Maps" button and choose your cube. 3DSMax will now render out 6 512X512 images and may take some time depending on the complexity of your scene.
+<p><img src="goldteximages/max07.jpg">
+<p>8) Open Skypaint and set the open type to "3DStudio, Targa" and open your trees image.
+<p><img src="goldteximages/max08.jpg">
+<p>9) Skypaint will now load the 6 images into the preview.  Look around and check for errors.  If needed send to photoshop paint just like in the earlier skypaint tutorial.
+<p><img src="goldteximages/max09.jpg">
+<p>10) <b>Save the skybox with a different name than the max renders, and save as type "QuakeII, Targa"</b>
+<p><img src="goldteximages/max10.jpg">
+<p>11)Open IRFANVIEW, Go to file>Batch Conversion and set Work as To "Batch conversion - Rename result files"and "Add" your 6 newly saved images to the batch process. Set your output format to TGA, and check Use advanced options Set your Output directory to:
+<p><b>C:\Program Files (x86)\Steam\steamapps\common\Half-Life\valve\gfx\env\</b>
+<p><img src="goldteximages/max11.jpg">
+<p>12)Click Advanced under the file type and check RESIZE.  Set to 256X256, and set resample function.  Check Sharpen filter; 15 is a pretty good number, but you can play with this.
+<p><img src="goldteximages/irviewset.png">
+<p>13)Start the batch, and now go to hammer or J.A.C.K.  Under Map>Map Properties>environment map (sv skyname). Type in the base name of your sky there so for this one it is "treesky". If you are using J.A.C.K, you can select a roll out menu to choose the sky and have a live preview on all textures with the sky tool texture.
+<p><img src="goldteximages/max13.jpg">
+<p>14)Observe the sky in action.
+<p><img src="goldteximages/max14.jpg">
+<hr>
+<h2>Method 5: Source Engine Cubemap Capture</h2>
+<p>In this method we will use any Source engine game to capture a cubic set of images from the console.
+<p>1) First turn off HDR in your Video - Advanced settings.
+<p><img src="goldteximages/src01.jpg">
+<p>2) Load up a map, open the console with "~" and type & enter: sv_cheats 1, noclip and mat_envmaptgasize 512.  Then with noclip you can position yourself at any point in the map.  Once in position type in "envmap". Once you hit enter a series of images will flash on the upper left.
+<p><img src="goldteximages/src02.jpg">
+<p>3) Close the game and navigate to the base game directory and you will find a folder called "cubemap_screenshots". Here is your cubic images, now open them with Skypaint in "QuakeII, Targa" mode.
+<p><img src="goldteximages/src03.jpg">
+<p>4) Verify your sky and send to photoshop paint if desired and save out the sky as "QuakeII, Targa". <b>If you have no edits to make, you can skip saving with skypaint and just open the tga's in IRFANVIEW because they are already in correct cubic formatting due to source envmap using the same rotations/names.</b>
+<p><img src="goldteximages/src04.jpg">
+<p>11)Open IRFANVIEW, Go to file>Batch Conversion and set Work as To "Batch conversion - Rename result files"and "Add" your 6 newly saved images to the batch process. Set your output format to TGA, and check Use advanced options Set your Output directory to:
+<p><b>C:\Program Files (x86)\Steam\steamapps\common\Half-Life\valve\gfx\env\</b>
+<p><img src="goldteximages/src05.png">
+<p>12)Click Advanced under the file type and check RESIZE.  Set to 256X256, and set resample function.  Check Sharpen filter; 15 is a pretty good number, but you can play with this.
+<p><img src="goldteximages/irviewset.png">
+<p>13)Start the batch, and now go to hammer or J.A.C.K.  Under Map>Map Properties>environment map (sv skyname). Type in the base name of your sky there so for this one it is "seaship". If you are using J.A.C.K, you can select a roll out menu to choose the sky and have a live preview on all textures with the sky tool texture.
+<p><img src="goldteximages/src06.jpg">
+<p>14)Observe the sky in action.
+<p><img src="goldteximages/src07.jpg">
+<hr>
+<h1><a href="gold_texture.html">Part0: Introduction</a></h1>
+<h1><a href="gold_texture_p1.html">Part1: Creating Basic Textures</a></h1>
+<h1><a href="gold_texture_p2.html">Part2: Creating  Masked Transparent Textures</a></h1>
+<h1><a href="gold_texture_p3.html">Part3: Creating Additive Transparent Textures</a></h1>
+<h1><a href="gold_texture_p4.html">Part4: Creating Animated Textures</a></h1>
+<h1><a href="gold_texture_p5.html">Part5: Creating Toggled Textures</a></h1>
+<h1><a href="gold_texture_p6.html">Part6: Creating Water Textures</a></h1>
+<h1><a href="gold_texture_p7.html">Part7: Creating Scrolling Textures</a></h1>
+<h1><a href="gold_texture_p9.html">Part9: Creating Detail Textures</a></h1>
+<!-- OBSOLETE <h1><a href="gold_texture_p10.htm">Part10: Batch Conversion</a></h1> -->
+</a></h1>
+<hr>
+<h1><a href="index.html">Return to Tutorials</a></h1>
+</div>
+</BODY> 

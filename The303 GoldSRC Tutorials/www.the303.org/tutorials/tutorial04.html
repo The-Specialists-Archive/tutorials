@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<!-- Mirrored from www.the303.org/tutorials/tutorial04.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Nov 2024 06:12:01 GMT -->
+<head> 
+<title>SOURCE SPRAYLOGO TUTORIAL</title>
+<link rel="stylesheet" href="303style.css">
+<meta name="author" content="303">
+<meta name="description" content="How to make spraylogos for Valve source games">
+<meta name="keywords" content="spraylogo, sprays, vtf, vmt, transparent, animated, fading mipmaps">
+</HEAD>
+<BODY>
+<div id="middle">
+<h1>Tutorial 4: Creating a Fading Spray</h1>
+<p>Fading sprays use altered or invisible mipmaps to give a fading effect when you move closer or further away.  There are 2 methods to achieve this effect: First is just changing a mipmap setting, and another is manually editing the mipmaps.</p>
+<hr>
+<img src="tutorial4images/fading1.png" alt="Importing the image" >
+<p>For the first method, import your finished image and select mipmap Sharpen filter: <b>Darker</b>.</p>
+<hr>
+<img src="tutorial4images/fading2.png" alt="The spray" >
+<p>Apply the flags: Clamp S, Clamp T and No Level Of Detail.</p>
+<img src="tutorial4images/fading3.png" alt="OMG ITS GONE" >
+<p>As you can see with the mipmap preview set to 1 we have total transparency. Set it back to 0, and <a href="spraylogo.html#directories">save it to your spraylogo directory.</a></p>
+<hr>
+<img src="tutorial4images/fading4.png" alt="Selecting the spray" >
+<p>In the spraylogo selection menu it will be invisible.  Don't panic, this is normal since the preview uses the smaller mipmap images.</p>
+<img src="tutorial4images/boofade.gif" alt="SO SCARY" >
+<p>Now this is the spray in action!</p>
+<hr>
+<h1>Mipmap Edited Method</h1>
+<p>Editing mipmaps of a spraylogo is a much more time consuming process but you can make some pretty interesting results.  But first off you are going to need 2 things:</p>
+<ul><li><a href="http://developer.nvidia.com/object/photoshop_dds_plugins.html">NVIDIA Plugins for photoshop</a>
+<li><a href="https://www.the303.org/backups/VPKTool.rar">Quick and Dirty Bloodlines Tools</a>
+</ul>
+<hr>
+<img src="tutorial4images/knees01.jpg" alt="Get the 2 tgas ready" >
+<p>Load up 2 finished TGA's that you want to have fade between eachother.
+</p>
+<img src="tutorial4images/knees02.png" alt="Save as DDS" >
+<p>Save the image you want to be the image that is displayed at FAR distance as a .DDS file.</p>
+<hr>
+<img src="tutorial4images/knees03.png" alt="DDS creation" >
+<p>You will be presented with this DDS creation window.  First, set the format to <b>"8.8.8.8 ARGB 32 bpp | unsigned"</b>.  This is an uncompressed format we will use for now because we don't want to compress this to DXT5 until the last step. Check the "Generate mipmaps" bullet.  Now if you like to do some mipmap enhancement; you can do it in this window just like we did in VTFEdit in the 1st &amp; 2nd tutorial.  To do this click "Sharpening..." and set your sharpening settings and hit okay.</p>
+<img src="tutorial4images/mippreview.jpg" alt="Preview it" >
+<p>The great thing about this Plugin is that you can have an active preview of what your mipmaps are gonna look like by clicking the Preview button.  This way you can go back and adjust your sharpening settings before you export.  If you are making a 512X512 resolution image, this can be even more useful.</p>
+<hr>
+<img src="tutorial4images/knees04.jpg" alt="Close &amp; Open" >
+<p>Once saved as .dds CLOSE it from photoshop, and then open it.  When you open it you will get this dialog box.  Check the "Load MIP maps" box.</p>
+<p>
+<img src="tutorial4images/knees05.jpg" alt="The DDS image" >
+<p>Now the DDS image is open complete with all the mipmaps.</p>
+<hr>
+<img src="tutorial4images/knees06.jpg" alt="Copying" >
+<p>Go to your second image and select all and copy.  Paste it into the DDS document and align it to the left as so (This should be easy if you have "snap to document bounds" enabled in your view menu).</p>
+<hr>
+<img src="tutorial4images/knees07.jpg" alt="Do the same with alpha channels" >
+<p>Now in the open tga, select the Alpha channel from your channels menu and do the same for your .DDS file.  With both documents displaying alpha channels do the same copy and paste procedure.</p>
+<hr>
+<img src="tutorial4images/knees08.jpg" alt="The finished DDS" >
+<p>Close your TGA file, then go to your .DDS document click the RGB channel or layers menu to get out of Alpha channel mode.  Go to layers and flatten the image. </p>
+<hr>
+<img src="tutorial4images/knees09.png" alt="Final saving" >
+<p>Save your DDS file and you will get the same DDS window as before but now change the format to <b>"DXT5 ARGB 8bpp | interpolated alpha"</b> and check "Use Existing MIP maps".  Go to the Sharpening settings and select "None" or else your existing mipmaps will be sharpened again, and that can lead to ugly oversharpening results.</p>
+<hr>
+<img src="tutorial4images/knees10.png" alt="Bloodlines tools" >
+<p>Now we will open "Quick and Dirty Bloodlines Tools" and select the "Texture Tools" tab.  Open your DDS and hit "Convert DDS to VTF".  The reason why we are using this tool is because so far, this is the only tool that converts DDS to VTF while preserving saved mipmaps  (VTFEdit re-makes mipmaps when converting).</p>
+<hr>
+<img src="tutorial4images/knees11.png" alt="Final VTF conversion" >
+<p>Now after Bloodlines Tools has saved a VTF file, open it in VTFEdit.  Using VTFedit we set our image flags: Clamp S, Clamp T &amp; No Level Of Detail.
+<img src="tutorial4images/knees12.png" alt="Mip preview" >
+<p>If all went well, preview the mipmap in VTFEdit like so.  As you can see the image changes from mipmap 0 to 1.  Set the mipmap back to 0 and <a href="spraylogo.html#directories">save it to your spraylogo directory.</a>
+<hr>
+<img src="tutorial4images/knees.gif" alt="EXPLODING KNEES" >
+<p>The final Fading result.</p>
+<p>Another thing you can do is edit more than one of the mipmaps like so:</p>
+<img class="white" src="tutorial4images/creep.jpg" alt="AUGH" ><img src="tutorial4images/creep.gif" alt="AAAAAAAAAAGH">
+<h2>Proceed to:<br><a href="tutorial05.html">Tutorial 5: Pixelated Sprite Sprays</a></h2>
+</div>
+</BODY>

@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<!-- Mirrored from www.the303.org/tutorials/gold_texture_p1.htm by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Nov 2024 06:10:33 GMT -->
+<head>
+<title>GoldSrc Map Texture Tutorial</title>
+<link rel="stylesheet" href="303style.css">
+<meta name="author" content="303">
+<meta name="description" content="How create textures for goldsrc games">
+<meta name="keywords" content="goldsrc, hl1, half-life, counter-strike">
+</HEAD>
+<BODY>
+<div id="middle">
+<h1>GoldSrc Map Texture Tutorial</h1>
+<hr>
+<h2>PART1 SIMPLE TEXTURES AND WAD PACKING</h2>
+<p>For this tutorial, I will show two main modern methods of making wadfiles: <a href="https://twhl.info/thread/view/20123">Wadmaker.exe</a> and <a href="https://github.com/yuraj11/HL-Texture-Tools">HL-Tools</a>.  Wadmaker has a wide amount of formats that can be used and has auto-thresholding for transparency and controlled dithering however, lacks a viewer/browser.  HL-Tools is a full viewer/browser and has a wad creation wizard but does not have as many formats or dither control.
+<h2>Table of Contents:</h2>
+<p><b><a href="#wadmaker">1.Making wads with wadmaker.exe</a><br>
+<a href="#hltools">2.Making wads with HL-Tools</a><br>
+<a href="#mapsetup">3.Loading your custom wad and map compile</a><br>
+</b>
+<p><b class="yellow">For the legacy manual indexing guide for photoshop & irfanview,</b> <a href="gold_texture_p1l.html">Click Here.</a></h1>
+<hr>
+<h2 id="wadmaker">Making wads with wadmaker.exe</h2>
+<P>With the use of Wadmaker you can <b class="green">use almost any art program as long as it exports to the following formats:</b><br>
+<b>png, jpg, gif, bmp, tga, psd/psb (Photoshop), kra/ora (Krita) and lastly GIMP and Asesprite although you have to enable those last two in the config file.  I will mention id personally avoid saving your art as jpg or gif due to quality loss before indexing.</b>
+
+<p>1) First create a texture.  For this I have created a wall texture at 256x256.
+<p><img src="goldteximages/tex01.jpg">
+<p>2)Save this file in a preferable  format (in this case since im using photoshop, im using PSD).  This name of the folder will become the name of your finished WadFile, in this case I used "mywad".  As you can see ive also demonstrated several other formats and programs ive included in this folder.  The big advantage of WadMaker is its ability to not only mix and match formats but also do it all at once in a folder.
+<p><img src="goldteximages/tex02wm.png">
+<p>2a)Wadmaker also has some config options to control how 8bit indexing and dithering is handled. Using notepad or notepad++, this can be set by creating a <b>wadmaker.config</b> in the same folder folder you are making into a wadfile.
+<p>By default floyd-steinberg dithering algorithm is applied at 75%.  To change the amount of dither this you add/modify this line to the config file:<br>
+<b>* dither-scale: 0.5</b><br>
+(this is 0.5 which means 50% dithering. 1.0 would be 100% dithering)
+<P>to turn dithering off you put:<br>
+<b>* dithering: none</b>
+<p>The "*" applies to every image in the folder,  if you want it to be image specific setting put the name of the image in place of that.
+<p>(<b class="yellow">Note: full documentation is in the install folder called "wadmaker readme.html".  Also in the "Custom converters" section you can assign wadmaker to a different indexing program if wadmaker isn't generating the 8bit conversion to your liking</b>)
+<p>3) When ready, simply drag and drop the folder onto <b>wadmaker.exe</b>.  If a wad is not created, look at the generated wadmaker - mywad.log text file that will be in the same dir as the mywad folder.
+<p><img src="goldteximages/wadmaker01.gif">
+<p>4) When the wad is sucessfully created, you optionally can verify it in a GUI viewer like Wally.exe or HLTextureTools.exe
+<p><img src="goldteximages/tex03wm.png">
+<p>4a) You can now either manually place the wadfile in the game of choice folder (for HalfLife you use the "valve" folder):<br> <b>C:\Program Files (x86)\Steam\steamapps\common\Half-Life\valve</b>
+<p>Or configure wadmaker to automatically place the wad on creation.  Copy the example batch file int he wadmaker folder "example batch file - WadMaker.bat", open with notepad or notepad++ and follow the comments and replace or change any of the output directory lines.  The file has comments and instructions within.
+
+<p><b><a href="#mapsetup">Click here to jump to map setup</a></b>
+<hr>
+<h2 id="hltools">Making wads with HL-Tools</h2>
+<p><b>Note that HL-Tools supports BMP, PNG, TIFF, JPG.  When it auto converts it does not use dithering. Id personally avoid saving your art as jpg due to quality loss before indexing</b>
+
+<p>1) Go to "tools" menu and go to "Create New Wad..." Then add or drag and drop your files. Leave the settings as is, and then save your wad.
+<p><img src="goldteximages/tex_hltt1.png">
+
+<p>2) Verify your created wad.  Clicking the background toggles between BG colors and clicking the "tile view" changes from a simple name list to tiled preview thumbnails.
+<p><img src="goldteximages/tex_hltt2.png">
+<hr>
+<h2 id="mapsetup">Loading your custom wad and map compile</h2>
+<p>1) Open up hammer editor and go to options > add WAD and add the custom WAD file
+<p><img src="goldteximages/tex08.jpg">
+<p>2) Open your map and go to the texture tab and search for the name of your texture
+<p><img src="goldteximages/tex09.jpg">
+<p>3) Here it is.  Now apply your texture and its in the map.  Compile your map and observe.
+<p><img src="goldteximages/tex10.jpg">
+<p>4) Currently the map is only referencing the external WAD file, and the map with the custom textures will only work if your map is accompanied by that specific WAD file.  This is fine if you are making an HL mod, but If you want to make a custom map where the custom textures are part of the map file for easy downloading then you have to run a CSG command.
+<p><img src="goldteximages/tex11.jpg">
+<p>5) In advanced menu go to the CSG.exe line and add <b>-wadinclude mywad.wad</b> after the first commands.
+<p>If you are using <a href="http://jack.hlfx.ru/en/">J.A.C.K</a> editor and get a compile error be sure that the existing parameters have quotations around it and the -wadinclude mywad.wad are outside of the quotes. An <a href="goldteximages/jackcsg.png">example image here.</a>
+<p>Compile the map and the wad package will now become part of the map BSP.  This means you can now run the map without the external mywad.wad file.
+<p><img src="goldteximages/tex12.jpg">
+<p>A trick to verify if the -wadinclude command worked, you can use GCFSCAPE to open a BSP file and see if your custom textures are inside like so:
+<p><img src="goldteximages/texbsp.jpg">
+<hr>
+<h1><a href="gold_texture.html">Part0: Introduction</a></h1>
+<h1><a href="gold_texture_p2.html">Part2: Creating  Masked Transparent Textures</a></h1>
+<h1><a href="gold_texture_p3.html">Part3: Creating Additive Transparent Textures</a></h1>
+<h1><a href="gold_texture_p4.html">Part4: Creating Animated Textures</a></h1>
+<h1><a href="gold_texture_p5.html">Part5: Creating Toggled Textures</a></h1>
+<h1><a href="gold_texture_p6.html">Part6: Creating Water Textures</a></h1>
+<h1><a href="gold_texture_p7.html">Part7: Creating Scrolling Textures</a></h1>
+<h1><a href="gold_texture_p8.html">Part8: Creating Skies</a></h1>
+<h1><a href="gold_texture_p9.html">Part9: Creating Detail Textures</a></h1>
+<!-- OBSOLETE <h1><a href="gold_texture_p10.htm">Part10: Batch Conversion</a></h1> -->
+<hr>
+<h1><a href="index.html">Return to Tutorials</a></h1>
+</div>
+</BODY> 

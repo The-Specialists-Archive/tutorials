@@ -1,0 +1,17 @@
+HTTrack3.49-2+htsswf+htsjava launched on Wed, 20 Nov 2024 01:03:04 at https://www.the303.org/tutorials/index.html https://www.the303.org/goldsrc/index.html +*.png +*.gif +*.jpg +*.jpeg +*.css +*.js -ad.doubleclick.net/* -mime:application/foobar
+(winhttrack -qiC2%Ps2u1%s%uN0%I0p3DaK0H0%kf2A25000%f#f -F "Mozilla/4.5 (compatible; HTTrack 3.0x; Windows 98)" -%F "<!-- Mirrored from %s%s by HTTrack Website Copier/3.x [XR&CO'2014], %s -->" -%l "en, *" https://www.the303.org/tutorials/index.html https://www.the303.org/goldsrc/index.html -O1 "D:\GIT Storage\The-Specialists-Archive\tutorials\The303 GoldSRC Tutorials" +*.png +*.gif +*.jpg +*.jpeg +*.css +*.js -ad.doubleclick.net/* -mime:application/foobar )
+
+Information, Warnings and Errors reported for this mirror:
+note:	the hts-log.txt file, and hts-cache folder, may contain sensitive information,
+	such as username/password authentication for websites mirrored in this project
+	do not share these files/folders if you want these information to remain private
+
+01:03:05	Warning: 	Note: due to https://www.the303.org remote robots.txt rules, links beginning with these path will be forbidden: /imaeg/, /stuff/, /webm/ (see in the options to disable this)
+01:11:44	Warning: 	Note: due to www.the303.org remote robots.txt rules, links beginning with these path will be forbidden: /imaeg/, /stuff/, /webm/ (see in the options to disable this)
+01:12:27	Error: 	"Not Found" (404) at link https://www.the303.org/tutorials/goldanipropimages/aniprop_3ds04.png (from https://www.the303.org/tutorials/gold_mdl_aniprop_3ds.htm)
+01:12:27	Error: 	"Not Found" (404) at link https://www.the303.org/tutorials/goldanipropimages/blend04.png (from https://www.the303.org/tutorials/gold_mdl_aniprop_blend.htm)
+01:12:27	Error: 	"Not Found" (404) at link https://www.the303.org/tutorials/middle (from https://www.the303.org/tutorials/spraygallery.html)
+01:12:28	Warning: 	Retry after error -4 (No data (connection closed)) at link https://www.the303.org/tutorials/goldteximages/trsx5.jpg (from https://www.the303.org/tutorials/gold_texture_p2l.htm)
+
+HTTrack Website Copier/3.49-2 mirror complete in 9 minutes 24 seconds : 665 links scanned, 659 files written (108494605 bytes overall), 657 files updated [108318116 bytes received at 192053 bytes/sec], 576695 bytes transferred using HTTP compression in 72 files, ratio 42%, 11.2 requests per connection
+(3 errors, 3 warnings, 0 messages)

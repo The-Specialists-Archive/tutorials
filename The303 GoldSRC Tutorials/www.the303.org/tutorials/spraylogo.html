@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<!-- Mirrored from www.the303.org/tutorials/spraylogo.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Nov 2024 06:09:53 GMT -->
+<head>
+<title>SOURCE SPRAYLOGO TUTORIAL</title>
+<link rel="stylesheet" href="303style.css">
+<meta name="author" content="303">
+<meta name="description" content="How to make spraylogos for Valve source games">
+<meta name="keywords" content="spraylogo, sprays, vtf, vmt, transparent, animated, fading mipmaps">
+</HEAD>
+<BODY>
+<div id="middle">
+<h1>The Source Spraylogo Tutorial</h1>
+<h3>By 303 (Aka: TheCorp303)</h3>
+<hr>
+<h2>BEGINNER INTRODUCTION</h2>
+<p>What are source spraylogos? Spraylogos are images you can place on most surfaces in source
+multiplayer games with the exception of models. Spraylogos appear in-game as roughly a
+meter square in area. They all conform to this area, but they can use different pixel
+Resolutions and transparency. Spraylogos can also be animated, however they do have their
+Limits. They are placed by a bound key (most commonly "t") and usually make a spraypaint
+noise. <a href="spraygallery.html">Here are some ingame examples.</a></p>
+<h3>WHAT YOU WILL NEED:</h3>
+<p><a href="http://nemesis.thewavelength.net/index.php?c=178">VTFEdit</a><br>
+And an image editing program (for this tutorial I will be working in photoshop).
+<h2>THE BASICS</h2>
+<p>Spraylogos are selected in the <b>multiplayer options</b> tab and are stored in this
+directory:<A NAME="directories"></a></p>
+<ul>
+<li>Counter-Strike Source:<br>
+\Steam\SteamApps\*youraccountname*\counter-strike source\cstrike\materials\VGUI\logos</li>
+<li>Team Fortress 2:<br>
+\Steam\SteamApps\*youraccountname*\teamfortress2\tf\materials\VGUI\logos</li>
+<li>Half-Life2 Deathmatch:<br>
+\Steam\SteamApps\*youraccountname*\half-life2 deathmatch\hl2mp\materials\VGUI\logos</li>
+<li>Day of Defeat: Source<br>
+\Steam\SteamApps\*youraccountname*\day of defeat source\dod\materials\VGUI\logos</li>
+<li>Left 4 Dead & Left 4 Dead 2:<br>
+\Steam\SteamApps\common\left 4 dead\left4dead\materials\vgui\logos\custom</li>
+<li>Mods:<br>
+\Steam\SteamApps\SourceMods\*Name of Mod*\materials\VGUI\logos</li>
+</ul><br>
+<p>For mods where the above directory fails to work try:
+<ul>
+<li>\Steam\SteamApps\*youraccountname*\source sdk base 2007\hl2\materials\VGUI\logos </li>
+</ul>
+<p>
+The spraylogo selector looks like this:</p>
+<img src="multiplayerlogo.png" alt="Spraylogo Selector"><br>
+This selector is pretty much the same accross all source games with the exception of
+Left 4 Dead & Left 4 Dead 2 <br>(<a href="l4dselect.jpg">click here to see the L4D selector</a>)
+<p>Each game has several default sprays which are always listed first, then any custom ones.
+SPRAYLOGO FILES
+A spraylogo is 2 files: A VTF file and a VMT file. The VTF is the image texture and the
+VMT allows the texture to be read by the game. For those familiar with VMT files, it
+Should be stated that in the case of spraylogos, the VMT is only used for the texture path
+and nothing more. <b class="red">All vmt commands are overrided in game so you can't set any special
+shaders, change the area, or change an animated spraylogos animation rate.</b> Spraylogos
+are mostly made from Targa files (.tga) which are converted to VTF format.</p>
+<h2>RESOLUTIONS:</h2>
+<P>Spraylogo resolutions are fairly low, however as of 2010 several games have been updated
+with the capability of higher resolutions. They must be valid power of 2 sizes in order to
+work. The most common resolution is 256X256 pixels.
+Here is an example of 2 spraylogos at four different resolutions and how they appear in game:</p>
+<a href="resolutions.jpg"><img src="resolutionsthumb.jpg" alt="Spraylogo Resolutions Non-Transparent"></a>
+<a href="resolutions2.jpg"><img src="resolutionsthumb2.jpg" alt="Spraylogo Resolutions Transparent"></a>
+<p>As you can see, I have demonstrated how these resolutions look like up close, at distance
+and the actual size. <b>*512X512 Is currently only available for Counter-Strike:Source, Day of Defeat:Source,
+Garrysmod, and Team Fortress 2.</b></p>
+<h2>TRANSPARENCY & ANIMATION:</h2>
+<p>Spraylogos are capable of having areas of transparency. These areas are defined by an
+alpha channel. Note that spraylogos with transparency are larger in filesize, making their
+use in animation very limited.</p>
+<img src="alphachannel.jpg" alt="Spraylogo Alpha Channels" ><br>
+<p>Spraylogos with animation continually loop and run at approximately 6 frames per second.</p>
+<h2>MIPMAPS:</h2>
+<p>Mipmaps are a series of progressively smaller power of 2 image copies of the original
+which are generated usually when you make your VTF file. Each
+one of these smaller images has been resampled and usually had a sharpen filter added.
+Mipmaps are a computationally low-cost method of enhancing images and how they look and
+scale at distances as they fade between oneanother. When creating your VTF files
+Mipmaps should be used in all still spraylogos as they will look much better at distances.
+The only time you really need to omit mipmaps are when you need to have more frames in your
+animated sprays (as mipmaps do take up filesize).</p>
+<img src="mipmaps1.jpg" alt="Spraylogo Mipmaps" >
+<p>Here we have an example of mipmaps made for a 256X256 spraylogo. These mipmaps have been
+created using box filter settings with an unsharpen mask filter to enhance them. Here we have
+an example of how a spray with mipmaps vs a spray without mipmaps:</p>
+<a href="mipmapdist.jpg">
+<img src="mipmapdistthumb.jpg" alt="Spraylogo Mipmap Distance" ><br></a>
+<p>Although the difference looks subtle in this demonstration, in motion the difference is quite
+noticeable with distinct "jaggy" looking pixels. If your spray has outlined artwork this gets even
+worse looking. There are several different mipmap sharpen options available in
+VTFEdit but we will cover this later.
+</p>
+<p>Now since we have covered the basics we will now proceed to image preparation and creation
+of your spraylogo.</p>
+<h1><a href="tutorial01.html">Tutorial 1: Creating a Static Spray With no Transparency</a></h1>
+<h1><a href="tutorial02.html">Tutorial 2: Creating a Static Spray With Transparency</a></h1>
+<h1><a href="tutorial03.html">Tutorial 3: Animated Spraylogos</a></h1>
+<h1><a href="tutorial04.html">Tutorial 4: Fading Spraylogos</a></h1>
+<h1><a href="tutorial05.html">Tutorial 5: Sprite Spraylogos</a></h1>
+</div>
+</BODY> 

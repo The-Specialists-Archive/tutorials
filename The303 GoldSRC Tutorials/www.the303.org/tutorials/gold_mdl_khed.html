@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<!-- Mirrored from www.the303.org/tutorials/gold_mdl_khed.htm by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Nov 2024 06:11:36 GMT -->
+<head>
+<title>GoldSrc Model Export Tutorial</title>
+<link rel="stylesheet" href="303style.css">
+<meta name="author" content="303">
+<meta name="description" content="How to compile models for GoldSrc engine games">
+<meta name="keywords" content="goldsrc, hl1, half-life, counter-strike, kHED">
+</HEAD>
+<BODY>
+<div id="middle">
+
+<h1>kHED</h1>
+<img class="middle" src="goldmdlimages/khed_header.png">
+<p>kHED is a discontinued freeware 3d modelling program that is very easy and intuitive to use.  It can compile right out of the box and even automatically creates a .QC file to go with it. <b>kHED is an older style 3D editor that only supports editing in triangles, so you wont be able to work with edge loops or edge selection.</b> A major drawback is that kHED does <b class="red">not</b> have rigging so you are limited to static props.  However, you can save as MS3D so you can move it into <a href="gold_mdl_milk.html">MilkShape3d</a> for rigging.  kHED can be downloaded here: <a href="http://khed.glsl.ru/index.php?page=home">Official site</a>
+<hr>
+<p>Jump to <a href="#IM">Importing Meshes</A></br>
+<hr>
+<p><b>Exporting Reference Mesh</b>
+<p>1) Drag and drop or copy your studiomdl.exe into the kHED install folder.
+<p>2) Go to File > Export "Half-Life Model" and export to the folder that has all your textures for your model</a>
+<p>3) You will see a cmd prompt and it will auto compile your model.  You are done unless you want to edit the generated .QC and then feed it into studiomdl or use Crowbar to recompile.
+<p><b>If you get errors on export/autosave try running kHED as admin (also if your compiled model is 0kb)</b>
+<p><img src="goldmdlimages/khed_exp01.png">
+<hr>
+<h1><a href="gold_mdl_comp.html">Continue to extended QC code options & Compiling</a></h1>
+<hr>
+<p id="IM"><b>Importing Reference Mesh</b>
+<p> kHED has the advantage of being able to directly import a mesh from a model without having to decompile it, however in both cases of importing either from <b>.mdl</b> or <b>.smd</b> kHED <b class="red">does not preserve smoothing normals</b>, and you will have to re-create them.  
+<p>1) Go to File > Import "Half-Life Model" or "Half-Life Smd".
+<p><img src="goldmdlimages/khed_imp01.png">
+<p>2) In this example I use a quick "Auto Smooth" to remake the smoothing groups.  Further manual adjustments may be necessary.  Refer to the kHED manual for more or the bonus video below.
+<p><img src="goldmdlimages/khed_imp02.gif">
+<hr>
+<h1><a href="gold_mdl_comp.html">Continue to extended QC code options & Compiling</a></h1>
+<hr>
+<p><b>BONUS VIDEO: Quick Static Prop</b>
+<p>Ive made a 15 minute sped up video of a static TV prop from start to finish. I went for quick and dirty so most of the stuff is PS layer style effects.<br>
+
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/-VKgzJygHA4?rel=0" frameborder="0" allowfullscreen></iframe>
+
+<p>Things to note on the video:
+<ul class="white">
+   <li> I didn't need to UV unwrap the antennas because I used a special "_chrome" texture (64X64 only).</li>
+  <li>  There are some things I rushed like some bits of wasted UV space and having an on red light when the TV is clearly off (whoops.)</li>
+  <li>  You can find the QC and SMD in the folder you saved your working kHED file and edit it to add other things if you need</li>
+    <li>For Sven id go with item_generic, I went with cycler_sprite for generic vanilla GoldSrc compatibility </li>
+</ul>
+<hr>
+<h1><a href="gold_mdl_comp.html">Continue to extended QC code options & Compiling</a></h1>
+</div>
+</BODY> 

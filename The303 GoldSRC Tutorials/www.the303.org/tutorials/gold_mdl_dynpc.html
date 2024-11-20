@@ -1,0 +1,126 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<!-- Mirrored from www.the303.org/tutorials/gold_mdl_dynpc.htm by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Nov 2024 06:03:52 GMT -->
+<head>
+<title>Dynamic NPC Tutorial</title>
+<link rel="stylesheet" href="303style.css">
+<meta name="author" content="303">
+<meta name="description" content="How to make NPC models more interesting">
+<meta name="keywords" content="goldsrc, hl1, half-life, counter-strike, remap, animations">
+</HEAD>
+<BODY>
+<div id="middle">
+
+<img class="middle" src="golddynpcimages/dyn_npc_header.png">
+<hr>
+<p>Ever wanted to spice up existing NPC models with differences without any major code changes?  You can do it within the MDL compile itself from changed sequences, to different walk/run speeds and attacks.  This guide covers both NPC MDL editing for regular GoldSrc and Sven Coop features for model replacements.
+<p><b class="yellow">This guide assumes you are familiar with model editing and decompiling; if you havent already read the <a href="gold_mdl.html">GoldSrc Modelling Mega Tutorial</a></b>. Also keep in mind, for vanilla GoldSrc if you replace an NPC modelfile it will affect all of that type unless you are using/making a mod that supports loading different MDL's for different specified map NPC entities.
+
+<h1>Table of Contents:</h1>
+<p><b><a href="#P1">Part 1: Changing walk & run speeds</a><br>
+<a href="#P2">Part 2: ACT Randomizing</a><br>
+<a href="#P3">Part 3: NPC actions</a><br>
+<a href="#P4">Part 4: Hitbox modifications</a><br>
+<a href="#P5">Part 5: Converting models/Transfer animations</a><br>
+<a href="#P6">Part 6: Sven Coop Specific features</a><br>
+</b>
+<hr>
+<h1 ID="P1">Part 1: Changing walk & run speeds</h1>
+<p>If you have played some mods you may have seen many that have fast zombies.  This is done most of the time by just decompiling the model, changing the FPS on the walk and/or run sequences and recompiling it.  It works, but the issue is the animation plays in a sped up looking way and is kinda silly looking.
+
+<p>In order to change walk/run speeds in a more controlled and proper way, you need to do it in the sequence SMD and that allows you to use a reasonable FPS without relying on just boosting that.  To explain how walk/run works in moving the NPC in the world, it works by taking the forward motion of the root bone in the walk/run animation SMD sequence keyframes and extracting that data to move it in the world.  This is known in the QC as "linear motion extraction".  In the QC it looks like this:
+
+<p><b>$sequence walk "ref_walk" lx loop fps 31</b>
+
+<p>The "LX" means "linear motion extraction on X axis".  This is because the orientation of the root bone in the original HalfLife 3dsmax rigs are so the forward motion is on X.  You can use others like Y and Z but depends on what rig you are using, but 90% of the time with existing models you will use LX.
+
+<p>So what do we do here?  We re-keyframe the walk/run animation and change the body motion and the root bone forwards movement, or make a brand new walk/run animation from scratch and have a further or closer end keyframe. To edit existing walk/run sequences here are the methods:<br>
+<p><a href="goldmdlimages/linear_fix_max.png">3dsmax</a><br>
+<a href="goldmdlimages/linear_fix_blend.png">Blender</a>
+<p>For a brand new sequence you make your own animation and key whatever end distance you want. Distance travelled works like this:<br>
+So for example, I made a custom animation where a scientist NPC root bone moves 256generic 3dsmax units forwards in the span of 30 frames at 30 frames per second.  Therefore in game he moves 256hammer units in 1 second or complete animation cycle.
+<hr>
+<h1 ID="P2">Part 2: ACT Randomizing</h1>
+<p>A very powerful and very underused feature in GoldSrc is "Action weighting number" which is a way of making multiple animations in an specific action that are chosen randomly, with a higher number representing a higher probability of being chosen.  A good example is the scientist idle sequences.  When the scientist is idle it randomly has some fidget animations and it is defined by multiple ACT_IDLE sequences which are picked at random and balanced towards the "weighting number" next to it.:
+<br>
+<b>$sequence "idle1" "idle1" fps 7 loop <b class="blue">ACT_IDLE 50</b> <br>
+$sequence "idle3" "idle3" fps 12 <b class="blue">ACT_IDLE 3</b> <br>
+$sequence "idle4" "idle4" fps 12 <b class="blue">ACT_IDLE 2</b> <br>
+$sequence "idle5" "idle5" fps 13 <b class="blue">ACT_IDLE 3</b> <br>
+$sequence "idle6" "idle6" fps 13 <b class="blue">ACT_IDLE 3</b> <br>
+$sequence "idle7" "idle7" fps 13 <b class="blue">ACT_IDLE 10</b></b><br>
+<p>The "50" is the highest number so it is picked the most out of "ACT_IDLE", so it plays the most.  What makes this so powerful is that you can use it with any ACT_ sequence to add multiple variations and combine it with different animations and QC code things like actions and other things.  This can be done for example for multiple runs, walks, idles, attacks, and all sorts of variations.  You can make say a bunch of these for attack with different speed animations or the npc action on different frames.  Some runs can be faster or slower to vary up things, and same with flinches, or even use <b>event 1003</b> on a frame of animation in one of the random sequences to trigger a named map entity which opens lots of different map specific things you can do.
+
+<p>An example of using ACT_ randomizing + the previously mentioned modified walk and run sequences is here:<br>
+<video controls width="800">
+
+    <source src="tutvideo/scientistwalking.webm"
+            type="video/webm">
+    Sorry, your browser doesn't support embedded videos.
+</video>
+<P>In this example I made random dabbing animations and faster rolling animations and slower walk animations that randomly play to change up the NPC.
+
+<p><b class="red">When adding new sequences to an NPC model, please add it at the END of the QC file as some NPCs are hard-coded to animation order so putting extra sequences inbetween the certain lines may break your model.</b>
+<p><b>The ACTION list can be found in the <a href="gold_qc.html#A2">QC guide here.</a></b>
+<hr>
+<h1 ID="P3">Part 3: NPC actions</h1>
+<p>Every NPC has event numbers which define attacks, reloads, holstering, and a variety of other things.  A good example is say the Zombie attack sequence:
+<div align="left">
+<table class="old">
+	<tbody><tr>
+		<td>
+		<pre>
+$sequence "attack1" {
+	"zombie_anims\attack1"
+	ACT_MELEE_ATTACK1 5
+	{ event 1 10 }
+	{ event 2 19 }
+	fps 15
+}
+$sequence "attack2" {
+	"zombie_anims\attack2"
+	ACT_MELEE_ATTACK1 1
+	{ event 3 6 }
+	fps 15
+}
+</pre>
+		</td>
+	</tr>
+</tbody></table>
+</DIV>
+<p>Event 1, and 2 are left and right melee attacks and the 2nd number after is the frame in which they happen.  3 is the overhead both hands attack.  As you can see the ACT_MELEE_ATTACK1 is random weighted by 5 to 1 of the overhead attack.  With custom animations or just changing the events, frequency or frame it lands on you can make for some different attacks or even combination attacks.
+<p>Another good example is in the classic HalfLife mod "THEY HUNGER", there was an Agrunt NPC model that had all its shooting animation sequences removed so it became a melee only monster. You can also have the NPC use global events like 1008 to speak at times, but keep in mind the audio has to be prechached (mods like sven coop automatically ensure this).
+<p><b>Generic events can be <a href="gold_qc.html#A1">found here in the QC guide</a>,  and for <a href="gold_qc.html#A3">NPC specific event list can be found here</a>.</b>
+<hr>
+<h1 ID="P4">Part 4: Hitbox modifications</h1>
+<p>Changing hitboxes can be a way of setting difficulty in your custom model, from making some bigger or smaller or removing specific ones.  This can also be done in <a href="https://github.com/SamVanheer/HL_Tools/wiki/Half-Life-Asset-Manager">HLAM</a> to directly edit hitboxes and can be resaved.
+<p><a href="gold_qc.html#hbox">Hitbox paramaters and NPC specific hitboxes can be found here.</a>  In the specific hitboxes some enemies like Hgrunts have helmet hitboxes or Agrunts with metal hitboxes so you can assign others with that number paramater for more armour.
+<hr>
+<h1 ID="P5">Part 5: Converting models/Transfer animations</h1>
+<p>There is a time where you have a model you want to use but its formatted for something different, and you don't want to reskin a mesh of a different model to the other or even use animations from different models to save time.  The way you can easily do this is decompile your target NPC model and model you want, then swap the mesh $body/$bodgroup SMD lines and sequences with the other decompiled model.  Or just rename the SMD and drag and drop replace into the NPC model folder.  Keep in mind you may have to account for different rigs, bonenames and attachments.
+<p>An example of a simple converted model is this:<br>
+Take a scientist model and decompile it, and decompile a Zombie model.  Copy the mesh lines from the scientist QC and paste it in and overwrite the Zombie mesh QC.  Locate each of the sequences in the zombie QC and swap out the SMD path to chosen animations from the Scientist set.  The needleshot can be used as an attack animation for example.  This is either done by setting a path or just copying the SMD and renaming it and copying it to the same folder.  Do this for every sequence as they have different skeletons.  Change any hitboxes that don't match the bones/names.  Compile the zombie QC and you now have a scientist zombbie.
+
+<p>If you are mixing and matching animations from different skeletons together you will have to remap some if the skeleton is different; Also if you want to convert a playermodel and copy some animations over, you may have to Z offset the model.  This can be easily done with <b>$origin 0 0 -36</b> to the QC file.  For crouch animations you may have to use an origin specific sequence for 0 0 -18.  This is because playermodels have different world origins.
+
+<p>For animation remapping; or using an animation from another model with a different skeleton on a new one, I have a full guide on that here:<br>
+<a href="gold_mdl_aniremap.html">Animation Remapping Tutorial.</a>
+<P>Animation remapping saves time and also has the added benifit of conforming proportions to the target skeleton
+<p>An example of using animation remapping by applying a zombie original animation on the barney HD skeleton; notice how his fingers stay in human size where the original zombie skeleton they were very long:<br>
+<video controls width="800">
+
+    <source src="tutvideo/remapzombie.webm"
+            type="video/webm">
+    Sorry, your browser doesn't support embedded videos.
+</video>
+
+<p>
+<hr>
+<h1 ID="P6">Part 6: Sven Coop Specific features</h1>
+<p>One of the most powerful entities in sven coop is the map entity <b>trigger_changevalue</b> which can change a number of values in a model such as skin, bodygroup, and the Topcolor/bottomcolor feature for remappable. "topcolor" and "bottomcolor" keyvalues use ranges 0~255.  This allows for wide variants of models without needing additional skin textures (adding to filesize) or multiple models as some people have done just for reskins.  To create remappable textures see the <a href="gold_remap.html">Color Remap tutorial.</a>
+<p>More info can be found in the <a href="https://sites.google.com/site/svenmanor/entityguide">Sven Manor Entity guide.</a>
+<hr>
+<h1><a href="index.html">Return</a>
+</div>
+</BODY> 

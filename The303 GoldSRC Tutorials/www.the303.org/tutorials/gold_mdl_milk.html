@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<!-- Mirrored from www.the303.org/tutorials/gold_mdl_milk.htm by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Nov 2024 06:11:40 GMT -->
+<head>
+<title>GoldSrc Model Export Tutorial</title>
+<link rel="stylesheet" href="303style.css">
+<meta name="author" content="303">
+<meta name="description" content="How to compile models for GoldSrc engine games">
+<meta name="keywords" content="goldsrc, hl1, half-life, counter-strike, milkshape">
+</HEAD>
+<BODY>
+<h1>MilkShape3D</h1>
+<div id="middle">
+<img class="middle" src="goldmdlimages/ms3d_header.png">
+<p>MilkShape3D comes with SMD export/import ability right out of the box so no additional downloads are needed.  <b>MilkShape is an older style 3D editor that only supports editing in triangles, so you wont be able to work with edge loops or edge selection.</b> If you are using a special _CHROME texture it can be realtime displayed when set as "spheremap" in render rollout in the materials tab.
+<p><b class="red">Important note: do NOT use the MilkShape built-in Decompiler, its horribly error prone, gives bad results and outdated.  Same with the "compile" tool.  Use <a href="https://steamcommunity.com/groups/CrowbarTool">Crowbar</a> for all your compiling/decompiling needs.</b>
+<p><b class="yellow">Also, I highly suggest you try <a href="gold_mdl_frag.html">fragMOTION</a> as it has a much superior workflow for animation (has curves, multiple animations, and IK & onion skin utilities) and way less error prone especially when it comes to editing imports.  MS3D suffers from issues with breaking smoothing groups of imported SMD's and adding additional bones, where fragMOTION does not.
+<hr>
+<p>Jump to <a href="#AN">Exporting Animations</A></br>
+Jump to <a href="#AM">Importing Meshes & Animations</A></br>
+<hr>
+<p><b>Exporting Reference Mesh</b>
+<p>1) In milkshape 3D check your Groups and make sure the texture names end with <b>.bmp</b>.
+<p>2) File > export "Half-Life SMD..."
+<p>3) Check "Reference" at the options box.
+<p><img src="goldmdlimages/milk_exp01.png">
+<hr>
+<h1><a href="gold_mdl_comp.html">Continue to Compiling</a></h1>
+<hr>
+<p id="AN"><b>Exporting Animation Sequence</b>
+<p>1) Go out of "Animation Mode".  Go to File > export "Half-Life SMD..."
+<p>2) Check "Sequence" at the options box.
+<p><img src="goldmdlimages/milk_exp02.png">
+<hr>
+<p id="AM"><b>Importing Meshes & Animations</b>
+<p>1) Go to File > import "Half-Life SMD..."
+<p>2) Uncheck "Rename Bones" at the options box.
+<p><img src="goldmdlimages/milk_imp01.png">
+<p><b>Some notes on MS3D imports:</b>
+<ul class="white">
+   <li>For multiple part models, you can keep on importing and it will automatically merge the skeleton.</li>
+   <li>When you import geometry, smoothing information is imported as explicit set normals and will all be on "Smoothing Group 1".  Some edits to your model geometry or adding new smoothing groups has a likleyhood of breaking all your models smoothing.</li>
+    <li>Adding to the skeleton can break the whole model at times</li>
+</ul>
+<hr>
+<h1><a href="gold_mdl_comp.html">Continue to Compiling</a></h1>

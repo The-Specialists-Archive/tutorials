@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<!-- Mirrored from www.the303.org/tutorials/gold_texture_p2l.htm by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Nov 2024 06:12:12 GMT -->
+<head>
+<title>GoldSrc Map Texture Tutorial</title>
+<link rel="stylesheet" href="303style.css">
+<meta name="author" content="303">
+<meta name="description" content="How create textures for goldsrc games">
+<meta name="keywords" content="goldsrc, hl1, half-life, counter-strike">
+</HEAD>
+<BODY>
+<div id="middle">
+<h1>GoldSrc Map Texture Tutorial</h1>
+<hr>
+<h2>PART 2: Masked Transparent textures</h2>
+<p>Transparent masked textures are a lot trickier because they have to have a solid color that is the last color of the indexed palette.  Keep in mind that transparent textures are alphatest so there is no gradient transparency.
+<p><b>NOTE: If you are needing to convert many transparent textures, I suggest you take a look at <a href="gold_texture_p10.html">Part 10: Batch Conversion</a></b>
+<p>1) Create your texture as normal and then create a 50% grey fill (Bring up the fill window with shift-F5) layer underneath your image.  Create a selection to crop out your subject either by lasso, pen tool or quickmask.  Save this selection as a clipping mask by clicking the icon on the bottom of your layers window.  
+<p><img src="goldteximages/trs01.jpg">
+<p>2)select your clipping mask and go to Image > adjustments > threshold.  You will now have a slider bar that you will adjust to set the hard threshold of your mask, this ensures you dont have any blending or aliasing which is bad for alphatest masked transparency. The grey layer will help you check the edge.
+<p><img src="goldteximages/trs02.jpg">
+<p><img src="goldteximages/trs03.jpg">
+<p>3) Using shift-F5 bring up the fill menu and fill in your background layer with pure blue [HEX:0000ff / RGB: 0 0 255].
+<p><img src="goldteximages/trsx4.jpg">
+<p>4) Your image is now ready for 8bit conversion.
+<p><b>However, if you do not want to fine tune color dithering or palette selection you can flatten the image and save as BMP format 24bit with a "{" symbol at the front of the filename (this tells the engine to recognize it as transparency for example: "{cat.bmp" ). Then import your BMP into wally and let it auto-convert the colors for you.  If you are doing this  <a href=#step8>skip to step 8.</a>
+</b>
+<p><img src="goldteximages/trsx5.jpg">
+<p>5)Go to mode > index.  Select any of the local palette as mentioned in part1 then set the colors to <b>256</b>.  Go to the palette rollout and then switch  local to "custom" palette and select the pure blue color, press ctrl-click to remove it and re-add it to the final index slot and the bottom right.
+<p><img src="goldteximages/trsx6.jpg">
+<p><img src="goldteximages/trsx7.gif">
+<p>7)Save the image as a BMP but with a "{" symbol at the front of the filename (this tells the engine to recognize it as transparency).
+<p><img src="goldteximages/trs10.jpg">
+<hr>
+<a name="step8"></a>
+<p>8) <a href="gold_texture_p1.html#step3">Create your Wad package just like you did in Part1.</a>  Then open up hammer and create a func_wall entity with "null" tool texture (as part of zhlt), then texture one side with your custom texture.
+<p><img src="goldteximages/trs11.jpg">
+<p>9) Set the render mode to "Solid" and then the "FX Amount" to "255".  Compile and observe.
+<p><img src="goldteximages/trs12.jpg">
+<p><img src="goldteximages/trs13.jpg">
+<p><img src="goldteximages/trs14.jpg">
+<p>10) If you want something you can shoot through (such as a chain-link fence) create the brush entity as "func_illusionary"" instead of "func_wall"
+<hr>
+<h1><a href="gold_texture.html">Part0: Introduction</a></h1>
+<h1><a href="gold_texture_p1.html">Part1: Creating Basic Textures</a></h1>
+<h1><a href="gold_texture_p3.html">Part3: Creating Additive Transparent Textures</a></h1>
+<h1><a href="gold_texture_p4.html">Part4: Creating Animated Textures</a></h1>
+<h1><a href="gold_texture_p5.html">Part5: Creating Toggled Textures</a></h1>
+<h1><a href="gold_texture_p6.html">Part6: Creating Water Textures</a></h1>
+<h1><a href="gold_texture_p7.html">Part7: Creating Scrolling Textures</a></h1>
+<h1><a href="gold_texture_p8.html">Part8: Creating Skies</a></h1>
+<h1><a href="gold_texture_p9.html">Part9: Creating Detail Textures</a></h1>
+<h1><a href="gold_texture_p10.html">Part10: Batch Conversion</a></h1>
+<hr>
+<h1><a href="index.html">Return to Tutorials</a></h1>
+</div>
+</BODY> 

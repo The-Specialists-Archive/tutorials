@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<!-- Mirrored from www.the303.org/tutorials/gold_sprite_p4.htm by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Nov 2024 06:11:12 GMT -->
+<head>
+<title>GoldSrc Sprite Tutorial</title>
+<link rel="stylesheet" href="303style.css">
+<meta name="author" content="303">
+<meta name="description" content="How create sprites for goldsrc games">
+<meta name="keywords" content="goldsrc, hl1, half-life, counter-strike">
+</HEAD>
+<BODY>
+<div id="middle">
+<h1>GoldSrc Sprite Tutorial</h1>
+<hr>
+<h2>PART4: Masked Sprites</h2>
+<p>Transparent masked sprites use a solid color that is the last color of the indexed palette as the transparent mask.  This 1bit transparency is also known as alphatest.
+<p>1) Get your image ready and create a selection from either lasso, quick select, pen, quickmask, ect.  Create a clipping mask from this selection.
+<p><img src="goldsprimages/sp_mas01.jpg">
+<p>2) Create a layer below the masked image and then use the fill command (shift-F5) to fill that layer with pure blue RGB[0 0 255] or HEX:#0000ff.
+<p><img src="goldsprimages/sp_mas02.jpg">
+<p>3)select your clipping mask and go to Image > adjustments > threshold.  You will now have a slider bar that you will adjust to set the hard threshold of your mask, this ensures you don't have any blending or aliasing which is bad for alphatest masked transparency.  Do fine adjustments on this mask using the pencil tool (has hard edges to match requirements) with black or white.
+<p><b>NOTE: If your sprite image touches the edge of the document, you should put at least a 1px border of the transparency, this is because any pixels touching any side of the document can sometimes "wrap" to the opposite side of the image.</b>
+<p><img src="goldsprimages/sp_mas03.jpg">
+<p>4) When finished convert the image to indexed color just like in <a href="gold_sprite_p1.html">Step1</a>, only after choosing your local palette, go to the rollout and choose "custom".
+<p><img src="goldsprimages/sp_mas04.jpg">
+<p>5)With the custom palette open ctrl-click the pure blue color to remove it from its index and re-add it to the final index by clicking the final slot and entering either RGB[0 0 255] or HEX #0000ff.
+<p>NOTE: I will point out that quick automatic 8bit conversion with 24bit directly into HL-Tools as described before won't work properly with masked due to index placement (will likely to choose the wrong color for transparency).  For this method and if you are using other programs, read on and I will show a method at the end that uses HL-Tools color picker.</b>
+<p><img src="goldsprimages/sp_mas05.gif">
+<p><img src="goldsprimages/sp_mas06.jpg">
+6) Open up half-life texture tools and go to Tools>Create new sprite... then click "add new images". Add your newly created BMP.
+<p>Go to the number 2 "Settings" tab and select "Alphatest" as your texture format.  For sprite format i'm going with Parallel Upright since this image is to be on the ground.  Click tab 3 and hit save to your sprite directory just as before in <a href="gold_sprite_p1.html#step4">Part1, Step4</a>
+<p><img src="goldsprimages/sp_mas07.png">
+<p>Once saved it will prompt you to open in viewer.  Clicking the background of the preview will cycle between black white and grey which is a neat preview feature for transparencies. <b>be sure to close HL-Texture tools before opening the map editor or else it may not open in hammer due to the file being in use.</b>
+<p><img src="goldsprimages/sp_mas07.gif">
+<p>7)Open Hammer or J.A.C.K and create an env_sprite and choose your saved sprite file under "sprite name", then set the scale of the sprite under scale.  After that set the render mode to "texture" and the FX amount to 255.
+<p><img src="goldsprimages/sp_mas08.jpg">
+<p>7)Compile the map and observe. Also i'm showing what happens with lower FX amount turns the image partially invisible.
+<p><img src="goldsprimages/sp_mas09.jpg">
+<hr>
+<p>If you are using another paint program we need to use IRFANVIEW as before in <a href="gold_sprite_p1.html#step3a">Part1,Step3a</a> but with a slightly different process. HL-Texture tools which allows for you to pic a color directly on the image to be your transparent color.  In this example I'm using pure green as my transparent color.
+<p>Save out your image from your program of choice in full 24bit color BMP.  Open this image with IRFANVIEW and select "Decrease Color Depth". Select custom <b>255</b> colors and use dithering if you want.  Save out the 8bit bmp.  The reason we choose 255 is to free up the final color for the transparency.
+<p><img src="goldsprimages/sp_irf01.jpg">
+<p>2)Create your sprite as before, and then when previewing the sprite go to "tools>make transparent background > Select color".  Hover your mouse and at the top you will see an RGB value readout and any color your hover over will be shown.  Click an area you want and then that color will turn transparent.  If you picked wrong there is a backup saved in the same spot with extension bak.spr.
+<p><img src="goldsprimages/sp_irf02.jpg">
+
+<hr>
+<h1><a href="gold_sprite.html">Part0: Introduction</a></h1>
+<h1><a href="gold_sprite_p1.html">Part1: Normal Sprites and Basic Use</a></h1>
+<h1><a href="gold_sprite_p2.html">Part2: Additive Transparent Sprites</a></h1>
+<h1><a href="gold_sprite_p3.html">Part3: Index Alpha Sprites</a></h1>
+<h1><a href="gold_sprite_p5.html">Part5: Animated Sprites</a></h1>
+<h1><a href="gold_sprite_p6.html">Part6: Beam Sprites</a></h1>
+<h1><a href="index.html">Return to Tutorials</a></h1>
+</div>
+</BODY> 

@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<!-- Mirrored from www.the303.org/tutorials/gold_sprite_p1.htm by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Nov 2024 06:11:06 GMT -->
+<head>
+<title>GoldSrc Sprite Tutorial</title>
+<link rel="stylesheet" href="303style.css">
+<meta name="author" content="303">
+<meta name="description" content="How create sprites for goldsrc games">
+<meta name="keywords" content="goldsrc, hl1, half-life, counter-strike">
+</HEAD>
+<BODY>
+<div id="middle">
+<h1>GoldSrc Sprite Tutorial</h1>
+<hr>
+<h2>PART1: Normal Sprites</h2>
+
+<p>1) Begin by creating a new document and scale the image to a GoldSrc friendly dimensions which is a divisible by 16 number. I have my image ready at 256X256.
+<p><img src="goldsprimages/sp_nor01.jpg">
+<p>2) When finished convert the image to indexed color by going to mode> Index.. and set to any of the "local" palettes (perceptual, selective, and adaptive<b>*</b>).  Preview the image.  If your image has gradients than start to get a "banding effect", you can lessen these harsh edges by using the Dithering option.  Dithering scatters pixels between transitions to make them somewhat smoother.  Notice the difference on the blue top bar for with and without dithering.
+<p><b>*</b>Adaptive algorithm reproduces colors most often in image, Perceptual takes spectrum priority of the eye, Selective favours colors that appear in large areas and graphics.
+<p><b>However, if you do not want to fine tune color dithering or palette selection you can flatten the image and save as BMP format 24bit, then import your BMP into HLtools sprite creator and let it auto-convert the colors for you. If you are doing this <a href=#step4>skip to step 4.</a>
+<p>If you are using a program other than Photoshop <a href=#step3a>skip to step3a</a></b> 
+<p><img src="goldsprimages/sp_nor02.jpg">
+<p>3) Save out the image as BMP.  When prompted for 8bit hit okay.
+<p><img src="goldsprimages/sp_nor03.png">
+<hr>
+<a name="step3a"></a>
+<p>3a) If you do not have photoshop, the common option names for making an indexed color image is <b>"save as 8bit", "256 colors", or "indexed"</b>.  If your program is lacking in creating a decent palette or cannot save properly you can save out your image as a 24bit BMP and use <a href="http://www.irfanview.com/">IRFANVIEW</a> to do the conversion.  I encourage to use this way if you are using Paint.net or GIMP because i've found that 8-bit conversion in those programs tend to not reproduce accurate results.
+<p>Open the image and go to "decrease color depth".  Choose 256 colors, check "use best color quality" and check "use dithering" if your image needs to be dithered. Press okay and go file-save to BMP.
+<p><img src="goldsprimages/sp_norf1.jpg">
+<hr>
+<a name="step4"></a>
+<p>4a) Open up half-life texture tools and go to Tools>Create new sprite... then click "add new images". Add your newly created BMP.
+<p>4b)Go to the number 2 "Settings" tab and leave "Normal" as your texture format.  For sprite format leave as default "parallel".  Click tab 3 and hit save.
+<p>4c) Save the sprite in your own folder in the sprite directory.  I am using "spritetut" so it looks like this:<br>
+<b>C:\Program Files (x86)\Steam\steamapps\common\Half-Life\valve\sprites\spritetut</b>
+<p>Once saved it will prompt you to open in viewer.  View if needed but <b>be sure to close HL-Texture tools before opening the map editor or else it may not open in hammer due to the file being in use.</b>
+<p><img src="goldsprimages/sp_nor04.jpg">
+<hr>
+<p>5) Open up hammer or J.A.C.K and create an env_sprite.  Click the "..." box next to the "Sprite Name" path to bring up the search path.  Select your sprite.  It should appear, but now we need to set the scale, I went with 0.35.  Now set the render mode to "Texture", and finally check the "FX amount" and be sure that it says 255 and is not blank.  However, leave the name field blank for now.
+<p><img src="goldsprimages/sp_nor05.jpg">
+<p>6)Compile the map and observe. As you can see the sprite in parallel mode faces the viewer.
+<p><img src="goldsprimages/sp_nor06.jpg">
+<p>7) Here I am showing off optional things such as FX color tint and FX amount and how it affects the sprite: 
+<p><img src="goldsprimages/sp_nor07.jpg">
+<p>8)Now we will make the sprite able to receive inputs by giving it a name.  <b>Its important to know that giving a sprite a name by default starts the sprite in "off" state. (If you want the sprite begin in the "On" state, go to the flags" tab and check "Start on".)</b>  I have created a func_button entity with the target of the named sprite and the button has the "toggle" flag.  As you can see pressing the button turns the sprite on and off.
+<p><img src="goldsprimages/sp_nor08.jpg">
+<p><img src="goldsprimages/sp_nor09.gif">
+<br>
+<hr>
+<h1><a href="gold_sprite.html">Part0: Introduction</a></h1>
+<h1><a href="gold_sprite_p2.html">Part2: Additive Transparent Sprites</a></h1>
+<h1><a href="gold_sprite_p3.html">Part3: Index Alpha Sprites</a></h1>
+<h1><a href="gold_sprite_p4.html">Part4: Masked Transparent Sprites</a></h1>
+<h1><a href="gold_sprite_p5.html">Part5: Animated Sprites</a></h1>
+<h1><a href="gold_sprite_p6.html">Part6: Beam Sprites</a></h1>
+<hr>
+<h1><a href="index.html">Return to Tutorials</a></h1>
+</div>
+</BODY> 

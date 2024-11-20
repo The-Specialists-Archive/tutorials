@@ -1,0 +1,321 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<html>
+
+<!-- Mirrored from www.the303.org/tutorials/gold_mdl_fix.htm by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Nov 2024 06:06:54 GMT -->
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>GOLDSRC MDL TROUBLESHOOTING LIST</title>
+	<link href="303style.css" rel="stylesheet" /><meta name="author" content="303"><meta name="description" content="GoldSrc Model Troubleshooting List"><meta name="keywords" content="studiomdl, goldsrc">
+</head>
+<body>
+<div id="middle">
+<h1>GoldSrc Model Troubleshooting List</h1>
+
+<hr />
+<p>Jump to <a href="#EA">Animation Errors</a><br />
+Jump to <a href="#ET">Texture &amp; UV Errors</a><br />
+Jump to <a href="#EM">Mesh Errors</a><br />
+Jump to <a href="#SM">Skinning &amp; Skeleton Errors</a><br />
+Jump to <a href="#OM">Other Errors and Shutdowns</a></p>
+
+<hr />
+<h2>General QC errors</h2>
+
+<p><b>************ ERROR ************<br />
+.\/mesh.smd doesn&#39;t exist</b></p>
+
+<p>Several reasons for this: A spelling error, a wrong $cd directory set, or a specified directory that does not exist on your computer</p>
+
+<hr />
+<p><b>Cannot find sequence &quot;X&quot;</b></p>
+
+<p>Can be a number of things, either you have your SMD&#39;s in a different directory than the declared $cd directory, a spelling mistake, improperly closed brackets, or missing quotations on another line.</p>
+
+<hr />
+<p><b class="red">Studiomdl.exe stops responding and/or crashes</b></p>
+
+<p>This one is pretty hard to diagnose, but most common is your SMD file has a &quot;//&quot; comment in it or something invalid. Some decompiles with &quot;info&quot; or other comments can also cause this. Other times its using a Source Engine formatted SMD.<br />
+<b>2nd case:</b><br />
+Using an invalid disk drive letter in an absolute path or directory that does not exist<br />
+<b>3rd case:</b><br />
+Using an action tag without a number<br>
+<b>4th case:</b><br />
+You didn't put a space between the brackets in a skin change for example spacing has to look like this:<br />
+<b>{ "Base_M_D.bmp" } </b><br>
+Where this is wrong: <b class="red">{"Base_M_D.bmp"} </b><br>
+<b>5th case:</b><br />
+A corrupted BMP can also stop the compiler without errors or in crowbar you get:<br>
+<b>ERROR: The compiler did not return any status messages.<br>
+CAUSE: The compiler is not the correct one for the selected game.<br></b>
+<p>This is a rare case that can happen with certain old alpha/beta/sdk monster bmps that use strange sizes that may not decompile well. You can verify this by checking your BMP thumbnails and if they are not there or the image opens corrupt it could be it.  To properly obtain bmps without corrupt decompile in this case you can use HLMV standalones "export all textures".
+<hr />
+<p><b>bogus bone index</b></p>
+
+<p>SMD formatting problem. This is due to an export issue or a source engine SMD.</p>
+
+<hr />
+<p><b>Unknown for bbox &quot;bonename&quot;</b></p>
+
+<p>This happens when you are using $hitbox and the bone its trying to make it on is either a different name, wrong name or was stripped out by the compiler. The compiler will strip out bones that have no verticies attached to it, the only exception is if a child bone of said bone that is parented to it has verticies skinned to it. An example is say you have an arm set of bones an upper, lower and hand. The upper and lower have no verticies attached to it but the hand does. The model will be able to assign hitboxes to the arm bones since the hand is parented and has skinned verticies. If you are using Sven Studiomdl you can use the QC command <b>$keepbone *bonename*</b> to prevent this or <b>$keepallbones</b>.
+
+</p>
+
+<hr />
+<p><b>Unknown Attachment link &quot;X&quot;</b></p>
+
+<p>Same thing as the hitbox issue only for attachment.</p>
+
+<hr />
+<p><b>Line &quot;X&quot; is incomplete:</b></p>
+
+<p>This can be difficult to diagnose since it can be a line way further down in your QC code that is causing the issue, for example having an FPS but with no number on a sequence can cause this or an improperly set brackets {} can do this</p>
+
+<hr />
+<p><b>Sanity Check: Can not find QC file!:</b></p>
+
+<p>This is a windows directory issue that can happen with directories with brackets ( ) in the name or spaces and can also happen in Windows10. Best solution is to use <a href="https://steamcommunity.com/groups/CrowbarTool">Crowbar Tool</a> as your GUI wrapper for studiomdl.exe. Also the older GUIstudiomdl suffers from issues like this so switch to crowbar</p>
+
+<hr />
+<h2 id="EA">Animation Errors</h2>
+
+<p><b>Illegal parent bone replacement in sequence &quot;X&quot; , &quot;X&quot; has &quot;X&quot; reference has &quot;X&quot;:</b></p>
+
+<p>SMD reference skeleton bones mismatch sequence animation bones. Correct in your 3D editor or use $renamebone for a quick fix.<br>
+<b>Second case:</b> The bone in question may have been stripped out during compile. The compiler will strip out bones that have no verticies attached to it, the only exception is if a child bone of said bone that is parented to it has verticies skinned to it. An example is say you have an arm set of bones an upper, lower and hand. The upper and lower have no verticies attached to it but the hand does. The model will be able to assign hitboxes to the arm bones since the hand is parented and has skinned verticies. If you are using Sven Studiomdl you can use the QC command <b>$keepbone *bonename*</b> to prevent this or <b>$keepallbones</b>.<br>
+<b>Third case:</b> Your root bone may have been changed; this can happen in blender with "Blender Implicit" bone was left checked on export, you can verify by opening the SMD in notepad.
+</p>
+
+<hr />
+<p><b>Model looked fine in Blender but animation loading causes bones to flip/compiled model flips bones</b></p>
+<P>This is a current error with BlenderSourceTools where some reference meshes will import with wrong bone rotations and thus when animations are loaded on this skeleton&ref everything breaks. I have a temporary fix for this:
+<p>1) import ref mesh, this will look fine but of course is bone flipped<br>
+2) in notepad open the ref mesh smd, and copy everything from the start all the way till the end of the skeleton block end (do NOT go into "triangles".)<br>
+Paste that into a new document and save as "posefix.smd"<br>
+3) back in blender import "posefix.smd".  It will now look broken, but go into pose mode, select all then "apply pose as rest pose".
+<hr />
+<p><b>************ ERROR ************<br />
+sequence &quot;reload_empty&quot; is greater than 64K</b></p>
+
+<p>This is a rare error that happens with very complex animations with high nodes &amp; frames. Usually frames past 200~300 range with over 100 bone nodes is likely to put out this error. I cannot pin down the exact combination of nodes to total frames which triggers this but this is my best estimates. 2 solutions:</p>
+
+<p><b>1:</b> Re-export the animation SMD with a modified FPS 3D model application side which results in lower total exported keyframes in the SMD, then adjust the QC fps to match.<br />
+<b>2:</b> Reduce the bone nodes or animation total frames manually</p>
+
+<hr />
+<p><b>My animation sequence made all the bones of the model shoot off into multiple directions everywhere</b></p>
+
+<p>Most likley you used a negative value in your $sequence FPS command to attempt to &quot;reverse&quot; your sequence. Don&#39;t do that. Second case could be an exporter issue, with a possibility that its confusing other bone objects in your scene.</p>
+
+<hr />
+<p><b>My NPC model tries to walk but cannot move</b></p>
+
+<p>This is because walking/running/movement animations using LX need to have the root bone of the model to move in animated space. In most common cases, this can happen when there is an additional bone or leftover from an import that becomes the root bone of the SMD.  Most models have "BIP01" as the root, and if there is other unused bones in your animation SMD that may be the root delete it.  To verify what bone in your movement animation SMD is, you can open up it in Notepad++ and see the first bone name entries in the header list.  Sometimes this problem can be bones like "SMD import" or some meshnames but are unused.
+<br>Blender can sometimes cause issues with the <b>"implicit motionless bone"</b> which ovverides the root bone, which would cause this to break; which is why in the <a href="gold_mdl.html">mdl guide</a> for blender I make a point to leave that feature off.
+<p>If using a nonstandard skeleton or bones it could also be your extract axis is wrong due to the bones orientation. <b>LX, LY, LZ</b> are the three choices.
+<p> In other cases like a custom NPC that you havent had any root animation; In your 3D editor animate the root bone moving forward using linear motion keys a distance you need per animation cycle. Each unit in your editor is equal to a hammer unit distance travelled. (Root bone is the very first bone in your heiarchy which all others are usually linked to)
+<p>Lastly motion extract movement can be verified in <a href="https://github.com/SamVanheer/HL_Tools/wiki/Half-Life-Asset-Manager">HLAM</a> or <a href="https://github.com/SamVanheer/HL_Tools/releases/tag/HLMV-V2.11">HLMV:Standalone</a> by seeing if it walks in place.  If it moves forward and rubber bands, then you either have to fix as per above.
+
+<hr />
+<p><b>My model sequence when activated via scripted_sequence plays but then blinks/flashes or jumps when finishing</b></p>
+
+<p>You likley put a "<b>loop</b>" QC $sequence command in your animated sequence where it doesn't belong.  Animations that are to be played and are not looped don't need "loop".
+<p>
+
+<hr />
+<h2 id="ET">Texture &amp; UV Errors</h2>
+
+<p><b>My models UVs are offset badly from what they used to be</b></p>
+
+<p>This is a problem that comes with models that were compiled/recompiled with old era Studiomdl.exe which has a UV crunch issue, most commonly the outdated HLSDK and the DoD one.  When compiling models use a modern compiler found in <a href="gold_mdl.html#tools">the MDL guide here</a>.  For models that already have UV damage from many old recompiles, <a href="gold_mdl_repair.html">you can do a compensation fix here.</a></p>
+
+<hr />
+
+ <p><b>************ ERROR ************<br>
+./security_cam.bmp not found</B>
+<p>You either don't have the texture in the directory or used a wrong path in your $cdtexture command.<br>
+<b class="yellow">NOTE:</b> If it says ".TGA" or ".TIFF", or ".PSD", then your 3d export was still referencing your working image.  You can either change and fix in 3d editor or use Notepad++ to mass replace all incorrect extensions to ".BMP"
+<hr>
+<p><b>************ ERROR ************<br />
+texture too large</b></p>
+
+<p>You used a texture that exceeds 512 pixels on width or length.</p>
+
+<hr />
+<p><b>BMP X.bmp [-19999998 -19999998] (6260919%) 1025789700 bytes<br />
+9999999 -9999999 9999999 -9999999<br />
+************ ERROR ************<br />
+texture too large</b></p>
+
+<p>You declared a texture in $texrendermode that exists in your directory but does not exist on the model itself. So either you chose the wrong texture in your QC or your SMD had the wrong one assigned to it.</p>
+
+<hr />
+<p><b>************ ERROR ************<br />
+error -4 reading BMP image &quot;.\/texture.bmp&quot;</b></p>
+
+<p>BMP image was 24bit color and not 8bit indexed.</p>
+<p>A more rare case can happen where you have an image with low colors (4 or less) and a paint program could save as a legacy BMP 1 or 4bit which may display in previews or other viewers as 8 but is not.  This is solved by using an alternative index method or making sure your index is using at least more than 4 colors.
+
+<hr />
+<p><b>************ ERROR ************<br />
+error -3000 reading BMP image &quot;.\/texture.bmp&quot;</b></p>
+
+<p>BMP image saved as an OS/2 format BMP and/or color and not 8bit indexed. This also can happen with GIMP export and can be solved with &quot;Compatiblity Options&gt; Do not write color space information&quot;. Its also reccomended to use IRFANVIEW or WALLY to make the 8bit converison</p>
+
+<hr />
+<p><b>************ ERROR ************<br />
+unknown graphics type &quot;.\/default OBJ&quot;</b></p>
+
+<p>Your material name lacks the <b>.bmp</b> extension.</p>
+
+<hr />
+<p><b>My skin change does not work</b></p>
+
+<p>The first skin in the $texturegroup bracket list must be the one that your SMD has on it.<br>
+<b>2nd case:</b><br />
+You didn't put a space between the brackets in a skin change for example spacing has to look like this:<br />
+<b>{ "Base_M_D.bmp" } </b><br>
+Where this is wrong: <b class="red">{"Base_M_D.bmp"} </b>
+
+<hr />
+
+<p><b>My skin change tiles wierdly</b></p>
+<p>Skin changes can only swap between skins of the same resolution; any differences will tile or offset wrong.  Solution is to use skins of same resolution.
+<hr />
+<p><b>My CHROME texture looks all one flat color in HLMV, but works in game</b></p>
+
+<p>This is a Jed&#39;s HLMV specific issue with some models that are in a certain position. Currently P2MV also has issues with displaying chrome as well. Use one of the newer Mdl viewers like HLMV:Standalone.</p>
+
+<hr />
+<p><b>My CHROME texture distorts when I get close to it or viewed at certain angles</b></p>
+<p>As stated in <a href="gold_mdl_chrome.html">The Chrome Tutorial</a> If you have a model that has everything skinned to a bone in the floor or somewhere offset, this can have some wierd distortion to the chrome since skinned bones are used as the chrome reference point.  To fix this add some bones at say center of mass of the model and skin them.</p>
+
+<hr />
+<p><b>Models textures are all wrong but looked fine in the 3d editor:</b></p>
+
+<p>Textures were likley tiled across the UV space. Older GoldSrc stuidomdl.exe versions do not support UV tiling. To fix you must take the tiled sections and either overlap in the main UV (1) space or just re-uv the model parts.  <b>Newer studiomdl.exe like the Sven-Coop Studiomdl in its SDK CAN tile across UV space</b></p>
+
+<hr />
+<p><b>************ ERROR ************<br />
+bad command $texrendermode</b></p>
+
+<p>This means you are using the old HLSDK studiomdl.exe which is very outdated. Switch to one of the new ones I linked at the beginning of the <a href="gold_mdl.html">MDL guide</a>.</p>
+
+<hr />
+
+<p><b>My masked texture still has blue on it</b></p>
+
+<p>Either you forgot to set the $texrendermode for the chosen texture to be "masked" or The blue color was not made on the proper index (index 255). <a href="gold_mdl_repair.html#texture">To fix index position a step by step is here.</a></p>
+
+<hr />
+<p><b>My masked $texrendermode flag didn't activate when verified in MDL editor</b></p>
+
+<p>Sometimes $texrendermode commands will not work when in a certain order or when lots of other $texrendermodes are present like say additive.  Either re-order the $texrendermode (put say the masked one below an additive one lines) or just check the flags in HLMV:Standalone and resave the model</a>.</p>
+
+<hr />
+<p><b>My masked texture has blue fringe</b></p>
+
+<p>You resized your image/used a soft edge on your transparent image. You need a hard edge, so use pencil tool or a masked threshold in your paint program.</p>
+
+<hr />
+<p><b>invalid BMP file/compression</b></p>
+
+<p>Your BMP texture is not 8bit indexed. Use an image editor to fix this (but be sure to keep a copy of your 24bit version just in case since 8bit conversion is destructive)</p>
+
+<hr />
+<h2 id="EM">Mesh Errors</h2>
+
+<p><b>Model looks good in 3d editor but polygons look faceted:</b></p>
+
+<p>Your model likley is imported geometry and has explicit normals. If your exporter has the option of exporting in explicit mode use that option.<br />
+<b>2nd case:</b><br />
+If you have two bones of the same name on export it can do this to your mesh<br />
+<b>3rd case:</b><br />
+In rare cases models with $texrendermode additive can do this when used as separate mesh parts or $bodygroups. Change the order of the meshes in the QC so that anything with chrome or additive is at the bottom most. For example:</p>
+
+<div align="left">
+<table class="old">
+	<tbody>
+		<tr>
+			<td>
+			<pre>
+$body studio &quot;mainmesh&quot;
+$body studio &quot;secondary&quot;
+$body studio &quot;fx&quot; //mesh with chrome or additive
+</pre>
+			</td>
+		</tr>
+	</tbody>
+</table>
+</div>
+
+<hr />
+<p><b>too many normals/verticies in model</b></p>
+
+<p>You went over the per-SMD limit of normals or verticies. Reduce your polycount and/or break up the mesh into different SMDs (also ffs, don&#39;t go stupid with your final polycount. Porting high-density badly rigged stuff from gmod will animate horribly and is bad for performance). This can also happen by accident if you ment to export one small part of a model but your exporter did everything in the scene.</p>
+
+<hr />
+<p><b>Model renders inverted</b></p>
+
+<p>You have flipped faces so this should be fixed in your 3d editor. Or you can use use &quot;reverse&quot; after your $body line and smd name. This reverses all the triangles in your reference mesh.</p>
+
+<hr />
+<p><b>Model has holes in it, but looked fine in 3d editor</b></p>
+
+<p>By default most 3d editors show/render backfaces, where as GoldSrc does not support backface rendering. If you need a reverse side of something you must create it in 3d editor.</p>
+
+<hr />
+<p><b>Getting wierd dark areas, or inconsistent shadows or smoothing problems</b></p>
+
+<p>Several reasons: Unwelded vertices, overalpping faces, bad triangulation, overlapping edgeloops, large NGONS (a polygon in your editor with over 4 vertices which results in bad triangulation on export) bad vertex normals, improper use of smoothing groups such as using 1 smoothing across right angles, or errors with imported geometry. This stuff needs to be fixed in your 3d editor.</p>
+
+
+<hr />
+<h2 id="SM">Skinning &amp; Skeleton Errors</h2>
+
+<p><b>My model is rotated wrong but looked fine in 3d editor:</b></p>
+
+<p>Most likley is your first or idle sequence has the bone rotated. Either fix in editor or use &quot;rotate&quot; on your problem $sequence line. Second case if you have a separate mesh via $body/$bodygroup it may be having its origin/orientation affected by the 1st mesh or skeleton. Also duplicate names may merge as bone objects. Third case could be model transforms are not committed (apply transforms in blender, and Reset Xform in 3dsmax)</p>
+
+<hr />
+<p><b>My models limbs crumple/stretch badly when animating</b></p>
+
+<p>This is a topology issue + hard vertex weight issue. You must modify your topology/edgeloops to compensate for hard vertex weights. There is no vertex weight blending so you cannot spread out a movement over several verts or edgeloops. To compensate remove some loops then create/cut new loops that have further distance on moving parts. Hard-vertex limit favors lower poly/density meshes. Testing movement in your 3D editor and a good understanding of topology and movement is key to fixing this.</p>
+<hr>
+<p><b>My models skinning worked in the editor but is wrong on compile</b></p>
+
+<p>If you have more than two bones with the same name it can cause issues like this. Also, blender export may have been made with more than two verticies skinned to the same bone. A second issue can easily happen where you have your model properly skinned but accidently set all verticies skinning to 1/RED on one vertex group which overrides all other bones skinning.</p>
+
+<hr />
+<p><b>Model looks horribly broken with all limbs rotated 90 degrees:</b></p>
+
+<p>This is a milkshape3D issue where it can break the whole model when you create new bones on a skeleton</p>
+<hr />
+
+<h2 id="OM">Other Errors</h2>
+
+<p><b class="yellow">Game disconnect with console error:</b><br />
+<b>Server is enforcing file consistency for models/p_usp.mdl<br />
+Bad file Server is enforcing file consistency for models/p_usp.mdl </b></p>
+
+<p>Usually a CS1.6 error due to a violation of certain playermodel P_ weapon model. Most common case is having the mesh of the custom model exceed the hitbox size. Scale down your model to fit within and you should be good.<br />
+<b>2nd case:</b><br />
+Making an animation that has the origin move too far</p>
+
+<hr />
+<p><b class="yellow">Game Crashes with no error:</b></p>
+
+<p>If you compiled a multi-MDL model (obsolete QC command sequencegroupsize/externaltextures) and lost one or overwrote one of the parts this may be the culprit. In any case if you have sequencegroupsize/externaltextures in your QC remove them promptly as they cause many issues and are an older obsolete command.<br />
+<b>2nd case:</b><br />
+You used a model that was compiled with much greater texture size than 512X512 (Mods like XASH3D support higher limits and do not have this error)</p>
+<hr>
+<p><b class="yellow">Game Closes with window:</b><br>
+<B>FATAL ERROR<br>
+GL_Upload16</b>
+<p>A rare case where a model with an invalid BMP size got compiled.  Some custom compilers may cause this for example compiling from the HLSDK which may have incompatible BMP sizes.  A solution is either slightly cropping or padding the texture.  Valid size dimensions are divisible by 8.
+<hr />
+<h1><a href="index.html">Return</a></h1>
+</div>
+</body>
+
+<!-- Mirrored from www.the303.org/tutorials/gold_mdl_fix.htm by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Nov 2024 06:06:54 GMT -->
+</html>

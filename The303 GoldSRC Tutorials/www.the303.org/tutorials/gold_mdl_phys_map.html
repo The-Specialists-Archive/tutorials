@@ -1,0 +1,152 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<!-- Mirrored from www.the303.org/tutorials/gold_mdl_phys_map.htm by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Nov 2024 06:12:22 GMT -->
+<head>
+<title>GoldSrc Model Baked Physics</title>
+<link rel="stylesheet" href="303style.css">
+<meta name="author" content="303">
+<meta name="description" content="How to make baked physics models for GoldSrc engine games">
+<meta name="keywords" content="goldsrc, hl1, half-life, counter-strike">
+</HEAD>
+<BODY>
+<div id="middle">
+
+<h1>Compiling & Map setup for Baked Physics Model</h1>
+<p>When you have your SMD's ready, create a QC compile script for your physics model.  What I have here for the brick scene (I have the scale slightly larger than default 1.0 due to my last minute changes).
+<p>
+<div align="left">
+<table class="old">
+	<TR>
+		<TD>
+		<pre>
+$modelname brickphys.mdl
+$cd "."
+$cdtexture "."
+$scale 1.5
+$cliptotextures
+
+
+$body studio bakemesh
+
+
+$sequence "idle" "bakemesh"
+$sequence "scene" "bakeseq" fps 30 { event 1000 0 }
+</pre>
+		</TD>
+	</TR>
+</TABLE>
+</div>
+<p>The first idle sequence is static at first frame so I used the reference SMD as the idle.  The bakeseq is my animation, I keyed it at 30fps because thats what i had in the editor (default).  Event 1000 at frame 0 is a "kill monster" event which marks the model as "dead" so it can no longer recieve any other inputs for whatever reason. <b>If your sim starts late you can use the QC command "frame X X" (x being start frame and 2nd end frame to crop your animation) before the fps line.</b> 
+<p><b><a href="gold_mdl_comp.html">Compiling model info with crowbar here if needed.</a></b>
+<p>For the "TireScene" this is my QC.  As you can see I have used the frame crop (my sim began a little later) and lowerfps and when I exported my scene I had a very long simulation so I used the fps retime as mentioned on the previous page.
+<div align="left">
+<table class="old">
+	<TR>
+		<TD>
+		<pre>
+$modelname tirescene.mdl
+$cd "."
+$cdtexture "."
+$scale 1.0
+$cliptotextures
+
+
+$body studio tiremesh
+
+
+$sequence "idle" "tiremesh"
+$sequence "scene" "tireseq" frame 5 120 fps 20 { event 1000 0 }
+</pre>
+		</TD>
+	</TR>
+</TABLE>
+</div>
+<hr>
+
+<h2>Basic "BrickScene" setup</h2>
+
+<p>(<a href="#tirescene">To skip to the "TireScene" setup click here.</a>)
+
+<p>For a basic easy setup we go with Entity setup A:
+<div align="left">
+<table class="old">
+	<TR>
+		<TD>
+		<pre>
+Monster Generic
+---------------
+Name: Brickwall
+Flags: "Not Solid"
+Model: models/mymodels/brickphys.mdl
+
+Scripted Sequence
+---------------
+Name: brick_anim
+Flags: "Leave Corpse"
+Target Monster: Brickwall
+Action Animation: scene
+Idle animation: idle
+
+Func_wall_toggle (OPTIONAL)
+---------------
+Name: brick_anim
+</pre>
+		</TD>
+	</TR>
+</TABLE>
+</div>
+<p><img src="goldphysimages/map_phys01.jpg">
+<p>Use any way you want to trigger the "brick_anim" entity.  In my example I used a func_button to trigger it.  The optional func_wall_toggle is the same name as the scripted sequence so it toggles the same time as the animation sequence.  The func_wall toggle acts as a collision for the wall that makes it passible after.  If you don't need a toggle and just a simple collision object just make a simple "CLIP" brush around the model, otherwise have nothing.
+<p id="sprites">If you need the model in a difficult place or a place that setup A does not work and gets the "yellow sprites: Stuck in wall" error, 
+<p><img src="goldphysimages/map_phys02.jpg">
+<p><b>...then go with setup B:</b>
+<p>Entity setup B is the exact same setup only when creating the monster_generic it is put in an open space or floating in air, and the scripted sequence is in the place where the model should be.
+<p>The best way to do this is first make your monster_generic and place it where you need it. Then shift-drag to copy the monster_generic entity.  Take the copy and move it in the air in an open area.  Then select the original monster_generic you made and turn the entity into the Scripted Sequence entity.  The only difference from setup A is add an additonal paramater for the scriped sequence which is "move to position" and set it to "instantaneous"
+<p><img src="goldphysimages/map_phys03.jpg">
+<hr>
+<p>The final working result:
+<p><img src="goldphysimages/final_phys_result.gif">
+<hr>
+<h2 id="tirescene">"TireScene" setup</h2>
+<p>For the tirescene setup we create this monster_generic & scripted sequence:
+<div align="left">
+<table class="old">
+	<TR>
+		<TD>
+		<pre>
+Monster Generic
+---------------
+Name: Tires
+Flags: "Not Solid"
+Model: models/mymodels/tirescene.mdl
+Animation Sequence (editor): 1
+
+Scripted Sequence
+---------------
+Name: tire_anim
+Flags: "Leave Corpse"
+Target Monster: Tires
+Action Animation: scene
+Idle animation: idle
+
+env_explosion (OPTIONAL)
+---------------
+Name: tire_anim
+</pre>
+		</TD>
+	</TR>
+</TABLE>
+</div>
+<p>Position your monster_generic to your model origin location you had in your 3d editor to match just like what you have here.  In my case I had 0 0 0 as the 3dsorigin which matches hammer origin <b>(If you used 3dsmax you may need to set the monster_generic's Yaw rotation to 270)</b>.  Using grid adjust I move the model into place and placing the yellow/red X which is the model origin at the world origin.
+<p>Use any way you want to trigger the "tire_anim" entity.  In my example I used a func_button to trigger it.  In this demonstration im keeping the tires passable.
+<p><b>If you need the model in a difficult place or a place that setup A does not work and gets the "yellow sprites: Stuck in wall" error, <a href="#sprites">do the fix as I did above with the "BrickScene".</a></b>
+<p>With the "Animation Sequence (editor): 1" paramater set you can now watch the scene play in the viewport and make any last minute assesments to see if you need to do a rebake or recompile.
+<p><img src="goldphysimages/physco01.jpg">
+<hr>
+<p>The final scene
+<p><img src="goldphysimages/final_mapphys_result.gif">
+<hr>
+<h1><a href="index.html">Return To Tutorials</a>
+</div>
+</BODY> 

@@ -1,0 +1,39 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<!-- Mirrored from www.the303.org/tutorials/gold_texture_p3.htm by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Nov 2024 06:10:38 GMT -->
+<head>
+<title>GoldSrc Map Texture Tutorial</title>
+<link rel="stylesheet" href="303style.css">
+<meta name="author" content="303">
+<meta name="description" content="How create textures for goldsrc games">
+<meta name="keywords" content="goldsrc, hl1, half-life, counter-strike">
+</HEAD>
+<BODY>
+<div id="middle">
+<h1>GoldSrc Map Texture Tutorial</h1>
+<hr>
+<h2>PART3: ADDITIVE TRANSPARENT Textures</h2>
+<p>1) Additive transparent textures do not require any special texture characters nor, specific palette colors.  All you need to do is make a simple texture as in PART1 but thinking in terms of additive light.  The "additive" effect is controlled in hammer.
+<p>2) Begin by creating a new document with a black fill (in additive, black is transparent and anything else appears as light). Create your additive texture using the same methods as in <a href="gold_texture_p1.html">Part1</a>
+<p><img src="goldteximages/add02.jpg">
+<p>3) Just like Masked, you have to put your texture on a func_wall or func_illusionary brush entity in order to get the effect to work.  Set your render mode to "additive", then set the "renderamount" to "255" (or less for a less intense effect)
+<p><img src="goldteximages/add03.jpg">
+<p>4) As seen here the effect is better when in a darkened area.  With this method you can make light shafts, neon signs, lensflares, and other imagery.  This is very useful for glowing space consoles too.
+<p><img src="goldteximages/add04.jpg">
+<br>
+<hr>
+<h1><a href="gold_texture.html">Part0: Introduction</a></h1>
+<h1><a href="gold_texture_p1.html">Part1: Creating Basic Textures</a></h1>
+<h1><a href="gold_texture_p2.html">Part2: Creating  Masked Transparent Textures</a></h1>
+<h1><a href="gold_texture_p4.html">Part4: Creating Animated Textures</a></h1>
+<h1><a href="gold_texture_p5.html">Part5: Creating Toggled Textures</a></h1>
+<h1><a href="gold_texture_p6.html">Part6: Creating Water Textures</a></h1>
+<h1><a href="gold_texture_p7.html">Part7: Creating Scrolling Textures</a></h1>
+<h1><a href="gold_texture_p8.html">Part8: Creating Skies</a></h1>
+<h1><a href="gold_texture_p9.html">Part9: Creating Detail Textures</a></h1>
+<!-- OBSOLETE <h1><a href="gold_texture_p10.htm">Part10: Batch Conversion</a></h1> -->
+<hr>
+<h1><a href="index.html">Return to Tutorials</a></h1>
+</div>
+</BODY> 
