@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<!-- saved from url=(0065)https://twhl.info/wiki/page/Tutorial%3A_Advanced_Terrain_Creation -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <title>Wiki: Tutorial: Advanced Terrain Creation - TWHL: Half-Life and Source Mapping Tutorials and Resources</title>
+
+        <meta content="The Whole Half-Life" property="og:site_name">
+                                <meta property="og:description" content="[cat:Goldsource Tutorials]
+ [cat:Tutorials]
+ [cat:Intermediate Tutorials]
+ [cat:Mapping]
+ [credit:Original author|user:6754]
+ 
+ = Advanced Terrain Creation
+ 
+ [img:https://i.imgur.com/Rjwoq2s.png|Mmm, landscape :3]
+ 
+ Terrain is one of the more challenging things in GoldSrc mapping. There are many w...">
+                <meta property="og:type" content="website">
+                    <meta property="og:title" content="Wiki: Tutorial: Advanced Terrain Creation">
+                            <meta property="og:image" content="https://twhl.info/images/twhl-logo.png">
+                <meta property="og:url" content="https://twhl.info/wiki/page/Tutorial%3A_Advanced_Terrain_Creation">
+        <meta name="theme-color" content="#e68a27">
+
+        <link href="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/app.css" rel="stylesheet">
+        <link rel="shortcut icon" href="https://twhl.info/favicon.ico">
+        <link rel="search" type="application/opensearchdescription+xml" href="https://twhl.info/opensearch.xml" title="TWHL">
+
+        
+        <!-- Fonts -->
+        <link href="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/css" rel="stylesheet" type="text/css">
+
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+            <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+        <!-- Scripts -->
+        <script type="text/javascript" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/all.js.download"></script><style type="text/css" id="operaUserStyle"></style>
+        <script type="text/javascript" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/compiled.js.download"></script>
+    <style type="text/css">:root [href^="//mage98rquewz.com/"], :root [href^="//x4pollyxxpush.com/"], :root span[id^="ezoic-pub-ad-placeholder-"], :root ins.adsbygoogle[data-ad-slot], :root ins.adsbygoogle[data-ad-client], :root guj-ad, :root gpt-ad, :root div[id^="zergnet-widget"], :root div[id^="vuukle-ad-"], :root div[id^="taboola-stream-"], :root div[id^="sticky_ad_"], :root div[id^="st"][style^="z-index: 999999999;"], :root div[id^="pa_sticky_ad_box_middle_"], :root div[id^="gpt_ad_"], :root div[id^="ezoic-pub-ad-"], :root div[id^="dfp-ad-"], :root div[id^="crt-"][style], :root div[id^="adspot-"], :root div[id^="adrotate_widgets-"], :root ps-connatix-module, :root div[id^="ad_position_"], :root div[id^="ad-div-"], :root div[id*="ScriptRoot"], :root div[id*="MarketGid"], :root div[data-id-advertdfpconf], :root hl-adsense, :root div[data-contentexchange-widget], :root div[data-alias="300x250 Ad 2"], :root div[data-adzone], :root div[data-adunit-path], :root div[data-adname], :root div[data-ad-placeholder], :root div[class^="native-ad-"], :root div[data-dfp-id], :root div[class^="kiwi-ad-wrapper"], :root div[aria-label="Ads"], :root display-ads, :root display-ad-component, :root atf-ad-slot, :root aside[id^="adrotate_widgets-"], :root ark-top-ad, :root amp-fx-flying-carpet, :root amp-embed[type="taboola"], :root amp-connatix-player, :root amp-ad-custom, :root amp-ad, :root div[id^="google_dfp_"], :root ad-slot, :root ad-shield-ads, :root a[style="width:100%;height:100%;z-index:10000000000000000;position:absolute;top:0;left:0;"], :root a[onmousedown^="this.href='https://paid.outbrain.com/network/redir?"][target="_blank"] + .ob_source, :root a[href^="https://xbet-4.com/"], :root div[id^="ad-position-"], :root a[href^="https://www.toprevenuegate.com/"], :root a[href^="https://www.sugarinstant.com/?partner_id="], :root a[href^="https://www.purevpn.com/"][href*="&utm_source=aff-"], :root a[href^="https://www.privateinternetaccess.com/"] > img, :root a[href^="https://www.onlineusershielder.com/"], :root a[href^="https://www.liquidfire.mobi/"], :root a[href^="https://www.infowarsstore.com/"] > img, :root a[href^="https://www.highperformancecpmgate.com/"], :root a[href^="https://www.highcpmrevenuenetwork.com/"], :root a[href^="https://lnkxt.bannerator.com/"], :root a[href^="https://www.geekbuying.com/dynamic-ads/"], :root a[href^="https://www.financeads.net/tc.php?"], :root [href^="https://www.herbanomic.com/"] > img, :root a[href^="https://maymooth-stopic.com/"], :root a[href^="https://www.dql2clk.com/"], :root a[href^="https://www.nutaku.net/signup/landing/"], :root a[href^="https://www.dating-finder.com/signup/?ai_d="], :root a[href^="https://explore-site.com/"], :root a[href^="https://www.brazzersnetwork.com/landing/"], :root a[href^="https://www.adxsrve.com/"], :root [data-template-type="nativead"], :root a[href^="https://www.endorico.com/Smartlink/"], :root a[href^="https://www.adultempire.com/"][href*="?partner_id="], :root a[href^="https://voluum.prom-xcams.com/"], :root a[href^="https://twinrdsrv.com/"], :root a[href^="https://trk.nfl-online-streams.club/"], :root a[href^="https://tracking.avapartner.com/"], :root a[href^="https://track.wg-aff.com"], :root a[href^="https://track.ultravpn.com/"], :root a[href^="https://track.afcpatrk.com/"], :root a[href^="https://torguard.net/aff.php"] > img, :root [data-identity="adhesive-ad"], :root a[href^="https://tc.tradetracker.net/"] > img, :root a[href^="https://tatrck.com/"], :root a[href^="https://click.candyoffers.com/"], :root [href^="https://zstacklife.com/"] img, :root a[href^="https://t.aslnk.link/"], :root a[href^="https://t.adating.link/"], :root a[href^="https://safesurfingtoday.com/"][href*="?skip="], :root a[href^="https://land.brazzersnetwork.com/landing/"], :root a[href^="https://t.acam.link/"], :root a[href*="//daichoho.com/"], :root a[href^="https://syndication.optimizesrv.com/"], :root a[href^="https://go.trackitalltheway.com/"], :root [href^="https://track.fiverr.com/visit/"] > img, :root a[href^="https://syndication.exoclick.com/"], :root a[href^="https://syndication.dynsrvtbg.com/"], :root div[data-alias="300x250 Ad 1"], :root a[href^="https://syndicate.contentsserved.com/"], :root a[href^="https://svb-analytics.trackerrr.com/"], :root a[href^="https://ad.doubleclick.net/"], :root a[href^="https://static.fleshlight.com/images/banners/"], :root a[href^="https://slkmis.com/"], :root bottomadblock, :root a[href^="https://s.zlinkd.com/"], :root a[href^="https://s.zlink3.com/"], :root a[href^="https://www.mrskin.com/account/"], :root a[href^="https://s.optzsrv.com/"], :root a[href^="https://random-affiliate.atimaze.com/"], :root #kt_player > div[style$="display: block;"][style*="inset: 0px;"], :root a[href^="https://quotationfirearmrevision.com/"], :root a[href^="https://pubads.g.doubleclick.net/"], :root a[href^="https://ak.oalsauwy.net/"], :root a[href^="https://softwa.cfd/"], :root a[href^="https://play1ad.shop/"], :root a[href^="https://prf.hn/click/"][href*="/camref:"] > img, :root a[href^="https://www.dating-finder.com/?ai_d="], :root a[href^="https://serve.awmdelivery.com/"], :root a[href^="https://prf.hn/click/"][href*="/adref:"] > img, :root app-ad, :root [href^="https://ap.octopuspop.com/click/"] > img, :root a[href^="https://postback1win.com/"], :root a[href^="https://mmwebhandler.aff-online.com/"], :root a[href^="https://www.bet365.com/"][href*="affiliate="], :root a[href^="https://pb-track.com/"], :root a[href^="https://pb-front.com/"], :root a[href^="https://paid.outbrain.com/network/redir?"], :root a[href^="https://streamate.com/landing/click/"], :root div[class^="Adstyled__AdWrapper-"], :root a[href^="https://startgaming.net/tienda/" i], :root a[href^="https://osfultrbriolenai.info/"], :root a[href^="https://ngineet.cfd/"], :root a[href^="https://upsups.click/"], :root a[href^="https://ndt5.net/"], :root a[href^="http://eighteenderived.com/"], :root a[href^="https://natour.naughtyamerica.com/track/"], :root a[href^="https://mediaserver.entainpartners.com/renderBanner.do?"], :root a[href^="https://m.do.co/c/"] > img, :root .nya-slot[style], :root a[href^="https://a.bestcontentweb.top/"], :root a[href^="https://lobimax.com/"], :root a[href^="https://lead1.pl/"], :root a[href^="https://landing.brazzersnetwork.com/"], :root a[href^="https://join.virtuallust3d.com/"], :root a[href^="https://kiksajex.com/"], :root a[href^="https://juicyads.in/"], :root a[href^="https://snowdayonline.xyz/"], :root a[href^="https://mediaserver.gvcaffiliates.com/renderBanner.do?"], :root a[href^="https://join.dreamsexworld.com/"], :root a[href^="https://jaxofuna.com/"], :root a[href^="https://itubego.com/video-downloader/?affid="], :root a[href^="https://italarizege.xyz/"], :root a[href^="https://iqbroker.com/"][href*="?aff="], :root a[href^="https://hot-growngames.life/"], :root a[href^="https://golinks.work/"], :root a[href^="https://go.xxxvjmp.com/"], :root [class^="tile-picker__CitrusBannerContainer-sc-"], :root a[href^="https://go.xxxiijmp.com"], :root a[href^="https://go.xtbaffiliates.com/"], :root .OUTBRAIN[data-widget-id^="FMS_REELD_"], :root [data-role="tile-ads-module"], :root a[href^="https://go.xlviirdr.com"], :root a[href^="https://go.xlviiirdr.com"], :root a[href^="https://ismlks.com/"], :root [href^="https://www.mypillow.com/"] > img, :root a[href^="https://go.xlirdr.com"], :root [data-css-class="dfp-inarticle"], :root a[href^="https://l.hyenadata.com/"], :root a[href^="https://go.tmrjmp.com"], :root a[href^="https://zirdough.net/"], :root a[href^="https://s.deltraff.com/"], :root a[href^="https://go.markets.com/visit/?bta="], :root a[href^="https://billing.purevpn.com/aff.php"] > img, :root a[href^="https://go.hpyrdr.com/"], :root a[href^="https://lijavaxa.com/"], :root a[href^="https://go.goaserv.com/"], :root a[href^="https://t.hrtye.com/"], :root a[href^="https://go.etoro.com/"] > img, :root a[href^="https://go.dmzjmp.com"], :root div[class^="Display_displayAd"], :root a[href^="https://www.bang.com/?aff="], :root #mgb-container > #mgb, :root a[href^="https://go.admjmp.com"], :root a[href^="https://get.surfshark.net/aff_c?"][href*="&aff_id="] > img, :root a[href^="https://www.mrskin.com/tour"], :root a[href^="https://financeads.net/tc.php?"], :root a[href^="https://www.adskeeper.com"], :root a[data-redirect^="https://paid.outbrain.com/network/redir?"], :root [href^="https://clicks.affstrack.com/"] > img, :root a[href^="https://ak.hauchiwu.com/"], :root a[href^="https://engine.phn.doublepimp.com/"], :root a[href^="https://engine.blueistheneworanges.com/"], :root a[href^="https://drumskilxoa.click/"], :root a[href^="https://dl-protect.net/"], :root a[href^="https://rixofa.com/"], :root #ads[style^="position: absolute; z-index: 30; width: 100%; height"], :root a[href^="https://disobediencecalculatormaiden.com/"], :root a[href*=".foxqck.com/"], :root a[href^="https://ctosrd.com/"], :root a[href^="https://clixtrac.com/"], :root [href^="https://noqreport.com/"] > img, :root a[href^="https://clicks.pipaffiliates.com/"], :root a[href^="https://datewhisper.life/"], :root a[href^="https://get-link.xyz/"], :root a[href^="https://click.linksynergy.com/fs-bin/"] > img, :root a[href^="https://combodef.com/"], :root AD-TRIPLE-BOX, :root a[href^="https://click.hoolig.app/"], :root a[href^="https://track.totalav.com/"], :root a[href^="https://ctrdwm.com/"], :root img[src^="https://images.purevpnaffiliates.com"], :root a[href^="https://porntubemate.com/"], :root a[href^="https://clickadilla.com/"], :root a[href^="https://click.dtiserv2.com/"], :root a[href^="https://go.xlvirdr.com"], :root a[href^="http://www.iyalc.com/"], :root a[href^="https://claring-loccelkin.com/"], :root a[href^="https://s.ma3ion.com/"], :root a[href^="https://cams.imagetwist.com/in/?track="], :root a[href^="https://bongacams2.com/track?"], :root a[href^="https://t.ajrkm1.com/"], :root [href="https://masstortfinancing.com"] img, :root a[href^="https://bongacams10.com/track?"], :root a[href^="https://www.sheetmusicplus.com/"][href*="?aff_id="], :root a[href^="https://bngpt.com/"], :root a[href^="https://black77854.com/"], :root a[href^="https://banners.livepartners.com/"], :root a[href^="http://revolvemockerycopper.com/"], :root a[href^="https://awptjmp.com/"], :root a[href^="https://join.sexworld3d.com/track/"], :root a[href^="https://intenseaffiliates.com/redirect/"], :root a[href^="https://aweptjmp.com/"], :root [class^="s2nPlayer"], :root a[href^="https://chaturbate.jjgirls.com/?track="], :root a[href^="https://ausoafab.net/"], :root a[href^="https://ak.psaltauw.net/"], :root a[href^="https://adclick.g.doubleclick.net/"], :root a[href^="https://bc.game/"], :root a[href^="https://a.bestcontentoperation.top/"], :root a[href^="https://adultfriendfinder.com/go/"], :root a[href^="https://ads.planetwin365affiliate.com/"], :root a[href^="https://ads.leovegas.com/"], :root a[href^="https://auesk.cfd/"], :root a[href^="https://a2.adform.net/"], :root a[href^="https://a.candyai.love/"], :root a[href^="https://playnano.online/offerwalls/?ref="], :root a[href^="https://a.adtng.com/"], :root [data-m-ad-id], :root a[href^="https://a-ads.com/"], :root div[id^="rc-widget-"], :root a[href^="http://eslp34af.click/"], :root a[href^="https://turnstileunavailablesite.com/"], :root a[href^="https://chaturbate.com/in/?"], :root a[href^="https://prf.hn/click/"][href*="/creativeref:"] > img, :root a[href*="&maxads="], :root a[href^="http://www.adultempire.com/unlimited/promo?"][href*="&partner_id="], :root a[href^="https://1betandgonow.com/"], :root a[href^="https://eergortu.net/"], :root div[id^="optidigital-adslot"], :root a[href^="https://123-stream.org/"], :root a[href^="http://www.friendlyduck.com/AF_"], :root a[href^="https://allhost.shop/aff.php?"], :root [data-dynamic-ads], :root a[href^="http://vnte9urn.click/"], :root a[href^="https://getvideoz.click/"], :root a[href^="http://troopsassistedstupidity.com/"], :root a[href^="http://trk.globwo.online/"], :root a-ad, :root a[href^="https://offhandpump.com/"], :root a[href^="http://stickingrepute.com/"], :root #slashboxes > .deals-rail, :root [data-rc-widget="data-rc-widget"], :root a[href^="http://premonitioninventdisagree.com/"], :root a[href^="http://naggingirresponsible.com/"], :root a[href^="https://in.rabbtrk.com/"], :root div[data-ad-targeting], :root a[href^="https://hotplaystime.life/"], :root a[href^="http://www.h4trck.com/"], :root a[href^="https://81ac.xyz/"], :root a[href^="http://guestblackmail.com/"], :root a[href^="http://cam4com.go2cloud.org/aff_c?"], :root a[href^="https://ads.betfair.com/redirect.aspx?"], :root [href^="https://www.mypatriotsupply.com/"] > img, :root a[href^="https://trk.softonixs.xyz/"], :root a[href^="https://sexynearme.com/"], :root a[href^="https://myclick-2.com/"], :root a[href^="http://dragnag.com/"], :root a[href^="https://trk.sportsflix4k.club/"], :root a[href^="http://dragfault.com/"], :root [id^="div-gpt-ad"], :root .ob_container .item-container-obpd, :root div[id^="yandex_ad"], :root a[href^="https://www8.smartadserver.com/"], :root a[href^="https://pb-imc.com/"], :root a[href^="http://deskfrontfreely.com/"], :root [data-advadstrackid], :root a[href^="http://muzzlematrix.com/"], :root a[href^="https://track.adform.net/"], :root a[href^="http://avthelkp.net/"], :root a[href^="https://a.medfoodhome.com/"], :root a[href^="https://engine.flixtrial.com/"], :root [data-type="ad-vertical"], :root [data-taboola-options], :root a[href^="http://annulmentequitycereals.com/"], :root a[href^="//startgaming.net/tienda/" i], :root a[href^="https://www.get-express-vpn.com/offer/"], :root a[href^="https://s.cant3am.com/"], :root a[href^="//s.st1net.com/splash.php"], :root a[href^="https://join.virtualtaboo.com/track/"], :root [id^="ad_sky"], :root a[href^="http://coefficienttolerategravel.com/"], :root a[href^="https://a.medfoodsafety.com/"], :root a[href^="//go.eabids.com/"], :root a[href^="//ejitsirdosha.net/"], :root a[href^=" https://www.friendlyduck.com/AF_"], :root a[href*="/jump/next.php?r="], :root [href^="https://ilovemyfreedoms.com/landing-"], :root a[href^="https://go.nordvpn.net/aff"] > img, :root .\[\&_\.gdprAdTransparencyCogWheelButton\]\:\!pjra-z-\[5\], :root [href^="http://clicks.totemcash.com/"], :root a[href^="https://ad.zanox.com/ppc/"] > img, :root a[href^="https://lone-pack.com/"], :root [data-d-ad-id], :root a[href*=".engine.adglare.net/"], :root a[href^="https://t.ajrkm3.com/"], :root [href^="https://aads.com/campaigns/"], :root a[href^="//stighoazon.com/"], :root [href^="https://www.profitablegatecpm.com/"], :root div[id^="lazyad-"], :root a[href^="http://com-1.pro/"], :root a[href*=".cfm?domain="][href*="&fp="], :root [data-ad-name], :root a[href^="https://loboclick.com/"], :root a[data-url^="https://vulpix.bet/?ref="], :root a[href^="https://ab.advertiserurl.com/aff/"], :root a[data-oburl^="https://paid.outbrain.com/network/redir?"], :root a[href^="https://go.xlivrdr.com"], :root [onclick^="location.href='https://1337x.vpnonly.site/"], :root [name^="google_ads_iframe"], :root [id^="section-ad-banner"], :root [href^="https://zone.gotrackier.com/"], :root a[href^="http://sarcasmadvisor.com/"], :root [href^="https://www.restoro.com/"], :root [href^="https://www.targetingpartner.com/"], :root .section-subheader > .section-hotel-prices-header, :root [href^="https://www.hostg.xyz/"] > img, :root a[href^="http://adultfriendfinder.com/go/"], :root a[href^="https://fastestvpn.com/lifetime-special-deal?a_aid="], :root a[href^="https://tour.mrskin.com/"], :root [href^="https://www.brighteonstore.com/products/"] img, :root [href^="https://wct.link/click?"], :root div[data-adunit], :root app-large-ad, :root [href^="https://turtlebids.irauctions.com/"] img, :root citrus-ad-wrapper, :root a[onmousedown^="this.href='https://paid.outbrain.com/network/redir?"][target="_blank"], :root a[href^="https://go.grinsbest.com/"], :root a[href^="https://vo2.qrlsx.com/"], :root [href^="https://www.avantlink.com/click.php"] img, :root a[href^="https://losingoldfry.com/"], :root [data-wpas-zoneid], :root .scroll-fixable.rail-right > .deals-rail, :root [href^="https://routewebtk.com/"], :root div[id^="div-ads-"], :root [href^="https://rapidgator.net/article/premium/ref/"], :root [href^="https://join.girlsoutwest.com/"], :root a[href^="https://activate-game.com/"], :root a[href^="https://track.aftrk3.com/"], :root [href^="https://join3.bannedsextapes.com"], :root a[href^="https://bodelen.com/"], :root a[href*=".g2afse.com/"], :root div[id^="adngin-"], :root [data-rc-widget], :root span[data-ez-ph-id], :root [href^="https://track.aftrk1.com/"], :root [href^="https://join.playboyplus.com/track/"], :root a[href^="https://go.xxxijmp.com"], :root [href^="https://istlnkcl.com/"], :root [href^="https://go.xlrdr.com"], :root a[href^="https://tm-offers.gamingadult.com/"], :root [href^="https://charmingdatings.life/"], :root [href^="https://glersakr.com/"], :root a[href^="https://www.goldenfrog.com/vyprvpn?offer_id="][href*="&aff_id="], :root [id^="ad-wrap-"], :root a[href*="//jjgirls.com/sex/Chaturbate"], :root a[href^="https://a.bestcontentfood.top/"], :root [href^="https://cpa.10kfreesilver.com/"], :root [data-id^="div-gpt-ad"], :root a[href^="https://tracker.loropartners.com/"], :root [href^="https://awbbjmp.com/"], :root a[data-href^="http://ads.trafficjunky.net/"], :root a[href*=".adsrv.eacdn.com/"], :root [href^="https://antiagingbed.com/discount/"] > img, :root a[href^="http://partners.etoro.com/"], :root a[href^="https://www.friendlyduck.com/AF_"], :root [href^="https://ad1.adfarm1.adition.com/"], :root [href^="https://goldcometals.com/clk.trk"], :root a[href^="https://bngprm.com/"], :root [href^="https://shiftnetwork.infusionsoft.com/go/"] > img, :root a[href^="https://go.strpjmp.com/"], :root a[href^="https://go.bushheel.com/"], :root a[href^="https://ctjdwm.com/"], :root a[href^="https://camfapr.com/landing/click/"], :root div[data-ad-wrapper], :root .gnt_em_vp_c[data-g-s="vp_dk"], :root [href="//sexcams.plus/"], :root [href^="http://www.mypillow.com/"] > img, :root #kt_player > a[target="_blank"], :root a[href^="http://bongacams.com/track?"], :root [href^="http://mypillow.com/"] > img, :root [href="https://ourgoldguy.com/contact/"] img, :root #teaser3[style="width: 100%;text-align: center;display: scroll;position:fixed;bottom: 0;margin: 0 auto;z-index: 103;"], :root [href="https://www.masstortfinancing.com/"] > img, :root a[href^="https://go.rmhfrtnd.com/"], :root [href="https://jdrucker.com/gold"] > img, :root a[href^="https://track.1234sd123.com/"], :root zeus-ad, :root [data-testid="prism-ad-wrapper"], :root [href^="https://ad.admitad.com/"], :root [href^="https://mypillow.com/"] > img, :root [data-testid="ad_testID"], :root [href^="https://optimizedelite.com/"] > img, :root [data-name="adaptiveConstructorAd"], :root a[href^="https://go.cmtaffiliates.com/"], :root [data-testid="adBanner-wrapper"], :root [href^="https://mylead.global/stl/"] > img, :root [href^="https://mypatriotsupply.com/"] > img, :root a[href^="https://go.hpyjmp.com"], :root [href^="https://mystore.com/"] > img, :root a[href^="https://witnessjacket.com/"], :root [data-mobile-ad-id], :root a[href^="https://fc.lc/ref/"], :root [data-adshim], :root topadblock, :root a[href^="//s.zlinkd.com/"], :root [class^="amp-ad-"], :root a[href^="http://handgripvegetationhols.com/"], :root a[href^="https://bs.serving-sys.com"], :root a[href^="https://gamingadlt.com/?offer="], :root [data-desktop-ad-id], :root .grid > .container > #aside-promotion, :root DFP-AD, :root [id^="ad_slider"], :root [data-adbridg-ad-class], :root #teaser3[style^="width:autopx;"], :root [data-adblockkey], :root [data-block-type="ad"], :root [data-ad-width], :root [onclick*="content.ad/"], :root [data-ad-manager-id], :root AMP-AD, :root [data-ad-cls], :root [data-revive-zoneid] > iframe, :root [data-ez-name], :root a[href^="https://go.mnaspm.com/"], :root a[href^="https://service.bv-aff-trx.com/"], :root a[href^="https://6-partner.com/"], :root a[href^="https://traffdaq.com/"], :root [href^="https://www.cloudways.com/en/?id"], :root #teaser1[style^="width:autopx;"], :root [class^="div-gpt-ad"], :root a[href^="http://tc.tradetracker.net/"] > img, :root [href^="https://affiliate.fastcomet.com/"] > img, :root [class^="adDisplay-module"], :root [data-freestar-ad][id], :root a[href^="https://baipahanoop.net/"], :root [href^="https://v.investologic.co.uk/"], :root AD-SLOT, :root a[href^="https://www.googleadservices.com/pagead/aclk?"] > img, :root [data-ad-module], :root div[id^="div-gpt-"], :root a[href^="https://gml-grp.com/"], :root .ob_dual_right > .ob_ads_header ~ .odb_div, :root app-advertisement, :root a[href^="https://getmatchedlocally.com/"], :root a[href^="https://clickins.slixa.com/"], :root a[href^="https://cam4com.go2cloud.org/"], :root a[href^="http://li.blogtrottr.com/click?"], :root a[href^="https://go.skinstrip.net"][href*="?campaignId="], :root #teaser2[style^="width:autopx;"], :root a[href^="https://t.ajump1.com/"], :root a[href^="https://go.xxxjmp.com"], :root #leader-companion > a[href] { display: none !important; }</style></head>
+<body class="">
+
+    <header class="hidden-lg-up">
+    <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+        <div class="container">
+
+            <div class="d-flex justify-content-between" style="flex-grow: 1;">
+            
+            <a class="navbar-brand" href="https://twhl.info/">
+                <img src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/logo_icon.png" alt="">
+                <span class="hidden-md-down">The Whole Half-Life</span>
+                <span class="hidden-lg-up">TWHL</span>
+            </a>
+
+            
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-mobile-collapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            </div>
+
+            <div class="collapse navbar-collapse" id="navbar-mobile-collapse">
+
+                
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item"><a class="nav-link" href="https://twhl.info/forum">Forums</a></li>
+                    <li class="nav-item"><a class="nav-link" href="https://twhl.info/wiki">Wiki</a></li>
+                    <li class="nav-item"><a class="nav-link" href="https://twhl.info/vault">Vault</a></li>
+                    <li class="nav-item"><a class="nav-link" href="https://twhl.info/competition">Competitions</a></li>
+                    <li class="nav-item"><a class="nav-link" href="https://discord.gg/jEw8EqD">Discord</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="https://twhl.info/" data-toggle="dropdown">
+                            More...
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="https://twhl.info/journal">Journals</a>
+                            <a class="dropdown-item" href="https://twhl.info/news">News</a>
+                            <a class="dropdown-item" href="https://twhl.info/poll">Polls</a>
+                            <a class="dropdown-item" href="https://twhl.info/user">Members</a>
+                        </div>
+                    </li>
+                </ul>
+
+                
+                <form class="navbar-search-inline form-inline hidden-md-only hidden-lg-only" action="https://twhl.info/search/index" method="get">
+                    <div class="navbar-form">
+                        <div class="form-group">
+                            <div class="input-group input-group-sm">
+                                <div class="input-group-prepend"><span class="input-group-text"><span class="fa fa-search"></span></span></div>
+                                <input type="text" class="form-control" name="search" placeholder="Search">
+                                <span class="input-group-append"><button type="submit" class="btn btn-light">Go</button></span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <ul class="navbar-search-dropdown navbar-nav hidden-sm-down hidden-xl-up">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="https://twhl.info/wiki/page/Tutorial%3A_Advanced_Terrain_Creation#" data-toggle="dropdown">
+                            <span class="fa fa-search"></span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <form action="https://twhl.info/search/index" method="get">
+                                <div class="navbar-form">
+                                    <div class="form-group">
+                                        <div class="input-group input-group-sm flex-nowrap">
+                                            <div class="input-group-prepend"><span class="input-group-text"><span class="fa fa-search"></span></span></div>
+                                            <input type="text" class="form-control" name="search" placeholder="Search">
+                                            <span class="input-group-append"><button type="submit" class="btn btn-light">Go</button></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </li>
+                </ul>
+
+                
+                <ul class="navbar-nav">
+                                            <li class="navbar-login-dropdown nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="https://twhl.info/auth/login" data-toggle="dropdown">
+                                Login
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <form action="https://twhl.info/auth/login" method="post"><input type="hidden" name="_token" value="cGNLVciNgb80JGtaVOnUJE5gb8vzswVDghIXoTpo">
+                                    <div class="navbar-form login-form">
+                                                                                <div class="form-group "><label for="email_71862">Email or Username</label><input type="text" class="form-control" id="email_71862" name="email" value="" placeholder="Email/username"></div>
+                                        <div class="form-group "><label for="password_13503">Password</label><input type="password" class="form-control" id="password_13503" name="password" value="" placeholder="Password"></div>
+                                        <div class="checkbox "><label for="remember_78037"><input type="checkbox" id="remember_78037" name="remember" checked=""> Remember Me</label></div>
+                                        <div>
+                                            <button type="submit" class="btn btn-primary btn-block">Login</button>
+                                            <a class="btn btn-link" href="https://twhl.info/password/email">Forgot Your Password? </a>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" href="https://twhl.info/auth/register">Register</a></li>
+                                    </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+    
+    <div class="container">
+        <header class="header-desktop hidden-md-down">
+        <div class="header-image" style="background-image: url(https://twhl.info/images/header/tower2_03.jpg);">
+        <div class="wrapper">
+            <a href="https://twhl.info/">
+                <img class="logo-image" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/twhl-logo-64.png" alt="">
+                <div class="logo-text">
+                    <div class="title">The Whole Half-Life</div>
+                    <div class="subtitle">Level design resources for GoldSource, Source, and beyond</div>
+                </div>
+            </a>
+            <div class="header-info">
+                <span>
+                    Featured mod:
+                    <a href="https://twhl.info/vault/view/6456">TWHL Tower 2</a>
+                    by
+                    <a href="https://twhl.info/">TWHL members</a>
+                </span>
+            </div>
+        </div>
+    </div>
+    <nav class="header-nav navbar navbar-expand navbar-dark bg-theme">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item"><a class="nav-link" href="https://twhl.info/forum">Forums</a></li>
+            <li class="nav-item"><a class="nav-link" href="https://twhl.info/wiki">Wiki</a></li>
+            <li class="nav-item"><a class="nav-link" href="https://twhl.info/vault">Vault</a></li>
+            <li class="nav-item"><a class="nav-link" href="https://twhl.info/competition">Competitions</a></li>
+            <li class="nav-item"><a class="nav-link" href="https://discord.gg/jEw8EqD">Discord</a></li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="https://twhl.info/" data-toggle="dropdown">
+                    Community
+                </a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="https://twhl.info/journal">Journals</a>
+                    <a class="dropdown-item" href="https://twhl.info/news">News</a>
+                    <a class="dropdown-item" href="https://twhl.info/poll">Polls</a>
+                    <a class="dropdown-item" href="https://twhl.info/user">Members</a>
+                </div>
+            </li>
+        </ul>
+        <ul class="navbar-nav">
+                            <li class="navbar-login-dropdown nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="https://twhl.info/auth/login" data-toggle="dropdown">
+                        Login/Register
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <form action="https://twhl.info/auth/login" method="post"><input type="hidden" name="_token" value="cGNLVciNgb80JGtaVOnUJE5gb8vzswVDghIXoTpo">
+                            <div class="navbar-form login-form">
+                                                                <input type="text" class="form-control mb-2" name="email" placeholder="Email or username">
+                                <input type="password" class="form-control mb-1" name="password" placeholder="Password">
+                                <div class="checkbox "><label for="remember_74505"><input type="checkbox" id="remember_74505" name="remember" checked=""> Remember Me</label></div>
+                                <button type="submit" class="btn btn-primary btn-block mb-1">Login</button>
+                                <a href="https://twhl.info/password/email">Forgot Your Password?</a>
+                                <hr>
+                                <div>New user?</div>
+                                <a class="btn btn-success btn-block mt-1" href="https://twhl.info/auth/register">Create an account</a>
+                            </div>
+                        </form>
+                    </div>
+                </li>
+                        <li class="nav-item">
+                <form class="navbar-search-inline form-inline" action="https://twhl.info/search/index" method="get">
+                    <div class="navbar-form navbar-search-form">
+                        <div class="form-group">
+                            <div class="input-group input-group-sm">
+                                <div class="input-group-prepend"><span class="input-group-text"><span class="fa fa-search"></span></span></div>
+                                <input type="text" class="form-control" name="search" placeholder="Search">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </li>
+        </ul>
+    </nav>
+</header>	        <div class="btn-toolbar wiki-navigation">
+            <div class="btn-group" role="group">
+            <a class="btn btn-light" href="https://twhl.info/wiki/page/Tutorial%3A_Advanced_Terrain_Creation">Tutorial: Advanced Terrain Creation</a>
+                        <a class="btn btn-light" href="https://twhl.info/wiki/history/Tutorial%3A_Advanced_Terrain_Creation"><span class="fa fa-clock-o"></span> History</a>
+        </div>
+            <div class="btn-group" role="group">
+        <a class="btn btn-light" href="https://twhl.info/wiki/pages">See all pages</a>
+        <a class="btn btn-light" href="https://twhl.info/wiki/uploads">See all uploads</a>
+        <a class="btn btn-light" href="https://twhl.info/wiki/categories">See all categories</a>
+    </div>
+</div>            <h1>
+    <span class="fa fa-file-o"></span>
+    Tutorial: Advanced Terrain Creation
+
+    <small class="pull-right">
+                Last edited <span class="nice-date" title="2024-09-01 20:06:46 UTC"><span class="formatted">2 months ago</span><span class="raw">2024-09-01 20:06:46 UTC</span></span>
+    </small>
+</h1>
+
+<ol class="breadcrumb">
+    <li><a href="https://twhl.info/wiki">Wiki</a></li>
+    <li class="active">View Page</li>
+    <li class="ml-auto no-breadcrumb">
+            </li>
+</ol>
+
+<div class="wiki bbcode"><div class="contents"><ul><li><h2>Contents</h2></li><li class="level-1"><a href="https://twhl.info/wiki/page/Tutorial%3A_Advanced_Terrain_Creation#Advanced_Terrain_Creation">Advanced Terrain Creation</a></li><li class="level-2"><a href="https://twhl.info/wiki/page/Tutorial%3A_Advanced_Terrain_Creation#Triangular_Prisms">Triangular Prisms</a></li><li class="level-2"><a href="https://twhl.info/wiki/page/Tutorial%3A_Advanced_Terrain_Creation#Tetrahedra">Tetrahedra</a></li><li class="level-2"><a href="https://twhl.info/wiki/page/Tutorial%3A_Advanced_Terrain_Creation#Cave_entrance/exit_(combining_tetrahedra_and_triangular_prisms)">Cave entrance/exit (combining tetrahedra and triangular prisms)</a></li><li class="level-1"><a href="https://twhl.info/wiki/page/Tutorial%3A_Advanced_Terrain_Creation#Toward_Gearbox-style_terrain">Toward Gearbox-style terrain</a></li><li class="level-2"><a href="https://twhl.info/wiki/page/Tutorial%3A_Advanced_Terrain_Creation#Creating_cliffs_with_a_relatively_small_number_of_brushes">Creating cliffs with a relatively small number of brushes</a></li><li class="level-2"><a href="https://twhl.info/wiki/page/Tutorial%3A_Advanced_Terrain_Creation#Terrain_without_the_VM_tool">Terrain without the VM tool</a></li><li class="level-2"><a href="https://twhl.info/wiki/page/Tutorial%3A_Advanced_Terrain_Creation#Gearbox-style">Gearbox-style</a></li><li class="level-1"><a href="https://twhl.info/wiki/page/Tutorial%3A_Advanced_Terrain_Creation#Tips_&amp;_Tricks">Tips &amp; Tricks</a></li><li class="level-1"><a href="https://twhl.info/wiki/page/Tutorial%3A_Advanced_Terrain_Creation#In_the_end">In the end</a></li></ul></div>
+    <h1 id="Advanced_Terrain_Creation">Advanced Terrain Creation</h1>
+
+<div class="embedded image" title="Mmm, landscape :3"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/Rjwoq2s.png" alt="Mmm, landscape :3"><span class="caption">Mmm, landscape :3</span></span></div>
+Terrain is one of the more challenging things in GoldSrc mapping. There are many ways to make terrain, and not just with terrain generators, but by hand. It sounds complicated, but making terrain by hand is actually kind of easy if you know how to do it. I won't show how to use a terrain generator, since they probably don't need a guide how simple they are.<br>
+<br>
+Combining certain methods, you can get a landscape such as this:
+<div class="embedded image" title="ts_untergrund"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/ts_untergrund in a map editor.png" alt="ts_untergrund"><span class="caption">ts_untergrund</span></span></div>
+In this tutorial I will show certain methods and how to combine them.
+<h2 id="Triangular_Prisms">Triangular Prisms</h2>
+
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/yj2q76C.png" alt="User posted image"></span></div>
+
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/XOETH7Y.png" alt="User posted image"></span></div>
+Let's start with a method which is fairly easy to understand.<br>
+It's similar to Source's displacements.<br>
+<br>
+Triangular prisms (a.k.a. wedges) are a popular way of adding terrain into your map. A triangular prism is basically a 3D shape which, when looked from above, looks like a triangle.<br>
+Let's see how to create terrain with triangular prisms:<br>
+<br>
+1. Create a brush like this:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/4H6LYSl.png" alt="User posted image"></span></div>
+2. Cut it diagonally:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/yPwsgXc.png" alt="User posted image"></span></div>
+3. Disable the Texture Lock:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/VXGLbDW.png" alt="User posted image"></span></div>
+This is important for texturing. If you don't turn it off, the textures will 'stick' to the brushes and the terrain will have seams everywhere.<br>
+<br>
+4. Texture the top faces:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/oU9metj.png" alt="User posted image"></span></div>
+5. Make copies of the 2 brushes, forming a grid:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/vOyIAfM.png" alt="User posted image"></span></div>
+This is why I told you to disable the texture lock, otherwise it would look like this:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/5OmS9x7.png" alt="User posted image"></span></div>
+6. Manipulate the vertexes in the top view: (with the Vertex Manipulation tool, of course)
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/zlnIAoo.png" alt="User posted image"></span></div>
+Now you can select the middle vertices and in the front or side view, you can pull them down. You can either nudge them with the arrow keys, or click and drag them.
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/XkDG7G6.png" alt="User posted image"></span></div>
+
+<div class="embed-panel card card-info"><div class="card-header">Hint</div><div class="card-body">Sometimes, you'll end up with this:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/1JM1dXn.png" alt="User posted image"></span></div>
+The triangle seems to be too "thin". Usually, you can retriangulate the part by either deleting the few brushes and aligning them, or you can rotate them by 90° and align the vertices:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/ADk2JWr.png" alt="User posted image"></span></div>
+</div></div>
+What's after 6th step has two variations:<br>
+ <br>
+<strong>Variant 1</strong><br>
+<br>
+7. Now let's do the walls.<br>
+Repeat the same process, and make it like this:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/MMWRVoD.png" alt="User posted image"></span></div>
+8. Raise the vertexes upwards:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/VWjkjDb.png" alt="User posted image"></span></div>
+<strong>Variant 2</strong><br>
+<br>
+7. Create a wall and cut it like this:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/AxZIVin.png" alt="User posted image"></span></div>
+8. Copy it and align it to the floor:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/ObHXQ1v.png" alt="User posted image"></span></div>
+9. Copy it vertically:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/zaWiUAt.png" alt="User posted image"></span></div>
+10. Do the same for the other side:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/Asbwge3.png" alt="User posted image"></span></div>
+11. Give it a shape:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/vnExcEk.png" alt="User posted image"></span></div>
+This was done by selecting a line of vertices in the front view, and then I pushed them away from the centre.<br>
+<br>
+12. Simply apply the textures, and give the shape some more variation:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/TuXkBAZ.png" alt="User posted image"></span></div>
+
+<hr>
+
+<div class="embed-panel card card-success"><div class="card-header">Tip</div><div class="card-body">When some faces are stretched like this:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/xNorKOX.png" alt="User posted image"></span></div>
+Open the Texture Application tool, select the faces, and tick <strong>World</strong>:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/SRbhdlI.png" alt="User posted image"></span></div>
+If some faces don't align properly like here:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/D6B0xNT.png" alt="User posted image"></span></div>
+Then pick one face that aligned correctly:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/CS8C5ZL.png" alt="User posted image"></span></div>
+Press <strong>Shift+F6</strong>:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/vCYpcsG.png" alt="User posted image"></span></div>
+And left-click the other faces which should've <em>obeyed</em>, so you can force their orientation:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/9ToqR1D.png" alt="User posted image"></span></div>
+Sometimes, setting it to <strong>World</strong> won't work, so you'll have to set the "parent" face to <strong>Face</strong>.</div></div>
+Final step:<br>
+Press <strong>Alt+P</strong>.
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/ejj9sjr.png" alt="User posted image"></span></div>
+This will usually happen to some faces that are invisible in-game. <br>
+It's usually caused by vertex manipulation, and sometimes improper usage of the texturing tool.
+<div class="embed-panel card card-info"><div class="card-header">Texture axis perpendicular to face</div><div class="card-body">Here's a quick explanation of it.
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/WDDZTE3.png" alt="User posted image"></span></div>
+The white frames represent the projection planes, and the arrows represent the normals. This is perfectly fine. If the face is parallel to the projection plane, it's not stretched.
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/41MUDNg.png" alt="User posted image"></span></div>
+In this scenario, we rotate the projection plane by 90° and thus it becomes perpendicular to the face. Actually, the projection was copied from the top face. This causes infinite stretching and a "Bad surface extents" error when compiling, as well as the "Texture axis perpendicular to face" error in the map editor.</div></div>
+You should not make the cliffs too detailed, otherwise you'll hit the clipnode limit pretty quickly (32 767). There are 3 clipnodes generated per face, so be careful.<br>
+Alternatively, you can use the -nohull2 parameter in CSG, so you'll end up saving a third of your clipnodes.<br>
+Basically, hull2 is for big monsters. Counter-Strike 1.6 doesn't have any monsters except the hostages.<br>
+<br>
+This method can have a few tricks. If you've followed Variant 2 of this method, then you can do this:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/6VcmCNr.png" alt="User posted image"></span></div>
+You can essentially use your triangular prisms for not just the wall, but also the floor which is on that wall.
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/CVftqws.png" alt="User posted image"></span></div>
+With some smoothing, triangular prism terrain like this is surely a delight.
+<h2 id="Tetrahedra">Tetrahedra</h2>
+While this method is very messy for the 2D views, it's really useful in a lot of situations.<br>
+Let's see how to create tetrahedrons and how to make something with them.<br>
+<br>
+1. Create a cube and cut it diagonally:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/DjZliFT.png" alt="User posted image"></span></div>
+2. Pull these 3 vertices up:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/7CPLkhZ.png" alt="User posted image"></span></div>
+
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/H9y32OX.png" alt="User posted image"></span></div>
+3. Apply a texture, disable <em>texture locking</em>, and clone the tetrahedron pair:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/sprWoyS.png" alt="User posted image"></span></div>
+You'll mostly use the 3 top vertices. Those vertices will define that visible, textured face you see in-game.<br>
+But there's a 4th one. (highlighted in red)
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/HlhE5Cx.png" alt="User posted image"></span></div>
+Consider it as a "root" vertice. If the root vertice is sticking out like this:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/5s7vta7.png" alt="User posted image"></span></div>
+... then it's concave. It's simply inside-out. So you should always look out for this.<br>
+<br>
+Now, when do we sometimes use tetrahedra instead of prisms?<br>
+With tetrahedra, it's impossible to get the "face not planar" error.<br>
+A tetrahedron is made of triangles, while a triangular prism is made out of two triangles, and three squares.<br>
+Those squares' planes get bent if you're not careful:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/yuJ6VrB.png" alt="User posted image"></span></div>
+You could triangulate it via Ctrl+F, but it could lead to problems later on since it's not easily reversible.<br>
+<br>
+4. Clone it into walls and the ceiling:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/prWlKC9.png" alt="User posted image"></span></div>
+5. Shape it like a cave with the VM tool:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/nbMEDbe.png" alt="User posted image"></span></div>
+
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/3E2683h.png" alt="User posted image"></span></div>
+6. Copy the segments and twist it a bit more:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/ZmP58b4.png" alt="User posted image"></span></div>
+
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/hzZYVjy.png" alt="User posted image"></span></div>
+As you can see, there are 512 brushes.<br>
+In theory, that should be 1536 clipnodes (1024 with -nohull2). This is why you have to be careful with such terrain.<br>
+<br>
+And another reason is VIS. It can take VIS a LONG time to process a map of this complexity.<br>
+<br>
+We could've used regular, old wedges for this part, but it wouldn't be ideal for the following part.<br>
+<br>
+7. Copy the whole part and rotate it 90°:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/0zusJPF.png" alt="User posted image"></span></div>
+8. Copy a few segments and align the vertices in the top view:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/CxPVmB5.png" alt="User posted image"></span></div>
+These vertices are now aligned on the XY plane, but now we need to align them vertically as well.
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/PwuiW10.png" alt="User posted image"></span></div>
+Now you can polish the brushwork a little bit, and texture it.
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/F2Xa6B3.png" alt="User posted image"></span></div>
+
+<h2 id="Cave_entrance/exit_(combining_tetrahedra_and_triangular_prisms)">Cave entrance/exit (combining tetrahedra and triangular prisms)</h2>
+In this example, we'll use a cliff made out of triangular prisms, and a cave made out of tetrahedra.<br>
+<br>
+1. Start off by preparing the cliff and cave mesh
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/dXaTHbU.png" alt="User posted image"></span></div>
+
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/YWltisB.png" alt="User posted image"></span></div>
+(note: never do it this detailed, it's just for the sake of this example)<br>
+<br>
+One end is on the bottom, and the other end is on the top.
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/QTZ060u.png" alt="User posted image"></span></div>
+2. Go to one of the ends, hide everything except this:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/8DeFmZj.png" alt="User posted image"></span></div>
+3. "Open" the wall with the VM tool (without deleting any brushes)
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/ZT2nuaf.png" alt="User posted image"></span></div>
+That step is usually done by selecting one half of the brushes (e.g. left half) and dragging the vertices, effectively un-welding them.<br>
+<br>
+Since the cave mesh end is about 256 units away from the wall, we should copy it a couple of times otherwise there would be stretching.<br>
+<br>
+4. Copy the cave segments close to the wall
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/mU6oPAu.png" alt="User posted image"></span></div>
+To quickly connect the two segments, mirror this one horizontally.<br>
+<br>
+5. In the Vertex Manipulation tool, connect the vertices of the cave to the wall.<br>
+<br>
+For J.A.C.K. users: Select the vertices in the 3D view, and nudge them in the 2D views. If the 2D views are too messy, you can use the blue camera in the 2D views to help you. Wherever the 3D camera is at, it will show up in the 2D views. Just navigate to the point where you want to move your vertices and you'll see where to move the verts in the 2D view.<br>
+For VHE users: on my end, it will always select just one vertice unless you enable auto-select IIRC, therefore I suggest you to drag a selection box in the Top view and then drag the vertices around. Sledge selects 'bundled' vertices just fine like J.A.C.K.
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/ovjLbve.png" alt="User posted image"></span></div>
+.<br>
+<br>
+6. Repeat the same for the other end
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/ygMe9w7.png" alt="User posted image"></span></div>
+
+<div class="embed-panel card card-success"><div class="card-header">Potential encounters</div><div class="card-body">However, it doesn't look too great.
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/eIoxg31.png" alt="User posted image"></span></div>
+In this case, delete these brushes:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/b2No8aC.png" alt="User posted image"></span></div>
+Connect these:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/Kk6wGKf.png" alt="User posted image"></span></div>
+
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/74yI08s.png" alt="User posted image"></span></div>
+Add some brushes to cover it up (and texture it):
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/GUjcphZ.png" alt="User posted image"></span></div>
+</div></div>
+I told you not to do it this detailed because of a good reason:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/osvweo6.png" alt="User posted image"></span></div>
+<span style="color: #6495ed;">(0fps FTW)</span><br>
+<br>
+It's a mess of wpolys. And VIS would take a lot of time if they were all world brushes. <br>
+<br>
+However, if you really want to, or have to use a lot of triangles, here's a tip: scale all the textures to larger values like 4 or 8, and use a detail texture and downscale it. That way you'll prevent a part of BSP subdivision, although lightmaps will be more low-res (texture scale affects lightmap scales on faces).
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/7RJtU1i.png" alt="User posted image"></span></div>
+The cave, on the other hand, was subdivided nicely:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/nbtFeXM.png" alt="User posted image"></span></div>
+Combining tetrahedra with triangular prisms was used in ts_untergrund to make a hole going through a cliff.
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/G0ry5fE.png" alt="User posted image"></span></div>
+
+<h1 id="Toward_Gearbox-style_terrain">Toward Gearbox-style terrain</h1>
+<em>Quads 4 life!</em>
+<h2 id="Creating_cliffs_with_a_relatively_small_number_of_brushes">Creating cliffs with a relatively small number of brushes</h2>
+
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/HMEPlOk.png" alt="User posted image"></span></div>
+You start with a "base".
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/JqSR8va.png" alt="User posted image"></span></div>
+After that, add a few big cubes and start cutting them:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/W3NMPjM.png" alt="User posted image"></span></div>
+
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/GOPLx8H.png" alt="User posted image"></span></div>
+Sledge has a really useful feature in its Clipping Tool. Its clipping plane can be defined by 3 points, not just 2.<br>
+Click the edges and connect each edge:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/r2Ani3R.png" alt="User posted image"></span></div>
+
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/kTBVKSJ.png" alt="User posted image"></span></div>
+Basically, once you select two edges, press <strong>Ctrl+F</strong>. <br>
+<br>
+If you return to the Select mode and the lines get removed, check this:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/RdQwK1w.png" alt="User posted image"></span></div>
+And repeat it for all of the brushes except the left-most and right-most ones:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/uVJVK5K.png" alt="User posted image"></span></div>
+Now, this is a more complex part:<br>
+<br>
+Connect the edges like this:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/YlxiCad.png" alt="User posted image"></span></div>
+And then merge these two:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/Wqdzk0a.png" alt="User posted image"></span></div>
+With this one:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/R7MPXKt.png" alt="User posted image"></span></div>
+Do the same for the other end.<br>
+And then select the edge vertices:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/1fUI4sH.png" alt="User posted image"></span></div>
+And move them:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/0uQsdb3.png" alt="User posted image"></span></div>
+Lastly, make sure to do some minor corrections and then press <strong>Ctrl+Alt+T</strong> if needed (if you end up with the "face not planar" error). If you aren't using J.A.C.K., you can always select the brush with that non-planar face, and use <strong>Ctrl+F</strong> to cut the face into 2 triangles, thus making it planar.<br>
+And then, we have the texturing part. All of the faces should have a common projection plane, so you can either turn on "World" alignment, or use the "Apply (all + copy axes)" mode.
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/fJpFvko.png" alt="User posted image"></span></div>
+
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/Ax98YuC.png" alt="User posted image"></span></div>
+After that, you can keep adding more geometry this way:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/QWFzKZq.png" alt="User posted image"></span></div>
+The end result will look something like this:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/AImZd3p.png" alt="User posted image"></span></div>
+However, there's a problem:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/Z41WKwT.png" alt="User posted image"></span></div>
+
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/r0ygBR3.png" alt="User posted image"></span></div>
+If you would leave these to be world brushes, the compiled map would be messy. It's sort of messy as it is, but that's one of the compromises with GoldSRC terrian.<br>
+This is why you should convert these brushes to <span style="color: blue;">func_detail</span>.
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/4n7q4n9.png" alt="User posted image"></span></div>
+Don't forget to cover them with CLIP brushes, of course. We'd rather not want too many clipnodes or funky geometry that can make other players get stuck.<br>
+You will, of course, encounter errors while trying to do this:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/eqUfxNf.png" alt="User posted image"></span></div>
+The brush looks completely fine, but it's really not fine.
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/l9NDT68.png" alt="User posted image"></span></div>
+Let's take a closer look:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/nu4XLvc.png" alt="User posted image"></span></div>
+This is where we need to retriangulate our brush. It's fairly simple and it's done in the VM tool.
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/KJlrKfO.png" alt="User posted image"></span></div>
+Make these lines:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/svZRdm1.png" alt="User posted image"></span></div>
+
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/dbXcPCK.png" alt="User posted image"></span></div>
+And then merge two vertices to make the brush look like this:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/T6oXvOw.png" alt="User posted image"></span></div>
+After that, you have to pull the middle vertice:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/jbNt9T5.png" alt="User posted image"></span></div>
+If you scroll up, you would remember that the diagonal line was going from the bottom left to the top right corner.<br>
+So, we only need to make it the opposite.<br>
+Pull the middle vertice to the bottom-right corner:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/x61cduT.png" alt="User posted image"></span></div>
+If you get the "Point off the face plane" error, I suggest you to move some vertices.<br>
+In the end, you'll save many brushes:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/Usufimn.png" alt="User posted image"></span></div>
+56 brushes (not counting the 2 clip brushes)<br>
+<br>
+Imagine how many brushes it would take if you did that with tetrahedrons only.<br>
+Tetrahedrons surely give you lots of freedom when you're working on the shape, but that produces a lot of brushes.
+<h2 id="Terrain_without_the_VM_tool">Terrain without the VM tool</h2>
+This might be the least messiest method for the 2D views. So far, we've mainly used the Clipping tool and the Vertex Manipulation tool for the brushwork. Now let's limit ourselves to not using the VM tool at all.<br>
+<br>
+Firstly, let's disable the texture lock.<br>
+<br>
+Now, create a cuboid like this:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/599DlC0.png" alt="User posted image"></span></div>
+Clone it above:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/gciTMDG.png" alt="User posted image"></span></div>
+Click the cuboid multiple times in the 2D view until the skewing mode shows up:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/4fhlZef.png" alt="User posted image"></span></div>
+And skew it a little bit. Repeat the two steps until you get to a certain height or a shape.
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/UciG5Fm.png" alt="User posted image"></span></div>
+Now group this entire segment, and clone it sideways.
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/cYiz0ss.png" alt="User posted image"></span></div>
+Select one segment and skew it in a different 2D view.
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/UqXPeiQ.png" alt="User posted image"></span></div>
+
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/ypZZwMa.png" alt="User posted image"></span></div>
+Lastly, you can skew it again in the Top view.<br>
+You can easily make ground this way too.<br>
+<br>
+Just don't overdetail it.
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/4jyMICm.png" alt="User posted image"></span></div>
+This takes a lot to compile and it wouldn't make much of a difference compared to something more low-poly.<br>
+Effectively the same thing can always be achieved with less.
+<h2 id="Gearbox-style">Gearbox-style</h2>
+
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/fjazc9p.png" alt="User posted image"></span></div>
+When first playing through Opposing Force, the terrain just amazed me. If you're looking for the terrain style that looks so late 90's, look no further. But beware, funky geometry awaits after you compile it.<br>
+<br>
+One approach to this style of terrain is via layers.
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/LfYu4fg.png" alt="User posted image"></span></div>
+First layer.
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/mI1vRJN.png" alt="User posted image"></span></div>
+
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/NsNZWBY.png" alt="User posted image"></span></div>
+Second layer.
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/xa1Ez24.png" alt="User posted image"></span></div>
+Third layer.
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/VRfc8Xn.png" alt="User posted image"></span></div>
+Fourth layer.
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/QwK6VEY.png" alt="User posted image"></span></div>
+Fifth layer. (optional, also it doesn't have to be in this very order)
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/UpIYdpw.png" alt="User posted image"></span></div>
+Let's do this on another example.<br>
+<br>
+1. Place down the floor brushes
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/7AP8vyZ.png" alt="User posted image"></span></div>
+Let's give them a twist. You can either skew them with the Select tool or the Vertex Manipulation tool.
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/K3y4uo4.png" alt="User posted image"></span></div>
+
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/IEBO9kt.png" alt="User posted image"></span></div>
+2. Start adding the wall segments.<br>
+<br>
+If you simply started adding walls and skewing them, you'd get this:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/3Dvv5qV.png" alt="User posted image"></span></div>
+It looks boring...<br>
+Start off by placing this block.
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/ZEjvHoy.png" alt="User posted image"></span></div>
+Cut it and turn it into this.
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/qAlTtF1.png" alt="User posted image"></span></div>
+This is where the magic happens.<br>
+After this point, a lot of people could do something wrongly in the VM tool and get a "Face not planar" error.<br>
+However, a way to prevent it is to prepare the brush for further operations. <br>
+<br>
+Since these two are relatively simple, only 2 edges needed to be moved.
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/CiafWoZ.png" alt="User posted image"></span></div>
+Now, select the following vertices and move them up:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/l1Y5uC6.png" alt="User posted image"></span></div>
+After that, select the bottom vertices and move them sideways:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/f4MPFRz.png" alt="User posted image"></span></div>
+We can go one step further and move the vertices in the middle.
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/Blo4Hgn.png" alt="User posted image"></span></div>
+We're not finished with this wall segment yet, as it has to be complete.<br>
+You can clone one brush and keep skewing it downwards and inwards.<br>
+<br>
+In the end, you'll get a rock like this:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/LKpibD8.png" alt="User posted image"></span></div>
+You may cut the rock to later merge it into one brush. (I'd rather not do that, though)
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/6K4Jw72.png" alt="User posted image"></span></div>
+At this point, you might become worried about the off-grid vertices. It won't be too much of a problem. In the final phase we'll convert a lot of things into func_detail and cover what's needed in CLIP brushes.<br>
+<br>
+For now, let's save this rock for later. It's part of the 5th layer.<br>
+Let's focus on the 1st layer.
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/DmgGQ4L.png" alt="User posted image"></span></div>
+Remember. Always prepare the brushes:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/h8tN6Hp.png" alt="User posted image"></span></div>
+(top view - this is to preserve facial planarity)<br>
+<br>
+That's better. We'll start by lowering these vertices:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/vaSSjXp.png" alt="User posted image"></span></div>
+And then we can move the vertices to form this:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/9bYzd8b.png" alt="User posted image"></span></div>
+For some variety, we can nudge some segments closer to the road.
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/8ELOpF3.png" alt="User posted image"></span></div>
+Additionally, raise some segments:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/4VCb8Iy.png" alt="User posted image"></span></div>
+First you do a smooth curve, then the 'pinches'.
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/m7cLaKx.png" alt="User posted image"></span></div>
+You've probably noticed by now that the front view is never really used due to the mess. I've done all my vertex manipulations in the top and side view. That's at least in this situation. Sometimes you won't use the top view, sometimes you won't use the side view.<br>
+<br>
+We'll repeat the same for the other side.
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/czvFmq3.png" alt="User posted image"></span></div>
+
+<div class="embed-panel card card-success"><div class="card-header">Holes</div><div class="card-body">In case you get a hole like this:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/kUxr5uq.png" alt="User posted image"></span></div>
+Extend the ground to close it, or move the cliff.
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/aM8TsmT.png" alt="User posted image"></span></div>
+</div></div>
+I'm extending all the segments in order to preserve the planarity, because the ground will be slanted.
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/R5EUCn8.png" alt="User posted image"></span></div>
+Now we'll make a rock.<br>
+<br>
+3. Create a block, and rotate it:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/YnGI1yr.png" alt="User posted image"></span></div>
+And just cut it up:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/11NDY3v.png" alt="User posted image"></span></div>
+
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/FRmHHl6.png" alt="User posted image"></span></div>
+After some more adjustments, we get the final result.
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/w2IgODV.png" alt="User posted image"></span></div>
+4. Optimise. <br>
+<br>
+Back in the day, if you had terrain like that, you would've had to go through very long compile times. Maps compiled for hours and some took days. Even if you've got a decent PC with a fast CPU, it doesn't mean you shouldn't bother optimising the map. Remember, a lot of people still use (old) laptops and old desktop PCs. I've got a relatively decent PC, but before that one, I had a 2007 Fujitsu laptop.<br>
+<br>
+So, let's begin.<br>
+<br>
+Since I've raised my ground in a specific way:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/4yLR2xW.png" alt="User posted image"></span></div>
+I can do the following:<br>
+<br>
+Hide everything but the road.<br>
+Copy the road on both sides and apply the NULL texture.
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/NHqo9U1.png" alt="User posted image"></span></div>
+And align it to the cliffs while they're unhidden. You can hide them again and place sky brushes.
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/EaDVB7C.png" alt="User posted image"></span></div>
+Time for <span style="color: blue;">func_detail</span>.
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/6FZTlHB.png" alt="User posted image"></span></div>
+The ground -&gt; detail level 1<br>
+The cliffs -&gt; detail level 2<br>
+The rocks -&gt; detail level 3<br>
+<br>
+If you're familiar with BSP face clipping, this means that you can control it even further. If not, well, I'll explain.<br>
+Level 1 can clip level 2 and 3, while level 2 can't clip level 1, but can clip 3. Level 3 can't clip level 1 and 2, but gets clipped by them.
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/2U04gxm.png" alt="User posted image"></span></div>
+If you look closely, the parts where the rock touches the cliff are cut. This is because I've set all the func_details to the same detail level (1).<br>
+<br>
+If we follow the image I posted above, however:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/mujspgT.png" alt="User posted image"></span></div>
+You can see that we managed to save some wpoly as the rock doesn't cut the cliff, and the cliff doesn't cut the ground.<br>
+Additionally, to save on clipnodes, you can turn the rocks into passable func_details and add some CLIP brushes.
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/prW6d5O.png" alt="User posted image"></span></div>
+Good half-morning. :v<br>
+There's one thing to keep in mind, though. You can't always use func_detail for all things. It will lead to huge areas being rendered at once and that means lag. It does sound hard to believe for GoldSrc, but even with a GTX 1080 Ti, the game can drop from 400fps to 40fps if certain things are going on. <br>
+So you'll sometimes have to make a compromise.<br>
+<br>
+Also, if you func_detail too much terrain, it will lead to a bigger clipnode count. So be careful. Clipnodes are one of the biggest threats to terrain in GoldSrc. <br>
+You might hit the clipnode limit pretty quickly (32 767). There are 3 clipnodes generated per face (one for each hull except hull0, the visual hull), so be careful.<br>
+<br>
+Alternatively, you can use the -nohull2 parameter in CSG, so you'll end up saving a third of your clipnodes.<br>
+Basically, hull2 is for big monsters. Counter-Strike 1.6 doesn't have any monsters except the hostages, so compiling with -nohull2 shouldn't cause any issues. Hull1 and hull3 are for standing and crouching players respectively.
+<h1 id="Tips_&amp;_Tricks">Tips &amp; Tricks</h1>
+
+<div class="embed-panel card card-info"><div class="card-header">Flow</div><div class="card-body">
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/SRx9PJ9.png" alt="User posted image"></span></div>
+Look at the marked brushes. There's something bad.
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/zjGbg54.png" alt="User posted image"></span></div>
+This one ruins the terrain because there's a noticeable line on it.<br>
+<br>
+To fix this, mirror it horizontally in the Top view:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/XuWYqz9.png" alt="User posted image"></span></div>
+And align the vertices:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/qGVVyRy.png" alt="User posted image"></span></div>
+This improves the flow of the terrain by a bit. It looks smoother this way and it looks more natural.</div></div>
+
+<div class="embed-panel card card-info"><div class="card-header">Grouping</div><div class="card-body">
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/cRaXA1m.png" alt="User posted image"></span></div>
+It's a good idea to group the segments because it becomes easier to work with.<br>
+When you want to select more specific parts, just turn on Ignore Grouping and turn it off when you're done.</div></div>
+
+<div class="embed-panel card card-info"><div class="card-header">Smoothing</div><div class="card-body">
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/MeskBCd.png" alt="User posted image"></span></div>
+This is a blocky corner.<br>
+We need smooth ones. Select these:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/J17L9Pq.png" alt="User posted image"></span></div>
+Shape them into this:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/dczC2MD.png" alt="User posted image"></span></div>
+If you smooth every corner, you can have really nice results.
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/iPoSyPy.png" alt="User posted image"></span></div>
+
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/Wf11MhR.png" alt="User posted image"></span></div>
+Let's see how I actually did the smoothing.<br>
+We'll perform this on a low-poly mesh.
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/zf0qLpn.png" alt="User posted image"></span></div>
+Grab the corner vertices in the Top view and pull them:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/JTzW81p.png" alt="User posted image"></span></div>
+If you come across this kind of segment:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/XOkk4h0.png" alt="User posted image"></span></div>
+Rotate it by 90°. In J.A.C.K. you can press Ctrl+R to rotate it 90°.
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/NMd4TqZ.png" alt="User posted image"></span></div>
+We've finished one part of the smoothing:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/DuTrRhF.png" alt="User posted image"></span></div>
+Now, make the grid smaller by one step, and start smoothing it even more:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/Z2JHgkK.png" alt="User posted image"></span></div>
+
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/Dytb6wi.png" alt="User posted image"></span></div>
+Now, we grab either the ceiling or the floor. Let's start with the ceiling:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/L1bSXmp.png" alt="User posted image"></span></div>
+And pull!
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/beHieNn.png" alt="User posted image"></span></div>
+Do the same with the other edges.
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/Am4PpbB.png" alt="User posted image"></span></div>
+After this, you can either do the same thing with the floor.<br>
+If you want to save time, you can just copy the finished half.
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/XtkOBTx.png" alt="User posted image"></span></div>
+And then mirror it:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/Odd80G0.png" alt="User posted image"></span></div>
+Then spend some time fine-tuning the mesh:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/x8m5giA.png" alt="User posted image"></span></div>
+It doesn't always have to be terrain, though.<br>
+<br>
+Take the bottom half:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/aIgwRBU.png" alt="User posted image"></span></div>
+And then wrap another segment around it:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/Ur5XqCo.png" alt="User posted image"></span></div>
+And then make a heart shape out of it:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/xtKJ9dl.png" alt="User posted image"></span></div>
+You can decorate your indoors this way. It would surely make a nice addition.<br>
+You don't necessarily need to make a heart shape. You could also shape it like a lake:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/2u16wkG.png" alt="User posted image"></span></div>
+Or maybe a ball. Anything is possible.</div></div>
+
+<div class="embed-panel card card-info"><div class="card-header">Blend textures and large textures</div><div class="card-body">
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/SH6quAa.png" alt="User posted image"></span></div>
+The lake up there doesn't look too natural, so I decided to give it a blend texture.<br>
+I basically went up and took 3 screenshots of it.<br>
+One with the gravel texture, one with the mud texture, and the last one which is covered in water, so I know how to blend the first two.
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/Z4Yvo3p.png" alt="User posted image"></span></div>
+This is starting to look more like Source.<br>
+However, be careful with 512x512 blend textures, as you can easily make a huge WAD file, and produce more wpolys (assuming you downscaled the texture). Another limit to take into account is AllocBlock.<br>
+<br>
+Another method would be making 4 textures, 512x512 each. However, that would require a strict grid of triangular prisms, which you can only raise up and down. (actually, not entirely true)
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/v05vgtK.png" alt="User posted image"></span></div>
+Here are the source BMPs.<br>
+In a map, it would look like this:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/BuEfQYm.png" alt="User posted image"></span></div>
+The 'strict grid' I was talking about actually doesn't have to be completely followed.
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/4hpRZWx.png" alt="User posted image"></span></div>
+Moving vertices in the top view here will cause seams:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/sLrQOt4.png" alt="User posted image"></span></div>
+However, since J.A.C.K. has a UV lock (sometimes doesn't work as intended), this problem can be partially avoided, if we move the vertices in a single direction.
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/qp26nD4.png" alt="User posted image"></span></div>
+
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/DpNC9wc.png" alt="User posted image"></span></div>
+As mentioned, sometimes it does not work as intended, so I suggest you to avoid using this.
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/6FVj51A.png" alt="User posted image"></span></div>
+If you have faces that share the same texture, and share the same angle, chances are that CSG is going to merge them, like it did in this example. So, you don't have to worry too much if you've got a lot of faces like those in the editor.<br>
+On the other hand, BSP cuts some of those faces. CSG merges, BSP cuts.<br>
+<br>
+Either way, out of the potential 128 wpoly or more, only about 97 faces got compiled in my case.<br>
+<br>
+If you wish to use a texture with dimensions like 1024x256, 2048x128 etc., be warned:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/9dFCsdK.png" alt="User posted image"></span></div>
+In OpenGL, power-of-two textures will be rendered properly, but NPOT textures won't. Instead, they will be rescaled: 1024x256 to 256x256, 2048x128 to 128x128, which will make them look horribly stretched horizontally. So yeah, 96x96 will be 64x64, 48x48 will be 32x32 etc. In Software mode they are rendered exactly as they are.</div></div>
+
+<div class="embed-panel card card-info"><div class="card-header">Terrain density</div><div class="card-body">In most situations, you will want a constant terrain density in your map.<br>
+What does this mean, however?<br>
+<br>
+With the first method, triangular prisms, when you're making that first brush, you have to define what dimensions you want to use.<br>
+Basically, I made a 64x64x16 block, and cut it into two wedges. These first two dimensions are what matter. If it's 64x64, it means there will be a relatively high terrain density. If you're going for a very open area, you'll want something bigger (less dense) like 128x128, 256x256 or even 512x512 if it's far away.<br>
+<br>
+But nothing prevents you from using a dynamic density. ts_untergrund is the prime example of that. Some parts of the terrain consist of 128x128 pieces, some are 320x224, and a lot of the parts are off the 'strict grid'. This basically means that you can have detailed terrain that's in the nearby playable area, and low-poly terrain in the far away area, which is sometimes good.</div></div>
+
+<div class="embed-panel card card-info"><div class="card-header">SOLIDHINT</div><div class="card-body">Here we have a nice little cliff:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/6WhSW2W.jpg" alt="User posted image"></span></div>
+From experience, we know that we will get messy cuts with terrain like this.
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/WlenfiV.jpg" alt="User posted image"></span></div>
+We can actually 'tell' the compiler how exactly it should cut that geometry. We do that by using the SOLIDHINT tool texture.<br>
+So, after we replace the backfaces with SOLIDHINT (typically textured with NULL or BEVEL), we're gonna get this:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/Ju2mh4E.jpg" alt="User posted image"></span></div>
+In this scenario, it decreased the wpolys by roughly 40%. Your mileage may vary, but it'll certainly be significant.</div></div>
+
+<h1 id="In_the_end">In the end</h1>
+I hope this helped you out at least a bit on terrain in GoldSrc.<br>
+It's one of those things that I was fascinated with, when I started mapping. <br>
+You could expect me to write a part 2 of this tutorial one day. The first part already took long enough and it's long enough by itself. The next part will focus on certain situations and some extra things I haven't mentioned in this tutorial.<br>
+<br>
+Just remember, watch your r_speeds and keep your compile times reasonable. You can always make it look better with less.<br>
+<br>
+You can find source files (JMF &amp; WAD) <a href="https://twhl.info/vault/view/6398">here</a>.<br>
+<br>
+<span style="color: orange; font-size: 20px;">Happy mapping!</span>
+</div><ul class="wiki-categories inline-bullet">
+        <li class="header">Categories</li>
+                    <li><a href="https://twhl.info/wiki/page/category%3AGoldsource_Tutorials">Goldsource Tutorials</a></li>
+                    <li><a href="https://twhl.info/wiki/page/category%3ATutorials">Tutorials</a></li>
+                    <li><a href="https://twhl.info/wiki/page/category%3AIntermediate_Tutorials">Intermediate Tutorials</a></li>
+                    <li><a href="https://twhl.info/wiki/page/category%3AMapping">Mapping</a></li>
+            </ul>
+<ul class="wiki-credits">
+        <li class="header">Article Credits</li>
+                    <li>
+                                    <span class="fa fa-pencil"></span>
+                                            <span class="avatar inline  " title="Admer456">
+<a href="https://twhl.info/user/view/6754">
+<img src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/06754_80279.png" alt="Admer456">
+<span class="name">Admer456</span></a></span>
+                                        –
+                    Original author
+                            </li>
+                    </ul>
+                <a id="comments"></a>
+<h2>
+    1 Comment
+    </h2>
+
+<div class="comment-list">
+            <div class="slot" id="comment-102536">
+            <div class="slot-heading">
+                                    <div class="slot-avatar">
+                        <span class="avatar small  " title="MrMystery">
+<a href="https://twhl.info/user/view/7279">
+<img src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/07279_82895.png" alt="MrMystery"></a></span>
+                    </div>
+                                <div class="slot-title">
+                    <span class="avatar text  " title="MrMystery">
+<a href="https://twhl.info/user/view/7279">
+<span class="name">MrMystery</span></a></span>
+                                                                            </div>
+                <div class="slot-subtitle">
+                    Commented <span class="nice-date" title="2020-02-10 16:03:29 UTC"><span class="formatted">4 years ago</span><span class="raw">2020-02-10 16:03:29 UTC</span></span>
+                    <a class="pull-right hidden-xs-down" href="https://twhl.info/wiki/page/Tutorial%3A_Advanced_Terrain_Creation#comment-102536">Comment #102536</a>
+                </div>
+            </div>
+            <div class="slot-main">
+                                    <div class="bbcode">Wow. Nice work, Admer  <img class="smiley" src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/crowbar.png" alt=":crowbar:"> This will certainly help me with my future mountainous map projects.<br><br>Happy mapping on GoldSrc.</div>
+                            </div>
+        </div>
+    </div>
+
+    <p>
+        You must log in to post a comment.
+        You can <a href="https://twhl.info/auth/login">login</a> or <a href="https://twhl.info/auth/register">register a new account</a>.
+    </p>
+        </div>
+
+    <footer>
+        Site and non-dynamic content copyright © 2024, <a href="http://logic-and-trick.com/">Logic &amp; Trick</a>. Original site by atom. All rights reserved.<br>
+        All member-submitted resources copyright their respective authors unless otherwise specified.<br>
+        TWHL is a fan site and is not affiliated with Valve Corporation. Views expressed by users are the individuals's own and do not represent the opinions of any other entity.<br>
+        Processed in a hauntingly dismal 54 milliseconds.
+    </footer>
+
+    <div class="shoutbox position-right state-default"><h1><!----> Shoutbox <!----><a href="https://twhl.info/wiki/page/Tutorial%3A_Advanced_Terrain_Creation#" class="minimise-button"><span class="fa fa-caret-down"></span></a><a href="https://twhl.info/wiki/page/Tutorial%3A_Advanced_Terrain_Creation#" class="expand-button"><span class="fa fa-caret-up"></span></a><a href="https://twhl.info/wiki/page/Tutorial%3A_Advanced_Terrain_Creation#" class="minimise-button position-button"><span class="fa fa-caret-left"></span></a><!----></h1><ul class="shouts"><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/7755"><img src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/hl2_metrocop.jpg" alt="AfroApe"></a></span><span class="message"><span title="10/26/2024, 12:01:56 PM" class="time">3 weeks ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/7755">AfroApe</a></span><span class="text"><a href="https://imgur.com/a/pFtGzrT" target="_blank" rel="noopener noreferrer">imgur.com/a/pFtGzrT</a></span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/469"><img src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/00469_27686.png" alt="The Mad Carrot"></a></span><span class="message"><span title="10/27/2024, 9:43:24 AM" class="time">3 weeks ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/469">The Mad Carrot</a></span><span class="text">If you have geometry visible behind a SKY brush, your map physically doesn't make any sense in terms of design logic</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/469"><img src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/00469_27686.png" alt="The Mad Carrot"></a></span><span class="message"><span title="10/27/2024, 9:43:57 AM" class="time">3 weeks ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/469">The Mad Carrot</a></span><span class="text">Your only fix is a redesign of that area</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/8630"><img src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/08630_33054.jpeg" alt="Diechie"></a></span><span class="message"><span title="10/27/2024, 3:31:42 PM" class="time">3 weeks ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/8630">Diechie</a></span><span class="text">mangos mangos mangos</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/7755"><img src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/hl2_metrocop.jpg" alt="AfroApe"></a></span><span class="message"><span title="10/28/2024, 2:13:06 PM" class="time">3 weeks ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/7755">AfroApe</a></span><span class="text">well it does, its just room with no roof, but I found the solution</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/9071"><img src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/user_noavatar1.png" alt="hivauz"></a></span><span class="message"><span title="10/31/2024, 8:45:42 AM" class="time">2 weeks ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/9071">hivauz</a></span><span class="text">hi</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/8994"><img src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/08994_60427.jpg" alt="Combiner 1P"></a></span><span class="message"><span title="10/31/2024, 2:39:59 PM" class="time">2 weeks ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/8994">Combiner 1P</a></span><span class="text">Has anyone stocked up on kilograms of candies already?</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/8994"><img src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/08994_60427.jpg" alt="Combiner 1P"></a></span><span class="message"><span title="10/31/2024, 2:40:14 PM" class="time">2 weeks ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/8994">Combiner 1P</a></span><span class="text">On Halloween</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/8994"><img src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/08994_60427.jpg" alt="Combiner 1P"></a></span><span class="message"><span title="10/31/2024, 2:40:49 PM" class="time">2 weeks ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/8994">Combiner 1P</a></span><span class="text">I'm not. Unfortunately, such holidays are not celebrated in our country.</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/9072"><img src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/09072_80097.png" alt="Prospero01.mp3"></a></span><span class="message"><span title="10/31/2024, 3:30:08 PM" class="time">2 weeks ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/9072">Prospero01.mp3</a></span><span class="text">sup</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/8630"><img src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/08630_33054.jpeg" alt="Diechie"></a></span><span class="message"><span title="10/31/2024, 7:56:06 PM" class="time">2 weeks ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/8630">Diechie</a></span><span class="text">mmnmmommommnonmmonqnmmo</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/8484"><img src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/08484_12971.jpg" alt="vef4"></a></span><span class="message"><span title="10/31/2024, 9:33:47 PM" class="time">2 weeks ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/8484">vef4</a></span><span class="text">barney</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/7394"><img src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/07394_56360.png" alt="Meerjel01"></a></span><span class="message"><span title="11/1/2024, 8:22:43 AM" class="time">2 weeks ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/7394">Meerjel01</a></span><span class="text">the dinosaur</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/8630"><img src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/08630_33054.jpeg" alt="Diechie"></a></span><span class="message"><span title="11/1/2024, 1:27:47 PM" class="time">2 weeks ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/8630">Diechie</a></span><span class="text">barney es un dinosaurio que vive bajo un puente</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/9058"><img src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/user_noavatar1.png" alt="toro"></a></span><span class="message"><span title="11/2/2024, 1:30:20 PM" class="time">2 weeks ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/9058">toro</a></span><span class="text">Eternal Silence event happening right now</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/9058"><img src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/user_noavatar1.png" alt="toro"></a></span><span class="message"><span title="11/2/2024, 1:30:22 PM" class="time">2 weeks ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/9058">toro</a></span><span class="text"><a href="https://store.steampowered.com/app/17550/Eternal_Silence/" target="_blank" rel="noopener noreferrer">store.steampowered.com/app/17550/Eternal_Silence</a></span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/8484"><img src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/08484_12971.jpg" alt="vef4"></a></span><span class="message"><span title="11/5/2024, 1:42:04 PM" class="time">2 weeks ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/8484">vef4</a></span><span class="text">highly trained professional</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/6440"><img src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/06440_56446.jpg" alt="stop!"></a></span><span class="message"><span title="11/7/2024, 5:36:38 AM" class="time">1 week ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/6440">stop!</a></span><span class="text">Any tips in building some code that can successfully read and render a cs 1.6 map from scratch? I'm not much of a programmer myself and chatgpt doesn't seem to know xD</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/6754"><img src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/06754_80279(1).png" alt="Admer456"></a></span><span class="message"><span title="11/7/2024, 9:04:05 AM" class="time">1 week ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/6754">Admer456</a></span><span class="text">Learn programming, learn OpenGL, learn about the Quake BSP format and data structures. Then you'll know</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/6754"><img src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/06754_80279(1).png" alt="Admer456"></a></span><span class="message"><span title="11/7/2024, 9:05:11 AM" class="time">1 week ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/6754">Admer456</a></span><span class="text">Believe me, those are the best tips you're gonna get. Rendering a map is a complex topic and you need to be extremely comfy with 3D maths</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/8630"><img src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/08630_33054.jpeg" alt="Diechie"></a></span><span class="message"><span title="11/8/2024, 2:13:04 AM" class="time">1 week ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/8630">Diechie</a></span><span class="text">finally fully understand your programing videos</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/6754"><img src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/06754_80279(1).png" alt="Admer456"></a></span><span class="message"><span title="11/8/2024, 10:36:40 AM" class="time">1 week ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/6754">Admer456</a></span><span class="text">Yay!</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/8630"><img src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/08630_33054.jpeg" alt="Diechie"></a></span><span class="message"><span title="11/8/2024, 12:39:18 PM" class="time">1 week ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/8630">Diechie</a></span><span class="text">it only took 3 years</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/8630"><img src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/08630_33054.jpeg" alt="Diechie"></a></span><span class="message"><span title="11/8/2024, 12:39:38 PM" class="time">1 week ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/8630">Diechie</a></span><span class="text">or 2 idk</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/6754"><img src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/06754_80279(1).png" alt="Admer456"></a></span><span class="message"><span title="11/8/2024, 3:25:50 PM" class="time">1 week ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/6754">Admer456</a></span><span class="text">That's how long it took me to start understanding C++ too</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/6754"><img src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/06754_80279(1).png" alt="Admer456"></a></span><span class="message"><span title="11/8/2024, 3:26:02 PM" class="time">1 week ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/6754">Admer456</a></span><span class="text">In 2014 I did QBasic, 2015 tried HL SDK for the first time. Gave up in 2016</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/6754"><img src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/06754_80279(1).png" alt="Admer456"></a></span><span class="message"><span title="11/8/2024, 3:26:30 PM" class="time">1 week ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/6754">Admer456</a></span><span class="text">In 2018 I tried again and this time something just clicked(tm) and I managed to understand and learn code exponentially</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/8630"><img src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/08630_33054.jpeg" alt="Diechie"></a></span><span class="message"><span title="11/8/2024, 5:48:22 PM" class="time">1 week ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/8630">Diechie</a></span><span class="text">i even entered college and became old enough to drink in my country</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/8630"><img src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/08630_33054.jpeg" alt="Diechie"></a></span><span class="message"><span title="11/8/2024, 5:48:30 PM" class="time">1 week ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/8630">Diechie</a></span><span class="text">im old now</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/8484"><img src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/08484_12971.jpg" alt="vef4"></a></span><span class="message"><span title="11/9/2024, 11:20:06 AM" class="time">1 week ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/8484">vef4</a></span><span class="text">now im old</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/6754"><img src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/06754_80279(1).png" alt="Admer456"></a></span><span class="message"><span title="11/9/2024, 1:20:44 PM" class="time">1 week ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/6754">Admer456</a></span><span class="text">I was 18 when I started working on the series, I'm turning 23 in February</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/6754"><img src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/06754_80279(1).png" alt="Admer456"></a></span><span class="message"><span title="11/9/2024, 1:20:53 PM" class="time">1 week ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/6754">Admer456</a></span><span class="text">Can't believe it's gonna be 5 years</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/8484"><img src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/08484_12971.jpg" alt="vef4"></a></span><span class="message"><span title="11/9/2024, 1:43:59 PM" class="time">1 week ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/8484">vef4</a></span><span class="text">gordon doesn't need to hear all this</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/8484"><img src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/08484_12971.jpg" alt="vef4"></a></span><span class="message"><span title="11/9/2024, 1:44:45 PM" class="time">1 week ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/8484">vef4</a></span><span class="text">he is a theoretical physics graduate</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/1127"><img src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/01127_52450.png" alt="monster_urby"></a></span><span class="message"><span title="11/10/2024, 2:48:34 PM" class="time">1 week ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/1127">monster_urby</a></span><span class="text">Look at all you younguns calling yourselves "old." Pfft!</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/8630"><img src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/08630_33054.jpeg" alt="Diechie"></a></span><span class="message"><span title="11/11/2024, 2:10:37 AM" class="time">1 week ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/8630">Diechie</a></span><span class="text">What are you? President of the old guys club?</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/5225"><img src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/5225.png" alt="Unq"></a></span><span class="message"><span title="11/11/2024, 11:48:54 AM" class="time">1 week ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/5225">Unq</a></span><span class="text">secretary at best</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/8630"><img src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/08630_33054.jpeg" alt="Diechie"></a></span><span class="message"><span title="11/11/2024, 2:13:03 PM" class="time">1 week ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/8630">Diechie</a></span><span class="text">I should make the KSI thick of it mod where you play as KSI and do from the screen. To the ring to the .</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/8630"><img src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/08630_33054.jpeg" alt="Diechie"></a></span><span class="message"><span title="11/11/2024, 2:13:08 PM" class="time">1 week ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/8630">Diechie</a></span><span class="text">Pen to the king</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/9084"><img src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/user_noavatar1.png" alt="Walter Alex"></a></span><span class="message"><span title="11/11/2024, 8:41:36 PM" class="time">1 week ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/9084">Walter Alex</a></span><span class="text">When I go from one level change to another on my maps with the changelevel trigger, the decals repeat as shown in the images. Any solution for this? why does this happen?</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/6649"><img src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/6649.png" alt="MMProductions"></a></span><span class="message"><span title="11/12/2024, 2:07:11 PM" class="time">1 week ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/6649">MMProductions</a></span><span class="text">I once had a different problem using trigger_changelevel</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/6649"><img src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/6649.png" alt="MMProductions"></a></span><span class="message"><span title="11/12/2024, 2:07:40 PM" class="time">1 week ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/6649">MMProductions</a></span><span class="text">When going to map A to map B, I got stuck outside of the map</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/8593"><img src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/user_noavatar1.png" alt="nur_ab_sal"></a></span><span class="message"><span title="11/12/2024, 3:55:56 PM" class="time">1 week ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/8593">nur_ab_sal</a></span><span class="text">Hi, id like to invite you to old FPS oriented FB group, which is full of custom maps and mods made by fans. I post a lot of stuff related to half-life universe. If youre facebook users, please pay a visit. Thx</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/8593"><img src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/user_noavatar1.png" alt="nur_ab_sal"></a></span><span class="message"><span title="11/12/2024, 3:56:17 PM" class="time">1 week ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/8593">nur_ab_sal</a></span><span class="text">Boomer Shooters &amp; Classic FPS Enthusiasts: Maps, Mods, Engines, Soundtracks</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/8593"><img src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/user_noavatar1.png" alt="nur_ab_sal"></a></span><span class="message"><span title="11/12/2024, 3:56:22 PM" class="time">1 week ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/8593">nur_ab_sal</a></span><span class="text"><a href="https://www.facebook.com/groups/495775970100553" target="_blank" rel="noopener noreferrer">facebook.com/groups/495775970100553</a></span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/4979"><img src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/4979.jpg" alt="Striker"></a></span><span class="message"><span title="11/15/2024, 7:07:23 PM" class="time">4 days ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/4979">Striker</a></span><span class="text">Happy HalfLife anniversary!</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/6754"><img src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/06754_80279(1).png" alt="Admer456"></a></span><span class="message"><span title="11/15/2024, 9:52:38 PM" class="time">4 days ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/6754">Admer456</a></span><span class="text">Happy 20th birthday HL2, the game that started it all for me</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/8295"><img src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/user_noavatar1.png" alt="MegaBrutal"></a></span><span class="message"><span title="11/15/2024, 10:20:20 PM" class="time">4 days ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/8295">MegaBrutal</a></span><span class="text">I noticed Half-Life 2: Deathmatch being delisted from the Steam store. Is it automatically granted for HL2 now, or did it become temporarily unobtainable? (Probably it's been like that for a long time, I just didn't notice?)</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/6440"><img src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/06440_56446.jpg" alt="stop!"></a></span><span class="message"><span title="11/16/2024, 4:06:01 AM" class="time">3 days ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/6440">stop!</a></span><span class="text">Happy Birthday! Come join me on this hldm server to celebrate: <a href="http://hl.dm20.net/" target="_blank" rel="noopener noreferrer">hl.dm20.net</a></span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/8792"><img src="./Wiki_ Tutorial_ Advanced Terrain Creation - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/08792_50233.png" alt="domklr"></a></span><span class="message"><span title="11/16/2024, 9:32:53 AM" class="time">3 days ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/8792">domklr</a></span><span class="text">@MegaBrutal yes hl2dm now comes with hl2 automatically</span></span></li></ul><!----><form class="inactive">Log in to add shouts of your own</form></div>
+
+        <script type="text/javascript">
+        window.urls = {
+            embed: {
+                vault: 'https://twhl.info/api/vault-items',
+                vault_screenshot: 'https://twhl.info/uploads/vault/{shot}',
+                game_icon: 'https://twhl.info/images/games/{game_abbr}_32.svg'
+            },
+            view: {
+                user: 'https://twhl.info/user/view/{id}',
+                vault: 'https://twhl.info/vault/view/{id}'
+            },
+            images: {
+                no_screenshot_320: 'https://twhl.info/images/no-screenshot-320.png',
+                no_screenshot_640: 'https://twhl.info/images/no-screenshot-640.png',
+                smiley_folder: 'https://twhl.info/images/smilies'
+            },
+            api: {
+                image_upload: 'https://twhl.info/api/image-upload',
+                format: 'https://twhl.info/api/posts/format'
+            },
+            wiki: {
+                page: 'https://twhl.info/wiki/page/{slug}',
+                formatting_guide: 'https://twhl.info/wiki/page/TWHL:_WikiCode_Syntax',
+                book_info: 'https://twhl.info/wiki/book-info?book={book}'
+            }
+        };
+        $(function() {
+            window.initShoutbox({
+                url:'https://twhl.info/api/shouts{action}',
+                userUrl:'https://twhl.info/user/view/{id}',
+                active: false,
+                moderator: false
+            });
+        });
+        $('.navbar-search-dropdown .dropdown').on('shown.bs.dropdown', function () {
+            $(this).find('input:text').focus();
+        });
+    </script>
+    
+
+</body></html>

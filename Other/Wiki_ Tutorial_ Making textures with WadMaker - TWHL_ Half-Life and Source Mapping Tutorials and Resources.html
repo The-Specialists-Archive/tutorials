@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<!-- saved from url=(0092)https://twhl.info/wiki/page/Tutorial%3A_Making_textures_with_WadMaker#1._Installing_WadMaker -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <title>Wiki: Tutorial: Making textures with WadMaker - TWHL: Half-Life and Source Mapping Tutorials and Resources</title>
+
+        <meta content="The Whole Half-Life" property="og:site_name">
+                                <meta property="og:description" content="[cat:Tutorials]
+ [cat:Beginner Tutorials]
+ [cat:Goldsource Tutorials]
+ [cat:Textures]
+ [credit:Original author|user:261]
+ 
+ = Using WadMaker to make Half-Life and Counter-Strike textures
+ 
+ WadMaker is a new tool for making Half-Life and Counter-Strike textures. It&#39;s designed to make creating and up...">
+                <meta property="og:type" content="website">
+                    <meta property="og:title" content="Wiki: Tutorial: Making textures with WadMaker">
+                            <meta property="og:image" content="https://twhl.info/images/twhl-logo.png">
+                <meta property="og:url" content="https://twhl.info/wiki/page/Tutorial%3A_Making_textures_with_WadMaker">
+        <meta name="theme-color" content="#e68a27">
+
+        <link href="./Wiki_ Tutorial_ Making textures with WadMaker - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/app.css" rel="stylesheet">
+        <link rel="shortcut icon" href="https://twhl.info/favicon.ico">
+        <link rel="search" type="application/opensearchdescription+xml" href="https://twhl.info/opensearch.xml" title="TWHL">
+
+        
+        <!-- Fonts -->
+        <link href="./Wiki_ Tutorial_ Making textures with WadMaker - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/css" rel="stylesheet" type="text/css">
+
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+            <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+        <!-- Scripts -->
+        <script type="text/javascript" src="./Wiki_ Tutorial_ Making textures with WadMaker - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/all.js.download"></script><style type="text/css" id="operaUserStyle"></style>
+        <script type="text/javascript" src="./Wiki_ Tutorial_ Making textures with WadMaker - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/compiled.js.download"></script>
+    <style type="text/css">:root [href^="//mage98rquewz.com/"], :root [href^="//x4pollyxxpush.com/"], :root span[id^="ezoic-pub-ad-placeholder-"], :root ins.adsbygoogle[data-ad-slot], :root ins.adsbygoogle[data-ad-client], :root guj-ad, :root gpt-ad, :root div[id^="zergnet-widget"], :root div[id^="vuukle-ad-"], :root div[id^="taboola-stream-"], :root div[id^="sticky_ad_"], :root div[id^="st"][style^="z-index: 999999999;"], :root div[id^="pa_sticky_ad_box_middle_"], :root div[id^="gpt_ad_"], :root div[id^="ezoic-pub-ad-"], :root div[id^="dfp-ad-"], :root div[id^="crt-"][style], :root div[id^="adspot-"], :root div[id^="adrotate_widgets-"], :root ps-connatix-module, :root div[id^="ad_position_"], :root div[id^="ad-div-"], :root div[id*="ScriptRoot"], :root div[id*="MarketGid"], :root div[data-id-advertdfpconf], :root hl-adsense, :root div[data-contentexchange-widget], :root div[data-alias="300x250 Ad 2"], :root div[data-adzone], :root div[data-adunit-path], :root div[data-adname], :root div[data-ad-placeholder], :root div[class^="native-ad-"], :root div[data-dfp-id], :root div[class^="kiwi-ad-wrapper"], :root div[aria-label="Ads"], :root display-ads, :root display-ad-component, :root atf-ad-slot, :root aside[id^="adrotate_widgets-"], :root ark-top-ad, :root amp-fx-flying-carpet, :root amp-embed[type="taboola"], :root amp-connatix-player, :root amp-ad-custom, :root amp-ad, :root div[id^="google_dfp_"], :root ad-slot, :root ad-shield-ads, :root a[style="width:100%;height:100%;z-index:10000000000000000;position:absolute;top:0;left:0;"], :root a[onmousedown^="this.href='https://paid.outbrain.com/network/redir?"][target="_blank"] + .ob_source, :root a[href^="https://xbet-4.com/"], :root div[id^="ad-position-"], :root a[href^="https://www.toprevenuegate.com/"], :root a[href^="https://www.sugarinstant.com/?partner_id="], :root a[href^="https://www.purevpn.com/"][href*="&utm_source=aff-"], :root a[href^="https://www.privateinternetaccess.com/"] > img, :root a[href^="https://www.onlineusershielder.com/"], :root a[href^="https://www.liquidfire.mobi/"], :root a[href^="https://www.infowarsstore.com/"] > img, :root a[href^="https://www.highperformancecpmgate.com/"], :root a[href^="https://www.highcpmrevenuenetwork.com/"], :root a[href^="https://lnkxt.bannerator.com/"], :root a[href^="https://www.geekbuying.com/dynamic-ads/"], :root a[href^="https://www.financeads.net/tc.php?"], :root [href^="https://www.herbanomic.com/"] > img, :root a[href^="https://maymooth-stopic.com/"], :root a[href^="https://www.dql2clk.com/"], :root a[href^="https://www.nutaku.net/signup/landing/"], :root a[href^="https://www.dating-finder.com/signup/?ai_d="], :root a[href^="https://explore-site.com/"], :root a[href^="https://www.brazzersnetwork.com/landing/"], :root a[href^="https://www.adxsrve.com/"], :root [data-template-type="nativead"], :root a[href^="https://www.endorico.com/Smartlink/"], :root a[href^="https://www.adultempire.com/"][href*="?partner_id="], :root a[href^="https://voluum.prom-xcams.com/"], :root a[href^="https://twinrdsrv.com/"], :root a[href^="https://trk.nfl-online-streams.club/"], :root a[href^="https://tracking.avapartner.com/"], :root a[href^="https://track.wg-aff.com"], :root a[href^="https://track.ultravpn.com/"], :root a[href^="https://track.afcpatrk.com/"], :root a[href^="https://torguard.net/aff.php"] > img, :root [data-identity="adhesive-ad"], :root a[href^="https://tc.tradetracker.net/"] > img, :root a[href^="https://tatrck.com/"], :root a[href^="https://click.candyoffers.com/"], :root [href^="https://zstacklife.com/"] img, :root a[href^="https://t.aslnk.link/"], :root a[href^="https://t.adating.link/"], :root a[href^="https://safesurfingtoday.com/"][href*="?skip="], :root a[href^="https://land.brazzersnetwork.com/landing/"], :root a[href^="https://t.acam.link/"], :root a[href*="//daichoho.com/"], :root a[href^="https://syndication.optimizesrv.com/"], :root a[href^="https://go.trackitalltheway.com/"], :root [href^="https://track.fiverr.com/visit/"] > img, :root a[href^="https://syndication.exoclick.com/"], :root a[href^="https://syndication.dynsrvtbg.com/"], :root div[data-alias="300x250 Ad 1"], :root a[href^="https://syndicate.contentsserved.com/"], :root a[href^="https://svb-analytics.trackerrr.com/"], :root a[href^="https://ad.doubleclick.net/"], :root a[href^="https://static.fleshlight.com/images/banners/"], :root a[href^="https://slkmis.com/"], :root bottomadblock, :root a[href^="https://s.zlinkd.com/"], :root a[href^="https://s.zlink3.com/"], :root a[href^="https://www.mrskin.com/account/"], :root a[href^="https://s.optzsrv.com/"], :root a[href^="https://random-affiliate.atimaze.com/"], :root #kt_player > div[style$="display: block;"][style*="inset: 0px;"], :root a[href^="https://quotationfirearmrevision.com/"], :root a[href^="https://pubads.g.doubleclick.net/"], :root a[href^="https://ak.oalsauwy.net/"], :root a[href^="https://softwa.cfd/"], :root a[href^="https://play1ad.shop/"], :root a[href^="https://prf.hn/click/"][href*="/camref:"] > img, :root a[href^="https://www.dating-finder.com/?ai_d="], :root a[href^="https://serve.awmdelivery.com/"], :root a[href^="https://prf.hn/click/"][href*="/adref:"] > img, :root app-ad, :root [href^="https://ap.octopuspop.com/click/"] > img, :root a[href^="https://postback1win.com/"], :root a[href^="https://mmwebhandler.aff-online.com/"], :root a[href^="https://www.bet365.com/"][href*="affiliate="], :root a[href^="https://pb-track.com/"], :root a[href^="https://pb-front.com/"], :root a[href^="https://paid.outbrain.com/network/redir?"], :root a[href^="https://streamate.com/landing/click/"], :root div[class^="Adstyled__AdWrapper-"], :root a[href^="https://startgaming.net/tienda/" i], :root a[href^="https://osfultrbriolenai.info/"], :root a[href^="https://ngineet.cfd/"], :root a[href^="https://upsups.click/"], :root a[href^="https://ndt5.net/"], :root a[href^="http://eighteenderived.com/"], :root a[href^="https://natour.naughtyamerica.com/track/"], :root a[href^="https://mediaserver.entainpartners.com/renderBanner.do?"], :root a[href^="https://m.do.co/c/"] > img, :root .nya-slot[style], :root a[href^="https://a.bestcontentweb.top/"], :root a[href^="https://lobimax.com/"], :root a[href^="https://lead1.pl/"], :root a[href^="https://landing.brazzersnetwork.com/"], :root a[href^="https://join.virtuallust3d.com/"], :root a[href^="https://kiksajex.com/"], :root a[href^="https://juicyads.in/"], :root a[href^="https://snowdayonline.xyz/"], :root a[href^="https://mediaserver.gvcaffiliates.com/renderBanner.do?"], :root a[href^="https://join.dreamsexworld.com/"], :root a[href^="https://jaxofuna.com/"], :root a[href^="https://itubego.com/video-downloader/?affid="], :root a[href^="https://italarizege.xyz/"], :root a[href^="https://iqbroker.com/"][href*="?aff="], :root a[href^="https://hot-growngames.life/"], :root a[href^="https://golinks.work/"], :root a[href^="https://go.xxxvjmp.com/"], :root [class^="tile-picker__CitrusBannerContainer-sc-"], :root a[href^="https://go.xxxiijmp.com"], :root a[href^="https://go.xtbaffiliates.com/"], :root .OUTBRAIN[data-widget-id^="FMS_REELD_"], :root [data-role="tile-ads-module"], :root a[href^="https://go.xlviirdr.com"], :root a[href^="https://go.xlviiirdr.com"], :root a[href^="https://ismlks.com/"], :root [href^="https://www.mypillow.com/"] > img, :root a[href^="https://go.xlirdr.com"], :root [data-css-class="dfp-inarticle"], :root a[href^="https://l.hyenadata.com/"], :root a[href^="https://go.tmrjmp.com"], :root a[href^="https://zirdough.net/"], :root a[href^="https://s.deltraff.com/"], :root a[href^="https://go.markets.com/visit/?bta="], :root a[href^="https://billing.purevpn.com/aff.php"] > img, :root a[href^="https://go.hpyrdr.com/"], :root a[href^="https://lijavaxa.com/"], :root a[href^="https://go.goaserv.com/"], :root a[href^="https://t.hrtye.com/"], :root a[href^="https://go.etoro.com/"] > img, :root a[href^="https://go.dmzjmp.com"], :root div[class^="Display_displayAd"], :root a[href^="https://www.bang.com/?aff="], :root #mgb-container > #mgb, :root a[href^="https://go.admjmp.com"], :root a[href^="https://get.surfshark.net/aff_c?"][href*="&aff_id="] > img, :root a[href^="https://www.mrskin.com/tour"], :root a[href^="https://financeads.net/tc.php?"], :root a[href^="https://www.adskeeper.com"], :root a[data-redirect^="https://paid.outbrain.com/network/redir?"], :root [href^="https://clicks.affstrack.com/"] > img, :root a[href^="https://ak.hauchiwu.com/"], :root a[href^="https://engine.phn.doublepimp.com/"], :root a[href^="https://engine.blueistheneworanges.com/"], :root a[href^="https://drumskilxoa.click/"], :root a[href^="https://dl-protect.net/"], :root a[href^="https://rixofa.com/"], :root #ads[style^="position: absolute; z-index: 30; width: 100%; height"], :root a[href^="https://disobediencecalculatormaiden.com/"], :root a[href*=".foxqck.com/"], :root a[href^="https://ctosrd.com/"], :root a[href^="https://clixtrac.com/"], :root [href^="https://noqreport.com/"] > img, :root a[href^="https://clicks.pipaffiliates.com/"], :root a[href^="https://datewhisper.life/"], :root a[href^="https://get-link.xyz/"], :root a[href^="https://click.linksynergy.com/fs-bin/"] > img, :root a[href^="https://combodef.com/"], :root AD-TRIPLE-BOX, :root a[href^="https://click.hoolig.app/"], :root a[href^="https://track.totalav.com/"], :root a[href^="https://ctrdwm.com/"], :root img[src^="https://images.purevpnaffiliates.com"], :root a[href^="https://porntubemate.com/"], :root a[href^="https://clickadilla.com/"], :root a[href^="https://click.dtiserv2.com/"], :root a[href^="https://go.xlvirdr.com"], :root a[href^="http://www.iyalc.com/"], :root a[href^="https://claring-loccelkin.com/"], :root a[href^="https://s.ma3ion.com/"], :root a[href^="https://cams.imagetwist.com/in/?track="], :root a[href^="https://bongacams2.com/track?"], :root a[href^="https://t.ajrkm1.com/"], :root [href="https://masstortfinancing.com"] img, :root a[href^="https://bongacams10.com/track?"], :root a[href^="https://www.sheetmusicplus.com/"][href*="?aff_id="], :root a[href^="https://bngpt.com/"], :root a[href^="https://black77854.com/"], :root a[href^="https://banners.livepartners.com/"], :root a[href^="http://revolvemockerycopper.com/"], :root a[href^="https://awptjmp.com/"], :root a[href^="https://join.sexworld3d.com/track/"], :root a[href^="https://intenseaffiliates.com/redirect/"], :root a[href^="https://aweptjmp.com/"], :root [class^="s2nPlayer"], :root a[href^="https://chaturbate.jjgirls.com/?track="], :root a[href^="https://ausoafab.net/"], :root a[href^="https://ak.psaltauw.net/"], :root a[href^="https://adclick.g.doubleclick.net/"], :root a[href^="https://bc.game/"], :root a[href^="https://a.bestcontentoperation.top/"], :root a[href^="https://adultfriendfinder.com/go/"], :root a[href^="https://ads.planetwin365affiliate.com/"], :root a[href^="https://ads.leovegas.com/"], :root a[href^="https://auesk.cfd/"], :root a[href^="https://a2.adform.net/"], :root a[href^="https://a.candyai.love/"], :root a[href^="https://playnano.online/offerwalls/?ref="], :root a[href^="https://a.adtng.com/"], :root [data-m-ad-id], :root a[href^="https://a-ads.com/"], :root div[id^="rc-widget-"], :root a[href^="http://eslp34af.click/"], :root a[href^="https://turnstileunavailablesite.com/"], :root a[href^="https://chaturbate.com/in/?"], :root a[href^="https://prf.hn/click/"][href*="/creativeref:"] > img, :root a[href*="&maxads="], :root a[href^="http://www.adultempire.com/unlimited/promo?"][href*="&partner_id="], :root a[href^="https://1betandgonow.com/"], :root a[href^="https://eergortu.net/"], :root div[id^="optidigital-adslot"], :root a[href^="https://123-stream.org/"], :root a[href^="http://www.friendlyduck.com/AF_"], :root a[href^="https://allhost.shop/aff.php?"], :root [data-dynamic-ads], :root a[href^="http://vnte9urn.click/"], :root a[href^="https://getvideoz.click/"], :root a[href^="http://troopsassistedstupidity.com/"], :root a[href^="http://trk.globwo.online/"], :root a-ad, :root a[href^="https://offhandpump.com/"], :root a[href^="http://stickingrepute.com/"], :root #slashboxes > .deals-rail, :root [data-rc-widget="data-rc-widget"], :root a[href^="http://premonitioninventdisagree.com/"], :root a[href^="http://naggingirresponsible.com/"], :root a[href^="https://in.rabbtrk.com/"], :root div[data-ad-targeting], :root a[href^="https://hotplaystime.life/"], :root a[href^="http://www.h4trck.com/"], :root a[href^="https://81ac.xyz/"], :root a[href^="http://guestblackmail.com/"], :root a[href^="http://cam4com.go2cloud.org/aff_c?"], :root a[href^="https://ads.betfair.com/redirect.aspx?"], :root [href^="https://www.mypatriotsupply.com/"] > img, :root a[href^="https://trk.softonixs.xyz/"], :root a[href^="https://sexynearme.com/"], :root a[href^="https://myclick-2.com/"], :root a[href^="http://dragnag.com/"], :root a[href^="https://trk.sportsflix4k.club/"], :root a[href^="http://dragfault.com/"], :root [id^="div-gpt-ad"], :root .ob_container .item-container-obpd, :root div[id^="yandex_ad"], :root a[href^="https://www8.smartadserver.com/"], :root a[href^="https://pb-imc.com/"], :root a[href^="http://deskfrontfreely.com/"], :root [data-advadstrackid], :root a[href^="http://muzzlematrix.com/"], :root a[href^="https://track.adform.net/"], :root a[href^="http://avthelkp.net/"], :root a[href^="https://a.medfoodhome.com/"], :root a[href^="https://engine.flixtrial.com/"], :root [data-type="ad-vertical"], :root [data-taboola-options], :root a[href^="http://annulmentequitycereals.com/"], :root a[href^="//startgaming.net/tienda/" i], :root a[href^="https://www.get-express-vpn.com/offer/"], :root a[href^="https://s.cant3am.com/"], :root a[href^="//s.st1net.com/splash.php"], :root a[href^="https://join.virtualtaboo.com/track/"], :root [id^="ad_sky"], :root a[href^="http://coefficienttolerategravel.com/"], :root a[href^="https://a.medfoodsafety.com/"], :root a[href^="//go.eabids.com/"], :root a[href^="//ejitsirdosha.net/"], :root a[href^=" https://www.friendlyduck.com/AF_"], :root a[href*="/jump/next.php?r="], :root [href^="https://ilovemyfreedoms.com/landing-"], :root a[href^="https://go.nordvpn.net/aff"] > img, :root .\[\&_\.gdprAdTransparencyCogWheelButton\]\:\!pjra-z-\[5\], :root [href^="http://clicks.totemcash.com/"], :root a[href^="https://ad.zanox.com/ppc/"] > img, :root a[href^="https://lone-pack.com/"], :root [data-d-ad-id], :root a[href*=".engine.adglare.net/"], :root a[href^="https://t.ajrkm3.com/"], :root [href^="https://aads.com/campaigns/"], :root a[href^="//stighoazon.com/"], :root [href^="https://www.profitablegatecpm.com/"], :root div[id^="lazyad-"], :root a[href^="http://com-1.pro/"], :root a[href*=".cfm?domain="][href*="&fp="], :root [data-ad-name], :root a[href^="https://loboclick.com/"], :root a[data-url^="https://vulpix.bet/?ref="], :root a[href^="https://ab.advertiserurl.com/aff/"], :root a[data-oburl^="https://paid.outbrain.com/network/redir?"], :root a[href^="https://go.xlivrdr.com"], :root [onclick^="location.href='https://1337x.vpnonly.site/"], :root [name^="google_ads_iframe"], :root [id^="section-ad-banner"], :root [href^="https://zone.gotrackier.com/"], :root a[href^="http://sarcasmadvisor.com/"], :root [href^="https://www.restoro.com/"], :root [href^="https://www.targetingpartner.com/"], :root .section-subheader > .section-hotel-prices-header, :root [href^="https://www.hostg.xyz/"] > img, :root a[href^="http://adultfriendfinder.com/go/"], :root a[href^="https://fastestvpn.com/lifetime-special-deal?a_aid="], :root a[href^="https://tour.mrskin.com/"], :root [href^="https://www.brighteonstore.com/products/"] img, :root [href^="https://wct.link/click?"], :root div[data-adunit], :root app-large-ad, :root [href^="https://turtlebids.irauctions.com/"] img, :root citrus-ad-wrapper, :root a[onmousedown^="this.href='https://paid.outbrain.com/network/redir?"][target="_blank"], :root a[href^="https://go.grinsbest.com/"], :root a[href^="https://vo2.qrlsx.com/"], :root [href^="https://www.avantlink.com/click.php"] img, :root a[href^="https://losingoldfry.com/"], :root [data-wpas-zoneid], :root .scroll-fixable.rail-right > .deals-rail, :root [href^="https://routewebtk.com/"], :root div[id^="div-ads-"], :root [href^="https://rapidgator.net/article/premium/ref/"], :root [href^="https://join.girlsoutwest.com/"], :root a[href^="https://activate-game.com/"], :root a[href^="https://track.aftrk3.com/"], :root [href^="https://join3.bannedsextapes.com"], :root a[href^="https://bodelen.com/"], :root a[href*=".g2afse.com/"], :root div[id^="adngin-"], :root [data-rc-widget], :root span[data-ez-ph-id], :root [href^="https://track.aftrk1.com/"], :root [href^="https://join.playboyplus.com/track/"], :root a[href^="https://go.xxxijmp.com"], :root [href^="https://istlnkcl.com/"], :root [href^="https://go.xlrdr.com"], :root a[href^="https://tm-offers.gamingadult.com/"], :root [href^="https://charmingdatings.life/"], :root [href^="https://glersakr.com/"], :root a[href^="https://www.goldenfrog.com/vyprvpn?offer_id="][href*="&aff_id="], :root [id^="ad-wrap-"], :root a[href*="//jjgirls.com/sex/Chaturbate"], :root a[href^="https://a.bestcontentfood.top/"], :root [href^="https://cpa.10kfreesilver.com/"], :root [data-id^="div-gpt-ad"], :root a[href^="https://tracker.loropartners.com/"], :root [href^="https://awbbjmp.com/"], :root a[data-href^="http://ads.trafficjunky.net/"], :root a[href*=".adsrv.eacdn.com/"], :root [href^="https://antiagingbed.com/discount/"] > img, :root a[href^="http://partners.etoro.com/"], :root a[href^="https://www.friendlyduck.com/AF_"], :root [href^="https://ad1.adfarm1.adition.com/"], :root [href^="https://goldcometals.com/clk.trk"], :root a[href^="https://bngprm.com/"], :root [href^="https://shiftnetwork.infusionsoft.com/go/"] > img, :root a[href^="https://go.strpjmp.com/"], :root a[href^="https://go.bushheel.com/"], :root a[href^="https://ctjdwm.com/"], :root a[href^="https://camfapr.com/landing/click/"], :root div[data-ad-wrapper], :root .gnt_em_vp_c[data-g-s="vp_dk"], :root [href="//sexcams.plus/"], :root [href^="http://www.mypillow.com/"] > img, :root #kt_player > a[target="_blank"], :root a[href^="http://bongacams.com/track?"], :root [href^="http://mypillow.com/"] > img, :root [href="https://ourgoldguy.com/contact/"] img, :root #teaser3[style="width: 100%;text-align: center;display: scroll;position:fixed;bottom: 0;margin: 0 auto;z-index: 103;"], :root [href="https://www.masstortfinancing.com/"] > img, :root a[href^="https://go.rmhfrtnd.com/"], :root [href="https://jdrucker.com/gold"] > img, :root a[href^="https://track.1234sd123.com/"], :root zeus-ad, :root [data-testid="prism-ad-wrapper"], :root [href^="https://ad.admitad.com/"], :root [href^="https://mypillow.com/"] > img, :root [data-testid="ad_testID"], :root [href^="https://optimizedelite.com/"] > img, :root [data-name="adaptiveConstructorAd"], :root a[href^="https://go.cmtaffiliates.com/"], :root [data-testid="adBanner-wrapper"], :root [href^="https://mylead.global/stl/"] > img, :root [href^="https://mypatriotsupply.com/"] > img, :root a[href^="https://go.hpyjmp.com"], :root [href^="https://mystore.com/"] > img, :root a[href^="https://witnessjacket.com/"], :root [data-mobile-ad-id], :root a[href^="https://fc.lc/ref/"], :root [data-adshim], :root topadblock, :root a[href^="//s.zlinkd.com/"], :root [class^="amp-ad-"], :root a[href^="http://handgripvegetationhols.com/"], :root a[href^="https://bs.serving-sys.com"], :root a[href^="https://gamingadlt.com/?offer="], :root [data-desktop-ad-id], :root .grid > .container > #aside-promotion, :root DFP-AD, :root [id^="ad_slider"], :root [data-adbridg-ad-class], :root #teaser3[style^="width:autopx;"], :root [data-adblockkey], :root [data-block-type="ad"], :root [data-ad-width], :root [onclick*="content.ad/"], :root [data-ad-manager-id], :root AMP-AD, :root [data-ad-cls], :root [data-revive-zoneid] > iframe, :root [data-ez-name], :root a[href^="https://go.mnaspm.com/"], :root a[href^="https://service.bv-aff-trx.com/"], :root a[href^="https://6-partner.com/"], :root a[href^="https://traffdaq.com/"], :root [href^="https://www.cloudways.com/en/?id"], :root #teaser1[style^="width:autopx;"], :root [class^="div-gpt-ad"], :root a[href^="http://tc.tradetracker.net/"] > img, :root [href^="https://affiliate.fastcomet.com/"] > img, :root [class^="adDisplay-module"], :root [data-freestar-ad][id], :root a[href^="https://baipahanoop.net/"], :root [href^="https://v.investologic.co.uk/"], :root AD-SLOT, :root a[href^="https://www.googleadservices.com/pagead/aclk?"] > img, :root [data-ad-module], :root div[id^="div-gpt-"], :root a[href^="https://gml-grp.com/"], :root .ob_dual_right > .ob_ads_header ~ .odb_div, :root app-advertisement, :root a[href^="https://getmatchedlocally.com/"], :root a[href^="https://clickins.slixa.com/"], :root a[href^="https://cam4com.go2cloud.org/"], :root a[href^="http://li.blogtrottr.com/click?"], :root a[href^="https://go.skinstrip.net"][href*="?campaignId="], :root #teaser2[style^="width:autopx;"], :root a[href^="https://t.ajump1.com/"], :root a[href^="https://go.xxxjmp.com"], :root #leader-companion > a[href] { display: none !important; }</style></head>
+<body class="">
+
+    <header class="hidden-lg-up">
+    <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+        <div class="container">
+
+            <div class="d-flex justify-content-between" style="flex-grow: 1;">
+            
+            <a class="navbar-brand" href="https://twhl.info/">
+                <img src="./Wiki_ Tutorial_ Making textures with WadMaker - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/logo_icon.png" alt="">
+                <span class="hidden-md-down">The Whole Half-Life</span>
+                <span class="hidden-lg-up">TWHL</span>
+            </a>
+
+            
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-mobile-collapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            </div>
+
+            <div class="collapse navbar-collapse" id="navbar-mobile-collapse">
+
+                
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item"><a class="nav-link" href="https://twhl.info/forum">Forums</a></li>
+                    <li class="nav-item"><a class="nav-link" href="https://twhl.info/wiki">Wiki</a></li>
+                    <li class="nav-item"><a class="nav-link" href="https://twhl.info/vault">Vault</a></li>
+                    <li class="nav-item"><a class="nav-link" href="https://twhl.info/competition">Competitions</a></li>
+                    <li class="nav-item"><a class="nav-link" href="https://discord.gg/jEw8EqD">Discord</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="https://twhl.info/" data-toggle="dropdown">
+                            More...
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="https://twhl.info/journal">Journals</a>
+                            <a class="dropdown-item" href="https://twhl.info/news">News</a>
+                            <a class="dropdown-item" href="https://twhl.info/poll">Polls</a>
+                            <a class="dropdown-item" href="https://twhl.info/user">Members</a>
+                        </div>
+                    </li>
+                </ul>
+
+                
+                <form class="navbar-search-inline form-inline hidden-md-only hidden-lg-only" action="https://twhl.info/search/index" method="get">
+                    <div class="navbar-form">
+                        <div class="form-group">
+                            <div class="input-group input-group-sm">
+                                <div class="input-group-prepend"><span class="input-group-text"><span class="fa fa-search"></span></span></div>
+                                <input type="text" class="form-control" name="search" placeholder="Search">
+                                <span class="input-group-append"><button type="submit" class="btn btn-light">Go</button></span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <ul class="navbar-search-dropdown navbar-nav hidden-sm-down hidden-xl-up">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="https://twhl.info/wiki/page/Tutorial%3A_Making_textures_with_WadMaker#" data-toggle="dropdown">
+                            <span class="fa fa-search"></span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <form action="https://twhl.info/search/index" method="get">
+                                <div class="navbar-form">
+                                    <div class="form-group">
+                                        <div class="input-group input-group-sm flex-nowrap">
+                                            <div class="input-group-prepend"><span class="input-group-text"><span class="fa fa-search"></span></span></div>
+                                            <input type="text" class="form-control" name="search" placeholder="Search">
+                                            <span class="input-group-append"><button type="submit" class="btn btn-light">Go</button></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </li>
+                </ul>
+
+                
+                <ul class="navbar-nav">
+                                            <li class="navbar-login-dropdown nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="https://twhl.info/auth/login" data-toggle="dropdown">
+                                Login
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <form action="https://twhl.info/auth/login" method="post"><input type="hidden" name="_token" value="cGNLVciNgb80JGtaVOnUJE5gb8vzswVDghIXoTpo">
+                                    <div class="navbar-form login-form">
+                                                                                <div class="form-group "><label for="email_71862">Email or Username</label><input type="text" class="form-control" id="email_71862" name="email" value="" placeholder="Email/username"></div>
+                                        <div class="form-group "><label for="password_13503">Password</label><input type="password" class="form-control" id="password_13503" name="password" value="" placeholder="Password"></div>
+                                        <div class="checkbox "><label for="remember_78037"><input type="checkbox" id="remember_78037" name="remember" checked=""> Remember Me</label></div>
+                                        <div>
+                                            <button type="submit" class="btn btn-primary btn-block">Login</button>
+                                            <a class="btn btn-link" href="https://twhl.info/password/email">Forgot Your Password? </a>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" href="https://twhl.info/auth/register">Register</a></li>
+                                    </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+    
+    <div class="container">
+        <header class="header-desktop hidden-md-down">
+        <div class="header-image" style="background-image: url(https://twhl.info/images/header/header-7.jpg);">
+        <div class="wrapper">
+            <a href="https://twhl.info/">
+                <img class="logo-image" src="./Wiki_ Tutorial_ Making textures with WadMaker - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/twhl-logo-64.png" alt="">
+                <div class="logo-text">
+                    <div class="title">The Whole Half-Life</div>
+                    <div class="subtitle">Level design resources for GoldSource, Source, and beyond</div>
+                </div>
+            </a>
+            <div class="header-info">
+                <span>
+                    Featured game:
+                    <a href="https://store.steampowered.com/app/70/HalfLife/">Half-Life</a>
+                    by
+                    <a href="https://www.valvesoftware.com/">Valve Software</a>
+                </span>
+            </div>
+        </div>
+    </div>
+    <nav class="header-nav navbar navbar-expand navbar-dark bg-theme">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item"><a class="nav-link" href="https://twhl.info/forum">Forums</a></li>
+            <li class="nav-item"><a class="nav-link" href="https://twhl.info/wiki">Wiki</a></li>
+            <li class="nav-item"><a class="nav-link" href="https://twhl.info/vault">Vault</a></li>
+            <li class="nav-item"><a class="nav-link" href="https://twhl.info/competition">Competitions</a></li>
+            <li class="nav-item"><a class="nav-link" href="https://discord.gg/jEw8EqD">Discord</a></li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="https://twhl.info/" data-toggle="dropdown">
+                    Community
+                </a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="https://twhl.info/journal">Journals</a>
+                    <a class="dropdown-item" href="https://twhl.info/news">News</a>
+                    <a class="dropdown-item" href="https://twhl.info/poll">Polls</a>
+                    <a class="dropdown-item" href="https://twhl.info/user">Members</a>
+                </div>
+            </li>
+        </ul>
+        <ul class="navbar-nav">
+                            <li class="navbar-login-dropdown nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="https://twhl.info/auth/login" data-toggle="dropdown">
+                        Login/Register
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <form action="https://twhl.info/auth/login" method="post"><input type="hidden" name="_token" value="cGNLVciNgb80JGtaVOnUJE5gb8vzswVDghIXoTpo">
+                            <div class="navbar-form login-form">
+                                                                <input type="text" class="form-control mb-2" name="email" placeholder="Email or username">
+                                <input type="password" class="form-control mb-1" name="password" placeholder="Password">
+                                <div class="checkbox "><label for="remember_74505"><input type="checkbox" id="remember_74505" name="remember" checked=""> Remember Me</label></div>
+                                <button type="submit" class="btn btn-primary btn-block mb-1">Login</button>
+                                <a href="https://twhl.info/password/email">Forgot Your Password?</a>
+                                <hr>
+                                <div>New user?</div>
+                                <a class="btn btn-success btn-block mt-1" href="https://twhl.info/auth/register">Create an account</a>
+                            </div>
+                        </form>
+                    </div>
+                </li>
+                        <li class="nav-item">
+                <form class="navbar-search-inline form-inline" action="https://twhl.info/search/index" method="get">
+                    <div class="navbar-form navbar-search-form">
+                        <div class="form-group">
+                            <div class="input-group input-group-sm">
+                                <div class="input-group-prepend"><span class="input-group-text"><span class="fa fa-search"></span></span></div>
+                                <input type="text" class="form-control" name="search" placeholder="Search">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </li>
+        </ul>
+    </nav>
+</header>	        <div class="btn-toolbar wiki-navigation">
+            <div class="btn-group" role="group">
+            <a class="btn btn-light" href="https://twhl.info/wiki/page/Tutorial%3A_Making_textures_with_WadMaker">Tutorial: Making textures with WadMaker</a>
+                        <a class="btn btn-light" href="https://twhl.info/wiki/history/Tutorial%3A_Making_textures_with_WadMaker"><span class="fa fa-clock-o"></span> History</a>
+        </div>
+            <div class="btn-group" role="group">
+        <a class="btn btn-light" href="https://twhl.info/wiki/pages">See all pages</a>
+        <a class="btn btn-light" href="https://twhl.info/wiki/uploads">See all uploads</a>
+        <a class="btn btn-light" href="https://twhl.info/wiki/categories">See all categories</a>
+    </div>
+</div>            <h1>
+    <span class="fa fa-file-o"></span>
+    Tutorial: Making textures with WadMaker
+
+    <small class="pull-right">
+                Last edited <span class="nice-date" title="2024-02-29 23:27:16 UTC"><span class="formatted">8 months ago</span><span class="raw">2024-02-29 23:27:16 UTC</span></span>
+    </small>
+</h1>
+
+<ol class="breadcrumb">
+    <li><a href="https://twhl.info/wiki">Wiki</a></li>
+    <li class="active">View Page</li>
+    <li class="ml-auto no-breadcrumb">
+            </li>
+</ol>
+    <div class="ml-2 mb-2" style="margin-top: -0.75rem">
+        <span class="fa fa-share fa-flip-vertical"></span>
+        Redirected from <a href="https://twhl.info/wiki/page/Making_textures_with_WadMaker?no_redirect=true">Making_textures_with_WadMaker</a>
+    </div>
+
+<div class="wiki bbcode"><div class="contents"><ul><li><h2>Contents</h2></li><li class="level-1"><a href="https://twhl.info/wiki/page/Tutorial%3A_Making_textures_with_WadMaker#Using_WadMaker_to_make_Half-Life_and_Counter-Strike_textures">Using WadMaker to make Half-Life and Counter-Strike textures</a></li><li class="level-1"><a href="https://twhl.info/wiki/page/Tutorial%3A_Making_textures_with_WadMaker#1._Installing_WadMaker">1. Installing WadMaker</a></li><li class="level-1"><a href="https://twhl.info/wiki/page/Tutorial%3A_Making_textures_with_WadMaker#2._Creating_a_directory_for_your_texture_images">2. Creating a directory for your texture images</a></li><li class="level-1"><a href="https://twhl.info/wiki/page/Tutorial%3A_Making_textures_with_WadMaker#3._Creating_a_wad_file">3. Creating a wad file</a></li><li class="level-1"><a href="https://twhl.info/wiki/page/Tutorial%3A_Making_textures_with_WadMaker#4._Putting_a_wad_file_in_the_right_location">4. Putting a wad file in the right location</a></li><li class="level-1"><a href="https://twhl.info/wiki/page/Tutorial%3A_Making_textures_with_WadMaker#5._Adding_a_new_wad_file_to_J.A.C.K._or_Hammer">5. Adding a new wad file to J.A.C.K. or Hammer</a></li><li class="level-1"><a href="https://twhl.info/wiki/page/Tutorial%3A_Making_textures_with_WadMaker#6._Creating_different_texture_types">6. Creating different texture types</a></li><li class="level-2"><a href="https://twhl.info/wiki/page/Tutorial%3A_Making_textures_with_WadMaker#6.1._Normal_textures">6.1. Normal textures</a></li><li class="level-2"><a href="https://twhl.info/wiki/page/Tutorial%3A_Making_textures_with_WadMaker#6.2._Transparent_textures">6.2. Transparent textures</a></li><li class="level-2"><a href="https://twhl.info/wiki/page/Tutorial%3A_Making_textures_with_WadMaker#6.3._Water_textures">6.3. Water textures</a></li><li class="level-2"><a href="https://twhl.info/wiki/page/Tutorial%3A_Making_textures_with_WadMaker#6.4._Scrolling_textures">6.4. Scrolling textures</a></li><li class="level-2"><a href="https://twhl.info/wiki/page/Tutorial%3A_Making_textures_with_WadMaker#6.5._Animating_and_toggling_textures">6.5. Animating and toggling textures</a></li><li class="level-2"><a href="https://twhl.info/wiki/page/Tutorial%3A_Making_textures_with_WadMaker#6.6._Decal_textures">6.6. Decal textures</a></li><li class="level-2"><a href="https://twhl.info/wiki/page/Tutorial%3A_Making_textures_with_WadMaker#6.7._Random_tiling_textures">6.7. Random tiling textures</a></li><li class="level-2"><a href="https://twhl.info/wiki/page/Tutorial%3A_Making_textures_with_WadMaker#6.8._Fullbright_textures">6.8. Fullbright textures</a></li><li class="level-2"><a href="https://twhl.info/wiki/page/Tutorial%3A_Making_textures_with_WadMaker#6.9._Qpics">6.9. Qpics</a></li><li class="level-2"><a href="https://twhl.info/wiki/page/Tutorial%3A_Making_textures_with_WadMaker#6.10._Fonts">6.10. Fonts</a></li><li class="level-1"><a href="https://twhl.info/wiki/page/Tutorial%3A_Making_textures_with_WadMaker#7._Conclusion">7. Conclusion</a></li><li class="level-2"><a href="https://twhl.info/wiki/page/Tutorial%3A_Making_textures_with_WadMaker#7.1._Summary">7.1. Summary</a></li><li class="level-2"><a href="https://twhl.info/wiki/page/Tutorial%3A_Making_textures_with_WadMaker#7.2._Credits">7.2. Credits</a></li></ul></div>
+    <h1 id="Using_WadMaker_to_make_Half-Life_and_Counter-Strike_textures">Using WadMaker to make Half-Life and Counter-Strike textures</h1>
+WadMaker is a new tool for making Half-Life and Counter-Strike textures. It's designed to make creating and updating wad files easier and faster than with established tools like Wally. It can convert a directory full of images into a wad file with just a single action. Let's see how that works:
+<h1 id="1._Installing_WadMaker">1. Installing WadMaker</h1>
+Start by downloading the latest version of WadMaker from here: <a href="https://github.com/pwitvoet/wadmaker/releases/download/1.2.1/WadMaker_1.2.1_win64.zip">WadMaker_1.2.1_win64.zip</a> (or go to the <a href="https://github.com/pwitvoet/wadmaker/releases/latest">latest release page</a> if you're using Linux or a 32-bit Windows). Then extract the zip file somewhere on your computer, for example to <code>C:\HL\Tools</code>, so you'll end up with a <code>C:\HL\Tools\WadMaker_SpriteMaker_1.2</code> directory. The directory name and contents may vary depending on which version you downloaded:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Making textures with WadMaker - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/1509.png" alt="User posted image"></span></div>
+
+<h1 id="2._Creating_a_directory_for_your_texture_images">2. Creating a directory for your texture images</h1>
+Next, create a directory for your texture image files. <strong>The name of the directory will be the name of your wad file.</strong> Then find some image files and put them in the directory you just created. WadMaker supports png, jpg, gif, bmp and tga, but also Photoshop and Krita files. If you're using Gimp, Aseprite or another program then you'll need to configure a conversion tool first (<a href="https://github.com/pwitvoet/wadmaker/blob/master/wadmaker.md#custom-converters">see the documentation</a>). Here, I've created a directory named <code>C:\HL\Textures\chapter1</code> and added a couple of png and Krita files to it:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Making textures with WadMaker - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/1510.png" alt="User posted image"></span></div>
+
+<h1 id="3._Creating_a_wad_file">3. Creating a wad file</h1>
+<strong>Now drag this directory on top of <code>WadMaker.exe</code></strong>:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Making textures with WadMaker - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/1511.png" alt="User posted image"></span></div>
+If you see a blue 'Windows protected your PC' window pop up, click 'More info' and then click the 'Run anyway' button. You'll briefly see a console window pop up, and then a <code>chapter1.wad</code> file will appear next to the images directory:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Making textures with WadMaker - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/1512.png" alt="User posted image"></span></div>
+Let's open the log file with Notepad to see if it contains any errors. Common problems are images with a size that's not a multiple of 16, or filenames that contain spaces or that are longer than 15 characters. Here, everything went fine:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Making textures with WadMaker - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/1513.png" alt="User posted image"></span></div>
+
+<h1 id="4._Putting_a_wad_file_in_the_right_location">4. Putting a wad file in the right location</h1>
+<strong>Now copy the wad file to your <code>Half-Life\valve</code> or <code>Half-Life\cstrike</code> directory.</strong><br>
+<br>
+It's also possible to let WadMaker do this for you. Create a batch file (or copy <code>example batch file - WadMaker.bat</code>), change its name to <code>update chapter1 wad.bat</code>, open it with a basic text editor like Notepad, and add the following lines:
+<pre class="lang-plaintext"><code class="hljs">"C:\HL\Tools\WadMaker_SpriteMaker_1.2\WadMaker.exe" "C:\HL\Textures\chapter1" "C:\Program Files (x86)\Steam\steamapps\common\Half-Life\valve\chapter1.wad"
+
+PAUSE</code></pre>
+The <code>PAUSE</code> line causes the console window to stay open until you press a key, so you don't need to open the log file to see if anything went wrong.<br>
+<br>
+Now, instead of dragging the images directory on top of <code>WadMaker.exe</code> and then copying the wad file manually, you can double-click this batch file, and it will automatically create or update <code>chapter1.wad</code> in your <code>Half-Life\valve</code> directory. If the wad file already exists then WadMaker is smart enough to only process added, modified or deleted images, so updating usually only takes a few seconds.
+<h1 id="5._Adding_a_new_wad_file_to_J.A.C.K._or_Hammer">5. Adding a new wad file to J.A.C.K. or Hammer</h1>
+Before you can use a new wad file, you'll have to add it to your level editor.<br>
+<br>
+In J.A.C.K., go to <code>Tools -&gt; Options</code> to open the configuration window. Select the <code>Game Profiles</code> tab, then select the game configuration that you want to modify, and then go to the <code>Textures</code> tab in the <code>Configuration Settings</code> section below. Press the <code>Add Files...</code> button, navigate to your <code>chapter1.wad</code> file and add it to the list. Then press the <code>OK</code> button:
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Making textures with WadMaker - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/1514.png" alt="User posted image"></span></div>
+In Hammer the process is similar: go to <code>Tools -&gt; Options</code>, select the <code>Textures</code> tab, click the <code>Add WAD</code> button, add your <code>chapter1.wad</code> file to the list, then press the <code>OK</code> button.<br>
+<br>
+Unfortunately, Hammer and J.A.C.K. will not automatically refresh their textures when a wad file is updated, so you'll have to restart your editor each time you update a wad file.
+<h1 id="6._Creating_different_texture_types">6. Creating different texture types</h1>
+Half-Life uses an 8-bit indexed format for its textures, so each texture has a limit of 256 colors. With other tools it's sometimes necessary to manually create or adjust palettes, but <strong>WadMaker knows how to create palettes for all texture types that Half-Life supports. It also accepts images with transparency</strong>, so you don't need to mark transparent areas with a blue color either.<br>
+<br>
+Let's take a look at each texture type:
+<h2 id="6.1._Normal_textures">6.1. Normal textures</h2>
+The most common texture type, used for almost anything: walls, floors, ceilings, doors, and so on.<br>
+<br>
+This type does not support transparency by itself, but it can be used for glass and other translucent objects by applying it to brush entities that have their <code>Render Mode</code> set to <code>Texture</code>. The overall transparency is controlled by the entity's <code>FX Amount</code>.<br>
+<br>
+It can also be used to simulate light beams and glowing lights, when combined with the <code>Additive</code> <code>Render Mode</code>. In this mode, the value of each pixel will be 'added' to whatever is behind it. Black pixels won't add anything, so they're invisible, but the brighter a pixel is, the more 'brightness' it will add.
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Making textures with WadMaker - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/1515.png" alt="User posted image"></span></div>
+
+<h2 id="6.2._Transparent_textures">6.2. Transparent textures</h2>
+Textures whose name starts with a <code>{</code> can contain transparent areas - the final color in the palette is reserved for transparent pixels. This texture type is commonly used for fences, gratings and ladders. <strong>Transparent textures only work as expected when applied to brush entities that have their <code>Render Mode</code> set to <code>Solid</code> and their <code>FX Amount</code> set to <code>255</code>.</strong><br>
+<br>
+Most tools require transparent parts to be marked with a specific blue color (RGB: 0 0 255), but <strong>WadMaker expects images with an alpha channel</strong>. By default, any pixel with an alpha value below 127 (any pixel that's more than 50% transparent) will become transparent.
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Making textures with WadMaker - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/1516.png" alt="User posted image"></span></div>
+
+<h2 id="6.3._Water_textures">6.3. Water textures</h2>
+Textures whose name starts with a <code>!</code> will produce a wave effect <strong>when applied to a <code>func_water</code> entity</strong>. The 4th and 5th palette slots are used to control the water fog color and intensity. WadMaker will automatically set these colors based on the average color and brightness of the image. Dark textures are given a higher fog intensity, which results in a lower underwater view distance.
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Making textures with WadMaker - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/1517.gif" alt="User posted image"></span></div>
+
+<h2 id="6.4._Scrolling_textures">6.4. Scrolling textures</h2>
+Textures whose name starts with <code>scroll</code> <strong>(lowercase!)</strong> will scroll <strong>when applied to a <code>func_conveyor</code> entity.</strong> This is obviously useful for creating conveyor belts, but combined with the <code>Texture</code> and <code>Additive</code> render modes they can also be used for waterfalls and other special effects.<br>
+<br>
+Scrolling textures always move towards the right side of the texture, so they'll need to be rotated in the editor to point them in a specific direction. Their scrolling speed is determined by the <code>func_conveyor</code>'s <code>Conveyor Speed</code> attribute.
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Making textures with WadMaker - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/1518.gif" alt="User posted image"></span></div>
+
+<h2 id="6.5._Animating_and_toggling_textures">6.5. Animating and toggling textures</h2>
+Sets of textures whose name starts with a <code>+</code>, followed by a digit (<code>0 - 9</code>) or letter (<code>A - J</code>), can be used for short animations (up to 10 frames). They can also be used to toggle between a numbered and a lettered texture (or sequence) when applied to an entity, such as <code>func_button</code>. Other than that, they're similar to normal textures.<br>
+<br>
+The first frame must start with either <code>+0</code> or <code>+A</code>, and there should be no 'gap' in the numbering of subsequent frames. Texture animations always play at 10 frames per second. If you need longer animations, or a different framerate, then oriented sprites are a good alternative.
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Making textures with WadMaker - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/1519.gif" alt="User posted image"></span></div>
+
+<h2 id="6.6._Decal_textures">6.6. Decal textures</h2>
+<strong>Only textures in <code>decals.wad</code> can be used as decals, so custom decals are normally only found in mods</strong>. If you want to use custom decal textures but you're not making a mod, then you can use oriented index-alpha sprites instead.<br>
+<br>
+Decals can have 256 levels of transparency, but only a single color. They're used for things like bullet holes, scorch marks, blood stains, painted signs, and so on. They can be placed with the decal tool (Shift + D) or by manually placing <code>infodecal</code> entities. The scale and orientation of a decal depends on the texture settings of the surface its applied to.<br>
+<br>
+Most workflows involve the creation of a grayscale palette, where the final color is set to the decal's color. However, <strong>WadMaker expects images with an alpha channel, and will use the average color of the input image to set the decal color</strong>. Also, decal texture names typically start with a <code>{</code>. This is not strictly required, but without it J.A.C.K. won't display decals correctly.
+<div class="embedded image"><span class="caption-panel"><img class="caption-body" src="./Wiki_ Tutorial_ Making textures with WadMaker - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/1520.png" alt="User posted image"></span></div>
+
+<h2 id="6.7._Random_tiling_textures">6.7. Random tiling textures</h2>
+Sets of textures whose name starts with a <code>-</code>, followed by a digit (<code>0</code> - <code>9</code>), are tiled randomly. The game will randomly pick a variant for each face, so large surfaces will look less repetitive. However, this only works well in software mode. With hardware acceleration, different variants often do not line up correctly, creating ugly seams. The random selection also changes each time the map is (re)loaded. This type is best avoided nowadays.
+<h2 id="6.8._Fullbright_textures">6.8. Fullbright textures</h2>
+Textures whose name starts with a <code>~</code> were originally meant to contain fullbright pixels, but this never made it into the final game. Instead, a similar effect can be achieved with the <code>Additive</code> render mode.
+<h2 id="6.9._Qpics">6.9. Qpics</h2>
+All of the above texture types are 'miptex' types: textures with 4 mipmap levels, whose width and height must be a multiple of 16. Qpics are a different kind: they do not contain mipmaps and can be of any size. Half-Life only used qpics for its menu and console background back in the WON days, but they're no longer used. WadMaker currently does not support qpics.
+<h2 id="6.10._Fonts">6.10. Fonts</h2>
+Wad files can also contain texture fonts, but like qpics, they are no longer used. WadMaker currently does not support texture fonts.
+<h1 id="7._Conclusion">7. Conclusion</h1>
+
+<h2 id="7.1._Summary">7.1. Summary</h2>
+To recap:
+<ol>
+<li>Create and modify texture images</li>
+<li>Drag the images directory onto WadMaker.exe</li>
+<li>Copy the resulting wad to your game directory (or use a batch file to automate this)</li>
+<li>Restart your level editor</li>
+<li>Continue mapping!</li>
+</ol>
+
+
+<h2 id="7.2._Credits">7.2. Credits</h2>
+Thanks to:
+<ul>
+<li>Yuraj, for documenting the wad3 file format</li>
+<li>The303, for his tutorials and information about special texture types</li>
+<li>The folks at TWHL for their bugreports, feedback and various bits of information</li>
+</ul>
+
+</div><ul class="wiki-categories inline-bullet">
+        <li class="header">Categories</li>
+                    <li><a href="https://twhl.info/wiki/page/category%3ATutorials">Tutorials</a></li>
+                    <li><a href="https://twhl.info/wiki/page/category%3ABeginner_Tutorials">Beginner Tutorials</a></li>
+                    <li><a href="https://twhl.info/wiki/page/category%3AGoldsource_Tutorials">Goldsource Tutorials</a></li>
+                    <li><a href="https://twhl.info/wiki/page/category%3ATextures">Textures</a></li>
+            </ul>
+<ul class="wiki-credits">
+        <li class="header">Article Credits</li>
+                    <li>
+                                    <span class="fa fa-pencil"></span>
+                                            <span class="avatar inline  " title="Captain P">
+<a href="https://twhl.info/user/view/261">
+<img src="./Wiki_ Tutorial_ Making textures with WadMaker - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/261.jpg" alt="Captain P">
+<span class="name">Captain P</span></a></span>
+                                        –
+                    Original author
+                            </li>
+                    </ul>
+                <a id="comments"></a>
+<h2>
+    9 Comments
+    </h2>
+
+<div class="comment-list">
+            <div class="slot" id="comment-104352">
+            <div class="slot-heading">
+                                    <div class="slot-avatar">
+                        <span class="avatar small  " title="jamie">
+<a href="https://twhl.info/user/view/7998">
+<img src="./Wiki_ Tutorial_ Making textures with WadMaker - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/07998_47727.png" alt="jamie"></a></span>
+                    </div>
+                                <div class="slot-title">
+                    <span class="avatar text  " title="jamie">
+<a href="https://twhl.info/user/view/7998">
+<span class="name">jamie</span></a></span>
+                                                                            </div>
+                <div class="slot-subtitle">
+                    Commented <span class="nice-date" title="2022-04-25 21:38:27 UTC"><span class="formatted">2 years ago</span><span class="raw">2022-04-25 21:38:27 UTC</span></span>
+                    <a class="pull-right hidden-xs-down" href="https://twhl.info/wiki/page/Tutorial%3A_Making_textures_with_WadMaker#comment-104352">Comment #104352</a>
+                </div>
+            </div>
+            <div class="slot-main">
+                                    <div class="bbcode">Im getting an error that says "(Texture) width is not a multiple of 16". How do i fix this ?</div>
+                            </div>
+        </div>
+            <div class="slot" id="comment-104376">
+            <div class="slot-heading">
+                                    <div class="slot-avatar">
+                        <span class="avatar small  " title="jamie">
+<a href="https://twhl.info/user/view/7998">
+<img src="./Wiki_ Tutorial_ Making textures with WadMaker - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/07998_47727.png" alt="jamie"></a></span>
+                    </div>
+                                <div class="slot-title">
+                    <span class="avatar text  " title="jamie">
+<a href="https://twhl.info/user/view/7998">
+<span class="name">jamie</span></a></span>
+                                                                            </div>
+                <div class="slot-subtitle">
+                    Commented <span class="nice-date" title="2022-05-03 21:40:26 UTC"><span class="formatted">2 years ago</span><span class="raw">2022-05-03 21:40:26 UTC</span></span>
+                    <a class="pull-right hidden-xs-down" href="https://twhl.info/wiki/page/Tutorial%3A_Making_textures_with_WadMaker#comment-104376">Comment #104376</a>
+                </div>
+            </div>
+            <div class="slot-main">
+                                    <div class="bbcode">Nevermind i fixed it. The texture width/height need to be a number that is a multiple of 2. Numbers like 1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4092, 16368, etc. I dont know why do you need this kind of images.</div>
+                            </div>
+        </div>
+            <div class="slot" id="comment-104377">
+            <div class="slot-heading">
+                                    <div class="slot-avatar">
+                        <span class="avatar small  " title="Captain P">
+<a href="https://twhl.info/user/view/261">
+<img src="./Wiki_ Tutorial_ Making textures with WadMaker - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/261(1).jpg" alt="Captain P"></a></span>
+                    </div>
+                                <div class="slot-title">
+                    <span class="avatar text  " title="Captain P">
+<a href="https://twhl.info/user/view/261">
+<span class="name">Captain P</span></a></span>
+                                                                            </div>
+                <div class="slot-subtitle">
+                    Commented <span class="nice-date" title="2022-05-03 23:34:31 UTC"><span class="formatted">2 years ago</span><span class="raw">2022-05-03 23:34:31 UTC</span></span>
+                    <a class="pull-right hidden-xs-down" href="https://twhl.info/wiki/page/Tutorial%3A_Making_textures_with_WadMaker#comment-104377">Comment #104377</a>
+                </div>
+            </div>
+            <div class="slot-main">
+                                    <div class="bbcode">Half-Life texture sizes must be multiples of 16 (16, 32, 48, etc.), that's simply how it is. However, it might be safer to stick to powers of 2 (16, 32, 64, 128, 256, 512, etc.) to avoid scaling/performance/mipmap issues on certain GPUs (I don't think such issues will be very significant, but hey).<br><br>Also note that the maximum texture size is 512x512 (1024x256 and 2048x128 also work, so the actual limit is probably something like '262144 pixels').</div>
+                            </div>
+        </div>
+            <div class="slot" id="comment-105113">
+            <div class="slot-heading">
+                                    <div class="slot-avatar">
+                        <span class="avatar small  " title="DrizzyUnderKid12">
+<a href="https://twhl.info/user/view/7975">
+<img src="./Wiki_ Tutorial_ Making textures with WadMaker - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/user_noavatar1.png" alt="DrizzyUnderKid12"></a></span>
+                    </div>
+                                <div class="slot-title">
+                    <span class="avatar text  " title="DrizzyUnderKid12">
+<a href="https://twhl.info/user/view/7975">
+<span class="name">DrizzyUnderKid12</span></a></span>
+                                                                            </div>
+                <div class="slot-subtitle">
+                    Commented <span class="nice-date" title="2023-02-20 04:37:25 UTC"><span class="formatted">1 year ago</span><span class="raw">2023-02-20 04:37:25 UTC</span></span>
+                    <a class="pull-right hidden-xs-down" href="https://twhl.info/wiki/page/Tutorial%3A_Making_textures_with_WadMaker#comment-105113">Comment #105113</a>
+                </div>
+            </div>
+            <div class="slot-main">
+                                    <div class="bbcode">Maybe I should use J. A. C. K. to make Half-Life Maps for Mods</div>
+                            </div>
+        </div>
+            <div class="slot" id="comment-105670">
+            <div class="slot-heading">
+                                    <div class="slot-avatar">
+                        <span class="avatar small  " title="The WON Guy">
+<a href="https://twhl.info/user/view/8616">
+<img src="./Wiki_ Tutorial_ Making textures with WadMaker - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/user_noavatar1.png" alt="The WON Guy"></a></span>
+                    </div>
+                                <div class="slot-title">
+                    <span class="avatar text  " title="The WON Guy">
+<a href="https://twhl.info/user/view/8616">
+<span class="name">The WON Guy</span></a></span>
+                                                                            </div>
+                <div class="slot-subtitle">
+                    Commented <span class="nice-date" title="2023-11-28 20:19:24 UTC"><span class="formatted">11 months ago</span><span class="raw">2023-11-28 20:19:24 UTC</span></span>
+                    <a class="pull-right hidden-xs-down" href="https://twhl.info/wiki/page/Tutorial%3A_Making_textures_with_WadMaker#comment-105670">Comment #105670</a>
+                </div>
+            </div>
+            <div class="slot-main">
+                                    <div class="bbcode">It keeps telling me UnknownImageFormatException even though im using pngs</div>
+                            </div>
+        </div>
+            <div class="slot" id="comment-105712">
+            <div class="slot-heading">
+                                    <div class="slot-avatar">
+                        <span class="avatar small  " title="Captain P">
+<a href="https://twhl.info/user/view/261">
+<img src="./Wiki_ Tutorial_ Making textures with WadMaker - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/261(1).jpg" alt="Captain P"></a></span>
+                    </div>
+                                <div class="slot-title">
+                    <span class="avatar text  " title="Captain P">
+<a href="https://twhl.info/user/view/261">
+<span class="name">Captain P</span></a></span>
+                                                                            </div>
+                <div class="slot-subtitle">
+                    Commented <span class="nice-date" title="2023-12-11 00:50:13 UTC"><span class="formatted">11 months ago</span><span class="raw">2023-12-11 00:50:13 UTC</span></span>
+                    <a class="pull-right hidden-xs-down" href="https://twhl.info/wiki/page/Tutorial%3A_Making_textures_with_WadMaker#comment-105712">Comment #105712</a>
+                </div>
+            </div>
+            <div class="slot-main">
+                                    <div class="bbcode">@The WON Guy: that's strange. Could you send me one of the images that's giving you trouble so I can have a look?</div>
+                            </div>
+        </div>
+            <div class="slot" id="comment-105960">
+            <div class="slot-heading">
+                                    <div class="slot-avatar">
+                        <span class="avatar small  " title="wasd">
+<a href="https://twhl.info/user/view/8742">
+<img src="./Wiki_ Tutorial_ Making textures with WadMaker - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/user_noavatar1.png" alt="wasd"></a></span>
+                    </div>
+                                <div class="slot-title">
+                    <span class="avatar text  " title="wasd">
+<a href="https://twhl.info/user/view/8742">
+<span class="name">wasd</span></a></span>
+                                                                            </div>
+                <div class="slot-subtitle">
+                    Commented <span class="nice-date" title="2024-02-04 22:43:00 UTC"><span class="formatted">9 months ago</span><span class="raw">2024-02-04 22:43:00 UTC</span></span>
+                    <a class="pull-right hidden-xs-down" href="https://twhl.info/wiki/page/Tutorial%3A_Making_textures_with_WadMaker#comment-105960">Comment #105960</a>
+                </div>
+            </div>
+            <div class="slot-main">
+                                    <div class="bbcode">How do you even make a texture in multiples of 16??</div>
+                            </div>
+        </div>
+            <div class="slot" id="comment-106022">
+            <div class="slot-heading">
+                                    <div class="slot-avatar">
+                        <span class="avatar small  " title="kimilil">
+<a href="https://twhl.info/user/view/7776">
+<img src="./Wiki_ Tutorial_ Making textures with WadMaker - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/07776_48243.png" alt="kimilil"></a></span>
+                    </div>
+                                <div class="slot-title">
+                    <span class="avatar text  " title="kimilil">
+<a href="https://twhl.info/user/view/7776">
+<span class="name">kimilil</span></a></span>
+                                                                            </div>
+                <div class="slot-subtitle">
+                    Commented <span class="nice-date" title="2024-02-29 23:52:12 UTC"><span class="formatted">8 months ago</span><span class="raw">2024-02-29 23:52:12 UTC</span></span>
+                    <a class="pull-right hidden-xs-down" href="https://twhl.info/wiki/page/Tutorial%3A_Making_textures_with_WadMaker#comment-106022">Comment #106022</a>
+                </div>
+            </div>
+            <div class="slot-main">
+                                    <div class="bbcode">By setting your canvas to multiples of 16 when you start.<br>
+If you're already past that then resize to multiples of 16.<br>
+Protip: use a calculator. <img class="smiley" src="./Wiki_ Tutorial_ Making textures with WadMaker - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/wink.png" alt=";)"></div>
+                            </div>
+        </div>
+            <div class="slot" id="comment-106223">
+            <div class="slot-heading">
+                                    <div class="slot-avatar">
+                        <span class="avatar small  " title="kimilil">
+<a href="https://twhl.info/user/view/7776">
+<img src="./Wiki_ Tutorial_ Making textures with WadMaker - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/07776_48243.png" alt="kimilil"></a></span>
+                    </div>
+                                <div class="slot-title">
+                    <span class="avatar text  " title="kimilil">
+<a href="https://twhl.info/user/view/7776">
+<span class="name">kimilil</span></a></span>
+                                                                            </div>
+                <div class="slot-subtitle">
+                    Commented <span class="nice-date" title="2024-06-30 00:42:34 UTC"><span class="formatted">4 months ago</span><span class="raw">2024-06-30 00:42:34 UTC</span></span>
+                    <a class="pull-right hidden-xs-down" href="https://twhl.info/wiki/page/Tutorial%3A_Making_textures_with_WadMaker#comment-106223">Comment #106223</a>
+                </div>
+            </div>
+            <div class="slot-main">
+                                    <div class="bbcode">Btw, qpics is still used for the "Loading..." and "Paused" graphics. Not entirely phased out yet.</div>
+                            </div>
+        </div>
+    </div>
+
+    <p>
+        You must log in to post a comment.
+        You can <a href="https://twhl.info/auth/login">login</a> or <a href="https://twhl.info/auth/register">register a new account</a>.
+    </p>
+        </div>
+
+    <footer>
+        Site and non-dynamic content copyright © 2024, <a href="http://logic-and-trick.com/">Logic &amp; Trick</a>. Original site by atom. All rights reserved.<br>
+        All member-submitted resources copyright their respective authors unless otherwise specified.<br>
+        TWHL is a fan site and is not affiliated with Valve Corporation. Views expressed by users are the individuals's own and do not represent the opinions of any other entity.<br>
+        Processed in a substantially useless 38 milliseconds.
+    </footer>
+
+    <div class="shoutbox position-right state-default"><h1><!----> Shoutbox <!----><a href="https://twhl.info/wiki/page/Tutorial%3A_Making_textures_with_WadMaker#" class="minimise-button"><span class="fa fa-caret-down"></span></a><a href="https://twhl.info/wiki/page/Tutorial%3A_Making_textures_with_WadMaker#" class="expand-button"><span class="fa fa-caret-up"></span></a><a href="https://twhl.info/wiki/page/Tutorial%3A_Making_textures_with_WadMaker#" class="minimise-button position-button"><span class="fa fa-caret-left"></span></a><!----></h1><ul class="shouts"><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/7755"><img src="./Wiki_ Tutorial_ Making textures with WadMaker - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/hl2_metrocop.jpg" alt="AfroApe"></a></span><span class="message"><span title="10/26/2024, 12:01:56 PM" class="time">3 weeks ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/7755">AfroApe</a></span><span class="text"><a href="https://imgur.com/a/pFtGzrT" target="_blank" rel="noopener noreferrer">imgur.com/a/pFtGzrT</a></span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/469"><img src="./Wiki_ Tutorial_ Making textures with WadMaker - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/00469_27686.png" alt="The Mad Carrot"></a></span><span class="message"><span title="10/27/2024, 9:43:24 AM" class="time">3 weeks ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/469">The Mad Carrot</a></span><span class="text">If you have geometry visible behind a SKY brush, your map physically doesn't make any sense in terms of design logic</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/469"><img src="./Wiki_ Tutorial_ Making textures with WadMaker - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/00469_27686.png" alt="The Mad Carrot"></a></span><span class="message"><span title="10/27/2024, 9:43:57 AM" class="time">3 weeks ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/469">The Mad Carrot</a></span><span class="text">Your only fix is a redesign of that area</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/8630"><img src="./Wiki_ Tutorial_ Making textures with WadMaker - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/08630_33054.jpeg" alt="Diechie"></a></span><span class="message"><span title="10/27/2024, 3:31:42 PM" class="time">3 weeks ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/8630">Diechie</a></span><span class="text">mangos mangos mangos</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/7755"><img src="./Wiki_ Tutorial_ Making textures with WadMaker - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/hl2_metrocop.jpg" alt="AfroApe"></a></span><span class="message"><span title="10/28/2024, 2:13:06 PM" class="time">3 weeks ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/7755">AfroApe</a></span><span class="text">well it does, its just room with no roof, but I found the solution</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/9071"><img src="./Wiki_ Tutorial_ Making textures with WadMaker - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/user_noavatar1.png" alt="hivauz"></a></span><span class="message"><span title="10/31/2024, 8:45:42 AM" class="time">2 weeks ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/9071">hivauz</a></span><span class="text">hi</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/8994"><img src="./Wiki_ Tutorial_ Making textures with WadMaker - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/08994_60427.jpg" alt="Combiner 1P"></a></span><span class="message"><span title="10/31/2024, 2:39:59 PM" class="time">2 weeks ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/8994">Combiner 1P</a></span><span class="text">Has anyone stocked up on kilograms of candies already?</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/8994"><img src="./Wiki_ Tutorial_ Making textures with WadMaker - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/08994_60427.jpg" alt="Combiner 1P"></a></span><span class="message"><span title="10/31/2024, 2:40:14 PM" class="time">2 weeks ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/8994">Combiner 1P</a></span><span class="text">On Halloween</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/8994"><img src="./Wiki_ Tutorial_ Making textures with WadMaker - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/08994_60427.jpg" alt="Combiner 1P"></a></span><span class="message"><span title="10/31/2024, 2:40:49 PM" class="time">2 weeks ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/8994">Combiner 1P</a></span><span class="text">I'm not. Unfortunately, such holidays are not celebrated in our country.</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/9072"><img src="./Wiki_ Tutorial_ Making textures with WadMaker - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/09072_80097.png" alt="Prospero01.mp3"></a></span><span class="message"><span title="10/31/2024, 3:30:08 PM" class="time">2 weeks ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/9072">Prospero01.mp3</a></span><span class="text">sup</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/8630"><img src="./Wiki_ Tutorial_ Making textures with WadMaker - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/08630_33054.jpeg" alt="Diechie"></a></span><span class="message"><span title="10/31/2024, 7:56:06 PM" class="time">2 weeks ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/8630">Diechie</a></span><span class="text">mmnmmommommnonmmonqnmmo</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/8484"><img src="./Wiki_ Tutorial_ Making textures with WadMaker - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/08484_12971.jpg" alt="vef4"></a></span><span class="message"><span title="10/31/2024, 9:33:47 PM" class="time">2 weeks ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/8484">vef4</a></span><span class="text">barney</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/7394"><img src="./Wiki_ Tutorial_ Making textures with WadMaker - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/07394_56360.png" alt="Meerjel01"></a></span><span class="message"><span title="11/1/2024, 8:22:43 AM" class="time">2 weeks ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/7394">Meerjel01</a></span><span class="text">the dinosaur</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/8630"><img src="./Wiki_ Tutorial_ Making textures with WadMaker - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/08630_33054.jpeg" alt="Diechie"></a></span><span class="message"><span title="11/1/2024, 1:27:47 PM" class="time">2 weeks ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/8630">Diechie</a></span><span class="text">barney es un dinosaurio que vive bajo un puente</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/9058"><img src="./Wiki_ Tutorial_ Making textures with WadMaker - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/user_noavatar1.png" alt="toro"></a></span><span class="message"><span title="11/2/2024, 1:30:20 PM" class="time">2 weeks ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/9058">toro</a></span><span class="text">Eternal Silence event happening right now</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/9058"><img src="./Wiki_ Tutorial_ Making textures with WadMaker - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/user_noavatar1.png" alt="toro"></a></span><span class="message"><span title="11/2/2024, 1:30:22 PM" class="time">2 weeks ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/9058">toro</a></span><span class="text"><a href="https://store.steampowered.com/app/17550/Eternal_Silence/" target="_blank" rel="noopener noreferrer">store.steampowered.com/app/17550/Eternal_Silence</a></span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/8484"><img src="./Wiki_ Tutorial_ Making textures with WadMaker - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/08484_12971.jpg" alt="vef4"></a></span><span class="message"><span title="11/5/2024, 1:42:04 PM" class="time">2 weeks ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/8484">vef4</a></span><span class="text">highly trained professional</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/6440"><img src="./Wiki_ Tutorial_ Making textures with WadMaker - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/06440_56446.jpg" alt="stop!"></a></span><span class="message"><span title="11/7/2024, 5:36:38 AM" class="time">1 week ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/6440">stop!</a></span><span class="text">Any tips in building some code that can successfully read and render a cs 1.6 map from scratch? I'm not much of a programmer myself and chatgpt doesn't seem to know xD</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/6754"><img src="./Wiki_ Tutorial_ Making textures with WadMaker - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/06754_80279.png" alt="Admer456"></a></span><span class="message"><span title="11/7/2024, 9:04:05 AM" class="time">1 week ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/6754">Admer456</a></span><span class="text">Learn programming, learn OpenGL, learn about the Quake BSP format and data structures. Then you'll know</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/6754"><img src="./Wiki_ Tutorial_ Making textures with WadMaker - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/06754_80279.png" alt="Admer456"></a></span><span class="message"><span title="11/7/2024, 9:05:11 AM" class="time">1 week ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/6754">Admer456</a></span><span class="text">Believe me, those are the best tips you're gonna get. Rendering a map is a complex topic and you need to be extremely comfy with 3D maths</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/8630"><img src="./Wiki_ Tutorial_ Making textures with WadMaker - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/08630_33054.jpeg" alt="Diechie"></a></span><span class="message"><span title="11/8/2024, 2:13:04 AM" class="time">1 week ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/8630">Diechie</a></span><span class="text">finally fully understand your programing videos</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/6754"><img src="./Wiki_ Tutorial_ Making textures with WadMaker - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/06754_80279.png" alt="Admer456"></a></span><span class="message"><span title="11/8/2024, 10:36:40 AM" class="time">1 week ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/6754">Admer456</a></span><span class="text">Yay!</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/8630"><img src="./Wiki_ Tutorial_ Making textures with WadMaker - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/08630_33054.jpeg" alt="Diechie"></a></span><span class="message"><span title="11/8/2024, 12:39:18 PM" class="time">1 week ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/8630">Diechie</a></span><span class="text">it only took 3 years</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/8630"><img src="./Wiki_ Tutorial_ Making textures with WadMaker - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/08630_33054.jpeg" alt="Diechie"></a></span><span class="message"><span title="11/8/2024, 12:39:38 PM" class="time">1 week ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/8630">Diechie</a></span><span class="text">or 2 idk</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/6754"><img src="./Wiki_ Tutorial_ Making textures with WadMaker - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/06754_80279.png" alt="Admer456"></a></span><span class="message"><span title="11/8/2024, 3:25:50 PM" class="time">1 week ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/6754">Admer456</a></span><span class="text">That's how long it took me to start understanding C++ too</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/6754"><img src="./Wiki_ Tutorial_ Making textures with WadMaker - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/06754_80279.png" alt="Admer456"></a></span><span class="message"><span title="11/8/2024, 3:26:02 PM" class="time">1 week ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/6754">Admer456</a></span><span class="text">In 2014 I did QBasic, 2015 tried HL SDK for the first time. Gave up in 2016</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/6754"><img src="./Wiki_ Tutorial_ Making textures with WadMaker - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/06754_80279.png" alt="Admer456"></a></span><span class="message"><span title="11/8/2024, 3:26:30 PM" class="time">1 week ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/6754">Admer456</a></span><span class="text">In 2018 I tried again and this time something just clicked(tm) and I managed to understand and learn code exponentially</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/8630"><img src="./Wiki_ Tutorial_ Making textures with WadMaker - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/08630_33054.jpeg" alt="Diechie"></a></span><span class="message"><span title="11/8/2024, 5:48:22 PM" class="time">1 week ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/8630">Diechie</a></span><span class="text">i even entered college and became old enough to drink in my country</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/8630"><img src="./Wiki_ Tutorial_ Making textures with WadMaker - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/08630_33054.jpeg" alt="Diechie"></a></span><span class="message"><span title="11/8/2024, 5:48:30 PM" class="time">1 week ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/8630">Diechie</a></span><span class="text">im old now</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/8484"><img src="./Wiki_ Tutorial_ Making textures with WadMaker - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/08484_12971.jpg" alt="vef4"></a></span><span class="message"><span title="11/9/2024, 11:20:06 AM" class="time">1 week ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/8484">vef4</a></span><span class="text">now im old</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/6754"><img src="./Wiki_ Tutorial_ Making textures with WadMaker - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/06754_80279.png" alt="Admer456"></a></span><span class="message"><span title="11/9/2024, 1:20:44 PM" class="time">1 week ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/6754">Admer456</a></span><span class="text">I was 18 when I started working on the series, I'm turning 23 in February</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/6754"><img src="./Wiki_ Tutorial_ Making textures with WadMaker - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/06754_80279.png" alt="Admer456"></a></span><span class="message"><span title="11/9/2024, 1:20:53 PM" class="time">1 week ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/6754">Admer456</a></span><span class="text">Can't believe it's gonna be 5 years</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/8484"><img src="./Wiki_ Tutorial_ Making textures with WadMaker - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/08484_12971.jpg" alt="vef4"></a></span><span class="message"><span title="11/9/2024, 1:43:59 PM" class="time">1 week ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/8484">vef4</a></span><span class="text">gordon doesn't need to hear all this</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/8484"><img src="./Wiki_ Tutorial_ Making textures with WadMaker - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/08484_12971.jpg" alt="vef4"></a></span><span class="message"><span title="11/9/2024, 1:44:45 PM" class="time">1 week ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/8484">vef4</a></span><span class="text">he is a theoretical physics graduate</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/1127"><img src="./Wiki_ Tutorial_ Making textures with WadMaker - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/01127_52450.png" alt="monster_urby"></a></span><span class="message"><span title="11/10/2024, 2:48:34 PM" class="time">1 week ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/1127">monster_urby</a></span><span class="text">Look at all you younguns calling yourselves "old." Pfft!</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/8630"><img src="./Wiki_ Tutorial_ Making textures with WadMaker - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/08630_33054.jpeg" alt="Diechie"></a></span><span class="message"><span title="11/11/2024, 2:10:37 AM" class="time">1 week ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/8630">Diechie</a></span><span class="text">What are you? President of the old guys club?</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/5225"><img src="./Wiki_ Tutorial_ Making textures with WadMaker - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/5225.png" alt="Unq"></a></span><span class="message"><span title="11/11/2024, 11:48:54 AM" class="time">1 week ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/5225">Unq</a></span><span class="text">secretary at best</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/8630"><img src="./Wiki_ Tutorial_ Making textures with WadMaker - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/08630_33054.jpeg" alt="Diechie"></a></span><span class="message"><span title="11/11/2024, 2:13:03 PM" class="time">1 week ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/8630">Diechie</a></span><span class="text">I should make the KSI thick of it mod where you play as KSI and do from the screen. To the ring to the .</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/8630"><img src="./Wiki_ Tutorial_ Making textures with WadMaker - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/08630_33054.jpeg" alt="Diechie"></a></span><span class="message"><span title="11/11/2024, 2:13:08 PM" class="time">1 week ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/8630">Diechie</a></span><span class="text">Pen to the king</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/9084"><img src="./Wiki_ Tutorial_ Making textures with WadMaker - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/user_noavatar1.png" alt="Walter Alex"></a></span><span class="message"><span title="11/11/2024, 8:41:36 PM" class="time">1 week ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/9084">Walter Alex</a></span><span class="text">When I go from one level change to another on my maps with the changelevel trigger, the decals repeat as shown in the images. Any solution for this? why does this happen?</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/6649"><img src="./Wiki_ Tutorial_ Making textures with WadMaker - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/6649.png" alt="MMProductions"></a></span><span class="message"><span title="11/12/2024, 2:07:11 PM" class="time">1 week ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/6649">MMProductions</a></span><span class="text">I once had a different problem using trigger_changelevel</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/6649"><img src="./Wiki_ Tutorial_ Making textures with WadMaker - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/6649.png" alt="MMProductions"></a></span><span class="message"><span title="11/12/2024, 2:07:40 PM" class="time">1 week ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/6649">MMProductions</a></span><span class="text">When going to map A to map B, I got stuck outside of the map</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/8593"><img src="./Wiki_ Tutorial_ Making textures with WadMaker - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/user_noavatar1.png" alt="nur_ab_sal"></a></span><span class="message"><span title="11/12/2024, 3:55:56 PM" class="time">1 week ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/8593">nur_ab_sal</a></span><span class="text">Hi, id like to invite you to old FPS oriented FB group, which is full of custom maps and mods made by fans. I post a lot of stuff related to half-life universe. If youre facebook users, please pay a visit. Thx</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/8593"><img src="./Wiki_ Tutorial_ Making textures with WadMaker - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/user_noavatar1.png" alt="nur_ab_sal"></a></span><span class="message"><span title="11/12/2024, 3:56:17 PM" class="time">1 week ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/8593">nur_ab_sal</a></span><span class="text">Boomer Shooters &amp; Classic FPS Enthusiasts: Maps, Mods, Engines, Soundtracks</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/8593"><img src="./Wiki_ Tutorial_ Making textures with WadMaker - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/user_noavatar1.png" alt="nur_ab_sal"></a></span><span class="message"><span title="11/12/2024, 3:56:22 PM" class="time">1 week ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/8593">nur_ab_sal</a></span><span class="text"><a href="https://www.facebook.com/groups/495775970100553" target="_blank" rel="noopener noreferrer">facebook.com/groups/495775970100553</a></span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/4979"><img src="./Wiki_ Tutorial_ Making textures with WadMaker - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/4979.jpg" alt="Striker"></a></span><span class="message"><span title="11/15/2024, 7:07:23 PM" class="time">4 days ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/4979">Striker</a></span><span class="text">Happy HalfLife anniversary!</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/6754"><img src="./Wiki_ Tutorial_ Making textures with WadMaker - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/06754_80279.png" alt="Admer456"></a></span><span class="message"><span title="11/15/2024, 9:52:38 PM" class="time">4 days ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/6754">Admer456</a></span><span class="text">Happy 20th birthday HL2, the game that started it all for me</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/8295"><img src="./Wiki_ Tutorial_ Making textures with WadMaker - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/user_noavatar1.png" alt="MegaBrutal"></a></span><span class="message"><span title="11/15/2024, 10:20:20 PM" class="time">4 days ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/8295">MegaBrutal</a></span><span class="text">I noticed Half-Life 2: Deathmatch being delisted from the Steam store. Is it automatically granted for HL2 now, or did it become temporarily unobtainable? (Probably it's been like that for a long time, I just didn't notice?)</span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/6440"><img src="./Wiki_ Tutorial_ Making textures with WadMaker - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/06440_56446.jpg" alt="stop!"></a></span><span class="message"><span title="11/16/2024, 4:06:01 AM" class="time">3 days ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/6440">stop!</a></span><span class="text">Happy Birthday! Come join me on this hldm server to celebrate: <a href="http://hl.dm20.net/" target="_blank" rel="noopener noreferrer">hl.dm20.net</a></span></span></li><li class="shout"><span class="avatar"><a href="https://twhl.info/user/view/8792"><img src="./Wiki_ Tutorial_ Making textures with WadMaker - TWHL_ Half-Life and Source Mapping Tutorials and Resources_files/08792_50233.png" alt="domklr"></a></span><span class="message"><span title="11/16/2024, 9:32:53 AM" class="time">3 days ago</span><!----><!----><span class="user"><a href="https://twhl.info/user/view/8792">domklr</a></span><span class="text">@MegaBrutal yes hl2dm now comes with hl2 automatically</span></span></li></ul><!----><form class="inactive">Log in to add shouts of your own</form></div>
+
+        <script type="text/javascript">
+        window.urls = {
+            embed: {
+                vault: 'https://twhl.info/api/vault-items',
+                vault_screenshot: 'https://twhl.info/uploads/vault/{shot}',
+                game_icon: 'https://twhl.info/images/games/{game_abbr}_32.svg'
+            },
+            view: {
+                user: 'https://twhl.info/user/view/{id}',
+                vault: 'https://twhl.info/vault/view/{id}'
+            },
+            images: {
+                no_screenshot_320: 'https://twhl.info/images/no-screenshot-320.png',
+                no_screenshot_640: 'https://twhl.info/images/no-screenshot-640.png',
+                smiley_folder: 'https://twhl.info/images/smilies'
+            },
+            api: {
+                image_upload: 'https://twhl.info/api/image-upload',
+                format: 'https://twhl.info/api/posts/format'
+            },
+            wiki: {
+                page: 'https://twhl.info/wiki/page/{slug}',
+                formatting_guide: 'https://twhl.info/wiki/page/TWHL:_WikiCode_Syntax',
+                book_info: 'https://twhl.info/wiki/book-info?book={book}'
+            }
+        };
+        $(function() {
+            window.initShoutbox({
+                url:'https://twhl.info/api/shouts{action}',
+                userUrl:'https://twhl.info/user/view/{id}',
+                active: false,
+                moderator: false
+            });
+        });
+        $('.navbar-search-dropdown .dropdown').on('shown.bs.dropdown', function () {
+            $(this).find('input:text').focus();
+        });
+    </script>
+    
+
+</body></html>
