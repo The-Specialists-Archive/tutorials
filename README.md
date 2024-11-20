@@ -1,4 +1,10 @@
-# Tutorials
+
+![logo](https://github.com/The-Specialists-Archive/map-resources/blob/main/logo.png)
+
+‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎‎‎ `** TUTORIAL ARCHIVE **`
+
+ㅤ
+
 Public resource repository in regards to all things tutorials for The Specialists, from gameplay to development.
 All websites archived on this repository are done so by using [HTTrack](https://www.httrack.com), an offline website saving program.
 
